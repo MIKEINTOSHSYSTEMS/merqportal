@@ -1,0 +1,8 @@
+notes.txt
+*.workspace
+*.code-workspace
+*.sql
+/modules/ethcal
+/modules/calendar/XO
+/modules/calendar/eth
+/modules/calendar/countdown
