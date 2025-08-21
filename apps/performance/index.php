@@ -47,6 +47,11 @@ while ($row = $result->fetch_assoc()) {
     <link href="css/app.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/assets/images/icon-192.png">
     <link href="css/public.css" rel="stylesheet">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="420" />
     <style>
         body {
             background-color: #EFF3F6;
@@ -61,7 +66,7 @@ while ($row = $result->fetch_assoc()) {
         }
 
         .form-container {
-            padding: 20px;
+            padding: 1px;
             border-radius: 0 0 4px 4px;
         }
 
@@ -71,8 +76,8 @@ while ($row = $result->fetch_assoc()) {
         @import url(https://fonts.googleapis.com/css?family=Raleway:400,600);
 
         body {
-            background-color: #101e47;
-            padding: 20px;
+            background-color: #f7f7f7; /*#101e47;*/
+                padding: 1px;
             font-family: "Open Sans", Helvetica, Arial, sans-serif;
         }
 
