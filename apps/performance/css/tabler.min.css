@@ -373,6 +373,8 @@ body[data-bs-theme=dark] [data-bs-theme=light] {
   --tblr-form-valid-color: #82d18f;
   --tblr-form-valid-border-color: #82d18f;
   --tblr-form-invalid-color: #e68888;
+  --tblr-merq-header: aliceblue;
+  --tblr-merq-header2: #d7f0f7;
   --tblr-form-invalid-border-color: #e68888
 }
 
@@ -26839,8 +26841,8 @@ kbd {
 
 .bg-muted,
 .bg-muted-lt {
-  --tblr-bg-opacity: 1;
-  background-color: rgba(var(--tblr-muted-rgb), var(--tblr-bg-opacity)) !important
+  --tblr-bg-opacity: 0.3;
+  background-color: rgba(var(--tblr-azure-rgb), var(--tblr-bg-opacity)) !important
 }
 
 .bg-muted-lt {

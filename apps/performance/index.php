@@ -5,9 +5,9 @@ ini_set('display_errors', 1);
 
 // Database connection
 $host = "127.0.0.1";
-$user = "merqpe";
-$pass = "merq_peval";
-$dbname = "merqpe";
+$user = "merq_portal";
+$pass = "merq_portal";
+$dbname = "merq_portal";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
@@ -45,6 +45,7 @@ while ($row = $result->fetch_assoc()) {
     <link href="css/tabler.min.css" rel="stylesheet">
     <link href="css/tabler-vendors.min.css" rel="stylesheet">
     <link href="css/app.min.css" rel="stylesheet">
+    <link href="/assets/css/styles.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/assets/images/icon-192.png">
     <link href="css/public.css" rel="stylesheet">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -66,7 +67,7 @@ while ($row = $result->fetch_assoc()) {
         }
 
         .form-container {
-            padding: 1px;
+            padding: 20px;
             border-radius: 0 0 4px 4px;
         }
 
@@ -76,8 +77,9 @@ while ($row = $result->fetch_assoc()) {
         @import url(https://fonts.googleapis.com/css?family=Raleway:400,600);
 
         body {
-            background-color: #f7f7f7; /*#101e47;*/
-                padding: 1px;
+            background-color: #f7f7f7;
+            /*#101e47;*/
+            padding: 2px;
             font-family: "Open Sans", Helvetica, Arial, sans-serif;
         }
 
@@ -367,11 +369,19 @@ while ($row = $result->fetch_assoc()) {
     </script>
 </head>
 
-<body>
+<body class="public app app-embed" style="min-height: 150px;">
     <div class="container p-5">
         <div class="row">
             <div class="col-12 col-xl-8 offset-xl-2 col-xll-10 col-xll-1">
                 <div class="card">
+                    <div class="card-header bg-muted" style="padding: 10px 25px">
+                        <h3 class="card-title">
+                            <!-- Brand -->
+
+                            <a class="navbar-brand" href="/" title="MERQ Consultancy Employee's Performance Evaluation">
+                                <img src="images/merqlogo.png" height="40px" alt="MERQ Consultancy" title="MERQ Consultancy"></a>
+                        </h3>
+                    </div>
                     <div class="card-body" style="padding: 0;">
                         <div class="form-container">
                             <div id="messages"></div>
