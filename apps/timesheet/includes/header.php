@@ -1,16 +1,15 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// Include session configuration to ensure consistent session settings across the application
+require_once __DIR__ . '/../../../includes/session-config.php';
+
+// Now the session is already started with the correct settings, no need to call session_start() here
 
 if (!headers_sent()) {
-    ob_start(); // Start output buffering
+    ob_start(); // Start output buffering if headers are not sent
 }
 ?>
 <?php
 require_once __DIR__ . '/../config/config.php';
-//require_once __DIR__ . '/../config/config.php';
-
 
 // Initialize calendar preference
 $ethiopianCalendar = $_SESSION['ethiopian_calendar'] ?? false;
@@ -23,6 +22,7 @@ $languages = [
 ];
 $currentLanguage = $_SESSION['language'] ?? 'en';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

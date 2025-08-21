@@ -1,4 +1,7 @@
 <?php
+// Include session configuration to ensure consistent session settings
+require_once __DIR__ . '/../../../includes/session-config.php';
+
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../includes/header.php';
 
@@ -65,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </form>
                     <div class="mt-3 text-center">
                         <p>Don't have an account? <a href="<?= BASE_URL ?>/pages/register.php">Register here</a></p>
+                    </div>
 
                     <div class="mt-3 text-center">
                         <a href="<?= BASE_URL ?>/pages/forgot-password.php">Forgot password?</a>

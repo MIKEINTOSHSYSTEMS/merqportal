@@ -3,8 +3,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-session_start();
+// Include session configuration first
+require_once __DIR__ . '/includes/session-config.php';
 
+// Then load configuration and functions
 try {
     // Load configuration and functions
     if (!file_exists('includes/config.php')) {
@@ -94,13 +96,29 @@ try {
         error_log("Database error (announcements): " . $e->getMessage());
     }
 
-    // Get notifications
+    // Get notifications and unread count - only for logged-in users
     $notifications = [];
-    try {
-        $stmt = $pdo->query("SELECT * FROM notifications WHERE is_active = TRUE ORDER BY created_at DESC LIMIT 10");
-        $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("Database error (notifications): " . $e->getMessage());
+    $unreadCount = 0;
+
+    if (isLoggedIn()) {
+        try {
+            $notifications = getUserNotifications($_SESSION['user_id']);
+
+            // Count unread notifications
+            foreach ($notifications as $notification) {
+                if (!$notification['is_read']) {
+                    $unreadCount++;
+                }
+            }
+        } catch (PDOException $e) {
+            error_log("Database error (notifications): " . $e->getMessage());
+        }
+    }
+
+    // Get user stats for logged-in users
+    $userStats = [];
+    if (isLoggedIn()) {
+        $userStats = getUserStats($_SESSION['user_id']);
     }
 } catch (Exception $e) {
     // Handle critical errors
@@ -125,7 +143,121 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
+        .notification-actions {
+            margin-left: 0.5rem;
+            display: flex;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
+        .notification-item:hover .notification-actions {
+            opacity: 1;
+        }
+
+        .notification-action {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 4px;
+            color: var(--text-light);
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .notification-action:hover {
+            color: var(--accent-color);
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .notification-action.mark-read {
+            color: var(--success-color);
+        }
+
+        .notification-action.mark-unread {
+            color: var(--accent-color);
+        }
+
+        .mark-all-unread {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .mark-all-unread:hover {
+            background-color: var(--primary-light);
+        }
+
+        .notification-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .notification-item.unread {
+            background-color: rgba(66, 153, 225, 0.1);
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .notification-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .notification-icon {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-content p {
+            margin: 0 0 0.5rem 0;
+            font-weight: 500;
+        }
+
+        .notification-time {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .notification-empty {
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .notification-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--error-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -237,15 +369,14 @@ try {
                     </button>
                 <?php endif; ?>
 
-                <button class="notification-bell" aria-label="Notifications">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-count"><?= count(array_filter($notifications, fn($n) => !$n['is_read'])) ?></span>
-                </button>
-                <!--
-                <button class="mobile-menu-toggle" aria-label="Toggle menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                -->
+                <?php if (isLoggedIn()): ?>
+                    <button class="notification-bell" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <?php if ($unreadCount > 0): ?>
+                            <span class="notification-count"><?= $unreadCount ?></span>
+                        <?php endif; ?>
+                    </button>
+                <?php endif; ?>
             </div>
         </div>
     </header>
@@ -253,42 +384,67 @@ try {
     <!-- Main Content -->
     <main class="main-content">
         <!-- Notification Panel -->
-        <aside class="notification-panel">
-            <div class="notification-header">
-                <h3>Notifications</h3>
-                <button class="close-notifications">&times;</button>
-            </div>
-            <div class="notification-list">
-                <?php foreach ($notifications as $notification): ?>
-                    <div class="notification-item <?= $notification['is_read'] ? '' : 'unread' ?>" data-id="<?= $notification['id'] ?>">
-                        <div class="notification-icon">
-                            <i class="fas <?= htmlspecialchars($notification['icon_class']) ?>"></i>
+        <?php if (isLoggedIn()): ?>
+            <aside class="notification-panel">
+                <div class="notification-header">
+                    <h3>Notifications</h3>
+                    <button class="close-notifications">&times;</button>
+                </div>
+                <div class="notification-list">
+                    <?php if (!empty($notifications)): ?>
+                        <?php foreach ($notifications as $notification): ?>
+                            <div class="notification-item <?= $notification['is_read'] ? '' : 'unread' ?>" data-id="<?= $notification['id'] ?>">
+                                <div class="notification-icon">
+                                    <i class="fas <?= htmlspecialchars($notification['icon_class']) ?>"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p><?= htmlspecialchars($notification['title']) ?></p>
+                                    <span class="notification-time"><?= formatDateTime($notification['created_at']) ?></span>
+                                </div>
+                                <div class="notification-actions">
+                                    <?php if ($notification['is_read']): ?>
+                                        <button class="notification-action mark-unread" title="Mark as unread">
+                                            <i class="fas fa-envelope"></i>
+                                        </button>
+                                    <?php else: ?>
+                                        <button class="notification-action mark-read" title="Mark as read">
+                                            <i class="fas fa-envelope-open"></i>
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="notification-empty">
+                            <p>No notifications</p>
                         </div>
-                        <div class="notification-content">
-                            <p><?= htmlspecialchars($notification['title']) ?></p>
-                            <span class="notification-time"><?= formatDateTime($notification['created_at']) ?></span>
-                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php if (!empty($notifications)): ?>
+                    <div class="notification-footer">
+                        <button class="mark-all-unread">Mark All as Unread</button>
+                        <button class="mark-all-read">Mark All as Read</button>
+                        <button class="view-all">View All Notifications</button>
                     </div>
-                <?php endforeach; ?>
-            </div>
-            <div class="notification-footer">
-                <button class="mark-all-read">Mark All as Read</button>
-                <button class="view-all">View All Notifications</button>
-            </div>
-        </aside>
+                <?php endif; ?>
+            </aside>
+        <?php endif; ?>
 
         <!-- Dashboard Content -->
         <section class="dashboard">
             <div class="dashboard-header">
                 <h5>
                     <span id="greeting">Good </span>
-                    <span><i>👋 <?= htmlspecialchars($_SESSION['full_name']) ?></i></span>
+                    <?php if (isLoggedIn()): ?>
+                        <span><i>👋 <?= htmlspecialchars($_SESSION['full_name']) ?></i></span>
+                    <?php else: ?>
+                        <span><i>👋 Welcome to MERQ Portal</i></span>
+                    <?php endif; ?>
                     <br></br>
                     <div class="digital-clock">
                         <div class="clock-time" id="clockTime">00:00:00</div>
                         <div class="clock-date" id="clockDate">Loading...</div>
                     </div>
-                    <!--<span id="currentDateTime"></span>-->
                 </h5>
                 <div class="dashboard-actions">
                     <div class="search-box">
@@ -350,48 +506,59 @@ try {
 
             <h3>Quick Stats</h3>
             <!-- Quick Stats -->
-            <div class="quick-stats">
-
-                <p>
-                    <small>Under Development</small>
-                </p>
-                <div class="stat-card">
-                    <div class="stat-icon pending">
-                        <i class="fas fa-clock"></i>
+            <?php if (isLoggedIn()): ?>
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Pending Requests</h4>
+                            <p><?= $userStats['pending_requests'] ?></p>
+                        </div>
                     </div>
-                    <div class="stat-info">
-                        <h4>Pending Requests</h4>
-                        <p>3</p>
+                    <div class="stat-card">
+                        <div class="stat-icon approved">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Approved Requests</h4>
+                            <p><?= $userStats['approved_requests'] ?></p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon rejected">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Rejected Requests</h4>
+                            <p><?= $userStats['rejected_requests'] ?></p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon announcements">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Announcements</h4>
+                            <p><?= $userStats['announcements'] ?></p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon timesheet">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Due Timesheets</h4>
+                            <p><?= $userStats['due_timesheets'] ?></p>
+                        </div>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon approved">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h4>Approved Requests</h4>
-                        <p>12</p>
-                    </div>
+            <?php else: ?>
+                <div class="quick-stats">
+                    <p>Please log in to view your statistics</p>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon rejected">
-                        <i class="fas fa-times-circle"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h4>Rejected Requests</h4>
-                        <p>2</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon announcements">
-                        <i class="fas fa-bullhorn"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h4>New Announcements</h4>
-                        <p><?= count($announcements) ?></p>
-                    </div>
-                </div>
-            </div>
+            <?php endif; ?>
         </section>
     </main>
 
@@ -457,7 +624,6 @@ try {
             const now = new Date();
             const timeElem = document.getElementById('clockTime');
             const dateElem = document.getElementById('clockDate');
-            const dateTimeElem = document.getElementById('currentDateTime');
             const greetingElem = document.getElementById('greeting');
 
             // Update time
@@ -475,18 +641,6 @@ try {
             };
             const dateString = now.toLocaleDateString('en-US', options);
             if (dateElem) dateElem.textContent = dateString;
-
-            // Update dashboard date/time
-            const dashboardDateTime = now.toLocaleString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            if (dateTimeElem) dateTimeElem.textContent = dashboardDateTime;
 
             // Update greeting based on time of day
             const hour = now.getHours();
@@ -576,11 +730,237 @@ try {
                 if (width < 100) {
                     width++;
                     progressBar.style.width = width + '%';
-                    setTimeout(updateProgressBar, 30); // Adjust the speed of the progress bar
+                    setTimeout(updateProgressBar, 30);
                 }
             }
 
             updateProgressBar();
+        });
+
+        // Notification functions
+        function markNotificationAsRead(notificationId) {
+            if (!notificationId) return;
+
+            fetch('/includes/mark-notification-read.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: notificationId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const notificationItem = document.querySelector(`.notification-item[data-id="${notificationId}"]`);
+                        if (notificationItem) {
+                            notificationItem.classList.remove('unread');
+                            updateNotificationCount();
+
+                            // If all notifications are read, hide the mark all button
+                            const unreadNotifications = document.querySelectorAll('.notification-item.unread');
+                            if (unreadNotifications.length === 0) {
+                                const markAllBtn = document.querySelector('.mark-all-read');
+                                if (markAllBtn) {
+                                    markAllBtn.style.display = 'none';
+                                }
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error marking notification as read:', error);
+                });
+        }
+
+        function markAllNotificationsAsRead() {
+            fetch('/includes/mark-all-notifications-read.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.querySelectorAll('.notification-item.unread').forEach(item => {
+                            item.classList.remove('unread');
+                        });
+                        updateNotificationCount();
+
+                        // Hide the mark all button
+                        const markAllBtn = document.querySelector('.mark-all-read');
+                        if (markAllBtn) {
+                            markAllBtn.style.display = 'none';
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error marking all notifications as read:', error);
+                });
+        }
+
+        function updateNotificationCount() {
+            const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+            const countElement = document.querySelector('.notification-count');
+
+            if (countElement) {
+                if (unreadCount > 0) {
+                    countElement.textContent = unreadCount;
+                    countElement.style.display = 'flex';
+                } else {
+                    countElement.style.display = 'none';
+                }
+            }
+        }
+
+        // Toggle notification read status
+        function toggleNotificationStatus(notificationId) {
+            if (!notificationId) return;
+
+            fetch('/includes/toggle-notification-status.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: notificationId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const notificationItem = document.querySelector(`.notification-item[data-id="${notificationId}"]`);
+                        if (notificationItem) {
+                            // Toggle the unread class
+                            if (data.status === 'unread') {
+                                notificationItem.classList.add('unread');
+                                // Update action button
+                                const actionBtn = notificationItem.querySelector('.notification-action');
+                                if (actionBtn) {
+                                    actionBtn.classList.remove('mark-read');
+                                    actionBtn.classList.add('mark-unread');
+                                    actionBtn.innerHTML = '<i class="fas fa-envelope"></i>';
+                                    actionBtn.title = 'Mark as unread';
+                                }
+                            } else {
+                                notificationItem.classList.remove('unread');
+                                // Update action button
+                                const actionBtn = notificationItem.querySelector('.notification-action');
+                                if (actionBtn) {
+                                    actionBtn.classList.remove('mark-unread');
+                                    actionBtn.classList.add('mark-read');
+                                    actionBtn.innerHTML = '<i class="fas fa-envelope-open"></i>';
+                                    actionBtn.title = 'Mark as read';
+                                }
+                            }
+
+                            updateNotificationCount();
+
+                            // Show/hide mark all button based on unread count
+                            const unreadNotifications = document.querySelectorAll('.notification-item.unread');
+                            const markAllBtn = document.querySelector('.mark-all-read');
+                            if (markAllBtn) {
+                                markAllBtn.style.display = unreadNotifications.length > 0 ? 'block' : 'none';
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error toggling notification status:', error);
+                });
+        }
+
+        // Mark all notifications as unread
+        function markAllNotificationsAsUnread() {
+            fetch('/includes/mark-all-notifications-unread.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.querySelectorAll('.notification-item').forEach(item => {
+                            item.classList.add('unread');
+                            // Update action buttons
+                            const actionBtn = item.querySelector('.notification-action');
+                            if (actionBtn) {
+                                actionBtn.classList.remove('mark-read');
+                                actionBtn.classList.add('mark-unread');
+                                actionBtn.innerHTML = '<i class="fas fa-envelope"></i>';
+                                actionBtn.title = 'Mark as unread';
+                            }
+                        });
+
+                        updateNotificationCount();
+
+                        // Show the mark all button
+                        const markAllBtn = document.querySelector('.mark-all-read');
+                        if (markAllBtn) {
+                            markAllBtn.style.display = 'block';
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error marking all notifications as unread:', error);
+                });
+        }
+
+        // Initialize notifications with toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Only initialize if user is logged in
+            <?php if (isLoggedIn()): ?>
+
+                // Toggle notification status when action button is clicked
+                document.querySelectorAll('.notification-action').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.stopPropagation(); // Prevent triggering the notification item click
+                        const notificationItem = this.closest('.notification-item');
+                        const notificationId = notificationItem.getAttribute('data-id');
+                        if (notificationId) {
+                            toggleNotificationStatus(notificationId);
+                        }
+                    });
+                });
+
+                // Toggle notification status when notification is clicked
+                document.querySelectorAll('.notification-item').forEach(item => {
+                    item.addEventListener('click', function(e) {
+                        // Only trigger if the click wasn't on an action button
+                        if (!e.target.closest('.notification-action')) {
+                            const notificationId = this.getAttribute('data-id');
+                            if (notificationId) {
+                                toggleNotificationStatus(notificationId);
+                            }
+                        }
+                    });
+                });
+
+                // Mark all as read button
+                const markAllReadBtn = document.querySelector('.mark-all-read');
+                if (markAllReadBtn) {
+                    markAllReadBtn.addEventListener('click', markAllNotificationsAsRead);
+
+                    // Hide the button if there are no unread notifications
+                    const unreadNotifications = document.querySelectorAll('.notification-item.unread');
+                    if (unreadNotifications.length === 0) {
+                        markAllReadBtn.style.display = 'none';
+                    }
+                }
+
+                // Mark all as unread button
+                const markAllUnreadBtn = document.querySelector('.mark-all-unread');
+                if (markAllUnreadBtn) {
+                    markAllUnreadBtn.addEventListener('click', markAllNotificationsAsUnread);
+                }
+
+                // Update notification count on page load
+                updateNotificationCount();
+
+            <?php endif; ?>
         });
     </script>
 

@@ -19,16 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // Check if notification_reads table exists
-        $tableExists = $pdo->query("SHOW TABLES LIKE 'notification_reads'")->fetch();
-
-        if ($tableExists) {
-            $stmt = $pdo->prepare("INSERT INTO notification_reads (user_id, notification_id) VALUES (?, ?) 
-                                  ON DUPLICATE KEY UPDATE read_at = CURRENT_TIMESTAMP");
-            $stmt->execute([$_SESSION['user_id'], (int)$data['id']]);
-        }
-
-        echo json_encode(['success' => true]);
+        $newStatus = toggleNotificationReadStatus((int)$data['id'], $_SESSION['user_id']);
+        echo json_encode(['success' => true, 'status' => $newStatus]);
     } catch (PDOException $e) {
         echo json_encode(['success' => false, 'error' => 'Database error: ' . $e->getMessage()]);
     }

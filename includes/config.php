@@ -1,12 +1,12 @@
 <?php
+// Include session configuration first
+require_once __DIR__ . '/session-config.php';
+
 // Database configuration
 define('DB_HOST', '127.0.0.1');
 define('DB_NAME', 'merq_portal');
 define('DB_USER', 'merq_portal');
 define('DB_PASS', 'merq_portal');
-
-// Session configuration
-define('SESSION_TIMEOUT', 3600); // 1 hour
 
 // Error reporting
 error_reporting(E_ALL);
@@ -31,18 +31,12 @@ try {
     die("A database error occurred. Please try again later.");
 }
 
-// Start session with secure settings
-session_set_cookie_params([
-    'lifetime' => SESSION_TIMEOUT,
-    'path' => '/',
-    'domain' => $_SERVER['HTTP_HOST'],
-    'secure' => isset($_SERVER['HTTPS']),
-    'httponly' => true,
-    'samesite' => 'Strict'
-]);
+// CSRF protection
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
-session_start();
-
+// Check if user is admin
 if (isset($_SESSION['user_role'])) {
     $is_admin = $_SESSION['user_role'] === 'admin';
 } else {
@@ -51,8 +45,4 @@ if (isset($_SESSION['user_role'])) {
 
 // Make it available globally
 define('IS_ADMIN', $is_admin);
-
-// CSRF protection
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
+?>

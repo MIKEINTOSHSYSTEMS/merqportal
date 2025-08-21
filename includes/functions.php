@@ -84,7 +84,7 @@ function getDefaultRedirectUrl()
                 return '/admin/dashboard.php';
             case 'manager':
             case 'supervisor':
-                return '/manager/dashboard.php'; // Adjust if you have different dashboards
+                return '/manager/dashboard.php';
             default:
                 return '/index.php';
         }
@@ -101,9 +101,15 @@ function isAdmin()
 // Redirect to login if not admin
 function requireAdmin()
 {
+    if (!isLoggedIn()) {
+        $_SESSION['redirect_url'] = $_SERVER['REQUEST_URI'];
+        header('Location: /admin/login.php');
+        exit;
+    }
+
     if (!isAdmin()) {
         $_SESSION['error'] = 'Access denied. Administrator privileges required.';
-        header('Location: /admin/login.php');
+        header('Location: /index.php');
         exit;
     }
 }
@@ -131,3 +137,225 @@ function isValidEmail($email)
 {
     return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
+
+// Get user notifications
+function getUserNotifications($userId = null)
+{
+    global $pdo;
+
+    if (!$userId && isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
+    }
+
+    if (!$userId) {
+        return [];
+    }
+
+    try {
+        // Check if notification_reads table exists
+        $tableExists = $pdo->query("SHOW TABLES LIKE 'notification_reads'")->fetch();
+
+        if ($tableExists) {
+            $stmt = $pdo->prepare("
+                SELECT n.*, 
+                       CASE WHEN nr.notification_id IS NULL THEN 0 ELSE 1 END as is_read
+                FROM notifications n
+                LEFT JOIN notification_reads nr ON n.id = nr.notification_id AND nr.user_id = ?
+                WHERE n.is_active = TRUE
+                ORDER BY n.created_at DESC
+                LIMIT 10
+            ");
+            $stmt->execute([$userId]);
+        } else {
+            // Fallback if notification_reads table doesn't exist yet
+            $stmt = $pdo->prepare("
+                SELECT n.*, 0 as is_read
+                FROM notifications n
+                WHERE n.is_active = TRUE
+                ORDER BY n.created_at DESC
+                LIMIT 10
+            ");
+            $stmt->execute();
+        }
+
+        return $stmt->fetchAll();
+    } catch (PDOException $e) {
+        error_log("Error fetching notifications: " . $e->getMessage());
+        return [];
+    }
+}
+
+
+// Mark notification as unread
+function markNotificationAsUnread($notificationId, $userId = null)
+{
+    global $pdo;
+
+    if (!$userId && isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
+    }
+
+    if (!$userId) {
+        return false;
+    }
+
+    try {
+        // Check if notification_reads table exists
+        $tableExists = $pdo->query("SHOW TABLES LIKE 'notification_reads'")->fetch();
+
+        if ($tableExists) {
+            $stmt = $pdo->prepare("DELETE FROM notification_reads WHERE user_id = ? AND notification_id = ?");
+            $stmt->execute([$userId, (int)$notificationId]);
+            return $stmt->rowCount() > 0;
+        }
+    } catch (PDOException $e) {
+        error_log("Error marking notification as unread: " . $e->getMessage());
+    }
+
+    return false;
+}
+
+
+// Mark all notifications as unread
+function markAllNotificationsAsUnread($userId = null)
+{
+    global $pdo;
+
+    // Use session user_id if $userId is not provided
+    if (!$userId && isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
+    }
+
+    if (!$userId) {
+        return false;
+    }
+
+    try {
+        // Check if notification_reads table exists
+        $tableExists = $pdo->query("SHOW TABLES LIKE 'notification_reads'")->fetch();
+
+        if ($tableExists) {
+            // Delete all notifications for the user from the notification_reads table
+            $stmt = $pdo->prepare("DELETE FROM notification_reads WHERE user_id = ?");
+            $stmt->execute([$userId]);
+            return $stmt->rowCount() > 0;
+        }
+    } catch (PDOException $e) {
+        error_log("Error marking all notifications as unread: " . $e->getMessage());
+    }
+
+    return false;
+}
+
+
+
+// Toggle notification read status
+function toggleNotificationReadStatus($notificationId, $userId = null)
+{
+    global $pdo;
+
+    if (!$userId && isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
+    }
+
+    if (!$userId) {
+        return false;
+    }
+
+    try {
+        // Check if notification_reads table exists
+        $tableExists = $pdo->query("SHOW TABLES LIKE 'notification_reads'")->fetch();
+
+        if ($tableExists) {
+            // Check current status
+            $stmt = $pdo->prepare("SELECT COUNT(*) FROM notification_reads WHERE user_id = ? AND notification_id = ?");
+            $stmt->execute([$userId, (int)$notificationId]);
+            $isRead = $stmt->fetchColumn() > 0;
+
+            if ($isRead) {
+                // Mark as unread
+                $stmt = $pdo->prepare("DELETE FROM notification_reads WHERE user_id = ? AND notification_id = ?");
+                $stmt->execute([$userId, (int)$notificationId]);
+                return 'unread';
+            } else {
+                // Mark as read
+                $stmt = $pdo->prepare("INSERT INTO notification_reads (user_id, notification_id) VALUES (?, ?) 
+                                      ON DUPLICATE KEY UPDATE read_at = CURRENT_TIMESTAMP");
+                $stmt->execute([$userId, (int)$notificationId]);
+                return 'read';
+            }
+        }
+    } catch (PDOException $e) {
+        error_log("Error toggling notification status: " . $e->getMessage());
+    }
+
+    return false;
+}
+
+
+// Get user stats
+function getUserStats($userId = null)
+{
+    global $pdo;
+
+    if (!$userId && isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
+    }
+
+    if (!$userId) {
+        return [];
+    }
+
+    $stats = [
+        'pending_requests' => 0,
+        'approved_requests' => 0,
+        'rejected_requests' => 0,
+        'announcements' => 0,
+        'due_timesheets' => 0
+    ];
+
+    try {
+        // Get leave requests stats
+        $stmt = $pdo->prepare("
+            SELECT status, COUNT(*) as count 
+            FROM leave_requests 
+            WHERE user_id = ? 
+            GROUP BY status
+        ");
+        $stmt->execute([$userId]);
+        $leaveStats = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+
+        $stats['pending_requests'] = $leaveStats['pending'] ?? 0;
+        $stats['approved_requests'] = $leaveStats['approved'] ?? 0;
+        $stats['rejected_requests'] = $leaveStats['rejected'] ?? 0;
+
+        // Get active announcements count
+        $stmt = $pdo->query("
+            SELECT COUNT(*) as count 
+            FROM announcements 
+            WHERE is_active = TRUE 
+            AND (end_date IS NULL OR end_date >= NOW())
+        ");
+        $stats['announcements'] = $stmt->fetchColumn();
+
+        // Get due timesheets count (not submitted for current month)
+        $currentMonth = date('n');
+        $currentYear = date('Y');
+
+        $stmt = $pdo->prepare("
+            SELECT COUNT(*) as count 
+            FROM timesheets 
+            WHERE user_id = ? 
+            AND month = ? 
+            AND year = ? 
+            AND status != 'submitted'
+        ");
+        $stmt->execute([$userId, $currentMonth, $currentYear]);
+        $stats['due_timesheets'] = $stmt->fetchColumn();
+    } catch (PDOException $e) {
+        error_log("Error fetching user stats: " . $e->getMessage());
+    }
+
+    return $stats;
+}
+?>

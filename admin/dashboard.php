@@ -1,4 +1,6 @@
 <?php
+// Include session configuration first
+require_once __DIR__ . '/../includes/session-config.php';
 require_once '../includes/config.php';
 require_once '../includes/functions.php';
 
@@ -229,6 +231,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt->execute([(int)$_POST['user_id']]);
                     $_SESSION['success'] = 'User deleted successfully';
                     break;
+
+                case 'update_user_role':
+                    $stmt = $pdo->prepare("UPDATE users SET role = ?, job_position = ? WHERE user_id = ?");
+                    $stmt->execute([
+                        sanitizeInput($_POST['role']),
+                        sanitizeInput($_POST['job_position']),
+                        (int)$_POST['user_id']
+                    ]);
+                    $_SESSION['success'] = 'User role updated successfully';
+                    break;
             }
         } catch (PDOException $e) {
             $_SESSION['error'] = 'Database error: ' . $e->getMessage();
@@ -270,8 +282,9 @@ $iconClasses = [
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MERQ Portal - Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="/assets/images/icon-192.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -763,6 +776,79 @@ $iconClasses = [
                 margin-left: 0;
             }
         }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                margin-bottom: 1.5rem;
+            }
+
+            .sidebar-menu {
+                display: flex;
+                overflow-x: auto;
+            }
+
+            .sidebar-menu li {
+                flex: 0 0 auto;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                min-width: 600px;
+            }
+
+            .modal-dialog {
+                margin: 1rem;
+                width: auto;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .user-info {
+                justify-content: center;
+            }
+        }
+
+        /* Touch-friendly buttons for mobile */
+        .btn {
+            min-height: 44px;
+            min-width: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Prevent zoom on input focus */
+        @media (max-width: 768px) {
+
+            input,
+            select,
+            textarea {
+                font-size: 16px !important;
+            }
+        }
     </style>
 </head>
 
@@ -772,10 +858,10 @@ $iconClasses = [
         <div class="sidebar-header">
             <a href="/">
                 <img src="../assets/images/merq-logo-white.png" alt="MERQ Consultancy">
-                </a>
-                <h3>Admin Portal</h3>
+            </a>
+            <h3>Admin Portal</h3>
 
-                <!--<a href="/"><i class="fas fa-home"></i> <span>Portal</span></a></li>-->
+            <!--<a href="/"><i class="fas fa-home"></i> <span>Portal</span></a></li>-->
 
         </div>
         <ul class="sidebar-menu">
@@ -1078,6 +1164,11 @@ $iconClasses = [
                                             <button class="btn btn-outline btn-sm" onclick="showModal('editUser', <?= $user['user_id'] ?>)">
                                                 <i class="fas fa-edit"></i> Edit
                                             </button>
+
+                                            <button class="btn btn-outline btn-sm" onclick="showModal('userRole', <?= $user['user_id'] ?>)">
+                                                <i class="fas fa-user-cog"></i> Role
+                                            </button>
+
                                             <?php if ($user['user_id'] !== $_SESSION['user_id']): ?>
                                                 <form action="" method="POST" style="display: inline;">
                                                     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
@@ -1354,6 +1445,12 @@ $iconClasses = [
                     <div class="modal-header">
                         <h3>Edit User</h3>
                         <button type="button" class="close" onclick="hideModal('editUser')">&times;</button>
+                        <!-- User Role Test -->
+                        <button class="btn btn-outline btn-sm" onclick="showModal('userRole', <?= $user['user_id'] ?>)">
+                            <i class="fas fa-user-cog"></i> Role
+                        </button>
+
+
                     </div>
                     <div class="modal-body">
                         <!-- Content loaded via JavaScript -->
@@ -1365,6 +1462,44 @@ $iconClasses = [
                 </form>
             </div>
         </div>
+
+
+        <!-- User Role Management Modal -->
+        <div class="modal" id="userRoleModal">
+            <div class="modal-dialog">
+                <form action="" method="POST">
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                    <input type="hidden" name="action" value="update_user_role">
+                    <input type="hidden" name="user_id" id="userRoleId">
+                    <div class="modal-header">
+                        <h3>Update User Role</h3>
+                        <button type="button" class="close" onclick="hideModal('userRole')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="userRole">Role</label>
+                            <select id="userRole" name="role" class="form-control" required>
+                                <option value="employee">Employee</option>
+                                <option value="consultant">Consultant</option>
+                                <option value="manager">Manager</option>
+                                <option value="supervisor">Supervisor</option>
+                                <option value="admin">Administrator</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="userPosition">Job Position</label>
+                            <input type="text" id="userPosition" name="job_position" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" onclick="hideModal('userRole')">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update Role</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
     </main>
 
     <script>

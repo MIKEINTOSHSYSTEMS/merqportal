@@ -1,6 +1,39 @@
 <?php
+// Include the session configuration file
+require_once __DIR__ . '/../../../includes/session-config.php';
 require_once __DIR__ . '/../config/config.php';
 
+// Start the session if not already started (this is handled in session-config.php)
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['redirect_url'] = $_SERVER['REQUEST_URI'];
+    $_SESSION['error_message'] = 'Please login to access this page';
+    header('Location: ' . BASE_URL . '/pages/login.php');
+    exit;
+}
+
+// Check if user is active
+$user = (new User())->getUserById($_SESSION['user_id']);
+if (!$user || !$user['is_active']) {
+    session_destroy();
+    $_SESSION['error_message'] = 'Your account is not active. Please contact administrator.';
+    header('Location: ' . BASE_URL . '/pages/login.php');
+    exit;
+}
+
+// Function to check if user has specific role
+function hasAnyRole($allowedRoles)
+{
+    $userRole = $_SESSION['role'] ?? '';
+    return in_array($userRole, $allowedRoles);
+}
+
+
+/*
 // Start the session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -29,7 +62,7 @@ function hasAnyRole($allowedRoles)
     return in_array($userRole, $allowedRoles);
 }
 
-
+*/
 
 /*
 // Add this function to your auth check system
@@ -71,3 +104,5 @@ function isActive() {
 
 
 */
+
+?>

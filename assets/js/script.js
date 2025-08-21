@@ -97,6 +97,80 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
+
+    // Notification functions
+    function markNotificationAsRead(notificationId) {
+        if (!notificationId) return;
+
+        fetch('/includes/mark-notification-read.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: notificationId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const notificationItem = document.querySelector(`.notification-item[data-id="${notificationId}"]`);
+                    if (notificationItem) {
+                        notificationItem.classList.remove('unread');
+                        updateNotificationCount();
+                    }
+                }
+            });
+    }
+
+    function markAllNotificationsAsRead() {
+        fetch('/includes/mark-all-notifications-read.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelectorAll('.notification-item.unread').forEach(item => {
+                        item.classList.remove('unread');
+                    });
+                    updateNotificationCount();
+                }
+            });
+    }
+
+    function updateNotificationCount() {
+        const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+        const countElement = document.querySelector('.notification-count');
+        if (countElement) {
+            countElement.textContent = unreadCount;
+            countElement.style.display = unreadCount > 0 ? 'flex' : 'none';
+        }
+    }
+
+    // Initialize notifications
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mark notification as read when clicked
+        document.querySelectorAll('.notification-item').forEach(item => {
+            item.addEventListener('click', function () {
+                const notificationId = this.getAttribute('data-id');
+                if (notificationId && this.classList.contains('unread')) {
+                    markNotificationAsRead(notificationId);
+                }
+            });
+        });
+
+        // Mark all as read button
+        const markAllReadBtn = document.querySelector('.mark-all-read');
+        if (markAllReadBtn) {
+            markAllReadBtn.addEventListener('click', markAllNotificationsAsRead);
+        }
+
+        // Update notification count on page load
+        updateNotificationCount();
+    });
+
+
     // Notice Board Carousel
     const noticeItems = document.querySelectorAll('.notice-item');
     const prevNotice = document.querySelector('.prev-notice');
@@ -263,4 +337,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.matchMedia('(display-mode: standalone)').matches) {
         document.querySelector('.pwa-install-prompt').style.display = 'none';
     }
+
+
 });

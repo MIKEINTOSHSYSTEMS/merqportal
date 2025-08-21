@@ -1,9 +1,16 @@
 <?php
+// Include the shared session config first
+require_once __DIR__ . '/../includes/session-config.php';
 require_once '../includes/config.php';
 require_once '../includes/functions.php';
 
 // Redirect to dashboard if already logged in
-redirectIfLoggedIn();
+if (isLoggedIn()) {
+    $redirect = $_SESSION['redirect_url'] ?? getDefaultRedirectUrl();
+    unset($_SESSION['redirect_url']);
+    header("Location: $redirect");
+    exit;
+}
 
 $error = '';
 
@@ -17,18 +24,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && $_PO
         $user = $stmt->fetch();
 
         if ($user && verifyPassword($password, $user['password_hash'])) {
-            // After successful login
+            // Set session variables
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['full_name'] = $user['full_name'];
             $_SESSION['user_role'] = $user['role'];
             $_SESSION['last_login'] = time();
+            $_SESSION['login_validated'] = true;
 
             // Update last login in database
             $pdo->prepare("UPDATE users SET last_login = NOW() WHERE user_id = ?")->execute([$user['user_id']]);
 
             // Redirect to intended page or dashboard
-            $redirect = $_SESSION['redirect_url'] ?? '/admin/dashboard.php';
+            $redirect = $_SESSION['redirect_url'] ?? getDefaultRedirectUrl();
             unset($_SESSION['redirect_url']);
             header("Location: $redirect");
             exit;
@@ -49,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && $_PO
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MERQ Portal - Admin Login</title>
+    <link rel="icon" type="image/png" href="/assets/images/icon-192.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
