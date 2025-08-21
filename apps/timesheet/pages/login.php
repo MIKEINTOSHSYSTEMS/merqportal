@@ -2,13 +2,14 @@
 // Include session configuration to ensure consistent session settings
 require_once __DIR__ . '/../../../includes/session-config.php';
 
+// Include the config and header files
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../includes/header.php';
 
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
     header('Location: ' . BASE_URL . '/pages/dashboard.php');
-    exit;
+    exit;  // Make sure no further code executes after the redirect
 }
 
 $error = '';
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $redirect = $_SESSION['redirect_url'] ?? BASE_URL . '/pages/dashboard.php';
         unset($_SESSION['redirect_url']);
         header('Location: ' . $redirect);
-        exit;
+        exit;  // Ensure the script stops executing after the redirect
     } else {
         $error = 'Invalid email or password';
     }
