@@ -579,7 +579,7 @@ $iconClasses = [
         }
 
         .sidebar-header {
-            padding: 0 1.5rem 1.5rem;
+            padding: 0 4.5rem 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 1rem;
         }
@@ -604,7 +604,7 @@ $iconClasses = [
 
         .sidebar-menu a {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             padding: 0.75rem 1.5rem;
             color: var(--sidebar-text);
             text-decoration: none;
@@ -1181,6 +1181,18 @@ $iconClasses = [
                 overflow: hidden;
             }
 
+
+            /* Override earlier mobile rule that hid labels when sidebar collapsed */
+            .sidebar-header h3,
+            .sidebar-menu span {
+                display: inline !important;
+            }
+
+            .sidebar-menu i {
+                margin-right: 0.75rem !important;
+                font-size: 1rem;
+            }
+
             .sidebar-header h3,
             .sidebar-menu span {
                 display: none;
@@ -1192,7 +1204,7 @@ $iconClasses = [
             }
 
             .sidebar-menu a {
-                justify-content: center;
+                justify-content: flex-start;
                 padding: 1rem;
             }
 
@@ -1205,6 +1217,15 @@ $iconClasses = [
 
             .digital-clock {
                 display: contents;
+                font-family: 'Courier New', monospace;
+                background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+                color: var(--neon-green);
+                padding: 10px 15px;
+                border-radius: var(--border-radius);
+                display: inline-block;
+                margin-right: 15px;
+                margin-bottom: 7px;
+                box-shadow: var(--shadow);
             }
 
             .sidebar {
@@ -1215,7 +1236,7 @@ $iconClasses = [
             }
 
             .sidebar-menu {
-                display: flex;
+                display: contents;
                 overflow-x: auto;
             }
 
@@ -1237,10 +1258,7 @@ $iconClasses = [
                 margin-bottom: 1.5rem;
             }
 
-            .sidebar-menu {
-                display: flex;
-                overflow-x: auto;
-            }
+
 
             .sidebar-menu li {
                 flex: 0 0 auto;
@@ -1598,17 +1616,144 @@ $iconClasses = [
                 font-size: 16px !important;
             }
         }
+
+        /* === Mobile-friendly sidebar & navbar toggle (added) === */
+        .menu-toggle {
+
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0.5rem 0.75rem;
+            margin-right: 0.75rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .menu-toggle i {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            opacity: 0;
+            visibility: hidden;
+            transition: all .25s ease;
+            z-index: 1090;
+        }
+
+        .sidebar-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile close button inside sidebar */
+        .sidebar-close {
+            display: none;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.25rem;
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            cursor: pointer;
+        }
+
+        /* Off-canvas behavior for small screens */
+        @media (max-width: 992px) {
+
+            /* Make header show the toggle */
+            .menu-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Turn sidebar into an off-canvas drawer */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 260px;
+                transform: translateX(-100%);
+                z-index: 1100;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+                overflow-y: auto;
+            }
+
+            .sidebar-close {
+                display: block;
+            }
+
+            /* Let content take full width when sidebar is hidden */
+
+            .main-content {
+                margin-left: 0 !important;
+                overflow: scroll;
+            }
+
+        }
+
+        /* Modal sizing tweaks for small screens */
+        @media (max-width: 768px) {
+            .modal-dialog {
+                width: 95%;
+                max-width: none;
+                max-height: 92vh;
+            }
+
+            .modal-body {
+                max-height: calc(92vh - 140px);
+                overflow-y: auto;
+            }
+        }
+
+        /* Improve table scrollability on small screens */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+
+        /* Desktop collapsible sidebar (via body.sidebar-collapsed) */
+        body.sidebar-collapsed .sidebar {
+            width: 90px;
+        }
+
+        body.sidebar-collapsed .main-content {
+            margin-left: 70px !important;
+        }
+
+        body.sidebar-collapsed .sidebar-header h3,
+        body.sidebar-collapsed .sidebar-menu span {
+            display: none !important;
+        }
+
+        body.sidebar-collapsed .sidebar-menu i {
+            margin-right: 0 !important;
+            font-size: 1.25rem !important;
+        }
     </style>
 </head>
 
 <body>
     <!-- Sidebar -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar" aria-label="Sidebar Navigation">
         <div class="sidebar-header">
             <a href="/">
                 <img src="../assets/images/merq-logo-white.png" alt="MERQ Consultancy">
             </a>
             <h3>Admin Portal</h3>
+            <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar"><i class="fas fa-times"></i></button>
 
             <!--<a href="/"><i class="fas fa-home"></i> <span>Portal</span></a></li>-->
 
@@ -1630,10 +1775,14 @@ $iconClasses = [
         </ul>
     </aside>
 
+    <!-- Sidebar overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay" tabindex="-1" aria-hidden="true"></div>
+
     <!-- Main Content -->
     <main class="main-content">
         <!-- Header -->
         <div class="header">
+            <button type="button" class="menu-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="false"><i class="fas fa-bars"></i></button>
             <h1>Admin Dashboard</h1>
             <div class="user-info">
                 <img src="../assets/images/user-avatar.png" alt="User Avatar">
@@ -4749,6 +4898,77 @@ $iconClasses = [
                 });
             });
         });
+    </script>
+
+    <!-- Sidebar Toggle Script -->
+    <script>
+        (function() {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.getElementById('sidebarToggle');
+            const closeBtn = document.getElementById('sidebarClose');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            function isMobile() {
+                return window.matchMedia('(max-width: 992px)').matches;
+            }
+
+            function openSidebar() {
+                if (!sidebar) return;
+                sidebar.classList.add('open');
+                if (overlay) overlay.classList.add('show');
+                if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+                // Prevent background scroll on mobile
+                if (isMobile()) document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                if (!sidebar) return;
+                sidebar.classList.remove('open');
+                if (overlay) overlay.classList.remove('show');
+                if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (!sidebar) return;
+                if (isMobile()) {
+                    if (sidebar.classList.contains('open')) closeSidebar();
+                    else openSidebar();
+                } else {
+                    // Desktop: toggle collapsed state on body
+                    document.body.classList.toggle('sidebar-collapsed');
+                }
+            }
+
+            if (toggleBtn) toggleBtn.addEventListener('click', toggleSidebar);
+            if (overlay) overlay.addEventListener('click', closeSidebar);
+            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+
+            // Close on ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
+
+            // Close after navigating (mobile only)
+            document.querySelectorAll('.sidebar-menu a').forEach(a => {
+                a.addEventListener('click', () => {
+                    if (isMobile()) closeSidebar();
+                });
+            });
+
+            // Ensure correct state on resize
+            window.addEventListener('resize', () => {
+                if (!isMobile()) {
+                    // Desktop: keep sidebar visible by default, no overlay
+                    if (sidebar) sidebar.classList.remove('open');
+                    if (overlay) overlay.classList.remove('show');
+                    document.body.style.overflow = '';
+                    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
     </script>
 
 
