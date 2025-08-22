@@ -535,9 +535,9 @@ $iconClasses = [
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #072247;
+            --primary-color: #2a4365;
             --primary-light: #3c5a82;
-            --accent-color: #07cae9;
+            --accent-color: #4299e1;
             --text-color: #2d3748;
             --text-light: #718096;
             --bg-color: #f7fafc;
@@ -549,7 +549,6 @@ $iconClasses = [
             --success-color: #48bb78;
             --warning-color: #ed8936;
             --error-color: #f56565;
-            --neon-green: #00ddff;
         }
 
         * {
@@ -565,6 +564,7 @@ $iconClasses = [
             line-height: 1.6;
             display: flex;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* Sidebar Styles */
@@ -576,22 +576,28 @@ $iconClasses = [
             position: fixed;
             height: 100vh;
             transition: all 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
         }
 
         .sidebar-header {
             padding: 0 1.5rem 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar-header img {
             height: 40px;
             margin-bottom: 0.5rem;
+            align-self: center;
         }
 
         .sidebar-header h3 {
             font-size: 1.1rem;
             font-weight: 500;
+            text-align: center;
         }
 
         .sidebar-menu {
@@ -620,6 +626,20 @@ $iconClasses = [
             width: 24px;
             margin-right: 0.75rem;
             text-align: center;
+        }
+
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem;
+            z-index: 1100;
+            cursor: pointer;
         }
 
         /* Main Content Styles */
@@ -673,191 +693,6 @@ $iconClasses = [
             color: var(--error-color);
         }
 
-
-        /* Apps Grid Styles */
-        .apps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .app-card {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: var(--transition);
-            text-decoration: none;
-            color: var(--text-color);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .app-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .app-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: var(--accent-color);
-            transition: var(--transition);
-        }
-
-        .app-card:hover::after {
-            height: 6px;
-        }
-
-        .app-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.75rem;
-            color: white;
-            transition: var(--transition);
-        }
-
-        .app-icon.timesheet {
-            background-color: #4299e1;
-            background-image: linear-gradient(135deg, #4299e1, #3182ce);
-        }
-
-        .app-icon.performance {
-            background-color: #9f7aea;
-            background-image: linear-gradient(135deg, #9f7aea, #805ad5);
-        }
-
-        .app-icon.hr {
-            background-color: #f6ad55;
-            background-image: linear-gradient(135deg, #f6ad55, #ed8936);
-        }
-
-        .app-icon.purchases {
-            background-color: #48bb78;
-            background-image: linear-gradient(135deg, #48bb78, #38a169);
-        }
-
-        .app-icon.finance {
-            background-color: #f56565;
-            background-image: linear-gradient(135deg, #f56565, #e53e3e);
-        }
-
-        .app-icon.it {
-            background-color: #667eea;
-            background-image: linear-gradient(135deg, #667eea, #5a67d8);
-        }
-
-        .app-icon.roster {
-            background-color: #ed64a6;
-            background-image: linear-gradient(135deg, #ed64a6, #d53f8c);
-        }
-
-        .app-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .app-card p {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
-        }
-
-        .app-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        /* Quick Stats Styles */
-        .quick-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .stat-card {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-icon {
-            width: 50px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            color: white;
-        }
-
-        .stat-icon.pending {
-            background-color: rgba(246, 173, 85, 0.2);
-            color: var(--warning-color);
-        }
-
-        .stat-icon.approved {
-            background-color: rgba(72, 187, 120, 0.2);
-            color: var(--success-color);
-        }
-
-        .stat-icon.rejected {
-            background-color: rgba(245, 101, 101, 0.2);
-            color: var(--error-color);
-        }
-
-        .stat-icon.announcements {
-            background-color: rgba(66, 153, 225, 0.2);
-            color: var(--accent-color);
-        }
-
-        .stat-info h4 {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 0.25rem;
-        }
-
-        .stat-info p {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-
-
-
-
-
         /* Card Styles */
         .card {
             background-color: var(--card-bg);
@@ -874,6 +709,8 @@ $iconClasses = [
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .card-header h2 {
@@ -936,6 +773,11 @@ $iconClasses = [
             color: var(--error-color);
         }
 
+        .badge-info {
+            background-color: rgba(66, 153, 225, 0.2);
+            color: var(--accent-color);
+        }
+
         /* Button Styles */
         .btn {
             display: inline-flex;
@@ -948,6 +790,7 @@ $iconClasses = [
             transition: all 0.3s ease;
             border: none;
             text-decoration: none;
+            min-height: 44px;
         }
 
         .btn i {
@@ -957,6 +800,7 @@ $iconClasses = [
         .btn-sm {
             padding: 0.25rem 0.5rem;
             font-size: 0.875rem;
+            min-height: unset;
         }
 
         .btn-primary {
@@ -1039,20 +883,6 @@ $iconClasses = [
             margin-right: 0.5rem;
         }
 
-
-        /* Digital Clock Styles */
-        .digital-clock {
-            font-family: 'Courier New', monospace;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: var(--neon-green);
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            display: inline-block;
-            margin-right: 15px;
-            margin-bottom: 7px;
-            box-shadow: var(--shadow);
-        }
-
         /* Modal Styles */
         .modal {
             position: fixed;
@@ -1084,6 +914,8 @@ $iconClasses = [
             overflow: hidden;
             transform: translateY(-50px);
             transition: all 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal.show .modal-dialog {
@@ -1174,81 +1006,144 @@ $iconClasses = [
             transform: scale(1.1);
         }
 
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            float: left;
+            min-width: 10rem;
+            padding: 0.5rem 0;
+            margin: 0.125rem 0 0;
+            font-size: 1rem;
+            color: #212529;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 0.25rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            clear: both;
+            font-weight: 400;
+            color: #212529;
+            text-align: inherit;
+            text-decoration: none;
+            white-space: nowrap;
+            background-color: transparent;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* App Cards Grid */
+        .app-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .app-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .app-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-description {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .app-badge {
+            margin-top: auto;
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
         /* Responsive Styles */
         @media (max-width: 992px) {
             .sidebar {
-                width: 70px;
-                overflow: hidden;
+                transform: translateX(-100%);
             }
 
-            .sidebar-header h3,
-            .sidebar-menu span {
-                display: none;
-            }
-
-            .sidebar-menu i {
-                margin-right: 0;
-                font-size: 1.25rem;
-            }
-
-            .sidebar-menu a {
-                justify-content: center;
-                padding: 1rem;
-            }
-
-            .main-content {
-                margin-left: 70px;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            .digital-clock {
-                display: contents;
-            }
-
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: static;
-                margin-bottom: 1.5rem;
-            }
-
-            .sidebar-menu {
-                display: flex;
-                overflow-x: auto;
-            }
-
-            .sidebar-menu li {
-                flex: 0 0 auto;
+            .sidebar.show {
+                transform: translateX(0);
             }
 
             .main-content {
                 margin-left: 0;
             }
+
+            .sidebar-toggle {
+                display: block;
+            }
         }
 
-        /* Mobile Optimization */
         @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: static;
-                margin-bottom: 1.5rem;
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
             }
 
-            .sidebar-menu {
-                display: flex;
-                overflow-x: auto;
+            .user-info {
+                margin-top: 1rem;
             }
 
-            .sidebar-menu li {
-                flex: 0 0 auto;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 1rem;
+            .app-cards-grid {
+                grid-template-columns: 1fr;
             }
 
             .card-header {
@@ -1257,345 +1152,311 @@ $iconClasses = [
                 gap: 1rem;
             }
 
-            .table-responsive {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            table {
-                min-width: 600px;
-            }
-
             .modal-dialog {
-                margin: 1rem;
-                width: auto;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            .user-info {
-                justify-content: center;
+                width: 95%;
+                margin: 1rem auto;
             }
         }
 
-        /* Advanced User Management Styles */
-
-        /* Hide the dropdown menus by default */
-        .dropdown-menu {
+        /* Dashboard Section Styles */
+        .dashboard-section {
             display: none;
-            /* Ensure the dropdowns are hidden by default */
-            min-width: 200px;
-            z-index: 1000;
-            padding: 0;
-            border-radius: 4px;
         }
 
-        /* Show the dropdown when the 'active' class is added */
-        .dropdown.active .dropdown-menu {
+        .dashboard-section.active {
             display: block;
-            /* This makes the dropdown visible when the button is clicked */
         }
 
-        .pagination {
-            margin: 0;
+        /* Loading Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 100px auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Custom Checkbox */
+        .custom-checkbox {
             display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkmark {
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-right: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .custom-checkbox input:checked~.checkmark {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .custom-checkbox input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .custom-checkbox .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        /* Bulk Actions Container */
+        .bulk-actions-container {
+            display: none;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .bulk-actions-container.active {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             flex-wrap: wrap;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: var(--success-color);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Icon Selector */
+        .icon-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .icon-option {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 5px;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .icon-option:hover,
+        .icon-option.selected {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Search Box */
+        .search-box {
+            position: relative;
+            max-width: 300px;
+        }
+
+        .search-box input {
+            padding-left: 2.5rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        /* Status Indicator */
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-active {
+            background-color: var(--success-color);
+        }
+
+        .status-inactive {
+            background-color: var(--error-color);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+            gap: 0.5rem;
         }
 
         .page-item {
             display: inline-block;
         }
 
-        .page-item.active .page-link {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-        }
-
         .page-link {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
             color: var(--primary-color);
-            padding: 5px 10px;
-            border: 1px solid var(--primary-color);
-            border-radius: 4px;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .page-link:hover {
-            color: var(--primary-light);
-            border-color: var(--primary-light);
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .sort-icon {
-            cursor: pointer;
-            margin-left: 5px;
-            font-size: 12px;
-        }
-
-        .detail-group {
-            margin-bottom: 1rem;
-        }
-
-        .detail-group label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 0.25rem;
-            color: var(--text-light);
-        }
-
-        .detail-group span {
-            display: block;
-        }
-
-        /* Bulk Actions Dropdown */
-        #bulkActionsDropdown,
-        #exportDropdown {
-            min-width: 180px;
-            font-size: 14px;
-        }
-
-        .dropdown-menu {
-            z-index: 1000;
-        }
-
-        #filtersSection {
-            background-color: rgba(0, 0, 0, 0.02);
-            border-radius: var(--border-radius);
-            padding: 1rem;
-        }
-
-        .user-checkbox {
-            margin: 0;
-        }
-
-        #usersTable th {
-            position: relative;
-            cursor: pointer;
-        }
-
-        #usersTable th:hover {
             background-color: rgba(0, 0, 0, 0.05);
-        }
-
-        /* Make the bulk actions and export dropdowns responsive */
-        .dropdown-toggle {
-            min-width: 120px;
-            font-size: 14px;
-        }
-
-        /* Print styles for user details */
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-
-            #userDetailsContent,
-            #userDetailsContent * {
-                visibility: visible;
-            }
-
-            #userDetailsContent {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
-        }
-
-        /* Pagination Styles */
-        .pagination {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            padding: 10px 0;
-        }
-
-        .page-link {
-            display: inline-block;
-            padding: 6px 12px;
-            font-size: 14px;
-            border: 1px solid var(--primary-color);
-            border-radius: 4px;
-            text-align: center;
         }
 
         .page-item.active .page-link {
             background-color: var(--primary-color);
             color: white;
+            border-color: var(--primary-color);
         }
 
-        .page-link:hover {
-            background-color: rgba(0, 0, 0, 0.1);
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
 
-        .page-item.disabled .page-link {
-            color: #ccc;
-            pointer-events: none;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
 
-        /* Bulk Actions Dropdown Styling */
-        #bulkActionsDropdown,
-        #exportDropdown {
-            min-width: 180px;
-        }
-
-        .dropdown-item {
-            padding: 10px 15px;
-            font-size: 14px;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .dropdown-item:hover {
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-
-        .dropdown-menu {
-            min-width: 200px;
-            z-index: 1000;
-            padding: 0;
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
             border-radius: 4px;
         }
 
-        .dropdown-menu.show {
-            display: block !important;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
         }
 
-        /* Improved Dropdown for Small Screens */
-        @media (max-width: 768px) {
-
-            #bulkActionsDropdown,
-            #exportDropdown {
-                width: 100%;
-            }
-
-            .dropdown-item {
-                padding: 8px 12px;
-            }
-
-            .dropdown-menu {
-                width: 100%;
-            }
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
         }
 
-        /* Modify the dropdown to handle mobile properly */
-        @media (max-width: 576px) {
-
-            #bulkActionsDropdown,
-            #exportDropdown {
-                width: 100%;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
             }
 
-            .dropdown-item {
-                padding: 10px;
-                text-align: left;
+            to {
+                opacity: 1;
             }
         }
 
-        /* Styles for active dropdowns when clicked */
-        #bulkActionsDropdown.active .dropdown-menu,
-        #exportDropdown.active .dropdown-menu {
-            display: block;
+        .slide-in {
+            animation: slideIn 0.3s ease-in-out;
         }
 
-        /* Mobile Styles for Bulk Actions and Pagination */
-        @media (max-width: 768px) {
-            .pagination {
-                flex-wrap: wrap;
-                gap: 10px;
+        @keyframes slideIn {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
             }
 
-            .pagination .page-link {
-                font-size: 12px;
-                padding: 5px 8px;
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
+        }
 
-            .dropdown {
-                display: block;
-                margin-bottom: 10px;
-            }
+        /* Print Styles */
+        @media print {
 
-            .dropdown-menu {
-                width: 100%;
-                padding: 5px;
-            }
-
+            .sidebar,
+            .header .user-info,
             .btn,
-            .dropdown-toggle {
-                font-size: 12px;
-                padding: 8px 10px;
+            .action-buttons {
+                display: none !important;
+            }
+
+            .main-content {
+                margin-left: 0;
                 width: 100%;
-                margin: 0;
-                text-align: left;
-            }
-        }
-
-        /* Small screen styling for action buttons */
-        @media (max-width: 576px) {
-            .btn {
-                font-size: 12px;
-                padding: 8px;
-                width: 100%;
-            }
-
-            .dropdown-menu {
-                width: 100%;
-            }
-        }
-
-        /* Styling for per-page select dropdown */
-        #perPage {
-            max-width: 150px;
-            font-size: 14px;
-        }
-
-        #paginationInfo,
-        #paginationInfoBottom {
-            font-size: 14px;
-        }
-
-        /* Improved Table Responsiveness */
-        @media (max-width: 992px) {
-
-            #usersTable th,
-            #usersTable td {
-                font-size: 12px;
-                padding: 8px;
-            }
-
-            #usersTable {
-                font-size: 14px;
-            }
-
-            .table-responsive {
-                overflow-x: auto;
-            }
-        }
-
-
-
-        /* Touch-friendly buttons for mobile */
-        .btn {
-            min-height: 44px;
-            min-width: 44px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Prevent zoom on input focus */
-        @media (max-width: 768px) {
-
-            input,
-            select,
-            textarea {
-                font-size: 16px !important;
             }
         }
     </style>
@@ -1616,11 +1477,11 @@ $iconClasses = [
         <ul class="sidebar-menu">
             <li><a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
             <?php if (isAdmin()): ?>
+                <li><a href="#departments"><i class="fas fa-building"></i> <span>Departments</span></a></li>
+                <li><a href="#positions"><i class="fas fa-briefcase"></i> <span>Positions</span></a></li>
                 <li><a href="#app-cards"><i class="fas fa-th"></i> <span>App Cards</span></a></li>
                 <li><a href="#announcements"><i class="fas fa-bullhorn"></i> <span>Announcements</span></a></li>
                 <li><a href="#notifications"><i class="fas fa-bell"></i> <span>Notifications</span></a></li>
-                <li><a href="#departments"><i class="fas fa-building"></i> <span>Departments</span></a></li>
-                <li><a href="#positions"><i class="fas fa-briefcase"></i> <span>Positions</span></a></li>
                 <li><a href="#users"><i class="fas fa-users"></i> <span>User Management</span></a></li>
             <?php else: ?>
                 <li><a href="#app-cards"><i class="fas fa-th"></i> <span>App Cards</span></a></li>
@@ -1668,12 +1529,6 @@ $iconClasses = [
 
         <!-- Dashboard Overview -->
         <div id="dashboard">
-
-            <div class="digital-clock">
-                <div class="clock-time" id="clockTime">00:00:00</div>
-                <div class="clock-date" id="clockDate">Loading...</div>
-            </div>
-
             <div class="card">
                 <div class="card-header">
                     <h2>System Overview</h2>
@@ -1694,7 +1549,7 @@ $iconClasses = [
                                 <i class="fas fa-bullhorn"></i>
                             </div>
                             <div class="stat-info">
-                                <h4>Announcements</h4>
+                                <h4>Active Announcements</h4>
                                 <p><?= count(array_filter($announcements, fn($ann) => $ann['is_active'])) ?></p>
                             </div>
                         </div>
@@ -1703,7 +1558,7 @@ $iconClasses = [
                                 <i class="fas fa-bell"></i>
                             </div>
                             <div class="stat-info">
-                                <h4>Notifications</h4>
+                                <h4>Unread Notifications</h4>
                                 <p><?= count(array_filter($notifications, fn($notif) => !$notif['is_read'])) ?></p>
                             </div>
                         </div>
@@ -1714,26 +1569,6 @@ $iconClasses = [
                             <div class="stat-info">
                                 <h4>System Users</h4>
                                 <p><?= count($users) ?></p>
-                            </div>
-                        </div>
-
-                        <div class="stat-card">
-                            <div class="stat-icon" style="background-color: #ffa512; color: var(--primary-color);">
-                                <i class="fas fa-building"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h4>Departments</h4>
-                                <p><?= count($departments) ?></p>
-                            </div>
-                        </div>
-
-                        <div class="stat-card">
-                            <div class="stat-icon" style="background-color: rgba(72, 187, 120, 0.2); color: var(--info-color);">
-                                <i class="fas fa-user-tie"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h4>Positions</h4>
-                                <p><?= count($positions) ?></p>
                             </div>
                         </div>
                     </div>
@@ -1914,7 +1749,7 @@ $iconClasses = [
         <div id="departments" style="display: none;">
             <div class="card">
                 <div class="card-header">
-                    <h2>Departments</h2>
+                    <h2>Department Management</h2>
                     <button class="btn btn-primary" onclick="showModal('addDepartment')">
                         <i class="fas fa-plus"></i> Add New Department
                     </button>
@@ -1927,25 +1762,27 @@ $iconClasses = [
                                     <th>ID</th>
                                     <th>Department Name</th>
                                     <th>Description</th>
+                                    <th>Created At</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($departments as $department): ?>
+                                <?php foreach ($departments as $dept): ?>
                                     <tr>
-                                        <td><?php echo $department['department_id']; ?></td>
-                                        <td><?php echo htmlspecialchars($department['department_name']); ?></td>
-                                        <td><?php echo htmlspecialchars($department['description']); ?></td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-sm btn-outline" onclick="editDepartment(<?php echo $department['department_id']; ?>)">
-                                                <i class="fas fa-edit"></i>
+                                        <td><?= $dept['department_id'] ?></td>
+                                        <td><?= htmlspecialchars($dept['department_name']) ?></td>
+                                        <td><?= htmlspecialchars($dept['description'] ?? '') ?></td>
+                                        <td><?= formatDate($dept['created_at']) ?></td>
+                                        <td>
+                                            <button class="btn btn-outline btn-sm" onclick="showModal('editDepartment', <?= $dept['department_id'] ?>)">
+                                                <i class="fas fa-edit"></i> Edit
                                             </button>
-                                            <form action="" method="post" style="display:inline;">
-                                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                                                <input type="hidden" name="department_id" value="<?php echo $department['department_id']; ?>">
+                                            <form action="" method="POST" style="display: inline;">
+                                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                                                 <input type="hidden" name="action" value="delete_department">
-                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this department?')">
-                                                    <i class="fas fa-trash"></i>
+                                                <input type="hidden" name="department_id" value="<?= $dept['department_id'] ?>">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this department?')">
+                                                    <i class="fas fa-trash"></i> Delete
                                                 </button>
                                             </form>
                                         </td>
@@ -1962,7 +1799,7 @@ $iconClasses = [
         <div id="positions" style="display: none;">
             <div class="card">
                 <div class="card-header">
-                    <h2>Positions</h2>
+                    <h2>Position Management</h2>
                     <button class="btn btn-primary" onclick="showModal('addPosition')">
                         <i class="fas fa-plus"></i> Add New Position
                     </button>
@@ -1976,41 +1813,32 @@ $iconClasses = [
                                     <th>Position Title</th>
                                     <th>Department</th>
                                     <th>Status</th>
+                                    <th>Created At</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($positions as $position): ?>
+                                <?php foreach ($positions as $pos): ?>
                                     <tr>
-                                        <td><?php echo $position['position_id']; ?></td>
-                                        <td><?php echo htmlspecialchars($position['position_title']); ?></td>
+                                        <td><?= $pos['position_id'] ?></td>
+                                        <td><?= htmlspecialchars($pos['position_title']) ?></td>
+                                        <td><?= htmlspecialchars($pos['department_name'] ?? 'N/A') ?></td>
                                         <td>
-                                            <?php
-                                            $deptName = 'N/A';
-                                            foreach ($departments as $dept) {
-                                                if ($dept['department_id'] == $position['department_id']) {
-                                                    $deptName = $dept['department_name'];
-                                                    break;
-                                                }
-                                            }
-                                            echo htmlspecialchars($deptName);
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <span class="badge <?php echo $position['is_active'] ? 'badge-success' : 'badge-danger'; ?>">
-                                                <?php echo $position['is_active'] ? 'Active' : 'Inactive'; ?>
+                                            <span class="badge <?= $pos['is_active'] ? 'badge-success' : 'badge-danger' ?>">
+                                                <?= $pos['is_active'] ? 'Active' : 'Inactive' ?>
                                             </span>
                                         </td>
-                                        <td class="action-buttons">
-                                            <button class="btn btn-sm btn-outline" onclick="editPosition(<?php echo $position['position_id']; ?>)">
-                                                <i class="fas fa-edit"></i>
+                                        <td><?= formatDate($pos['created_at']) ?></td>
+                                        <td>
+                                            <button class="btn btn-outline btn-sm" onclick="showModal('editPosition', <?= $pos['position_id'] ?>)">
+                                                <i class="fas fa-edit"></i> Edit
                                             </button>
-                                            <form action="" method="post" style="display:inline;">
-                                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                                                <input type="hidden" name="position_id" value="<?php echo $position['position_id']; ?>">
+                                            <form action="" method="POST" style="display: inline;">
+                                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                                                 <input type="hidden" name="action" value="delete_position">
-                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this position?')">
-                                                    <i class="fas fa-trash"></i>
+                                                <input type="hidden" name="position_id" value="<?= $pos['position_id'] ?>">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this position?')">
+                                                    <i class="fas fa-trash"></i> Delete
                                                 </button>
                                             </form>
                                         </td>
@@ -2028,30 +1856,25 @@ $iconClasses = [
             <div class="card">
                 <div class="card-header">
                     <h2>User Management</h2>
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="showModal('addUser')">
-                            <i class="fas fa-plus"></i> Add New User
-                        </button>
-                        <button class="btn btn-info" onclick="showFilters()">
-                            <i class="fas fa-filter"></i> Filters
-                        </button>
+                    <div>
+
 
                         <!-- Bulk Actions Dropdown -->
                         <div class="dropdown" style="display: inline-block;">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="bulkActionsDropdown" onclick="toggleDropdown('bulkActionsDropdown')">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="bulkActionsDropdown">
                                 <i class="fas fa-cogs"></i> Bulk Actions
                             </button>
                             <div class="dropdown-menu" aria-labelledby="bulkActionsDropdown">
+                                <a class="dropdown-item" href="#" onclick="showModal('bulkUpdate')">Update Fields</a>
                                 <a class="dropdown-item" href="#" onclick="bulkAction('activate')">Activate Selected</a>
                                 <a class="dropdown-item" href="#" onclick="bulkAction('deactivate')">Deactivate Selected</a>
-                                <a class="dropdown-item" href="#" onclick="showModal('bulkUpdate')">Update Fields</a>
                                 <a class="dropdown-item" href="#" onclick="bulkAction('delete')">Delete Selected</a>
                             </div>
                         </div>
 
                         <!-- Export Dropdown -->
                         <div class="dropdown" style="display: inline-block;">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="exportDropdown" onclick="toggleDropdown('exportDropdown')">
+                            <button class="btn btn-success dropdown-toggle" type="button" id="exportDropdown">
                                 <i class="fas fa-download"></i> Export
                             </button>
                             <div class="dropdown-menu" aria-labelledby="exportDropdown">
@@ -2060,6 +1883,13 @@ $iconClasses = [
                                 <a class="dropdown-item" href="#" onclick="exportData('pdf')">Export to PDF</a>
                             </div>
                         </div>
+
+                        <button class="btn btn-primary" onclick="showModal('addUser')">
+                            <i class="fas fa-plus"></i> Add New User
+                        </button>
+                        <button class="btn btn-info" onclick="showFilters()">
+                            <i class="fas fa-filter"></i> Filters
+                        </button>
 
                     </div>
                 </div>
@@ -2136,7 +1966,18 @@ $iconClasses = [
                     </div>
                 </div>
 
+
+
+
                 <div class="card-body">
+                    <!-- Bulk Actions Container -->
+                    <div class="bulk-actions-container" id="bulkActionsContainer">
+                        <span id="selectedCount">0 users selected</span>
+                        <button class="btn btn-sm btn-outline" onclick="selectAllUsers()">Select All</button>
+                        <button class="btn btn-sm btn-outline" onclick="deselectAllUsers()">Deselect All</button>
+                    </div>
+
+
                     <!-- Pagination Controls -->
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                         <div>
@@ -2444,29 +2285,20 @@ $iconClasses = [
         <!-- Edit Department Modal -->
         <div class="modal" id="editDepartmentModal">
             <div class="modal-dialog">
-                <div class="modal-header">
-                    <h3>Edit Department</h3>
-                    <button class="close" onclick="hideModal('editDepartmentModal')">&times;</button>
-                </div>
-                <form action="" method="post">
+                <form action="" method="POST">
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                    <input type="hidden" name="action" value="update_department">
+                    <input type="hidden" name="department_id" id="editDepartmentId">
+                    <div class="modal-header">
+                        <h3>Edit Department</h3>
+                        <button type="button" class="close" onclick="hideModal('editDepartment')">&times;</button>
+                    </div>
                     <div class="modal-body">
-                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                        <input type="hidden" name="action" value="update_department">
-                        <input type="hidden" id="editDepartmentId" name="department_id" value="">
-
-                        <div class="form-group">
-                            <label for="editDepartmentName">Department Name</label>
-                            <input type="text" id="editDepartmentName" name="department_name" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="editDepartmentDescription">Description</label>
-                            <textarea id="editDepartmentDescription" name="description" class="form-control" rows="3"></textarea>
-                        </div>
+                        <!-- Content loaded via JavaScript -->
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline" onclick="hideModal('editDepartmentModal')">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-outline" onclick="hideModal('editDepartment')">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update Department</button>
                     </div>
                 </form>
             </div>
@@ -2516,46 +2348,20 @@ $iconClasses = [
         <!-- Edit Position Modal -->
         <div class="modal" id="editPositionModal">
             <div class="modal-dialog">
-                <div class="modal-header">
-                    <h3>Edit Position</h3>
-                    <button type="button" class="close" onclick="hideModal('editPositioModal')">&times;</button>
-                </div>
-                <form action="" method="post">
+                <form action="" method="POST">
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                    <input type="hidden" name="action" value="update_position">
+                    <input type="hidden" name="position_id" id="editPositionId">
+                    <div class="modal-header">
+                        <h3>Edit Position</h3>
+                        <button type="button" class="close" onclick="hideModal('editPosition')">&times;</button>
+                    </div>
                     <div class="modal-body">
-                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                        <input type="hidden" name="action" value="update_position">
-                        <input type="hidden" id="editPositionId" name="position_id" value="">
-
-                        <div class="form-group">
-                            <label for="editPositionTitle">Position Title</label>
-                            <input type="text" id="editPositionTitle" name="position_title" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="editPositionDepartment">Department</label>
-                            <select id="editPositionDepartment" name="department_id" class="form-control form-select" required>
-                                <option value="">Select Department</option>
-                                <?php foreach ($departments as $department): ?>
-                                    <option value="<?php echo $department['department_id']; ?>"><?php echo htmlspecialchars($department['department_name']); ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="editPositionDescription">Job Description</label>
-                            <textarea id="editPositionDescription" name="job_description" class="form-control" rows="3"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input type="checkbox" id="editPositionIsActive" name="is_active" class="form-check-input">
-                                <label for="editPositionIsActive" class="form-check-label">Active</label>
-                            </div>
-                        </div>
+                        <!-- Content loaded via JavaScript -->
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline" onclick="hideModal('editPositionModal')">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-outline" onclick="hideModal('editPosition')">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update Position</button>
                     </div>
                 </form>
             </div>
@@ -2756,18 +2562,19 @@ $iconClasses = [
         <!-- Bulk Update Modal -->
         <div class="modal" id="bulkUpdateModal">
             <div class="modal-dialog">
-                <form action="" method="POST" id="bulkUpdateForm">
-                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-                    <input type="hidden" name="action" value="bulk_update_users">
-                    <input type="hidden" name="user_ids" id="bulkUserIds">
-                    <div class="modal-header">
-                        <h3>Bulk Update Users</h3>
-                        <button type="button" class="close" onclick="hideModal('bulkUpdate')">&times;</button>
-                    </div>
+                <div class="modal-header">
+                    <h3>Bulk Update Users</h3>
+                    <button class="close" onclick="closeModal('bulkUpdateModal')">&times;</button>
+                </div>
+                <form action="" method="post">
                     <div class="modal-body">
+                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                        <input type="hidden" name="action" value="bulk_update_users">
+                        <input type="hidden" id="bulkUserIds" name="user_ids" value="">
+
                         <div class="form-group">
-                            <label for="bulkField">Field to Update</label>
-                            <select id="bulkField" name="field" class="form-control" onchange="toggleBulkValueField()">
+                            <label for="bulkUpdateField">Field to Update</label>
+                            <select id="bulkUpdateField" name="field" class="form-control form-select" required>
                                 <option value="">Select Field</option>
                                 <option value="department_id">Department</option>
                                 <option value="position_id">Position</option>
@@ -2777,16 +2584,14 @@ $iconClasses = [
                                 <option value="leave_balance">Leave Balance</option>
                             </select>
                         </div>
-                        <div class="form-group" id="bulkValueGroup" style="display: none;">
-                            <label for="bulkValue">New Value</label>
-                            <div id="bulkValueContainer">
-                                <!-- Dynamic field will be inserted here -->
-                            </div>
+
+                        <div class="form-group" id="bulkUpdateValueContainer">
+                            <!-- Dynamic content based on selected field -->
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline" onclick="hideModal('bulkUpdate')">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Update Users</button>
+                        <button type="button" class="btn btn-outline" onclick="closeModal('bulkUpdateModal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
             </div>
@@ -3810,949 +3615,7 @@ $iconClasses = [
                 openDropdowns.forEach(dropdown => dropdown.classList.remove('active'));
             }
         });
-
-        // Digital Clock Functionality
-        function updateClock() {
-            const now = new Date();
-            const timeElem = document.getElementById('clockTime');
-            const dateElem = document.getElementById('clockDate');
-            const greetingElem = document.getElementById('greeting');
-
-            // Update time
-            const timeString = now.toLocaleTimeString('en-US', {
-                hour12: false
-            });
-            if (timeElem) timeElem.textContent = timeString;
-
-            // Update date
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-            const dateString = now.toLocaleDateString('en-US', options);
-            if (dateElem) dateElem.textContent = dateString;
-
-            // Update greeting based on time of day
-            const hour = now.getHours();
-            let greeting = "Good ";
-            if (hour < 12) greeting += "Morning";
-            else if (hour < 18) greeting += "Afternoon";
-            else greeting += "Evening";
-
-            if (greetingElem) greetingElem.textContent = greeting;
-        }
-
-        // Update clock immediately and then every second
-        updateClock();
-        setInterval(updateClock, 1000);
     </script>
-
-
-
-
-
-    <script>
-        // Data for all sections
-        let appCardsData = <?php echo json_encode($appCards); ?>;
-        let announcementsData = <?php echo json_encode($announcements); ?>;
-        let notificationsData = <?php echo json_encode($notifications); ?>;
-        let departmentsData = <?php echo json_encode($departments); ?>;
-        let positionsData = <?php echo json_encode($positions); ?>;
-        let usersData = <?php echo json_encode($users); ?>;
-
-        // Filter and sort settings
-        let filters = {
-            'app-cards': {},
-            'announcements': {},
-            'notifications': {},
-            'departments': {},
-            'positions': {},
-            'user-management': {}
-        };
-
-        let sortSettings = {
-            'app-cards': {
-                field: 'sort_order',
-                direction: 'asc'
-            },
-            'announcements': {
-                field: 'sort_order',
-                direction: 'asc'
-            },
-            'notifications': {
-                field: 'created_at',
-                direction: 'desc'
-            },
-            'departments': {
-                field: 'department_name',
-                direction: 'asc'
-            },
-            'positions': {
-                field: 'position_title',
-                direction: 'asc'
-            },
-            'user-management': {
-                field: 'full_name',
-                direction: 'asc'
-            }
-        };
-
-        // Edit functions with AJAX implementation
-        function editAppCard(id) {
-            const card = appCardsData.find(item => item.id == id);
-            if (!card) return;
-
-            // Populate the edit form
-            document.getElementById('editAppCardId').value = card.id;
-            document.getElementById('editAppCardTitle').value = card.title;
-            document.getElementById('editAppCardDescription').value = card.description;
-            document.getElementById('editAppCardUrl').value = card.url;
-            document.getElementById('editAppCardBadge').value = card.badge_text;
-            document.getElementById('editAppCardSortOrder').value = card.sort_order;
-            document.getElementById('editAppCardIsActive').checked = card.is_active == 1;
-
-            // Set the icon
-            const iconOptions = document.querySelectorAll('#editIconSelector .icon-option');
-            iconOptions.forEach(option => {
-                option.classList.remove('selected');
-                if (option.getAttribute('data-icon') === card.icon_class) {
-                    option.classList.add('selected');
-                }
-            });
-            document.getElementById('editAppCardIconClass').value = card.icon_class;
-
-            // Set the color
-            const colorOptions = document.querySelectorAll('#editColorPicker .color-option');
-            colorOptions.forEach(option => {
-                option.classList.remove('selected');
-                if (option.getAttribute('data-color') === card.icon_color) {
-                    option.classList.add('selected');
-                }
-            });
-            document.getElementById('editAppCardIconColor').value = card.icon_color;
-
-            // Show the modal
-            showModal('editAppCard');
-        }
-
-        function editAnnouncement(id) {
-            const announcement = announcementsData.find(item => item.id == id);
-            if (!announcement) return;
-
-            // Populate the edit form
-            document.getElementById('editAnnouncementId').value = announcement.id;
-            document.getElementById('editAnnouncementTitle').value = announcement.title;
-            document.getElementById('editAnnouncementContent').value = announcement.content;
-            document.getElementById('editAnnouncementStartDate').value = announcement.start_date;
-            document.getElementById('editAnnouncementEndDate').value = announcement.end_date;
-            document.getElementById('editAnnouncementSortOrder').value = announcement.sort_order;
-            document.getElementById('editAnnouncementIsActive').checked = announcement.is_active == 1;
-
-            // Show the modal
-            showModal('editAnnouncement');
-        }
-
-        function editNotification(id) {
-            const notification = notificationsData.find(item => item.id == id);
-            if (!notification) return;
-
-            // Populate the edit form
-            document.getElementById('editNotificationId').value = notification.id;
-            document.getElementById('editNotificationTitle').value = notification.title;
-            document.getElementById('editNotificationMessage').value = notification.message;
-            document.getElementById('editNotificationIsActive').checked = notification.is_active == 1;
-
-            // Set the icon
-            const iconOptions = document.querySelectorAll('#editNotificationIconSelector .icon-option');
-            iconOptions.forEach(option => {
-                option.classList.remove('selected');
-                if (option.getAttribute('data-icon') === notification.icon_class) {
-                    option.classList.add('selected');
-                }
-            });
-            document.getElementById('editNotificationIconClass').value = notification.icon_class;
-
-            // Show the modal
-            showModal('editNotification');
-        }
-
-        function editDepartment(id) {
-            const department = departmentsData.find(item => item.department_id == id);
-            if (!department) return;
-
-            // Populate the edit form
-            document.getElementById('editDepartmentId').value = department.department_id;
-            document.getElementById('editDepartmentName').value = department.department_name;
-            document.getElementById('editDepartmentDescription').value = department.description;
-
-            // Show the modal
-            showModal('editDepartment');
-        }
-
-        function editPosition(id) {
-            const position = positionsData.find(item => item.position_id == id);
-            if (!position) return;
-
-            // Populate the edit form
-            document.getElementById('editPositionId').value = position.position_id;
-            document.getElementById('editPositionTitle').value = position.position_title;
-            document.getElementById('editPositionDepartment').value = position.department_id;
-            document.getElementById('editPositionDescription').value = position.job_description;
-            document.getElementById('editPositionIsActive').checked = position.is_active == 1;
-
-            // Show the modal
-            showModal('editPosition');
-        }
-
-        function editUser(id) {
-            const user = usersData.find(item => item.user_id == id);
-            if (!user) return;
-
-            // Populate the edit form
-            document.getElementById('editUserId').value = user.user_id;
-            document.getElementById('editUserEmployeeId').value = user.employee_id;
-            document.getElementById('editUserIsDoctor').value = user.is_doctor;
-            document.getElementById('editUserFirstName').value = user.first_name;
-            document.getElementById('editUserMiddleName').value = user.middle_name || '';
-            document.getElementById('editUserLastName').value = user.last_name;
-            document.getElementById('editUserUsername').value = user.username;
-            document.getElementById('editUserEmail').value = user.email;
-            document.getElementById('editUserPhone').value = user.phone || '';
-            document.getElementById('editUserAlternatePhone').value = user.alternate_phone || '';
-            document.getElementById('editUserRole').value = user.role;
-            document.getElementById('editUserDepartment').value = user.department_id || '';
-            document.getElementById('editUserPosition').value = user.position_id || '';
-            document.getElementById('editUserSupervisor').value = user.supervisor_id || '';
-            document.getElementById('editUserJoinDate').value = user.join_date || '';
-            document.getElementById('editUserHireDate').value = user.hire_date || '';
-            document.getElementById('editUserLeaveBalance').value = user.leave_balance;
-            document.getElementById('editUserIsActive').checked = user.is_active == 1;
-
-            // Show the modal
-            showModal('editUser');
-        }
-
-        // Search and filter functions
-        function initSearchAndFilter() {
-            // Add search boxes to each section
-            const sections = ['app-cards', 'announcements', 'notifications', 'departments', 'positions', 'user-management'];
-
-            sections.forEach(section => {
-                const sectionElement = document.getElementById(section + '-section');
-                if (!sectionElement) return;
-
-                const cardBody = sectionElement.querySelector('.card-body');
-                const table = sectionElement.querySelector('table');
-
-                if (!cardBody || !table) return;
-
-                // Create search box
-                const searchBox = document.createElement('div');
-                searchBox.className = 'search-box';
-                searchBox.innerHTML = `
-            <i class="fas fa-search"></i>
-            <input type="text" id="${section}Search" placeholder="Search..." oninput="filterTable('${section}')">
-        `;
-
-                // Create filter container
-                const filterContainer = document.createElement('div');
-                filterContainer.className = 'filter-container';
-                filterContainer.id = `${section}Filters`;
-
-                // Create view options
-                const viewOptions = document.createElement('div');
-                viewOptions.className = 'view-options';
-                viewOptions.innerHTML = `
-            <button class="view-option-btn active" data-view="table" onclick="changeView('${section}', 'table')">
-                <i class="fas fa-table"></i> Table
-            </button>
-            <button class="view-option-btn" data-view="grid" onclick="changeView('${section}', 'grid')">
-                <i class="fas fa-th-large"></i> Grid
-            </button>
-        `;
-
-                // Insert before the table
-                if (section === 'app-cards') {
-                    // For app cards, we have a grid view by default
-                    cardBody.insertBefore(viewOptions, cardBody.firstChild);
-                    cardBody.insertBefore(searchBox, cardBody.firstChild);
-                } else {
-                    cardBody.insertBefore(filterContainer, table);
-                    cardBody.insertBefore(viewOptions, filterContainer);
-                    cardBody.insertBefore(searchBox, viewOptions);
-                }
-
-                // Add specific filters based on section
-                addSectionFilters(section);
-            });
-        }
-
-        function addSectionFilters(section) {
-            const filterContainer = document.getElementById(`${section}Filters`);
-            if (!filterContainer) return;
-
-            let filterHTML = '';
-
-            switch (section) {
-                case 'app-cards':
-                    filterHTML = `
-                <div class="filter-group">
-                    <label for="appCardsStatusFilter">Status</label>
-                    <select id="appCardsStatusFilter" class="form-control" onchange="filterTable('${section}')">
-                        <option value="">All Status</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                </div>
-            `;
-                    break;
-
-                case 'announcements':
-                    filterHTML = `
-                <div class="filter-group">
-                    <label for="announcementsStatusFilter">Status</label>
-                    <select id="announcementsStatusFilter" class="form-control" onchange="filterTable('${section}')">
-                        <option value="">All Status</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="announcementsDateFilter">Date Range</label>
-                    <select id="announcementsDateFilter" class="form-control" onchange="filterTable('${section}')">
-                        <option value="">All Dates</option>
-                        <option value="today">Today</option>
-                        <option value="this_week">This Week</option>
-                        <option value="this_month">This Month</option>
-                    </select>
-                </div>
-            `;
-                    break;
-
-                case 'notifications':
-                    filterHTML = `
-                <div class="filter-group">
-                    <label for="notificationsStatusFilter">Status</label>
-                    <select id="notificationsStatusFilter" class="form-control" onchange="filterTable('${section}')">
-                        <option value="">All Status</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                </div>
-            `;
-                    break;
-
-                case 'user-management':
-                    filterHTML = `
-                <div class="filter-group">
-                    <label for="usersStatusFilter">Status</label>
-                    <select id="usersStatusFilter" class="form-control" onchange="filterTable('${section}')">
-                        <option value="">All Status</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="usersRoleFilter">Role</label>
-                    <select id="usersRoleFilter" class="form-control" onchange="filterTable('${section}')">
-                                    <option value="employee">Employee</option>
-                                    <option value="consultant">Consultant</option>
-                                    <option value="manager">Manager</option>
-                                    <option value="supervisor">Supervisor</option>
-                                    <option value="admin">Administrator</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="usersDepartmentFilter">Department</label>
-                    <select id="usersDepartmentFilter" class="form-control" onchange="filterTable('${section}')">
-                        <option value="">All Departments</option>
-                        <?php foreach ($departments as $dept): ?>
-                            <option value="<?php echo $dept['department_id']; ?>"><?php echo htmlspecialchars($dept['department_name']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            `;
-                    break;
-            }
-
-            filterContainer.innerHTML = filterHTML;
-        }
-
-        function filterTable(section) {
-            const searchTerm = document.getElementById(`${section}Search`).value.toLowerCase();
-            let filteredData = [];
-
-            switch (section) {
-                case 'app-cards':
-                    filteredData = appCardsData.filter(item => {
-                        return item.title.toLowerCase().includes(searchTerm) ||
-                            item.description.toLowerCase().includes(searchTerm) ||
-                            item.url.toLowerCase().includes(searchTerm);
-                    });
-
-                    // Apply status filter
-                    const statusFilter = document.getElementById('appCardsStatusFilter').value;
-                    if (statusFilter === 'active') {
-                        filteredData = filteredData.filter(item => item.is_active == 1);
-                    } else if (statusFilter === 'inactive') {
-                        filteredData = filteredData.filter(item => item.is_active == 0);
-                    }
-                    break;
-
-                case 'announcements':
-                    filteredData = announcementsData.filter(item => {
-                        return item.title.toLowerCase().includes(searchTerm) ||
-                            item.content.toLowerCase().includes(searchTerm);
-                    });
-
-                    // Apply status filter
-                    const announcementsStatusFilter = document.getElementById('announcementsStatusFilter').value;
-                    if (announcementsStatusFilter === 'active') {
-                        filteredData = filteredData.filter(item => item.is_active == 1);
-                    } else if (announcementsStatusFilter === 'inactive') {
-                        filteredData = filteredData.filter(item => item.is_active == 0);
-                    }
-
-                    // Apply date filter
-                    const dateFilter = document.getElementById('announcementsDateFilter').value;
-                    if (dateFilter) {
-                        const now = new Date();
-                        filteredData = filteredData.filter(item => {
-                            if (!item.created_at) return false;
-
-                            const itemDate = new Date(item.created_at);
-                            switch (dateFilter) {
-                                case 'today':
-                                    return itemDate.toDateString() === now.toDateString();
-                                case 'this_week':
-                                    const startOfWeek = new Date(now);
-                                    startOfWeek.setDate(now.getDate() - now.getDay());
-                                    startOfWeek.setHours(0, 0, 0, 0);
-                                    return itemDate >= startOfWeek;
-                                case 'this_month':
-                                    return itemDate.getMonth() === now.getMonth() &&
-                                        itemDate.getFullYear() === now.getFullYear();
-                                default:
-                                    return true;
-                            }
-                        });
-                    }
-                    break;
-
-                case 'notifications':
-                    filteredData = notificationsData.filter(item => {
-                        return item.title.toLowerCase().includes(searchTerm) ||
-                            item.message.toLowerCase().includes(searchTerm);
-                    });
-
-                    // Apply status filter
-                    const notificationsStatusFilter = document.getElementById('notificationsStatusFilter').value;
-                    if (notificationsStatusFilter === 'active') {
-                        filteredData = filteredData.filter(item => item.is_active == 1);
-                    } else if (notificationsStatusFilter === 'inactive') {
-                        filteredData = filteredData.filter(item => item.is_active == 0);
-                    }
-                    break;
-
-                case 'departments':
-                    filteredData = departmentsData.filter(item => {
-                        return item.department_name.toLowerCase().includes(searchTerm) ||
-                            (item.description && item.description.toLowerCase().includes(searchTerm));
-                    });
-                    break;
-
-                case 'positions':
-                    filteredData = positionsData.filter(item => {
-                        return item.position_title.toLowerCase().includes(searchTerm) ||
-                            (item.job_description && item.job_description.toLowerCase().includes(searchTerm));
-                    });
-                    break;
-
-                case 'user-management':
-                    filteredData = usersData.filter(item => {
-                        const fullName = `${item.first_name} ${item.middle_name || ''} ${item.last_name}`.toLowerCase();
-                        return fullName.includes(searchTerm) ||
-                            item.username.toLowerCase().includes(searchTerm) ||
-                            item.email.toLowerCase().includes(searchTerm) ||
-                            item.role.toLowerCase().includes(searchTerm);
-                    });
-
-                    // Apply status filter
-                    const usersStatusFilter = document.getElementById('usersStatusFilter').value;
-                    if (usersStatusFilter === 'active') {
-                        filteredData = filteredData.filter(item => item.is_active == 1);
-                    } else if (usersStatusFilter === 'inactive') {
-                        filteredData = filteredData.filter(item => item.is_active == 0);
-                    }
-
-                    // Apply role filter
-                    const roleFilter = document.getElementById('usersRoleFilter').value;
-                    if (roleFilter) {
-                        filteredData = filteredData.filter(item => item.role === roleFilter);
-                    }
-
-                    // Apply department filter
-                    const departmentFilter = document.getElementById('usersDepartmentFilter').value;
-                    if (departmentFilter) {
-                        filteredData = filteredData.filter(item => item.department_id == departmentFilter);
-                    }
-                    break;
-            }
-
-            // Apply sorting
-            const sortField = sortSettings[section].field;
-            const sortDirection = sortSettings[section].direction;
-
-            filteredData.sort((a, b) => {
-                let valueA = a[sortField];
-                let valueB = b[sortField];
-
-                if (typeof valueA === 'string') valueA = valueA.toLowerCase();
-                if (typeof valueB === 'string') valueB = valueB.toLowerCase();
-
-                if (valueA < valueB) return sortDirection === 'asc' ? -1 : 1;
-                if (valueA > valueB) return sortDirection === 'asc' ? 1 : -1;
-                return 0;
-            });
-
-            // Update the table
-            renderTable(section, filteredData);
-        }
-
-        function sortTable(section, field) {
-            // Update sort settings
-            if (sortSettings[section].field === field) {
-                // Toggle direction if same field
-                sortSettings[section].direction = sortSettings[section].direction === 'asc' ? 'desc' : 'asc';
-            } else {
-                // New field, default to ascending
-                sortSettings[section].field = field;
-                sortSettings[section].direction = 'asc';
-            }
-
-            // Update sort indicators
-            document.querySelectorAll(`#${section}-section .sortable`).forEach(header => {
-                header.classList.remove('asc', 'desc');
-            });
-
-            const header = document.querySelector(`#${section}-section th[data-field="${field}"]`);
-            if (header) {
-                header.classList.add(sortSettings[section].direction);
-            }
-
-            // Re-apply filters (which will also sort)
-            filterTable(section);
-        }
-
-        function renderTable(section, data) {
-            const tableBody = document.querySelector(`#${section}-section tbody`);
-            if (!tableBody) return;
-
-            // Calculate pagination
-            const totalPages = Math.ceil(data.length / itemsPerPage);
-            const currentPageNum = currentPage[section];
-            const startIndex = (currentPageNum - 1) * itemsPerPage;
-            const endIndex = Math.min(startIndex + itemsPerPage, data.length);
-            const pageData = data.slice(startIndex, endIndex);
-
-            // Clear existing rows
-            tableBody.innerHTML = '';
-
-            // Add new rows
-            if (pageData.length === 0) {
-                const colSpan = tableBody.parentElement.querySelector('thead tr').cells.length;
-                tableBody.innerHTML = `<tr><td colspan="${colSpan}" class="text-center">No records found</td></tr>`;
-            } else {
-                switch (section) {
-                    case 'app-cards':
-                        pageData.forEach(card => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                        <td>${escapeHtml(card.title)}</td>
-                        <td>${escapeHtml(card.description)}</td>
-                        <td>${escapeHtml(card.url)}</td>
-                        <td><i class="${escapeHtml(card.icon_class)}" style="color: ${escapeHtml(card.icon_color)}"></i></td>
-                        <td>${card.badge_text ? `<span class="badge badge-info">${escapeHtml(card.badge_text)}</span>` : ''}</td>
-                        <td><span class="badge ${card.is_active ? 'badge-success' : 'badge-danger'}">${card.is_active ? 'Active' : 'Inactive'}</span></td>
-                        <td>${card.sort_order}</td>
-                        <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline" onclick="editAppCard(${card.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <form action="" method="post" style="display:inline;">
-                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                                <input type="hidden" name="id" value="${card.id}">
-                                <input type="hidden" name="action" value="delete_app_card">
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this app card?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    `;
-                            tableBody.appendChild(row);
-                        });
-                        break;
-
-                    case 'announcements':
-                        pageData.forEach(announcement => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                        <td>${escapeHtml(announcement.title)}</td>
-                        <td>${escapeHtml(announcement.content.substring(0, 50))}${announcement.content.length > 50 ? '...' : ''}</td>
-                        <td>${announcement.start_date ? formatDate(announcement.start_date) : '-'}</td>
-                        <td>${announcement.end_date ? formatDate(announcement.end_date) : '-'}</td>
-                        <td><span class="badge ${announcement.is_active ? 'badge-success' : 'badge-danger'}">${announcement.is_active ? 'Active' : 'Inactive'}</span></td>
-                        <td>${announcement.sort_order}</td>
-                        <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline" onclick="editAnnouncement(${announcement.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <form action="" method="post" style="display:inline;">
-                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                                <input type="hidden" name="id" value="${announcement.id}">
-                                <input type="hidden" name="action" value="delete_announcement">
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this announcement?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    `;
-                            tableBody.appendChild(row);
-                        });
-                        break;
-
-                    case 'notifications':
-                        pageData.forEach(notification => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                        <td>${escapeHtml(notification.title)}</td>
-                        <td>${escapeHtml(notification.message.substring(0, 50))}${notification.message.length > 50 ? '...' : ''}</td>
-                        <td><i class="${escapeHtml(notification.icon_class)}"></i></td>
-                        <td><span class="badge ${notification.is_active ? 'badge-success' : 'badge-danger'}">${notification.is_active ? 'Active' : 'Inactive'}</span></td>
-                        <td>${formatDate(notification.created_at)}</td>
-                        <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline" onclick="editNotification(${notification.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <form action="" method="post" style="display:inline;">
-                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                                <input type="hidden" name="id" value="${notification.id}">
-                                <input type="hidden" name="action" value="delete_notification">
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this notification?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    `;
-                            tableBody.appendChild(row);
-                        });
-                        break;
-
-                    case 'departments':
-                        pageData.forEach(department => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                        <td>${department.department_id}</td>
-                        <td>${escapeHtml(department.department_name)}</td>
-                        <td>${escapeHtml(department.description || '')}</td>
-                        <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline" onclick="editDepartment(${department.department_id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <form action="" method="post" style="display:inline;">
-                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                                <input type="hidden" name="department_id" value="${department.department_id}">
-                                <input type="hidden" name="action" value="delete_department">
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this department?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    `;
-                            tableBody.appendChild(row);
-                        });
-                        break;
-
-                    case 'positions':
-                        pageData.forEach(position => {
-                            const deptName = getDepartmentName(position.department_id);
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                        <td>${position.position_id}</td>
-                        <td>${escapeHtml(position.position_title)}</td>
-                        <td>${escapeHtml(deptName)}</td>
-                        <td><span class="badge ${position.is_active ? 'badge-success' : 'badge-danger'}">${position.is_active ? 'Active' : 'Inactive'}</span></td>
-                        <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline" onclick="editPosition(${position.position_id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <form action="" method="post" style="display:inline;">
-                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                                <input type="hidden" name="position_id" value="${position.position_id}">
-                                <input type="hidden" name="action" value="delete_position">
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this position?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    `;
-                            tableBody.appendChild(row);
-                        });
-                        break;
-
-                    case 'user-management':
-                        pageData.forEach(user => {
-                            const fullName = `${user.first_name} ${user.middle_name || ''} ${user.last_name}`.trim();
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                        <td>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="user-checkbox" value="${user.user_id}" onchange="updateBulkActions()">
-                                <span class="checkmark"></span>
-                            </div>
-                        </td>
-                        <td>${user.employee_id}</td>
-                        <td>${escapeHtml(fullName || user.full_name)}</td>
-                        <td>${escapeHtml(user.username)}</td>
-                        <td>${escapeHtml(user.email)}</td>
-                        <td><span class="badge badge-info">${escapeHtml(user.role)}</span></td>
-                        <td>${escapeHtml(user.department_name || 'N/A')}</td>
-                        <td>${escapeHtml(user.position_title || 'N/A')}</td>
-                        <td><span class="badge ${user.is_active ? 'badge-success' : 'badge-danger'}">${user.is_active ? 'Active' : 'Inactive'}</span></td>
-                        <td class="action-buttons">
-                            <button class="btn btn-sm btn-outline" onclick="editUser(${user.user_id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <form action="" method="post" style="display:inline;">
-                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                                <input type="hidden" name="user_id" value="${user.user_id}">
-                                <input type="hidden" name="action" value="delete_user">
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    `;
-                            tableBody.appendChild(row);
-                        });
-                        break;
-                }
-            }
-
-            // Update pagination controls
-            updatePagination(section, data.length, totalPages);
-        }
-
-        function updatePagination(section, totalItems, totalPages) {
-            const currentPageNum = currentPage[section];
-            const paginationContainer = document.querySelector(`#${section}-section .pagination-container`);
-
-            if (!paginationContainer) {
-                // Create pagination container if it doesn't exist
-                const cardBody = document.querySelector(`#${section}-section .card-body`);
-                if (!cardBody) return;
-
-                const newPaginationContainer = document.createElement('div');
-                newPaginationContainer.className = 'pagination-container';
-                cardBody.appendChild(newPaginationContainer);
-            }
-
-            paginationContainer.innerHTML = `
-        <div class="page-info">
-            Showing ${((currentPageNum - 1) * itemsPerPage) + 1} to ${Math.min(currentPageNum * itemsPerPage, totalItems)} of ${totalItems} entries
-        </div>
-        <div class="pagination">
-            <button class="btn btn-outline btn-sm" ${currentPageNum === 1 ? 'disabled' : ''} onclick="changePage('${section}', ${currentPageNum - 1})">
-                Previous
-            </button>
-            ${generatePageNumbers(currentPageNum, totalPages, section)}
-            <button class="btn btn-outline btn-sm" ${currentPageNum === totalPages ? 'disabled' : ''} onclick="changePage('${section}', ${currentPageNum + 1})">
-                Next
-            </button>
-        </div>
-        <div class="export-options">
-            <button class="btn btn-success btn-sm" onclick="exportData('${section}', 'csv')">
-                <i class="fas fa-download"></i> CSV
-            </button>
-            <button class="btn btn-success btn-sm" onclick="exportData('${section}', 'excel')">
-                <i class="fas fa-download"></i> Excel
-            </button>
-            <button class="btn btn-success btn-sm" onclick="exportData('${section}', 'pdf')">
-                <i class="fas fa-download"></i> PDF
-            </button>
-            <button class="btn btn-info btn-sm" onclick="printSection('${section}')">
-                <i class="fas fa-print"></i> Print
-            </button>
-        </div>
-    `;
-        }
-
-        function generatePageNumbers(currentPage, totalPages, section) {
-            let pagesHTML = '';
-            const maxVisiblePages = 5;
-
-            if (totalPages <= maxVisiblePages) {
-                // Show all pages
-                for (let i = 1; i <= totalPages; i++) {
-                    pagesHTML += `
-                <button class="btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline'}" onclick="changePage('${section}', ${i})">
-                    ${i}
-                </button>
-            `;
-                }
-            } else {
-                // Show limited pages with ellipsis
-                if (currentPage <= 3) {
-                    for (let i = 1; i <= 4; i++) {
-                        pagesHTML += `
-                    <button class="btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline'}" onclick="changePage('${section}', ${i})">
-                        ${i}
-                    </button>
-                `;
-                    }
-                    pagesHTML += `<span class="page-link">...</span>`;
-                    pagesHTML += `
-                <button class="btn btn-sm btn-outline" onclick="changePage('${section}', ${totalPages})">
-                    ${totalPages}
-                </button>
-            `;
-                } else if (currentPage >= totalPages - 2) {
-                    pagesHTML += `
-                <button class="btn btn-sm btn-outline" onclick="changePage('${section}', 1)">
-                    1
-                </button>
-            `;
-                    pagesHTML += `<span class="page-link">...</span>`;
-                    for (let i = totalPages - 3; i <= totalPages; i++) {
-                        pagesHTML += `
-                    <button class="btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline'}" onclick="changePage('${section}', ${i})">
-                        ${i}
-                    </button>
-                `;
-                    }
-                } else {
-                    pagesHTML += `
-                <button class="btn btn-sm btn-outline" onclick="changePage('${section}', 1)">
-                    1
-                </button>
-            `;
-                    pagesHTML += `<span class="page-link">...</span>`;
-                    for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-                        pagesHTML += `
-                    <button class="btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline'}" onclick="changePage('${section}', ${i})">
-                        ${i}
-                    </button>
-                `;
-                    }
-                    pagesHTML += `<span class="page-link">...</span>`;
-                    pagesHTML += `
-                <button class="btn btn-sm btn-outline" onclick="changePage('${section}', ${totalPages})">
-                    ${totalPages}
-                </button>
-            `;
-                }
-            }
-
-            return pagesHTML;
-        }
-
-        function changePage(section, page) {
-            currentPage[section] = page;
-            filterTable(section);
-        }
-
-        function changeView(section, view) {
-            const viewButtons = document.querySelectorAll(`#${section}-section .view-option-btn`);
-            viewButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('data-view') === view) {
-                    btn.classList.add('active');
-                }
-            });
-
-            const table = document.querySelector(`#${section}-section table`);
-            const grid = document.querySelector(`#${section}-section .app-cards-grid`);
-
-            if (view === 'table') {
-                if (table) table.style.display = 'table';
-                if (grid) grid.style.display = 'none';
-            } else if (view === 'grid') {
-                if (table) table.style.display = 'none';
-                if (grid) grid.style.display = 'grid';
-            }
-        }
-
-        function exportData(section, format) {
-            // This would typically make an AJAX request to an export script
-            alert(`Exporting ${section} data in ${format.toUpperCase()} format`);
-            // window.location.href = `export.php?section=${section}&format=${format}`;
-        }
-
-        function printSection(section) {
-            const printContent = document.getElementById(`${section}-section`).innerHTML;
-            const originalContent = document.body.innerHTML;
-
-            document.body.innerHTML = `
-        <div class="print-header">
-            <h1>MERQ Portal - ${section.charAt(0).toUpperCase() + section.slice(1)} Report</h1>
-            <p>Generated on: ${new Date().toLocaleString()}</p>
-        </div>
-        ${printContent}
-    `;
-
-            window.print();
-            document.body.innerHTML = originalContent;
-            location.reload();
-        }
-
-        // Utility functions
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        function formatDate(dateString) {
-            if (!dateString) return '-';
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
-        }
-
-        function getDepartmentName(departmentId) {
-            const department = departmentsData.find(dept => dept.department_id == departmentId);
-            return department ? department.department_name : 'N/A';
-        }
-
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initSearchAndFilter();
-
-            // Initialize each section
-            const sections = ['app-cards', 'announcements', 'notifications', 'departments', 'positions', 'user-management'];
-            sections.forEach(section => {
-                filterTable(section);
-            });
-
-            // Make table headers sortable
-            document.querySelectorAll('th[data-field]').forEach(header => {
-                header.classList.add('sortable');
-                header.addEventListener('click', function() {
-                    const section = this.closest('.dashboard-section').id.replace('-section', '');
-                    const field = this.getAttribute('data-field');
-                    sortTable(section, field);
-                });
-            });
-        });
-    </script>
-
-
-
 </body>
 
 </html>
