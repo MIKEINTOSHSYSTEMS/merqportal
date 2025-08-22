@@ -164,22 +164,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         break;
                     }
 
+                    // Check if username already exists
+                    $checkUsername = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
+                    $checkUsername->execute([sanitizeInput($_POST['username'])]);
+                    if ($checkUsername->fetchColumn() > 0) {
+                        $_SESSION['error'] = 'Username already exists';
+                        break;
+                    }
+
                     if ($_POST['password'] !== $_POST['confirm_password']) {
                         $_SESSION['error'] = 'Passwords do not match';
                         break;
                     }
 
-                    $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, full_name, email) 
-                          VALUES (?, ?, ?, ?)");
+                    $stmt = $pdo->prepare("INSERT INTO users 
+                        (employee_id, is_doctor, first_name, middle_name, last_name, username, email, 
+                        phone, alternate_phone, password_hash, role, department_id, position_id, 
+                        supervisor_id, join_date, hire_date, leave_balance, is_active) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
                     $stmt->execute([
+                        sanitizeInput($_POST['employee_id']),
+                        (int)$_POST['is_doctor'],
+                        sanitizeInput($_POST['first_name']),
+                        sanitizeInput($_POST['middle_name']),
+                        sanitizeInput($_POST['last_name']),
                         sanitizeInput($_POST['username']),
+                        sanitizeInput($_POST['email']),
+                        sanitizeInput($_POST['phone']),
+                        sanitizeInput($_POST['alternate_phone']),
                         createPasswordHash($_POST['password']),
-                        sanitizeInput($_POST['full_name']),
-                        sanitizeInput($_POST['email'])
+                        sanitizeInput($_POST['role']),
+                        !empty($_POST['department_id']) ? (int)$_POST['department_id'] : NULL,
+                        !empty($_POST['position_id']) ? (int)$_POST['position_id'] : NULL,
+                        !empty($_POST['supervisor_id']) ? (int)$_POST['supervisor_id'] : NULL,
+                        !empty($_POST['join_date']) ? $_POST['join_date'] : NULL,
+                        !empty($_POST['hire_date']) ? $_POST['hire_date'] : NULL,
+                        (float)$_POST['leave_balance'],
+                        (int)$_POST['is_active']
                     ]);
+
                     $_SESSION['success'] = 'User added successfully';
                     break;
 
+                // Update the update_user case
                 case 'update_user':
                     // Check if email already exists (excluding current user)
                     $checkEmail = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ? AND user_id != ?");
@@ -191,14 +219,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $_SESSION['error'] = 'Email address already exists';
                         break;
                     }
+
+                    // Check if username already exists (excluding current user)
+                    $checkUsername = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = ? AND user_id != ?");
+                    $checkUsername->execute([
+                        sanitizeInput($_POST['username']),
+                        (int)$_POST['user_id']
+                    ]);
+                    if ($checkUsername->fetchColumn() > 0) {
+                        $_SESSION['error'] = 'Username already exists';
+                        break;
+                    }
+
                     $updateFields = [
+                        'employee_id' => sanitizeInput($_POST['employee_id']),
+                        'is_doctor' => (int)$_POST['is_doctor'],
+                        'first_name' => sanitizeInput($_POST['first_name']),
+                        'middle_name' => sanitizeInput($_POST['middle_name']),
+                        'last_name' => sanitizeInput($_POST['last_name']),
                         'username' => sanitizeInput($_POST['username']),
-                        'full_name' => sanitizeInput($_POST['full_name']),
                         'email' => sanitizeInput($_POST['email']),
+                        'phone' => sanitizeInput($_POST['phone']),
+                        'alternate_phone' => sanitizeInput($_POST['alternate_phone']),
+                        'role' => sanitizeInput($_POST['role']),
+                        'department_id' => !empty($_POST['department_id']) ? (int)$_POST['department_id'] : NULL,
+                        'position_id' => !empty($_POST['position_id']) ? (int)$_POST['position_id'] : NULL,
+                        'supervisor_id' => !empty($_POST['supervisor_id']) ? (int)$_POST['supervisor_id'] : NULL,
+                        'join_date' => !empty($_POST['join_date']) ? $_POST['join_date'] : NULL,
+                        'hire_date' => !empty($_POST['hire_date']) ? $_POST['hire_date'] : NULL,
+                        'leave_balance' => (float)$_POST['leave_balance'],
+                        'is_active' => (int)$_POST['is_active'],
                         'user_id' => (int)$_POST['user_id']
                     ];
 
-                    $sql = "UPDATE users SET username = :username, full_name = :full_name, email = :email";
+                    $sql = "UPDATE users SET 
+                        employee_id = :employee_id, 
+                        is_doctor = :is_doctor, 
+                        first_name = :first_name, 
+                        middle_name = :middle_name, 
+                        last_name = :last_name, 
+                        username = :username, 
+                        email = :email, 
+                        phone = :phone, 
+                        alternate_phone = :alternate_phone, 
+                        role = :role, 
+                        department_id = :department_id, 
+                        position_id = :position_id, 
+                        supervisor_id = :supervisor_id, 
+                        join_date = :join_date, 
+                        hire_date = :hire_date, 
+                        leave_balance = :leave_balance, 
+                        is_active = :is_active";
 
                     // Only update password if provided
                     if (!empty($_POST['password'])) {
@@ -255,8 +326,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $appCards = $pdo->query("SELECT * FROM app_cards ORDER BY sort_order")->fetchAll();
 $announcements = $pdo->query("SELECT * FROM announcements ORDER BY sort_order")->fetchAll();
 $notifications = $pdo->query("SELECT * FROM notifications ORDER BY created_at DESC")->fetchAll();
-$users = $pdo->query("SELECT user_id, username, full_name, email, role, job_position, last_login FROM users ORDER BY username")->fetchAll();
+
 //$users = $pdo->query("SELECT user_id, username, full_name, email, last_login FROM users ORDER BY username")->fetchAll();
+//$users = $pdo->query("SELECT user_id, username, full_name, email, role, job_position, last_login FROM users ORDER BY username")->fetchAll();
+
+$users = $pdo->query("
+    SELECT 
+        u.user_id, 
+        u.employee_id,
+        u.is_doctor,
+        u.full_name,
+        u.first_name,
+        u.middle_name,
+        u.last_name,
+        u.username,
+        u.email,
+        u.phone,
+        u.alternate_phone,
+        u.role,
+        u.join_date,
+        u.hire_date,
+        u.leave_balance,
+        u.last_leave_increment,
+        u.is_active,
+        p.position_title, 
+        d.department_name, 
+        u.supervisor_id,
+        s.full_name AS supervisor_name,
+        u.last_login,
+        u.created_at,
+        u.updated_at
+    FROM users u
+    LEFT JOIN positions p 
+        ON u.position_id = p.position_id
+    LEFT JOIN departments d 
+        ON u.department_id = d.department_id
+    LEFT JOIN users s 
+        ON u.supervisor_id = s.user_id
+    ORDER BY u.full_name ASC
+")->fetchAll();
+
+// Also get departments and positions for dropdowns
+$departments = $pdo->query("SELECT department_id, department_name FROM departments ORDER BY department_name")->fetchAll();
+$positions = $pdo->query("SELECT position_id, position_title FROM positions ORDER BY position_title")->fetchAll();
+$supervisors = $pdo->query("SELECT user_id, full_name FROM users WHERE is_active = 1 ORDER BY full_name")->fetchAll();
 
 // Common icon classes for selection
 $iconClasses = [
@@ -1139,7 +1252,7 @@ $iconClasses = [
                 <div class="card-header">
                     <h2>User Management</h2>
                     <button class="btn btn-primary" onclick="showModal('addUser')">
-                        <i class="fas fa-plus"></i> Add New
+                        <i class="fas fa-plus"></i> Add New User
                     </button>
                 </div>
                 <div class="card-body">
@@ -1147,19 +1260,29 @@ $iconClasses = [
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Username</th>
+                                    <th>Emp ID</th>
                                     <th>Full Name</th>
+                                    <th>Username</th>
                                     <th>Email</th>
-                                    <th>Role</th> <!-- Added Role column -->
-                                    <th>Last Login</th>
+                                    <th>Role</th>
+                                    <th>Department</th>
+                                    <th>Position</th>
+                                    <th>Supervisor</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($users as $user): ?>
                                     <tr>
+                                        <td><?= htmlspecialchars($user['employee_id'] ?? 'N/A') ?></td>
+                                        <td>
+                                            <?= htmlspecialchars($user['full_name']) ?>
+                                            <?php if ($user['is_doctor']): ?>
+                                                <span class="badge badge-info">Dr</span>
+                                            <?php endif; ?>
+                                        </td>
                                         <td><?= htmlspecialchars($user['username']) ?></td>
-                                        <td><?= htmlspecialchars($user['full_name']) ?></td>
                                         <td><?= htmlspecialchars($user['email']) ?></td>
                                         <td>
                                             <span class="badge 
@@ -1167,7 +1290,14 @@ $iconClasses = [
                                                 <?= htmlspecialchars(ucfirst($user['role'])) ?>
                                             </span>
                                         </td>
-                                        <td><?= $user['last_login'] ? formatDateTime($user['last_login']) : 'Never' ?></td>
+                                        <td><?= htmlspecialchars($user['department_name'] ?? 'N/A') ?></td>
+                                        <td><?= htmlspecialchars($user['position_title'] ?? 'N/A') ?></td>
+                                        <td><?= htmlspecialchars($user['supervisor_name'] ?? 'None') ?></td>
+                                        <td>
+                                            <span class="badge <?= $user['is_active'] ? 'badge-success' : 'badge-danger' ?>">
+                                                <?= $user['is_active'] ? 'Active' : 'Inactive' ?>
+                                            </span>
+                                        </td>
                                         <td>
                                             <button class="btn btn-outline btn-sm" onclick="showModal('editUser', <?= $user['user_id'] ?>)">
                                                 <i class="fas fa-edit"></i> Edit
@@ -1405,39 +1535,142 @@ $iconClasses = [
 
         <!-- Add User Modal -->
         <div class="modal" id="addUserModal">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="max-width: 800px;">
                 <form action="" method="POST">
                     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                     <input type="hidden" name="action" value="add_user">
                     <div class="modal-header">
-                        <h3>Add User</h3>
+                        <h3>Add New User</h3>
                         <button type="button" class="close" onclick="hideModal('addUser')">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="userUsername">Username</label>
-                            <input type="text" id="userUsername" name="username" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="userFullName">Full Name</label>
-                            <input type="text" id="userFullName" name="full_name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="userEmail">Email Address</label>
-                            <input type="email" id="userEmail" name="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="userPassword">Password</label>
-                            <input type="password" id="userPassword" name="password" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="userConfirmPassword">Confirm Password</label>
-                            <input type="password" id="userConfirmPassword" name="confirm_password" class="form-control" required>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="userEmployeeId">Employee ID</label>
+                                <input type="text" id="userEmployeeId" name="employee_id" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userIsDoctor">Is Doctor?</label>
+                                <select id="userIsDoctor" name="is_doctor" class="form-control">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userFirstName">First Name</label>
+                                <input type="text" id="userFirstName" name="first_name" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userMiddleName">Middle Name</label>
+                                <input type="text" id="userMiddleName" name="middle_name" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userLastName">Last Name</label>
+                                <input type="text" id="userLastName" name="last_name" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userUsername">Username</label>
+                                <input type="text" id="userUsername" name="username" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userEmail">Email Address</label>
+                                <input type="email" id="userEmail" name="email" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userPhone">Phone</label>
+                                <input type="tel" id="userPhone" name="phone" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userAltPhone">Alternate Phone</label>
+                                <input type="tel" id="userAltPhone" name="alternate_phone" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userDepartment">Department</label>
+                                <select id="userDepartment" name="department_id" class="form-control">
+                                    <option value="">Select Department</option>
+                                    <?php foreach ($departments as $dept): ?>
+                                        <option value="<?= $dept['department_id'] ?>"><?= htmlspecialchars($dept['department_name']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userPosition">Position</label>
+                                <select id="userPosition" name="position_id" class="form-control">
+                                    <option value="">Select Position</option>
+                                    <?php foreach ($positions as $pos): ?>
+                                        <option value="<?= $pos['position_id'] ?>"><?= htmlspecialchars($pos['position_title']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userSupervisor">Supervisor</label>
+                                <select id="userSupervisor" name="supervisor_id" class="form-control">
+                                    <option value="">Select Supervisor</option>
+                                    <?php foreach ($supervisors as $sup): ?>
+                                        <option value="<?= $sup['user_id'] ?>"><?= htmlspecialchars($sup['full_name']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userJoinDate">Join Date</label>
+                                <input type="date" id="userJoinDate" name="join_date" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userHireDate">Hire Date</label>
+                                <input type="date" id="userHireDate" name="hire_date" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userLeaveBalance">Leave Balance</label>
+                                <input type="number" id="userLeaveBalance" name="leave_balance" class="form-control" step="0.5" value="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userRole">Role</label>
+                                <select id="userRole" name="role" class="form-control" required>
+                                    <option value="employee">Employee</option>
+                                    <option value="consultant">Consultant</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="supervisor">Supervisor</option>
+                                    <option value="admin">Administrator</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userIsActive">Status</label>
+                                <select id="userIsActive" name="is_active" class="form-control">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userPassword">Password</label>
+                                <input type="password" id="userPassword" name="password" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userConfirmPassword">Confirm Password</label>
+                                <input type="password" id="userConfirmPassword" name="confirm_password" class="form-control" required>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline" onclick="hideModal('addUser')">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Save User</button>
                     </div>
                 </form>
             </div>
@@ -1445,7 +1678,7 @@ $iconClasses = [
 
         <!-- Edit User Modal -->
         <div class="modal" id="editUserModal">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="max-width: 800px;">
                 <form action="" method="POST">
                     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                     <input type="hidden" name="action" value="update_user">
@@ -1453,19 +1686,13 @@ $iconClasses = [
                     <div class="modal-header">
                         <h3>Edit User</h3>
                         <button type="button" class="close" onclick="hideModal('editUser')">&times;</button>
-                        <!-- User Role Test -->
-                        <button class="btn btn-outline btn-sm" onclick="showModal('userRole', <?= $user['user_id'] ?>)">
-                            <i class="fas fa-user-cog"></i> Role
-                        </button>
-
-
                     </div>
                     <div class="modal-body">
                         <!-- Content loaded via JavaScript -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline" onclick="hideModal('editUser')">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary">Update User</button>
                     </div>
                 </form>
             </div>
@@ -1494,10 +1721,13 @@ $iconClasses = [
                                 <option value="admin">Administrator</option>
                             </select>
                         </div>
+                        <!--
+
                         <div class="form-group">
                             <label for="userPosition">Job Position</label>
                             <input type="text" id="userPosition" name="job_position" class="form-control">
                         </div>
+                        -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline" onclick="hideModal('userRole')">Cancel</button>
@@ -1670,25 +1900,122 @@ $iconClasses = [
                     `;
                         } else if (modalType === 'editUser') {
                             modalBody.innerHTML = `
-                        <div class="form-group">
-                            <label for="editUserUsername">Username</label>
-                            <input type="text" id="editUserUsername" name="username" class="form-control" value="${escapeHtml(data.username)}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editUserFullName">Full Name</label>
-                            <input type="text" id="editUserFullName" name="full_name" class="form-control" value="${escapeHtml(data.full_name)}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editUserEmail">Email Address</label>
-                            <input type="email" id="editUserEmail" name="email" class="form-control" value="${escapeHtml(data.email)}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editUserPassword">New Password (leave blank to keep current)</label>
-                            <input type="password" id="editUserPassword" name="password" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="editUserConfirmPassword">Confirm New Password</label>
-                            <input type="password" id="editUserConfirmPassword" name="confirm_password" class="form-control">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="editUserEmployeeId">Employee ID</label>
+                                <input type="text" id="editUserEmployeeId" name="employee_id" class="form-control" value="${escapeHtml(data.employee_id || '')}" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserIsDoctor">Is Doctor?</label>
+                                <select id="editUserIsDoctor" name="is_doctor" class="form-control">
+                                    <option value="0" ${data.is_doctor == 0 ? 'selected' : ''}>No</option>
+                                    <option value="1" ${data.is_doctor == 1 ? 'selected' : ''}>Yes</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserFirstName">First Name</label>
+                                <input type="text" id="editUserFirstName" name="first_name" class="form-control" value="${escapeHtml(data.first_name || '')}" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserMiddleName">Middle Name</label>
+                                <input type="text" id="editUserMiddleName" name="middle_name" class="form-control" value="${escapeHtml(data.middle_name || '')}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserLastName">Last Name</label>
+                                <input type="text" id="editUserLastName" name="last_name" class="form-control" value="${escapeHtml(data.last_name || '')}" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserUsername">Username</label>
+                                <input type="text" id="editUserUsername" name="username" class="form-control" value="${escapeHtml(data.username || '')}" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserEmail">Email Address</label>
+                                <input type="email" id="editUserEmail" name="email" class="form-control" value="${escapeHtml(data.email || '')}" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserPhone">Phone</label>
+                                <input type="tel" id="editUserPhone" name="phone" class="form-control" value="${escapeHtml(data.phone || '')}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserAltPhone">Alternate Phone</label>
+                                <input type="tel" id="editUserAltPhone" name="alternate_phone" class="form-control" value="${escapeHtml(data.alternate_phone || '')}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserDepartment">Department</label>
+                                <select id="editUserDepartment" name="department_id" class="form-control">
+                                    <option value="">Select Department</option>
+                                    ${generateDepartmentOptions(data.department_id)}
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserPosition">Position</label>
+                                <select id="editUserPosition" name="position_id" class="form-control">
+                                    <option value="">Select Position</option>
+                                    ${generatePositionOptions(data.position_id)}
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserSupervisor">Supervisor</label>
+                                <select id="editUserSupervisor" name="supervisor_id" class="form-control">
+                                    <option value="">Select Supervisor</option>
+                                    ${generateSupervisorOptions(data.supervisor_id)}
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserJoinDate">Join Date</label>
+                                <input type="date" id="editUserJoinDate" name="join_date" class="form-control" value="${data.join_date ? data.join_date.split(' ')[0] : ''}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserHireDate">Hire Date</label>
+                                <input type="date" id="editUserHireDate" name="hire_date" class="form-control" value="${data.hire_date ? data.hire_date.split(' ')[0] : ''}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserLeaveBalance">Leave Balance</label>
+                                <input type="number" id="editUserLeaveBalance" name="leave_balance" class="form-control" step="0.5" value="${data.leave_balance || 0}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserRole">Role</label>
+                                <select id="editUserRole" name="role" class="form-control" required>
+                                    <option value="employee" ${data.role === 'employee' ? 'selected' : ''}>Employee</option>
+                                    <option value="consultant" ${data.role === 'consultant' ? 'selected' : ''}>Consultant</option>
+                                    <option value="manager" ${data.role === 'manager' ? 'selected' : ''}>Manager</option>
+                                    <option value="supervisor" ${data.role === 'supervisor' ? 'selected' : ''}>Supervisor</option>
+                                    <option value="admin" ${data.role === 'admin' ? 'selected' : ''}>Administrator</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserIsActive">Status</label>
+                                <select id="editUserIsActive" name="is_active" class="form-control">
+                                    <option value="1" ${data.is_active == 1 ? 'selected' : ''}>Active</option>
+                                    <option value="0" ${data.is_active == 0 ? 'selected' : ''}>Inactive</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserPassword">New Password (leave blank to keep current)</label>
+                                <input type="password" id="editUserPassword" name="password" class="form-control">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="editUserConfirmPassword">Confirm New Password</label>
+                                <input type="password" id="editUserConfirmPassword" name="confirm_password" class="form-control">
+                            </div>
                         </div>
                         <input type="hidden" name="user_id" value="${data.user_id}">
                     `;
@@ -1700,7 +2027,7 @@ $iconClasses = [
                     });
             }
 
-            // ADD THE NEW userRole CASE HERE
+            // ADDED THE NEW userRole CASE HERE
             else if (modalType === 'userRole' && id) {
                 // Set the user ID
                 document.getElementById('userRoleId').value = id;
@@ -1763,6 +2090,40 @@ $iconClasses = [
                 `<option value="${icon}" ${icon === selectedIcon ? 'selected' : ''}>${icon}</option>`
             ).join('');
         }
+
+
+        // Helper functions for generating dropdown options
+        function generateDepartmentOptions(selectedId) {
+            const departments = <?= json_encode($departments) ?>;
+            return departments.map(dept =>
+                `<option value="${dept.department_id}" ${dept.department_id == selectedId ? 'selected' : ''}>${escapeHtml(dept.department_name)}</option>`
+            ).join('');
+        }
+
+        function generatePositionOptions(selectedId) {
+            const positions = <?= json_encode($positions) ?>;
+            return positions.map(pos =>
+                `<option value="${pos.position_id}" ${pos.position_id == selectedId ? 'selected' : ''}>${escapeHtml(pos.position_title)}</option>`
+            ).join('');
+        }
+
+        function generateSupervisorOptions(selectedId) {
+            const supervisors = <?= json_encode($supervisors) ?>;
+            return supervisors.map(sup =>
+                `<option value="${sup.user_id}" ${sup.user_id == selectedId ? 'selected' : ''}>${escapeHtml(sup.full_name)}</option>`
+            ).join('');
+        }
+
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
 
         // Close modals when clicking outside
         window.addEventListener('click', function(e) {

@@ -37,8 +37,32 @@ try {
             break;
 
         case 'user':
-            // Updated to use user_id instead of id
-            $stmt = $pdo->prepare("SELECT user_id, username, full_name, email, role, job_position, last_login FROM users WHERE user_id = ?");
+            $stmt = $pdo->prepare("
+        SELECT 
+            u.user_id, 
+            u.employee_id,
+            u.is_doctor,
+            u.first_name,
+            u.middle_name,
+            u.last_name,
+            u.username,
+            u.email,
+            u.phone,
+            u.alternate_phone,
+            u.role,
+            u.department_id,
+            u.position_id,
+            u.supervisor_id,
+            u.join_date,
+            u.hire_date,
+            u.leave_balance,
+            u.is_active,
+            u.last_login,
+            u.created_at,
+            u.updated_at
+        FROM users u
+        WHERE u.user_id = ?
+    ");
             $stmt->execute([$id]);
             $data = $stmt->fetch();
             break;
