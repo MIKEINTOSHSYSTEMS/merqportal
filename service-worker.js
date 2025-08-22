@@ -1,4 +1,3 @@
-const CACHE_NAME = 'merq-portal-v1';
 const DYNAMIC_CACHE_NAME = 'merq-portal-dynamic-v1';
 const ASSETS_TO_CACHE = [
     '/',
@@ -18,12 +17,15 @@ const ASSETS_TO_CACHE = [
 // Install Service Worker
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME)
+        caches.open(DYNAMIC_CACHE_NAME)
             .then((cache) => {
                 console.log('Caching app shell');
                 return cache.addAll(ASSETS_TO_CACHE);
             })
             .then(() => self.skipWaiting())
+            .catch((error) => {
+                console.error('Error caching assets during install:', error);
+            })
     );
 });
 
@@ -33,13 +35,16 @@ self.addEventListener('activate', (event) => {
         caches.keys().then((keyList) => {
             return Promise.all(
                 keyList.map((key) => {
-                    if (key !== CACHE_NAME && key !== DYNAMIC_CACHE_NAME) {
+                    if (key !== DYNAMIC_CACHE_NAME) {
                         console.log('Removing old cache', key);
                         return caches.delete(key);
                     }
                 })
             );
         })
+            .catch((error) => {
+                console.error('Error during cache cleanup:', error);
+            })
     );
     return self.clients.claim();
 });
@@ -52,24 +57,36 @@ self.addEventListener('fetch', (event) => {
     }
 
     event.respondWith(
-        caches.match(event.request).then((response) => {
-            if (response) {
-                return response;
+        caches.match(event.request).then((cachedResponse) => {
+            // If the request is cached, return it
+            if (cachedResponse) {
+                return cachedResponse;
             }
 
-            return fetch(event.request).then((fetchResponse) => {
+            // Fetch request and handle sessions/cookies
+            const fetchRequest = event.request.clone();
+
+            // Ensure cookies are sent along with requests (session cookies)
+            const fetchOptions = {
+                method: fetchRequest.method,
+                headers: fetchRequest.headers,
+                credentials: 'same-origin', // This ensures session cookies are included
+                cache: 'no-store'  // No caching for these requests to avoid stale data
+            };
+
+            return fetch(fetchRequest.url, fetchOptions).then((fetchResponse) => {
                 if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
                     return fetchResponse;
                 }
 
+                // Cache the dynamic response
                 const responseToCache = fetchResponse.clone();
-
                 caches.open(DYNAMIC_CACHE_NAME).then((cache) => {
                     cache.put(event.request, responseToCache);
                 });
 
                 return fetchResponse;
-            }).catch(() => {
+            }).catch((error) => {
                 // Custom offline page or fallback
                 if (event.request.headers.get('accept').includes('text/html')) {
                     return caches.match('/offline.html');
@@ -86,31 +103,35 @@ self.addEventListener('message', (event) => {
     }
 });
 
+// Function to check for updates to the app
 function checkForUpdates() {
-    fetch('/index.php', { cache: 'no-store' }).then((response) => {
-        if (!response.ok) throw new Error('Network response was not ok');
+    fetch('/index.php', { cache: 'no-store' })
+        .then((response) => {
+            if (!response.ok) throw new Error('Network response was not ok');
 
-        return response.text();
-    }).then((html) => {
-        // Simple check - in production you might want to compare versions
-        caches.match('/index.php').then((cachedResponse) => {
-            if (!cachedResponse) return;
+            return response.text();
+        })
+        .then((html) => {
+            // Simple check - you could compare hashes or versions in production
+            caches.match('/index.php').then((cachedResponse) => {
+                if (!cachedResponse) return;
 
-            cachedResponse.text().then((cachedHtml) => {
-                if (html !== cachedHtml) {
-                    // Notify clients about update
-                    self.clients.matchAll().then((clients) => {
-                        clients.forEach((client) => {
-                            client.postMessage({
-                                type: 'UPDATE_AVAILABLE',
-                                message: 'A new version is available. Refresh to update.'
+                cachedResponse.text().then((cachedHtml) => {
+                    if (html !== cachedHtml) {
+                        // Notify clients about update
+                        self.clients.matchAll().then((clients) => {
+                            clients.forEach((client) => {
+                                client.postMessage({
+                                    type: 'UPDATE_AVAILABLE',
+                                    message: 'A new version is available. Refresh to update.'
+                                });
                             });
                         });
-                    });
-                }
+                    }
+                });
             });
+        })
+        .catch((error) => {
+            console.log('Update check failed:', error);
         });
-    }).catch((error) => {
-        console.log('Update check failed:', error);
-    });
 }
