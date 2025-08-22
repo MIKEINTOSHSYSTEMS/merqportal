@@ -18,15 +18,26 @@ if ($conn->connect_error) {
 $sql = "
     SELECT 
         u.user_id, 
-        u.full_name, 
+        u.employee_id,
+        u.full_name,
+        u.first_name,
+        u.middle_name,
+        u.last_name,
+        u.email,    
+        u.role,
         p.position_title, 
         d.department_name, 
-        u.email,
-        u.supervisor_id
+        u.supervisor_id,
+        s.full_name AS supervisor_name
     FROM users u
-    LEFT JOIN positions p ON u.position_id = p.position_id
-    LEFT JOIN departments d ON u.department_id = d.department_id
-    ORDER BY u.full_name ASC
+    LEFT JOIN positions p 
+        ON u.position_id = p.position_id
+    LEFT JOIN departments d 
+        ON u.department_id = d.department_id
+    LEFT JOIN users s 
+        ON u.supervisor_id = s.user_id
+    -- WHERE u.employee_id IS NOT NULL
+    ORDER BY u.full_name ASC;
 ";
 $result = $conn->query($sql);
 

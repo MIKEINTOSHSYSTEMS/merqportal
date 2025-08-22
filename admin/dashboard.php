@@ -255,7 +255,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $appCards = $pdo->query("SELECT * FROM app_cards ORDER BY sort_order")->fetchAll();
 $announcements = $pdo->query("SELECT * FROM announcements ORDER BY sort_order")->fetchAll();
 $notifications = $pdo->query("SELECT * FROM notifications ORDER BY created_at DESC")->fetchAll();
-$users = $pdo->query("SELECT user_id, username, full_name, email, last_login FROM users ORDER BY username")->fetchAll();
+$users = $pdo->query("SELECT user_id, username, full_name, email, role, job_position, last_login FROM users ORDER BY username")->fetchAll();
+//$users = $pdo->query("SELECT user_id, username, full_name, email, last_login FROM users ORDER BY username")->fetchAll();
 
 // Common icon classes for selection
 $iconClasses = [
@@ -1149,6 +1150,7 @@ $iconClasses = [
                                     <th>Username</th>
                                     <th>Full Name</th>
                                     <th>Email</th>
+                                    <th>Role</th> <!-- Added Role column -->
                                     <th>Last Login</th>
                                     <th>Actions</th>
                                 </tr>
@@ -1159,6 +1161,12 @@ $iconClasses = [
                                         <td><?= htmlspecialchars($user['username']) ?></td>
                                         <td><?= htmlspecialchars($user['full_name']) ?></td>
                                         <td><?= htmlspecialchars($user['email']) ?></td>
+                                        <td>
+                                            <span class="badge 
+                                        <?= $user['role'] === 'admin' ? 'badge-danger' : ($user['role'] === 'manager' || $user['role'] === 'supervisor' ? 'badge-warning' : 'badge-success') ?>">
+                                                <?= htmlspecialchars(ucfirst($user['role'])) ?>
+                                            </span>
+                                        </td>
                                         <td><?= $user['last_login'] ? formatDateTime($user['last_login']) : 'Never' ?></td>
                                         <td>
                                             <button class="btn btn-outline btn-sm" onclick="showModal('editUser', <?= $user['user_id'] ?>)">
@@ -1691,6 +1699,47 @@ $iconClasses = [
                         alert('Error loading data. Please try again.');
                     });
             }
+
+            // ADD THE NEW userRole CASE HERE
+            else if (modalType === 'userRole' && id) {
+                // Set the user ID
+                document.getElementById('userRoleId').value = id;
+
+                // Fetch user data to pre-fill the form
+                fetch(`../includes/get-data.php?type=user&id=${id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert('Error loading data: ' + data.error);
+                            return;
+                        }
+
+                        // Set the current role
+                        const roleSelect = document.getElementById('userRole');
+                        if (roleSelect) {
+                            // Set the current role as selected
+                            for (let i = 0; i < roleSelect.options.length; i++) {
+                                if (roleSelect.options[i].value === data.role) {
+                                    roleSelect.selectedIndex = i;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Set the job position if available
+                        const positionInput = document.getElementById('userPosition');
+                        if (positionInput && data.job_position) {
+                            positionInput.value = data.job_position;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error loading user data:', error);
+                        alert('Error loading user data. Please try again.');
+                    });
+            }
+
+
+
         }
 
         function hideModal(modalType) {
