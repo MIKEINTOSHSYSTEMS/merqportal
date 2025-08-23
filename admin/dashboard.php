@@ -579,7 +579,7 @@ $iconClasses = [
         }
 
         .sidebar-header {
-            padding: 0 4.5rem 1.5rem;
+            padding: 0 0.5rem 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 1rem;
         }
