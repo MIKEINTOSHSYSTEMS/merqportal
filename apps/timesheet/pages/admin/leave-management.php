@@ -133,119 +133,126 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $success = 'Join date updated and leave balance recalculated';
         } elseif (isset($_POST['admin_request_leave'])) {
-                // Handle admin creating leave request for user
-                $selected_user_id = (int) $_POST['user_id'];
-                $leave_type_id = (int) $_POST['leave_type_id'];
-                $start_date = $_POST['start_date'];
-                $end_date = $_POST['end_date'];
-                $reason = $_POST['reason'] ?? '';
+            // Handle admin creating leave request for user
+            $selected_user_id = (int) $_POST['user_id'];
+            $leave_type_id = (int) $_POST['leave_type_id'];
+            $start_date = $_POST['start_date'];
+            $end_date = $_POST['end_date'];
+            $reason = $_POST['reason'] ?? '';
 
-                // Validate required fields
-                if (empty($selected_user_id) || empty($leave_type_id)) {
-                    throw new Exception("Please select both employee and leave type");
+            // Validate required fields
+            if (empty($selected_user_id) || empty($leave_type_id)) {
+                throw new Exception("Please select both employee and leave type");
+            }
+
+            // Validate dates
+            if (empty($start_date) || empty($end_date)) {
+                throw new Exception("Start and end dates are required");
+            }
+
+            $start = new DateTime($start_date);
+            $end = new DateTime($end_date);
+
+            if ($start > $end) {
+                throw new Exception("Start date cannot be after end date");
+            }
+
+            // Calculate working days
+            $interval = $start->diff($end);
+            $days_requested = $interval->days + 1; // Include both dates
+            $weekendDays = 0;
+
+            for ($i = 0; $i <= $interval->days; $i++) {
+                $current = (clone $start)->add(new DateInterval("P{$i}D"));
+                if ($current->format('N') >= 6) {
+                    $weekendDays++;
                 }
+            }
 
-                // Validate dates
-                if (empty($start_date) || empty($end_date)) {
-                    throw new Exception("Start and end dates are required");
-                }
+            $days_requested -= $weekendDays;
 
-                $start = new DateTime($start_date);
-                $end = new DateTime($end_date);
+            if ($days_requested <= 0) {
+                throw new Exception("Selected dates contain no working days");
+            }
 
-                if ($start > $end) {
-                    throw new Exception("Start date cannot be after end date");
-                }
+            // Verify leave type exists
+            $stmt = $pdo->prepare("SELECT is_paid FROM leave_types WHERE leave_type_id = ?");
+            $stmt->execute([$leave_type_id]);
+            $leave_type = $stmt->fetch();
 
-                // Calculate working days
-                $interval = $start->diff($end);
-                $days_requested = $interval->days + 1; // Include both dates
-                $weekendDays = 0;
+            if (!$leave_type) {
+                throw new Exception("Invalid leave type selected");
+            }
 
-                for ($i = 0; $i <= $interval->days; $i++) {
-                    $current = (clone $start)->add(new DateInterval("P{$i}D"));
-                    if ($current->format('N') >= 6) {
-                        $weekendDays++;
-                    }
-                }
-
-                $days_requested -= $weekendDays;
-
-                if ($days_requested <= 0) {
-                    throw new Exception("Selected dates contain no working days");
-                }
-
-                // Verify leave type exists
-                $stmt = $pdo->prepare("SELECT is_paid FROM leave_types WHERE leave_type_id = ?");
-                $stmt->execute([$leave_type_id]);
-                $leave_type = $stmt->fetch();
-
-                if (!$leave_type) {
-                    throw new Exception("Invalid leave type selected");
-                }
-
-                // Create approved leave request
-                $stmt = $pdo->prepare("
+            // Create approved leave request
+            $stmt = $pdo->prepare("
                 INSERT INTO leave_requests 
                 (user_id, leave_type_id, start_date, end_date, days_requested, 
                  reason, status, approved_by, approved_at)
                 VALUES (?, ?, ?, ?, ?, ?, 'approved', ?, NOW())
             ");
 
-                $success = $stmt->execute([
-                    $selected_user_id,
-                    $leave_type_id,
-                    $start->format('Y-m-d'),
-                    $end->format('Y-m-d'),
-                    $days_requested,
-                    $reason,
-                    $_SESSION['user_id']
-                ]);
+            $success = $stmt->execute([
+                $selected_user_id,
+                $leave_type_id,
+                $start->format('Y-m-d'),
+                $end->format('Y-m-d'),
+                $days_requested,
+                $reason,
+                $_SESSION['user_id']
+            ]);
 
-                if (!$success) {
-                    throw new Exception("Failed to create leave request");
-                }
+            if (!$success) {
+                throw new Exception("Failed to create leave request");
+            }
 
-                // Update balance for paid leaves
-                if ($leave_type['is_paid']) {
-                    $stmt = $pdo->prepare("
+            // Update balance for paid leaves
+            if ($leave_type['is_paid']) {
+                $stmt = $pdo->prepare("
                     UPDATE users 
                     SET leave_balance = GREATEST(leave_balance - ?, 0)
                     WHERE user_id = ?
                 ");
-                    $stmt->execute([$days_requested, $selected_user_id]);
-                }
-
-                $success = 'Historical leave added successfully!';
+                $stmt->execute([$days_requested, $selected_user_id]);
             }
 
-            $pdo->commit();
-        } catch (Throwable $e) {
-            if ($pdo->inTransaction()) {
-                $pdo->rollBack();
-            }
-            $error = $e->getMessage();
-            error_log("Leave Management Error: " . $e->getMessage());
+            $success = 'Historical leave added successfully!';
         }
+
+        $pdo->commit();
+    } catch (Throwable $e) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        $error = $e->getMessage();
+        error_log("Leave Management Error: " . $e->getMessage());
     }
+}
 
 
-    // Get users data with leave information
-    try {
+// Get users data with leave information
+try {
     $users = $pdo->query("
-        SELECT u.user_id, u.first_name, u.last_name, 
+        SELECT u.user_id, u.first_name, u.middle_name, u.last_name, 
                COALESCE(u.join_date, '') AS join_date,
                u.leave_balance,
                (SELECT COALESCE(SUM(days_requested), 0) FROM leave_requests 
                 WHERE user_id = u.user_id AND status = 'approved' 
                 AND YEAR(start_date) = YEAR(CURDATE())) AS used_leave
         FROM users u
-        ORDER BY u.join_date DESC
+        ORDER BY u.first_name ASC
+        -- ORDER BY u.join_date DESC
     ")->fetchAll();
 } catch (PDOException $e) {
     $error = "Failed to fetch users: " . $e->getMessage();
     error_log($error);
 }
+
+// Ensure the list is ordered by first_name ASC
+usort($users_list, function ($a, $b) {
+    return strcmp($a['first_name'] ?? '', $b['first_name'] ?? '');
+});
+
 ?>
 
 <!DOCTYPE html>
@@ -255,8 +262,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leave Management</title>
-    <link href="<?= BASE_URL ?>/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?= BASE_URL ?>/assets/css/fontawesome.min.css" rel="stylesheet">
+<!--    <link href="<?= BASE_URL ?>/assets/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <link href="<?= BASE_URL ?>/assets/css/fontawesome.min.css" rel="stylesheet">-->
     <style>
         .is-invalid {
             border-color: #dc3545 !important;
@@ -331,14 +338,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     $remaining = $u['leave_balance'] - ($u['used_leave'] ?? 0);
                                 ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($u['first_name'] . ' ' . $u['last_name']) ?></td>
+                                        <td><?= htmlspecialchars($u['first_name'] . ' ' . $u['middle_name'] . ' ' . $u['last_name']) ?></td>
                                         <td>
                                             <input type="date"
                                                 class="form-control <?= $isInvalidDate ? 'is-invalid' : '' ?>"
                                                 name="join_dates[<?= $u['user_id'] ?>]"
                                                 value="<?= htmlspecialchars($joinDate) ?>"
-                                                max="<?= date('Y-m-d') ?>"
-                                                required>
+                                                max="<?= date('Y-m-d') ?>">
                                         </td>
                                         <td><?= $annualEntitlement ?></td>
                                         <td>
@@ -415,7 +421,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <option value="">Select Employee</option>
                                 <?php foreach ($users_list as $u): ?>
                                     <option value="<?= $u['user_id'] ?>">
-                                        <?= htmlspecialchars($u['first_name'] . ' ' . $u['last_name']) ?>
+                                        <?= e(trim(($u['first_name'] ?? '') . ' ' . ($u['middle_name'] ?? '') . ' ' . ($u['last_name'] ?? ''))) ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -480,7 +486,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <script src="<?= BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
+<!--    <script src="<?= BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>-->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('leaveForm');

@@ -307,11 +307,12 @@ function getUserStats($userId = null)
     }
 
     $stats = [
-        'pending_requests' => 0,
-        'approved_requests' => 0,
-        'rejected_requests' => 0,
-        'announcements' => 0,
-        'due_timesheets' => 0
+        'pending_requests'   => 0,
+        'approved_requests'  => 0,
+        'rejected_requests'  => 0,
+        'announcements'      => 0,
+        'due_timesheets'     => 0,
+        'leave_balance'      => 0   // <-- NEW
     ];
 
     try {
@@ -325,7 +326,7 @@ function getUserStats($userId = null)
         $stmt->execute([$userId]);
         $leaveStats = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 
-        $stats['pending_requests'] = $leaveStats['pending'] ?? 0;
+        $stats['pending_requests']  = $leaveStats['pending'] ?? 0;
         $stats['approved_requests'] = $leaveStats['approved'] ?? 0;
         $stats['rejected_requests'] = $leaveStats['rejected'] ?? 0;
 
@@ -340,7 +341,7 @@ function getUserStats($userId = null)
 
         // Get due timesheets count (not submitted for current month)
         $currentMonth = date('n');
-        $currentYear = date('Y');
+        $currentYear  = date('Y');
 
         $stmt = $pdo->prepare("
             SELECT COUNT(*) as count 
@@ -352,10 +353,16 @@ function getUserStats($userId = null)
         ");
         $stmt->execute([$userId, $currentMonth, $currentYear]);
         $stats['due_timesheets'] = $stmt->fetchColumn();
+
+        // ✅ NEW: Get leave balance from users table
+        $stmt = $pdo->prepare("SELECT leave_balance FROM users WHERE user_id = ?");
+        $stmt->execute([$userId]);
+        $stats['leave_balance'] = (int)$stmt->fetchColumn();
     } catch (PDOException $e) {
         error_log("Error fetching user stats: " . $e->getMessage());
     }
 
     return $stats;
 }
+
 ?>

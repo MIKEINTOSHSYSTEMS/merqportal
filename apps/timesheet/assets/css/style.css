@@ -15,17 +15,49 @@
 
 
 :root {
-    --primary-color: #3498db;
-    --secondary-color: #2c3e50;
-    --success-color: #2ecc71;
-    --danger-color: #e74c3c;
+    --primary-color: #072247;
+    /*#2a4365;*/
+    --primary-light: #3c5a82;
+    --secondary-color: #f6ad55;
+    --accent-color: #07cae9;
+    --text-color: #2d3748;
+    --text-light: #718096;
+    --bg-color: #f7fafc;
+    --card-bg: #ffffff;
+    --header-bg: #ffffff77;
+    /*rgba(255, 255, 255, 0.95);*/
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --border-radius: 12px;
+    --success-color: #48bb78;
+    --warning-color: #ed8936;
+    --error-color: #f56565;
+    --info-color: #4299e1;
+    --border-color: #e2e8f0;
+    --neon-green: #00ddff;
+
     --light-color: #ecf0f1;
     --dark-color: #2c3e50;
-    --timesheet-color: #0097b3;
-    --accent-color: #2e59d9;
-    --text-dark: #5a5c69;
-    --text-light: #858796;
+    --timesheet-color: #79deea;
 }
+
+[data-theme="dark"] {
+    --primary-color: #072247;
+    --primary-light: #3c5a82;
+    --secondary-color: #f6ad55;
+    --accent-color: #09cae7;
+    --text-color: #e2e8f0;
+    --text-light: #a0aec0;
+    --bg-color: #1a202c;
+    --card-bg: #2d3748;
+    --header-bg: #011b4947;
+    /*rgba(45, 55, 72, 0.95);*/
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --border-color: #4a5568;
+}
+
+
+
 
 /* Ethiopian calendar styles */
 .ethiopian-calendar .date-display {
@@ -84,9 +116,16 @@ body {
 */
 
 .navbar {
-    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-    padding: 0.5rem 0;
-    background: linear-gradient(135deg, #000c14 0%, var(--accent-color) 100%) !important;
+    position: sticky;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--header-bg);
+        backdrop-filter: blur(10px);
+        padding: 1rem 2rem;
+        box-shadow: var(--shadow);
+        z-index: 1000;
+        transition: var(--transition);
 }
 
 
@@ -236,8 +275,8 @@ body {
 }
 
 .bg-primary {
-    --bs-bg-opacity: 1;
-    background-color: #00a7cf !important;
+    --bs-bg-opacity: 0.3;
+    background-color: #072247de !important;
 }
 
 .card {
@@ -371,7 +410,7 @@ body {
 
 /* Footer Styles */
 .footer {
-    background: linear-gradient(135deg, var(--dark-color) 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, var(--dark-color) 0%, var(--primary-color) 100%);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 

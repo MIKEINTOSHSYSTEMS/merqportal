@@ -454,20 +454,48 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Logo Glow Effect (Updated to Orange) */
+/* Intense Logo Glow Effect */
 .logo-glow {
-    width: 180px;
-    height: 180px;
-    background-color: orange;
-    /* Change to orange */
+    width: 77px;
+    height: 77px;
+    background-color: #ff8c00;
+    /* deep orange */
     border-radius: 50%;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    filter: blur(30px);
-    opacity: 0.5;
-    animation: pulse 2s infinite alternate;
+    opacity: 1;
+    filter: blur(25px);
+    box-shadow:
+        0 0 30px #ff8c00,
+        0 0 60px #ff8c00,
+        0 0 90px #ffa733,
+        0 0 120px #ffcc66;
+    animation: pulse-glow 1.8s infinite alternate;
+}
+
+/* Pulsating effect */
+@keyframes pulse-glow {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.9;
+        box-shadow:
+            0 0 20px #ff8c00,
+            0 0 40px #ff8c00,
+            0 0 60px #ffa733,
+            0 0 90px #ffcc66;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.15);
+        opacity: 1;
+        box-shadow:
+            0 0 40px #ff8c00,
+            0 0 80px #ff8c00,
+            0 0 120px #ffa733,
+            0 0 160px #ffcc66;
+    }
 }
 
 /* Logo Text Styling (Centered in the Screen) */
@@ -546,6 +574,12 @@ body {
     max-width: 1400px;
     margin: 0 auto;
 }
+
+div.logo {
+text-decoration: none !important;
+display: inline-flex;
+}
+
 
 .logo {
     display: flex;

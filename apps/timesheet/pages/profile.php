@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'first_name' => trim($_POST['first_name']),
             'last_name' => trim($_POST['last_name']),
             'email' => trim($_POST['email']),
-            'phone_number' => trim($_POST['phone_number'] ?? ''),
+            'phone' => trim($_POST['phone'] ?? ''),
             'address' => trim($_POST['address'] ?? ''),
             'preferred_language' => $_POST['preferred_language'] ?? 'en',
             'ethiopian_calendar_preference' => isset($_POST['ethiopian_calendar_preference']) ? 1 : 0
@@ -75,8 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="mb-3">
                             <label class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" name="phone_number"
-                                value="<?= e($user['phone_number'] ?? '') ?>">
+                            <input type="tel" class="form-control" name="phone"
+                                value="<?= e($user['phone'] ?? '') ?>">
                         </div>
 
                         <div class="mb-3">

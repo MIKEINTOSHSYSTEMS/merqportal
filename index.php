@@ -319,12 +319,15 @@ try {
 
     <!-- Header -->
     <header class="header">
-        <div class="header-container">
-            <div class="logo">
-                <img src="assets/images/merq-logo.png" alt="MERQ Consultancy Logo">
-                <span>Employee Portal</span>
-            </div>
 
+        <div class="header-container">
+            <a href="/">
+                <div class="logo">
+                    <img src="assets/images/merq-logo.png" alt="MERQ Consultancy Logo">
+                    <span>Employee Portal</span>
+
+                </div>
+            </a>
             <div class="header-actions">
 
                 <button class="theme-toggle" aria-label="Toggle theme">
@@ -553,6 +556,16 @@ try {
                             <p><?= $userStats['due_timesheets'] ?></p>
                         </div>
                     </div>
+                    <div class="stat-card">
+                        <div class="stat-icon pending">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Leave Balance</h4>
+                            <p><?= $userStats['leave_balance'] ?> Days</p>
+                        </div>
+                    </div>
+
                 </div>
             <?php else: ?>
                 <div class="quick-stats">
@@ -578,7 +591,7 @@ try {
 
             </div>
             <!-- Floating Permanent Install Button (can be in header or footer) -->
-            
+
             <!--
             <div class="pwa-install-btn-container">
                 <button id="manualInstallBtn" class="pwa-install-manual">
