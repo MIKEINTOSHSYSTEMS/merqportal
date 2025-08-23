@@ -572,17 +572,21 @@ try {
                 <!-- PWA Install Button in Footer -->
                 <button class="pwa-footer-install" id="pwaFooterInstall" style="display: none;">
                     <i class="fas fa-download"></i>
-                    Install App
+                    📲 Install Employee Portal
                 </button>
 
 
             </div>
-            <!-- Permanent Install Button (can be in header or footer) -->
+            <!-- Floating Permanent Install Button (can be in header or footer) -->
+            
+            <!--
             <div class="pwa-install-btn-container">
                 <button id="manualInstallBtn" class="pwa-install-manual">
                     📲 Install App
                 </button>
             </div>
+
+            -->
 
 
             <div class="footer-links">
@@ -656,10 +660,13 @@ try {
     </div>
 
     <!-- PWA Install Button in Header -->
+
+    <!--
     <button class="pwa-header-install" id="pwaHeaderInstall" style="display: none;">
         <i class="fas fa-download"></i>
         Install App
     </button>
+            -->
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
