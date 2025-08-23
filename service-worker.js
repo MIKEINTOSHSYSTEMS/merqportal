@@ -63,18 +63,9 @@ self.addEventListener('fetch', (event) => {
                 return cachedResponse;
             }
 
-            // Fetch request and handle sessions/cookies
+            // Otherwise, fetch the request from the network
             const fetchRequest = event.request.clone();
-
-            // Ensure cookies are sent along with requests (session cookies)
-            const fetchOptions = {
-                method: fetchRequest.method,
-                headers: fetchRequest.headers,
-                credentials: 'same-origin', // This ensures session cookies are included
-                cache: 'no-store'  // No caching for these requests to avoid stale data
-            };
-
-            return fetch(fetchRequest.url, fetchOptions).then((fetchResponse) => {
+            return fetch(fetchRequest).then((fetchResponse) => {
                 if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
                     return fetchResponse;
                 }
@@ -87,7 +78,7 @@ self.addEventListener('fetch', (event) => {
 
                 return fetchResponse;
             }).catch((error) => {
-                // Custom offline page or fallback
+                // Return a fallback response for HTML pages if offline
                 if (event.request.headers.get('accept').includes('text/html')) {
                     return caches.match('/offline.html');
                 }
@@ -112,13 +103,11 @@ function checkForUpdates() {
             return response.text();
         })
         .then((html) => {
-            // Simple check - you could compare hashes or versions in production
             caches.match('/index.php').then((cachedResponse) => {
                 if (!cachedResponse) return;
 
                 cachedResponse.text().then((cachedHtml) => {
                     if (html !== cachedHtml) {
-                        // Notify clients about update
                         self.clients.matchAll().then((clients) => {
                             clients.forEach((client) => {
                                 client.postMessage({
