@@ -112,7 +112,7 @@ function checkForUpdates() {
                             clients.forEach((client) => {
                                 client.postMessage({
                                     type: 'UPDATE_AVAILABLE',
-                                    message: 'A new version is available. Refresh to update.'
+                                    message: 'A new version of MERQ Portal is available. Refresh to update.'
                                 });
                             });
                         });

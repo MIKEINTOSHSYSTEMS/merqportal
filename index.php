@@ -568,7 +568,23 @@ try {
             <div class="footer-logo">
                 <img src="assets/images/merq-logo-white.png" alt="MERQ Consultancy Logo">
                 <p>Empowering your work experience</p>
+
+                <!-- PWA Install Button in Footer -->
+                <button class="pwa-footer-install" id="pwaFooterInstall" style="display: none;">
+                    <i class="fas fa-download"></i>
+                    Install App
+                </button>
+
+
             </div>
+            <!-- Permanent Install Button (can be in header or footer) -->
+            <div class="pwa-install-btn-container">
+                <button id="manualInstallBtn" class="pwa-install-manual">
+                    📲 Install App
+                </button>
+            </div>
+
+
             <div class="footer-links">
                 <div class="link-group">
                     <h4>Quick Links</h4>
@@ -602,19 +618,48 @@ try {
     </footer>
 
     <!-- PWA Install Prompt -->
-    <div class="pwa-install-prompt">
+    <div class="pwa-install-prompt" id="pwaInstallPrompt">
         <div class="pwa-content">
-            <img src="assets/images/icon-192.png" alt="MERQ Portal Icon">
+            <div class="pwa-icon-container">
+                <img src="assets/images/icon-192.png" alt="MERQ Portal Icon">
+                <div class="pwa-icon-badge">
+                    <i class="fas fa-download"></i>
+                </div>
+            </div>
             <div class="pwa-text">
                 <h3>Install MERQ Employee Portal</h3>
                 <p>Add to your home screen for quick access and offline functionality.</p>
+                <div class="pwa-benefits">
+                    <div class="benefit-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>Faster access</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-wifi-slash"></i>
+                        <span>Works offline</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-bell"></i>
+                        <span>Push notifications</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="pwa-actions">
             <button class="pwa-cancel">Not Now</button>
-            <button class="pwa-install">Install</button>
+            <button class="pwa-install">
+                <i class="fas fa-download"></i>
+                Install App
+            </button>
         </div>
+        <button class="pwa-close">&times;</button>
     </div>
+
+    <!-- PWA Install Button in Header -->
+    <button class="pwa-header-install" id="pwaHeaderInstall" style="display: none;">
+        <i class="fas fa-download"></i>
+        Install App
+    </button>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
