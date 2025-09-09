@@ -1,0 +1,182 @@
+/* style.css - Additional styling */
+/* Add this to your existing styles */
+
+/* Print styles for PDF reports */
+@media print {
+    body {
+        margin: 0;
+        padding: 15px;
+        font-size: 12pt;
+        color: #000;
+        background-color: #fff;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .page-break {
+        page-break-before: always;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .chart-container {
+        display: none;
+    }
+
+    .progress {
+        border: 1px solid #ccc;
+    }
+}
+
+/* Enhanced table styles */
+.table-enhanced {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.table-enhanced th,
+.table-enhanced td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table-enhanced thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background-color: #003366;
+    color: white;
+}
+
+.table-enhanced tbody+tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+.table-enhanced-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-enhanced-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+/* Card enhancements */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom button styles */
+.btn-merq {
+    background-color: #003366;
+    border-color: #003366;
+    color: white;
+}
+
+.btn-merq:hover {
+    background-color: #002244;
+    border-color: #002244;
+    color: white;
+}
+
+.btn-outline-merq {
+    color: #003366;
+    border-color: #003366;
+}
+
+.btn-outline-merq:hover {
+    background-color: #003366;
+    color: white;
+}
+
+/* Navigation styles */
+.navbar-merq {
+    background-color: #003366;
+}
+
+.navbar-merq .navbar-brand,
+.navbar-merq .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar-merq .navbar-brand:hover,
+.navbar-merq .navbar-nav .nav-link:hover {
+    color: white;
+}
+
+/* Chart container responsive */
+.chart-container-responsive {
+    position: relative;
+    height: 0;
+    padding-top: 56.25%;
+    /* 16:9 aspect ratio */
+}
+
+.chart-container-responsive canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Loading animation */
+.loading-spinner {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: text-bottom;
+    border: 0.25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+}
+
+@keyframes spinner-border {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive text utilities */
+.text-responsive {
+    font-size: calc(0.8rem + 0.3vw);
+}
+
+@media (min-width: 1200px) {
+    .text-responsive {
+        font-size: 1.1rem;
+    }
+}
+
+/* Custom form controls */
+.form-control-merq {
+    border-color: #003366;
+}
+
+.form-control-merq:focus {
+    border-color: #003366;
+    box-shadow: 0 0 0 0.2rem rgba(0, 51, 102, 0.25);
+}
+
+/* Badge variants */
+.badge-merq {
+    background-color: #003366;
+    color: white;
+}
+
+.badge-outline-merq {
+    background-color: transparent;
+    border: 1px solid #003366;
+    color: #003366;
+}
