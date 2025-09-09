@@ -37,6 +37,7 @@ $sql = "
     LEFT JOIN users s 
         ON u.supervisor_id = s.user_id
     -- WHERE u.employee_id IS NOT NULL
+    WHERE u.user_id NOT IN (1, 2, 3)
     ORDER BY u.full_name ASC;
 ";
 $result = $conn->query($sql);
@@ -379,7 +380,7 @@ while ($row = $result->fetch_assoc()) {
         #supervisor-details {
             font-size: 0.95rem;
             font-weight: normal;
-            color: #444;
+            color: #FF7700FF;
             margin-top: 6px;
         }
 
