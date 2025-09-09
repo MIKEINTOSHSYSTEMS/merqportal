@@ -373,77 +373,398 @@ while ($row = $result->fetch_assoc()) {
             font-size: 1.1rem;
             font-weight: bold;
             color: #003366;
-            /* dark blue */
             text-align: center;
+        }
+
+        #supervisor-details {
+            font-size: 0.95rem;
+            font-weight: normal;
+            color: #444;
+            margin-top: 6px;
+        }
+
+        /* Styled evaluation info section */
+        .evaluation-info {
+            margin-top: 1rem;
+            padding: 1rem 1.5rem;
+            border: 2px solid #0056b3;
+            /* dark blue border */
+            border-radius: 12px;
+            background: #f0f8ff;
+            /* light blue background */
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+        }
+
+        /* Each row inside the box */
+        .evaluation-info .info-row {
+            margin: 0.3rem 0;
+            font-size: 1rem;
+            color: #003366;
+            /* dark navy text */
+        }
+
+        /* Highlighted labels */
+        .evaluation-info .info-row::before {
+            font-weight: bold;
+            color: #002244;
         }
     </style>
     <script>
         var options = {
-            "id": 13,
-            "app": "\/\/formapp.merqconsultancy.org\/app",
-            "tracker": "js\/form.tracker.js",
-            "name": "#form-app",
-            "actionUrl": "https:\/\/formapp.merqconsultancy.org\/app\/f?id=13",
-            "validationUrl": "https:\/\/formapp.merqconsultancy.org\/app\/check?id=13",
-            "_csrf": "R0E_eypRM1ecAe_Hk3Z_UPJ-v_ZH0zJ-QeU61bsgQhg3FU9PbTIBGc1MgPThKU4-oT37wyaFZzx1q1WzjnchXQ==",
-            "resume": 1,
-            "text_direction": "ltr",
-            "autocomplete": 1,
-            "novalidate": 0,
-            "analytics": 1,
-            "confirmationType": 2,
-            "confirmationMessage": false,
-            "confirmationUrl": "https:\/\/merqconsultancy.org",
-            "confirmationSeconds": 7,
-            "confirmationAppend": 0,
-            "confirmationAlias": 0,
-            "showOnlyMessage": 1,
-            "redirectToUrl": 2,
-            "rules": [{
-                "conditions": "{\"all\":[{\"name\":\"radio_1\",\"operator\":\"equalTo\",\"value\":\"Other\"}]}",
-                "actions": "[{\"name\":\"action-select\",\"value\":\"toShow\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"text_1\"}]}]}]",
-                "opposite": true
-            }, {
-                "conditions": "{\"all\":[{\"name\":\"selectlist_4\",\"operator\":\"equalTo\",\"value\":\"Monthly\"}]}",
-                "actions": "[{\"name\":\"action-select\",\"value\":\"toShow\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"selectlist_3\"}]}]},{\"name\":\"action-select\",\"value\":\"toShow\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"selectlist_5\"}]}]}]",
-                "opposite": true
-            }, {
-                "conditions": "{\"all\":[{\"name\":\"selectlist_4\",\"operator\":\"equalTo\",\"value\":\"Quarterly\"}]}",
-                "actions": "[{\"name\":\"action-select\",\"value\":\"toShow\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"selectlist_6\"}]}]},{\"name\":\"action-select\",\"value\":\"toShow\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"selectlist_5\"}]}]}]",
-                "opposite": true
-            }, {
-                "conditions": "{\"all\":[{\"name\":\"selectlist_4\",\"operator\":\"equalTo\",\"value\":\"Biannually\"}]}",
-                "actions": "[{\"name\":\"action-select\",\"value\":\"toShow\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"selectlist_7\"}]}]},{\"name\":\"action-select\",\"value\":\"toShow\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"selectlist_5\"}]}]}]",
-                "opposite": true
-            }, {
-                "conditions": "{\"all\":[{\"name\":\"selectlist_4\",\"operator\":\"equalTo\",\"value\":\"Annually\"}]}",
-                "actions": "[{\"name\":\"action-select\",\"value\":\"toShow\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"selectlist_5\"}]}]}]",
-                "opposite": true
-            }, {
-                "conditions": "{\"all\":[{\"name\":\"selectlist_4\",\"operator\":\"isPresent\",\"value\":\"\"}]}",
-                "actions": "[{\"name\":\"action-select\",\"value\":\"toShow\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"selectlist_5\"}]}]}]",
-                "opposite": true
-            }, {
-                "conditions": "{\"all\":[{\"name\":\"radio_1\",\"operator\":\"equalTo\",\"value\":\"Supervisor\"},{\"name\":\"radio_1\",\"operator\":\"equalTo\",\"value\":\"Self-evaluation\"},{\"name\":\"radio_1\",\"operator\":\"equalTo\",\"value\":\"Other\"}]}",
-                "actions": "[{\"name\":\"action-select\",\"value\":\"toShow\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"text_2\"}]}]},{\"name\":\"action-select\",\"value\":\"toShow\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"email_1\"}]}]}]",
-                "opposite": true
-            }, {
-                "conditions": "{\"all\":[{\"name\":\"radio_1\",\"operator\":\"notEqualTo\",\"value\":\"Supervisor\"},{\"name\":\"radio_1\",\"operator\":\"notEqualTo\",\"value\":\"Self-evaluation\"},{\"name\":\"radio_1\",\"operator\":\"notEqualTo\",\"value\":\"Other\"}]}",
-                "actions": "[{\"name\":\"action-select\",\"value\":\"toHide\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"text_2\"}]}]},{\"name\":\"action-select\",\"value\":\"toHide\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"email_1\"}]}]}]",
-                "opposite": true
-            }],
-            //"fieldIds": ["radio_1_0", "radio_1_1", "radio_1_2", "radio_1_3", "radio_1_4", "text_1", "text_2", "email_1", "date_1", "selectlist_1", "selectlist_2", "selectlist_4", "selectlist_3", "selectlist_6", "selectlist_7", "selectlist_5", "matrix_1_0_0", "matrix_1_0_1", "matrix_1_0_2", "matrix_1_0_3", "matrix_1_0_4", "matrix_1_0_5", "matrix_1_1_0", "matrix_1_1_1", "matrix_1_1_2", "matrix_1_1_3", "matrix_1_1_4", "matrix_1_1_5", "matrix_1_2_0", "matrix_1_2_1", "matrix_1_2_2", "matrix_1_2_3", "matrix_1_2_4", "matrix_1_2_5", "matrix_1_3_0", "matrix_1_3_1", "matrix_1_3_2", "matrix_1_3_3", "matrix_1_3_4", "matrix_1_3_5", "matrix_1_4_0", "matrix_1_4_1", "matrix_1_4_2", "matrix_1_4_3", "matrix_1_4_4", "matrix_1_4_5", "textarea_1", "textarea_2", "matrix_2_0_0", "matrix_2_0_1", "matrix_2_0_2", "matrix_2_0_3", "matrix_2_0_4", "matrix_2_0_5", "matrix_2_1_0", "matrix_2_1_1", "matrix_2_1_2", "matrix_2_1_3", "matrix_2_1_4", "matrix_2_1_5", "matrix_2_2_0", "matrix_2_2_1", "matrix_2_2_2", "matrix_2_2_3", "matrix_2_2_4", "matrix_2_2_5", "matrix_2_3_0", "matrix_2_3_1", "matrix_2_3_2", "matrix_2_3_3", "matrix_2_3_4", "matrix_2_3_5", "matrix_2_4_0", "matrix_2_4_1", "matrix_2_4_2", "matrix_2_4_3", "matrix_2_4_4", "matrix_2_4_5", "textarea_3", "textarea_4", "matrix_3_0_0", "matrix_3_0_1", "matrix_3_0_2", "matrix_3_0_3", "matrix_3_0_4", "matrix_3_0_5", "matrix_3_1_0", "matrix_3_1_1", "matrix_3_1_2", "matrix_3_1_3", "matrix_3_1_4", "matrix_3_1_5", "matrix_3_2_0", "matrix_3_2_1", "matrix_3_2_2", "matrix_3_2_3", "matrix_3_2_4", "matrix_3_2_5", "matrix_3_3_0", "matrix_3_3_1", "matrix_3_3_2", "matrix_3_3_3", "matrix_3_3_4", "matrix_3_3_5", "matrix_3_4_0", "matrix_3_4_1", "matrix_3_4_2", "matrix_3_4_3", "matrix_3_4_4", "matrix_3_4_5", "textarea_5", "textarea_6", "matrix_4_0_0", "matrix_4_0_1", "matrix_4_0_2", "matrix_4_0_3", "matrix_4_0_4", "matrix_4_0_5", "matrix_4_1_0", "matrix_4_1_1", "matrix_4_1_2", "matrix_4_1_3", "matrix_4_1_4", "matrix_4_1_5", "matrix_4_2_0", "matrix_4_2_1", "matrix_4_2_2", "matrix_4_2_3", "matrix_4_2_4", "matrix_4_2_5", "matrix_4_3_0", "matrix_4_3_1", "matrix_4_3_2", "matrix_4_3_3", "matrix_4_3_4", "matrix_4_3_5", "matrix_4_4_0", "matrix_4_4_1", "matrix_4_4_2", "matrix_4_4_3", "matrix_4_4_4", "matrix_4_4_5", "textarea_7", "textarea_8", "matrix_5_0_0", "matrix_5_0_1", "matrix_5_0_2", "matrix_5_0_3", "matrix_5_0_4", "matrix_5_0_5", "matrix_5_1_0", "matrix_5_1_1", "matrix_5_1_2", "matrix_5_1_3", "matrix_5_1_4", "matrix_5_1_5", "matrix_5_2_0", "matrix_5_2_1", "matrix_5_2_2", "matrix_5_2_3", "matrix_5_2_4", "matrix_5_2_5", "matrix_5_3_0", "matrix_5_3_1", "matrix_5_3_2", "matrix_5_3_3", "matrix_5_3_4", "matrix_5_3_5", "matrix_5_4_0", "matrix_5_4_1", "matrix_5_4_2", "matrix_5_4_3", "matrix_5_4_4", "matrix_5_4_5", "matrix_5_5_0", "matrix_5_5_1", "matrix_5_5_2", "matrix_5_5_3", "matrix_5_5_4", "matrix_5_5_5", "textarea_9", "textarea_10", "matrix_6_0_0", "matrix_6_0_1", "matrix_6_0_2", "matrix_6_0_3", "matrix_6_0_4", "matrix_6_0_5", "matrix_6_1_0", "matrix_6_1_1", "matrix_6_1_2", "matrix_6_1_3", "matrix_6_1_4", "matrix_6_1_5", "matrix_6_2_0", "matrix_6_2_1", "matrix_6_2_2", "matrix_6_2_3", "matrix_6_2_4", "matrix_6_2_5", "matrix_6_3_0", "matrix_6_3_1", "matrix_6_3_2", "matrix_6_3_3", "matrix_6_3_4", "matrix_6_3_5", "matrix_6_4_0", "matrix_6_4_1", "matrix_6_4_2", "matrix_6_4_3", "matrix_6_4_4", "matrix_6_4_5", "textarea_11", "textarea_12", "matrix_7_0_0", "matrix_7_0_1", "matrix_7_0_2", "matrix_7_0_3", "matrix_7_0_4", "matrix_7_0_5", "matrix_7_1_0", "matrix_7_1_1", "matrix_7_1_2", "matrix_7_1_3", "matrix_7_1_4", "matrix_7_1_5", "matrix_7_2_0", "matrix_7_2_1", "matrix_7_2_2", "matrix_7_2_3", "matrix_7_2_4", "matrix_7_2_5", "matrix_7_3_0", "matrix_7_3_1", "matrix_7_3_2", "matrix_7_3_3", "matrix_7_3_4", "matrix_7_3_5", "textarea_13", "textarea_14", "matrix_8_0_0", "matrix_8_0_1", "matrix_8_0_2", "matrix_8_0_3", "matrix_8_0_4", "matrix_8_0_5", "matrix_8_1_0", "matrix_8_1_1", "matrix_8_1_2", "matrix_8_1_3", "matrix_8_1_4", "matrix_8_1_5", "matrix_8_2_0", "matrix_8_2_1", "matrix_8_2_2", "matrix_8_2_3", "matrix_8_2_4", "matrix_8_2_5", "matrix_8_3_0", "matrix_8_3_1", "matrix_8_3_2", "matrix_8_3_3", "matrix_8_3_4", "matrix_8_3_5", "matrix_8_4_0", "matrix_8_4_1", "matrix_8_4_2", "matrix_8_4_3", "matrix_8_4_4", "matrix_8_4_5", "textarea_15", "textarea_16", "matrix_9_0_0", "matrix_9_0_1", "matrix_9_0_2", "matrix_9_0_3", "matrix_9_0_4", "textarea_17", "textarea_18", "textarea_19", "button_1"],
-            "fieldIds": ["radio_1_0", "radio_1_1", "radio_1_2", "radio_1_3", "radio_1_4", "text_1", "text_2", "email_1", "date_1", "selectlist_1", "selectlist_2", "selectlist_4", "selectlist_3", "selectlist_6", "selectlist_7", "selectlist_5", "matrix_1_0_0", "matrix_1_0_1", "matrix_1_0_2", "matrix_1_0_3", "matrix_1_0_4", "matrix_1_0_5", "matrix_1_1_0", "matrix_1_1_1", "matrix_1_1_2", "matrix_1_1_3", "matrix_1_1_4", "matrix_1_1_5", "matrix_1_2_0", "matrix_1_2_1", "matrix_1_2_2", "matrix_1_2_3", "matrix_1_2_4", "matrix_1_2_5", "matrix_1_3_0", "matrix_1_3_1", "matrix_1_3_2", "matrix_1_3_3", "matrix_1_3_4", "matrix_1_3_5", "matrix_1_4_0", "matrix_1_4_1", "matrix_1_4_2", "matrix_1_4_3", "matrix_1_4_4", "matrix_1_4_5", "textarea_1", "textarea_2", "matrix_2_0_0", "matrix_2_0_1", "matrix_2_0_2", "matrix_2_0_3", "matrix_2_0_4", "matrix_2_0_5", "matrix_2_1_0", "matrix_2_1_1", "matrix_2_1_2", "matrix_2_1_3", "matrix_2_1_4", "matrix_2_1_5", "matrix_2_2_0", "matrix_2_2_1", "matrix_2_2_2", "matrix_2_2_3", "matrix_2_2_4", "matrix_2_2_5", "matrix_2_3_0", "matrix_2_3_1", "matrix_2_3_2", "matrix_2_3_3", "matrix_2_3_4", "matrix_2_3_5", "matrix_2_4_0", "matrix_2_4_1", "matrix_2_4_2", "matrix_2_4_3", "matrix_2_4_4", "matrix_2_4_5", "textarea_3", "textarea_4", "matrix_3_0_0", "matrix_3_0_1", "matrix_3_0_2", "matrix_3_0_3", "matrix_3_0_4", "matrix_3_0_5", "matrix_3_1_0", "matrix_3_1_1", "matrix_3_1_2", "matrix_3_1_3", "matrix_3_1_4", "matrix_3_1_5", "matrix_3_2_0", "matrix_3_2_1", "matrix_3_2_2", "matrix_3_2_3", "matrix_3_2_4", "matrix_3_2_5", "matrix_3_3_0", "matrix_3_3_1", "matrix_3_3_2", "matrix_3_3_3", "matrix_3_3_4", "matrix_3_3_5", "matrix_3_4_0", "matrix_3_4_1", "matrix_3_4_2", "matrix_3_4_3", "matrix_3_4_4", "matrix_3_4_5", "textarea_5", "textarea_6", "matrix_4_0_0", "matrix_4_0_1", "matrix_4_0_2", "matrix_4_0_3", "matrix_4_0_4", "matrix_4_0_5", "matrix_4_1_0", "matrix_4_1_1", "matrix_4_1_2", "matrix_4_1_3", "matrix_4_1_4", "matrix_4_1_5", "matrix_4_2_0", "matrix_4_2_1", "matrix_4_2_2", "matrix_4_2_3", "matrix_4_2_4", "matrix_4_2_5", "matrix_4_3_0", "matrix_4_3_1", "matrix_4_3_2", "matrix_4_3_3", "matrix_4_3_4", "matrix_4_3_5", "matrix_4_4_0", "matrix_4_4_1", "matrix_4_4_2", "matrix_4_4_3", "matrix_4_4_4", "matrix_4_4_5", "textarea_7", "textarea_8", "matrix_5_0_0", "matrix_5_0_1", "matrix_5_0_2", "matrix_5_0_3", "matrix_5_0_4", "matrix_5_0_5", "matrix_5_1_0", "matrix_5_1_1", "matrix_5_1_2", "matrix_5_1_3", "matrix_5_1_4", "matrix_5_1_5", "matrix_5_2_0", "matrix_5_2_1", "matrix_5_2_2", "matrix_5_2_3", "matrix_5_2_4", "matrix_5_2_5", "matrix_5_3_0", "matrix_5_3_1", "matrix_5_3_2", "matrix_5_3_3", "matrix_5_3_4", "matrix_5_3_5", "matrix_5_4_0", "matrix_5_4_1", "matrix_5_4_2", "matrix_5_4_3", "matrix_5_4_4", "matrix_5_4_5", "textarea_9", "textarea_10", "matrix_6_0_0", "matrix_6_0_1", "matrix_6_0_2", "matrix_6_0_3", "matrix_6_0_4", "matrix_6_0_5", "matrix_6_1_0", "matrix_6_1_1", "matrix_6_1_2", "matrix_6_1_3", "matrix_6_1_4", "matrix_6_1_5", "matrix_6_2_0", "matrix_6_2_1", "matrix_6_2_2", "matrix_6_2_3", "matrix_6_2_4", "matrix_6_2_5", "matrix_6_3_0", "matrix_6_3_1", "matrix_6_3_2", "matrix_6_3_3", "matrix_6_3_4", "matrix_6_3_5", "matrix_6_4_0", "matrix_6_4_1", "matrix_6_4_2", "matrix_6_4_3", "matrix_6_4_4", "matrix_6_4_5", "textarea_11", "textarea_12", "matrix_7_0_0", "matrix_7_0_1", "matrix_7_0_2", "matrix_7_0_3", "matrix_7_0_4", "matrix_7_0_5", "matrix_7_1_0", "matrix_7_1_1", "matrix_7_1_2", "matrix_7_1_3", "matrix_7_1_4", "matrix_7_1_5", "matrix_7_2_0", "matrix_7_2_1", "matrix_7_2_2", "matrix_7_2_3", "matrix_7_2_4", "matrix_7_2_5", "matrix_7_3_0", "matrix_7_3_1", "matrix_7_3_2", "matrix_7_3_3", "matrix_7_3_4", "matrix_7_3_5", "textarea_13", "textarea_14", "matrix_8_0_0", "matrix_8_0_1", "matrix_8_0_2", "matrix_8_0_3", "matrix_8_0_4", "matrix_8_0_5", "matrix_8_1_0", "matrix_8_1_1", "matrix_8_1_2", "matrix_8_1_3", "matrix_8_1_4", "matrix_8_1_5", "matrix_8_2_0", "matrix_8_2_1", "matrix_8_2_2", "matrix_8_2_3", "matrix_8_2_4", "matrix_8_2_5", "matrix_8_3_0", "matrix_8_3_1", "matrix_8_3_2", "matrix_8_3_3", "matrix_8_3_4", "matrix_8_3_5", "matrix_8_4_0", "matrix_8_4_1", "matrix_8_4_2", "matrix_8_4_3", "matrix_8_4_4", "matrix_8_4_5", "textarea_15", "textarea_16", "matrix_9_0_0", "matrix_9_0_1", "matrix_9_0_2", "matrix_9_0_3", "matrix_9_0_4", "textarea_17", "textarea_18", "textarea_19", "button_1"],
-            "submitted": false,
-            "runOppositeActions": true,
-            "skips": [],
-            "reCaptchaVersion": "2",
-            "reCaptchaSiteKey": "your_site_key",
-            "defaultValues": false,
-            "i18n": {
-                "complete": "Complete",
-                "unexpectedError": "An unexpected error has occurred. Please retry later."
-            }
+            id: 13,
+            app: "\/\/formapp.merqconsultancy.org\/app",
+            tracker: "js\/form.tracker.js",
+            name: "#form-app",
+            actionUrl: "https:\/\/formapp.merqconsultancy.org\/app\/f?id=13",
+            validationUrl: "https:\/\/formapp.merqconsultancy.org\/app\/check?id=13",
+            _csrf: "3yo2veoHxrKSLC1VbhVfFyO7UZcSfTn2es-SMK4vCqOOb3iJvFSyy6doQSIXVC1WaJYp_SERYNtOuaFY91lMkA==",
+            resume: 1,
+            text_direction: "ltr",
+            autocomplete: 1,
+            novalidate: 0,
+            analytics: 1,
+            confirmationType: 2,
+            confirmationMessage: false,
+            confirmationUrl: "https:\/\/app.merqconsultancy.org",
+            confirmationSeconds: 7,
+            confirmationAppend: 0,
+            confirmationAlias: 0,
+            showOnlyMessage: 1,
+            redirectToUrl: 2,
+            rules: [{
+                    conditions: '{"all":[{"name":"radio_1","operator":"equalTo","value":"Other"}]}',
+                    actions: '[{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"text_1"}]}]}]',
+                    opposite: true,
+                },
+                {
+                    conditions: '{"all":[{"name":"selectlist_4","operator":"equalTo","value":"Monthly"}]}',
+                    actions: '[{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"selectlist_3"}]}]},{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"selectlist_5"}]}]}]',
+                    opposite: true,
+                },
+                {
+                    conditions: '{"all":[{"name":"selectlist_4","operator":"equalTo","value":"Quarterly"}]}',
+                    actions: '[{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"selectlist_6"}]}]},{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"selectlist_5"}]}]}]',
+                    opposite: true,
+                },
+                {
+                    conditions: '{"all":[{"name":"selectlist_4","operator":"equalTo","value":"Biannually"}]}',
+                    actions: '[{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"selectlist_7"}]}]},{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"selectlist_5"}]}]}]',
+                    opposite: true,
+                },
+                {
+                    conditions: '{"all":[{"name":"selectlist_4","operator":"equalTo","value":"Annually"}]}',
+                    actions: '[{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"selectlist_5"}]}]}]',
+                    opposite: true,
+                },
+                {
+                    conditions: '{"all":[{"name":"selectlist_4","operator":"isPresent","value":""}]}',
+                    actions: '[{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"selectlist_5"}]}]}]',
+                    opposite: true,
+                },
+                {
+                    conditions: '{"all":[{"name":"radio_1","operator":"equalTo","value":"Supervisor"},{"name":"radio_1","operator":"equalTo","value":"Self-evaluation"},{"name":"radio_1","operator":"equalTo","value":"Other"}]}',
+                    actions: '[{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"text_2"}]}]},{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"email_1"}]}]}]',
+                    opposite: true,
+                },
+                {
+                    conditions: '{"all":[{"name":"radio_1","operator":"notEqualTo","value":"Supervisor"},{"name":"radio_1","operator":"notEqualTo","value":"Self-evaluation"},{"name":"radio_1","operator":"notEqualTo","value":"Other"}]}',
+                    actions: '[{"name":"action-select","value":"toHide","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"text_2"}]}]},{"name":"action-select","value":"toHide","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"email_1"}]}]}]',
+                    opposite: true,
+                },
+                {
+                    conditions: '{"all":[{"name":"radio_1","operator":"equalTo","value":"Self-evaluation"}]}',
+                    actions: '[{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"textarea_18"}]}]},{"name":"action-select","value":"toShow","fields":[{"name":"target","value":"field","fields":[{"name":"targetField","value":"textarea_19"}]}]}]',
+                    opposite: true,
+                },
+            ],
+            fieldIds: [
+                "radio_1_0",
+                "radio_1_1",
+                "radio_1_2",
+                "radio_1_3",
+                "radio_1_4",
+                "text_1",
+                "text_2",
+                "email_1",
+                "date_1",
+                "selectlist_1",
+                "selectlist_2",
+                "selectlist_4",
+                "selectlist_3",
+                "selectlist_6",
+                "selectlist_7",
+                "selectlist_5",
+                "matrix_1_0_0",
+                "matrix_1_0_1",
+                "matrix_1_0_2",
+                "matrix_1_0_3",
+                "matrix_1_0_4",
+                "matrix_1_0_5",
+                "matrix_1_1_0",
+                "matrix_1_1_1",
+                "matrix_1_1_2",
+                "matrix_1_1_3",
+                "matrix_1_1_4",
+                "matrix_1_1_5",
+                "matrix_1_2_0",
+                "matrix_1_2_1",
+                "matrix_1_2_2",
+                "matrix_1_2_3",
+                "matrix_1_2_4",
+                "matrix_1_2_5",
+                "matrix_1_3_0",
+                "matrix_1_3_1",
+                "matrix_1_3_2",
+                "matrix_1_3_3",
+                "matrix_1_3_4",
+                "matrix_1_3_5",
+                "matrix_1_4_0",
+                "matrix_1_4_1",
+                "matrix_1_4_2",
+                "matrix_1_4_3",
+                "matrix_1_4_4",
+                "matrix_1_4_5",
+                "textarea_1",
+                "textarea_2",
+                "matrix_2_0_0",
+                "matrix_2_0_1",
+                "matrix_2_0_2",
+                "matrix_2_0_3",
+                "matrix_2_0_4",
+                "matrix_2_0_5",
+                "matrix_2_1_0",
+                "matrix_2_1_1",
+                "matrix_2_1_2",
+                "matrix_2_1_3",
+                "matrix_2_1_4",
+                "matrix_2_1_5",
+                "matrix_2_2_0",
+                "matrix_2_2_1",
+                "matrix_2_2_2",
+                "matrix_2_2_3",
+                "matrix_2_2_4",
+                "matrix_2_2_5",
+                "matrix_2_3_0",
+                "matrix_2_3_1",
+                "matrix_2_3_2",
+                "matrix_2_3_3",
+                "matrix_2_3_4",
+                "matrix_2_3_5",
+                "matrix_2_4_0",
+                "matrix_2_4_1",
+                "matrix_2_4_2",
+                "matrix_2_4_3",
+                "matrix_2_4_4",
+                "matrix_2_4_5",
+                "textarea_3",
+                "textarea_4",
+                "matrix_3_0_0",
+                "matrix_3_0_1",
+                "matrix_3_0_2",
+                "matrix_3_0_3",
+                "matrix_3_0_4",
+                "matrix_3_0_5",
+                "matrix_3_1_0",
+                "matrix_3_1_1",
+                "matrix_3_1_2",
+                "matrix_3_1_3",
+                "matrix_3_1_4",
+                "matrix_3_1_5",
+                "matrix_3_2_0",
+                "matrix_3_2_1",
+                "matrix_3_2_2",
+                "matrix_3_2_3",
+                "matrix_3_2_4",
+                "matrix_3_2_5",
+                "matrix_3_3_0",
+                "matrix_3_3_1",
+                "matrix_3_3_2",
+                "matrix_3_3_3",
+                "matrix_3_3_4",
+                "matrix_3_3_5",
+                "matrix_3_4_0",
+                "matrix_3_4_1",
+                "matrix_3_4_2",
+                "matrix_3_4_3",
+                "matrix_3_4_4",
+                "matrix_3_4_5",
+                "textarea_5",
+                "textarea_6",
+                "matrix_4_0_0",
+                "matrix_4_0_1",
+                "matrix_4_0_2",
+                "matrix_4_0_3",
+                "matrix_4_0_4",
+                "matrix_4_0_5",
+                "matrix_4_1_0",
+                "matrix_4_1_1",
+                "matrix_4_1_2",
+                "matrix_4_1_3",
+                "matrix_4_1_4",
+                "matrix_4_1_5",
+                "matrix_4_2_0",
+                "matrix_4_2_1",
+                "matrix_4_2_2",
+                "matrix_4_2_3",
+                "matrix_4_2_4",
+                "matrix_4_2_5",
+                "matrix_4_3_0",
+                "matrix_4_3_1",
+                "matrix_4_3_2",
+                "matrix_4_3_3",
+                "matrix_4_3_4",
+                "matrix_4_3_5",
+                "matrix_4_4_0",
+                "matrix_4_4_1",
+                "matrix_4_4_2",
+                "matrix_4_4_3",
+                "matrix_4_4_4",
+                "matrix_4_4_5",
+                "textarea_7",
+                "textarea_8",
+                "matrix_5_0_0",
+                "matrix_5_0_1",
+                "matrix_5_0_2",
+                "matrix_5_0_3",
+                "matrix_5_0_4",
+                "matrix_5_0_5",
+                "matrix_5_1_0",
+                "matrix_5_1_1",
+                "matrix_5_1_2",
+                "matrix_5_1_3",
+                "matrix_5_1_4",
+                "matrix_5_1_5",
+                "matrix_5_2_0",
+                "matrix_5_2_1",
+                "matrix_5_2_2",
+                "matrix_5_2_3",
+                "matrix_5_2_4",
+                "matrix_5_2_5",
+                "matrix_5_3_0",
+                "matrix_5_3_1",
+                "matrix_5_3_2",
+                "matrix_5_3_3",
+                "matrix_5_3_4",
+                "matrix_5_3_5",
+                "matrix_5_4_0",
+                "matrix_5_4_1",
+                "matrix_5_4_2",
+                "matrix_5_4_3",
+                "matrix_5_4_4",
+                "matrix_5_4_5",
+                "textarea_9",
+                "textarea_10",
+                "matrix_6_0_0",
+                "matrix_6_0_1",
+                "matrix_6_0_2",
+                "matrix_6_0_3",
+                "matrix_6_0_4",
+                "matrix_6_0_5",
+                "matrix_6_1_0",
+                "matrix_6_1_1",
+                "matrix_6_1_2",
+                "matrix_6_1_3",
+                "matrix_6_1_4",
+                "matrix_6_1_5",
+                "matrix_6_2_0",
+                "matrix_6_2_1",
+                "matrix_6_2_2",
+                "matrix_6_2_3",
+                "matrix_6_2_4",
+                "matrix_6_2_5",
+                "matrix_6_3_0",
+                "matrix_6_3_1",
+                "matrix_6_3_2",
+                "matrix_6_3_3",
+                "matrix_6_3_4",
+                "matrix_6_3_5",
+                "matrix_6_4_0",
+                "matrix_6_4_1",
+                "matrix_6_4_2",
+                "matrix_6_4_3",
+                "matrix_6_4_4",
+                "matrix_6_4_5",
+                "textarea_11",
+                "textarea_12",
+                "matrix_7_0_0",
+                "matrix_7_0_1",
+                "matrix_7_0_2",
+                "matrix_7_0_3",
+                "matrix_7_0_4",
+                "matrix_7_0_5",
+                "matrix_7_1_0",
+                "matrix_7_1_1",
+                "matrix_7_1_2",
+                "matrix_7_1_3",
+                "matrix_7_1_4",
+                "matrix_7_1_5",
+                "matrix_7_2_0",
+                "matrix_7_2_1",
+                "matrix_7_2_2",
+                "matrix_7_2_3",
+                "matrix_7_2_4",
+                "matrix_7_2_5",
+                "matrix_7_3_0",
+                "matrix_7_3_1",
+                "matrix_7_3_2",
+                "matrix_7_3_3",
+                "matrix_7_3_4",
+                "matrix_7_3_5",
+                "textarea_13",
+                "textarea_14",
+                "matrix_8_0_0",
+                "matrix_8_0_1",
+                "matrix_8_0_2",
+                "matrix_8_0_3",
+                "matrix_8_0_4",
+                "matrix_8_0_5",
+                "matrix_8_1_0",
+                "matrix_8_1_1",
+                "matrix_8_1_2",
+                "matrix_8_1_3",
+                "matrix_8_1_4",
+                "matrix_8_1_5",
+                "matrix_8_2_0",
+                "matrix_8_2_1",
+                "matrix_8_2_2",
+                "matrix_8_2_3",
+                "matrix_8_2_4",
+                "matrix_8_2_5",
+                "matrix_8_3_0",
+                "matrix_8_3_1",
+                "matrix_8_3_2",
+                "matrix_8_3_3",
+                "matrix_8_3_4",
+                "matrix_8_3_5",
+                "matrix_8_4_0",
+                "matrix_8_4_1",
+                "matrix_8_4_2",
+                "matrix_8_4_3",
+                "matrix_8_4_4",
+                "matrix_8_4_5",
+                "textarea_15",
+                "textarea_16",
+                "matrix_9_0_0",
+                "matrix_9_0_1",
+                "matrix_9_0_2",
+                "matrix_9_0_3",
+                "matrix_9_0_4",
+                "textarea_17",
+                "textarea_18",
+                "textarea_19",
+                "button_1",
+            ],
+            submitted: false,
+            runOppositeActions: true,
+            skips: [],
+            reCaptchaVersion: "2",
+            reCaptchaSiteKey: "your_site_key",
+            defaultValues: false,
+            i18n: {
+                complete: "Complete",
+                unexpectedError: "An unexpected error has occurred. Please retry later.",
+            },
         };
     </script>
 </head>
@@ -489,8 +810,18 @@ while ($row = $result->fetch_assoc()) {
                                         <div class="title">Overall Assessment</div>
                                     </div>
                                 </div>
-                                <!-- Employee display -->
+                                <!-- Employee display 
                                 <div id="selected-employee" class="selected-employee"></div>
+                            -->
+
+                                <!-- Evaluation Info -->
+                                <div id="evaluation-info" class="evaluation-info">
+                                    <div id="employee-display" class="info-row"></div>
+                                    <div id="perspective-display" class="info-row"></div>
+                                    <div id="supervisor-details" class="info-row" style="display:none;"></div>
+                                </div>
+
+
 
                                 <fieldset class="row">
 
@@ -3254,7 +3585,6 @@ while ($row = $result->fetch_assoc()) {
     <script>
         // Users mapping from PHP
         let users = <?php echo json_encode($users); ?>;
-
         let selectedUser = null;
 
         function updateEvaluatorFields() {
@@ -3269,12 +3599,12 @@ while ($row = $result->fetch_assoc()) {
             if (perspective === "Other") {
                 evaluatorNameDiv.style.display = "none";
                 evaluatorEmailDiv.style.display = "none";
-                return; // stop here
             } else {
                 evaluatorNameDiv.style.display = "block";
                 evaluatorEmailDiv.style.display = "block";
             }
 
+            // Fill evaluator fields
             if (perspective === "Supervisor" && selectedUser?.supervisor_id) {
                 let supervisor = users.find(u => u.user_id == selectedUser.supervisor_id);
                 if (supervisor) {
@@ -3285,31 +3615,67 @@ while ($row = $result->fetch_assoc()) {
                     document.getElementById("email_1").value = "";
                 }
             } else {
-                // Default: Evaluator is the employee themselves
                 if (selectedUser) {
                     document.getElementById("text_2").value = selectedUser.full_name || "";
                     document.getElementById("email_1").value = selectedUser.email || "";
                 }
             }
+
+            // === Update the display section ===
+            const empDisplay = document.getElementById("employee-display");
+            const perspectiveDisplay = document.getElementById("perspective-display");
+            const supervisorDetails = document.getElementById("supervisor-details");
+
+            // Employee display
+            empDisplay.innerHTML = selectedUser ?
+                "<strong>Employee:</strong> " + selectedUser.full_name :
+                "";
+
+            // Perspective display
+            perspectiveDisplay.innerHTML = perspective ?
+                "<strong>Perspective:</strong> " + perspective :
+                "";
+
+            // Supervisor details
+            if (perspective === "Supervisor" && selectedUser?.supervisor_id) {
+                let supervisor = users.find(u => u.user_id == selectedUser.supervisor_id);
+                if (supervisor) {
+                    supervisorDetails.style.display = "block";
+                    supervisorDetails.innerHTML =
+                        "<strong>Supervisor:</strong> " + supervisor.full_name +
+                        " <br><strong>Email:</strong> " + (supervisor.email || "N/A");
+                } else {
+                    supervisorDetails.style.display = "block";
+                    supervisorDetails.innerHTML = "<strong>Supervisor:</strong> Not found";
+                }
+            } else {
+                supervisorDetails.style.display = "none";
+                supervisorDetails.innerHTML = "";
+            }
+
         }
 
+        // Handle employee select change
         document.getElementById("selectlist_1").addEventListener("change", function() {
             let userId = this.value;
-            selectedUser = users.find(u => u.user_id === userId);
+            selectedUser = users.find(u => u.user_id == userId);
 
             if (selectedUser) {
-                document.getElementById("selectlist_2").value = selectedUser.position_title || "";
-                document.getElementById("department").value = selectedUser.department_name || "";
+                if (document.getElementById("selectlist_2"))
+                    document.getElementById("selectlist_2").value = selectedUser.position_title || "";
+                if (document.getElementById("department"))
+                    document.getElementById("department").value = selectedUser.department_name || "";
             }
 
             updateEvaluatorFields();
         });
 
-        // Also update when radio buttons change
+        // Handle perspective change
         document.querySelectorAll('input[name="radio_1"]').forEach(radio => {
             radio.addEventListener("change", updateEvaluatorFields);
         });
 
+        // Auto-fill today's date
         document.addEventListener("DOMContentLoaded", function() {
             let dateInput = document.getElementById("date_1");
             if (dateInput && !dateInput.value) {
@@ -3321,26 +3687,6 @@ while ($row = $result->fetch_assoc()) {
             }
         });
     </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const employeeSelect = document.getElementById("selectlist_1");
-            const display = document.getElementById("selected-employee");
-
-            employeeSelect.addEventListener("change", function() {
-                const selectedOption = employeeSelect.options[employeeSelect.selectedIndex];
-                const fullName = selectedOption.text.trim();
-
-                if (fullName && selectedOption.value) {
-                    display.textContent = "Employee being evaluated: " + fullName;
-                } else {
-                    display.textContent = "";
-                }
-            });
-        });
-    </script>
-
-
 </body>
 
 </html>
