@@ -88,7 +88,7 @@ while ($row = $result->fetch_assoc()) {
         @import url(https://fonts.googleapis.com/css?family=Raleway:400,600);
 
         body {
-            background-color: #f7f7f7;
+            background-color: #000E27;
             /*#101e47;*/
             padding: 2px;
             font-family: "Open Sans", Helvetica, Arial, sans-serif;
@@ -309,6 +309,73 @@ while ($row = $result->fetch_assoc()) {
         .table {}
 
         .well {}
+
+        label.form-label {
+            font-size: 1.5rem;
+            /* Similar size to <h2> */
+            font-weight: bold;
+            /* Headline weight */
+            color: #003366;
+            /* Dark blue (you can adjust the hex code) */
+            display: block;
+            /* Makes it behave like a heading */
+            margin: 1em 0 0.5em;
+            /* Adds spacing like a heading */
+        }
+
+        .radio input[type="radio"] {
+            accent-color: #66b2ff;
+            /* Light blue */
+            width: 18px;
+            /* Slightly bigger */
+            height: 18px;
+            border: 2px solid #66b2ff;
+            /* Border thickness */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /* merge borders into single lines */
+            margin: 1em 0;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #333;
+            /* visible 1px border */
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #003366;
+            /* dark blue header */
+            color: #fff;
+            /* white text */
+            font-weight: bold;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f6fc;
+            /* light alternate row */
+        }
+
+        table tr:hover {
+            background-color: #e0ecf9;
+            /* light hover effect */
+        }
+
+        .selected-employee {
+            margin: 12px 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #003366;
+            /* dark blue */
+            text-align: center;
+        }
     </style>
     <script>
         var options = {
@@ -365,7 +432,8 @@ while ($row = $result->fetch_assoc()) {
                 "actions": "[{\"name\":\"action-select\",\"value\":\"toHide\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"text_2\"}]}]},{\"name\":\"action-select\",\"value\":\"toHide\",\"fields\":[{\"name\":\"target\",\"value\":\"field\",\"fields\":[{\"name\":\"targetField\",\"value\":\"email_1\"}]}]}]",
                 "opposite": true
             }],
-            "fieldIds": ["radio_1_0", "radio_1_1", "radio_1_2", "radio_1_3", "radio_1_4", "text_1", "text_2", "email_1", "date_1", "selectlist_1", "selectlist_2", "selectlist_4", "selectlist_3", "selectlist_6", "selectlist_7", "selectlist_5", "matrix_1_0_0", "matrix_1_0_1", "matrix_1_0_2", "matrix_1_0_3", "matrix_1_0_4", "matrix_1_0_5", "matrix_1_1_0", "matrix_1_1_1", "matrix_1_1_2", "matrix_1_1_3", "matrix_1_1_4", "matrix_1_1_5", "matrix_1_2_0", "matrix_1_2_1", "matrix_1_2_2", "matrix_1_2_3", "matrix_1_2_4", "matrix_1_2_5", "matrix_1_3_0", "matrix_1_3_1", "matrix_1_3_2", "matrix_1_3_3", "matrix_1_3_4", "matrix_1_3_5", "matrix_1_4_0", "matrix_1_4_1", "matrix_1_4_2", "matrix_1_4_3", "matrix_1_4_4", "matrix_1_4_5", "textarea_1", "textarea_2", "matrix_2_0_0", "matrix_2_0_1", "matrix_2_0_2", "matrix_2_0_3", "matrix_2_0_4", "matrix_2_0_5", "matrix_2_1_0", "matrix_2_1_1", "matrix_2_1_2", "matrix_2_1_3", "matrix_2_1_4", "matrix_2_1_5", "matrix_2_2_0", "matrix_2_2_1", "matrix_2_2_2", "matrix_2_2_3", "matrix_2_2_4", "matrix_2_2_5", "matrix_2_3_0", "matrix_2_3_1", "matrix_2_3_2", "matrix_2_3_3", "matrix_2_3_4", "matrix_2_3_5", "matrix_2_4_0", "matrix_2_4_1", "matrix_2_4_2", "matrix_2_4_3", "matrix_2_4_4", "matrix_2_4_5", "textarea_3", "textarea_4", "matrix_3_0_0", "matrix_3_0_1", "matrix_3_0_2", "matrix_3_0_3", "matrix_3_0_4", "matrix_3_0_5", "matrix_3_1_0", "matrix_3_1_1", "matrix_3_1_2", "matrix_3_1_3", "matrix_3_1_4", "matrix_3_1_5", "matrix_3_2_0", "matrix_3_2_1", "matrix_3_2_2", "matrix_3_2_3", "matrix_3_2_4", "matrix_3_2_5", "matrix_3_3_0", "matrix_3_3_1", "matrix_3_3_2", "matrix_3_3_3", "matrix_3_3_4", "matrix_3_3_5", "matrix_3_4_0", "matrix_3_4_1", "matrix_3_4_2", "matrix_3_4_3", "matrix_3_4_4", "matrix_3_4_5", "textarea_5", "textarea_6", "matrix_4_0_0", "matrix_4_0_1", "matrix_4_0_2", "matrix_4_0_3", "matrix_4_0_4", "matrix_4_0_5", "matrix_4_1_0", "matrix_4_1_1", "matrix_4_1_2", "matrix_4_1_3", "matrix_4_1_4", "matrix_4_1_5", "matrix_4_2_0", "matrix_4_2_1", "matrix_4_2_2", "matrix_4_2_3", "matrix_4_2_4", "matrix_4_2_5", "matrix_4_3_0", "matrix_4_3_1", "matrix_4_3_2", "matrix_4_3_3", "matrix_4_3_4", "matrix_4_3_5", "matrix_4_4_0", "matrix_4_4_1", "matrix_4_4_2", "matrix_4_4_3", "matrix_4_4_4", "matrix_4_4_5", "textarea_7", "textarea_8", "matrix_5_0_0", "matrix_5_0_1", "matrix_5_0_2", "matrix_5_0_3", "matrix_5_0_4", "matrix_5_0_5", "matrix_5_1_0", "matrix_5_1_1", "matrix_5_1_2", "matrix_5_1_3", "matrix_5_1_4", "matrix_5_1_5", "matrix_5_2_0", "matrix_5_2_1", "matrix_5_2_2", "matrix_5_2_3", "matrix_5_2_4", "matrix_5_2_5", "matrix_5_3_0", "matrix_5_3_1", "matrix_5_3_2", "matrix_5_3_3", "matrix_5_3_4", "matrix_5_3_5", "matrix_5_4_0", "matrix_5_4_1", "matrix_5_4_2", "matrix_5_4_3", "matrix_5_4_4", "matrix_5_4_5", "matrix_5_5_0", "matrix_5_5_1", "matrix_5_5_2", "matrix_5_5_3", "matrix_5_5_4", "matrix_5_5_5", "textarea_9", "textarea_10", "matrix_6_0_0", "matrix_6_0_1", "matrix_6_0_2", "matrix_6_0_3", "matrix_6_0_4", "matrix_6_0_5", "matrix_6_1_0", "matrix_6_1_1", "matrix_6_1_2", "matrix_6_1_3", "matrix_6_1_4", "matrix_6_1_5", "matrix_6_2_0", "matrix_6_2_1", "matrix_6_2_2", "matrix_6_2_3", "matrix_6_2_4", "matrix_6_2_5", "matrix_6_3_0", "matrix_6_3_1", "matrix_6_3_2", "matrix_6_3_3", "matrix_6_3_4", "matrix_6_3_5", "matrix_6_4_0", "matrix_6_4_1", "matrix_6_4_2", "matrix_6_4_3", "matrix_6_4_4", "matrix_6_4_5", "textarea_11", "textarea_12", "matrix_7_0_0", "matrix_7_0_1", "matrix_7_0_2", "matrix_7_0_3", "matrix_7_0_4", "matrix_7_0_5", "matrix_7_1_0", "matrix_7_1_1", "matrix_7_1_2", "matrix_7_1_3", "matrix_7_1_4", "matrix_7_1_5", "matrix_7_2_0", "matrix_7_2_1", "matrix_7_2_2", "matrix_7_2_3", "matrix_7_2_4", "matrix_7_2_5", "matrix_7_3_0", "matrix_7_3_1", "matrix_7_3_2", "matrix_7_3_3", "matrix_7_3_4", "matrix_7_3_5", "textarea_13", "textarea_14", "matrix_8_0_0", "matrix_8_0_1", "matrix_8_0_2", "matrix_8_0_3", "matrix_8_0_4", "matrix_8_0_5", "matrix_8_1_0", "matrix_8_1_1", "matrix_8_1_2", "matrix_8_1_3", "matrix_8_1_4", "matrix_8_1_5", "matrix_8_2_0", "matrix_8_2_1", "matrix_8_2_2", "matrix_8_2_3", "matrix_8_2_4", "matrix_8_2_5", "matrix_8_3_0", "matrix_8_3_1", "matrix_8_3_2", "matrix_8_3_3", "matrix_8_3_4", "matrix_8_3_5", "matrix_8_4_0", "matrix_8_4_1", "matrix_8_4_2", "matrix_8_4_3", "matrix_8_4_4", "matrix_8_4_5", "textarea_15", "textarea_16", "matrix_9_0_0", "matrix_9_0_1", "matrix_9_0_2", "matrix_9_0_3", "matrix_9_0_4", "textarea_17", "textarea_18", "textarea_19", "button_1"],
+            //"fieldIds": ["radio_1_0", "radio_1_1", "radio_1_2", "radio_1_3", "radio_1_4", "text_1", "text_2", "email_1", "date_1", "selectlist_1", "selectlist_2", "selectlist_4", "selectlist_3", "selectlist_6", "selectlist_7", "selectlist_5", "matrix_1_0_0", "matrix_1_0_1", "matrix_1_0_2", "matrix_1_0_3", "matrix_1_0_4", "matrix_1_0_5", "matrix_1_1_0", "matrix_1_1_1", "matrix_1_1_2", "matrix_1_1_3", "matrix_1_1_4", "matrix_1_1_5", "matrix_1_2_0", "matrix_1_2_1", "matrix_1_2_2", "matrix_1_2_3", "matrix_1_2_4", "matrix_1_2_5", "matrix_1_3_0", "matrix_1_3_1", "matrix_1_3_2", "matrix_1_3_3", "matrix_1_3_4", "matrix_1_3_5", "matrix_1_4_0", "matrix_1_4_1", "matrix_1_4_2", "matrix_1_4_3", "matrix_1_4_4", "matrix_1_4_5", "textarea_1", "textarea_2", "matrix_2_0_0", "matrix_2_0_1", "matrix_2_0_2", "matrix_2_0_3", "matrix_2_0_4", "matrix_2_0_5", "matrix_2_1_0", "matrix_2_1_1", "matrix_2_1_2", "matrix_2_1_3", "matrix_2_1_4", "matrix_2_1_5", "matrix_2_2_0", "matrix_2_2_1", "matrix_2_2_2", "matrix_2_2_3", "matrix_2_2_4", "matrix_2_2_5", "matrix_2_3_0", "matrix_2_3_1", "matrix_2_3_2", "matrix_2_3_3", "matrix_2_3_4", "matrix_2_3_5", "matrix_2_4_0", "matrix_2_4_1", "matrix_2_4_2", "matrix_2_4_3", "matrix_2_4_4", "matrix_2_4_5", "textarea_3", "textarea_4", "matrix_3_0_0", "matrix_3_0_1", "matrix_3_0_2", "matrix_3_0_3", "matrix_3_0_4", "matrix_3_0_5", "matrix_3_1_0", "matrix_3_1_1", "matrix_3_1_2", "matrix_3_1_3", "matrix_3_1_4", "matrix_3_1_5", "matrix_3_2_0", "matrix_3_2_1", "matrix_3_2_2", "matrix_3_2_3", "matrix_3_2_4", "matrix_3_2_5", "matrix_3_3_0", "matrix_3_3_1", "matrix_3_3_2", "matrix_3_3_3", "matrix_3_3_4", "matrix_3_3_5", "matrix_3_4_0", "matrix_3_4_1", "matrix_3_4_2", "matrix_3_4_3", "matrix_3_4_4", "matrix_3_4_5", "textarea_5", "textarea_6", "matrix_4_0_0", "matrix_4_0_1", "matrix_4_0_2", "matrix_4_0_3", "matrix_4_0_4", "matrix_4_0_5", "matrix_4_1_0", "matrix_4_1_1", "matrix_4_1_2", "matrix_4_1_3", "matrix_4_1_4", "matrix_4_1_5", "matrix_4_2_0", "matrix_4_2_1", "matrix_4_2_2", "matrix_4_2_3", "matrix_4_2_4", "matrix_4_2_5", "matrix_4_3_0", "matrix_4_3_1", "matrix_4_3_2", "matrix_4_3_3", "matrix_4_3_4", "matrix_4_3_5", "matrix_4_4_0", "matrix_4_4_1", "matrix_4_4_2", "matrix_4_4_3", "matrix_4_4_4", "matrix_4_4_5", "textarea_7", "textarea_8", "matrix_5_0_0", "matrix_5_0_1", "matrix_5_0_2", "matrix_5_0_3", "matrix_5_0_4", "matrix_5_0_5", "matrix_5_1_0", "matrix_5_1_1", "matrix_5_1_2", "matrix_5_1_3", "matrix_5_1_4", "matrix_5_1_5", "matrix_5_2_0", "matrix_5_2_1", "matrix_5_2_2", "matrix_5_2_3", "matrix_5_2_4", "matrix_5_2_5", "matrix_5_3_0", "matrix_5_3_1", "matrix_5_3_2", "matrix_5_3_3", "matrix_5_3_4", "matrix_5_3_5", "matrix_5_4_0", "matrix_5_4_1", "matrix_5_4_2", "matrix_5_4_3", "matrix_5_4_4", "matrix_5_4_5", "matrix_5_5_0", "matrix_5_5_1", "matrix_5_5_2", "matrix_5_5_3", "matrix_5_5_4", "matrix_5_5_5", "textarea_9", "textarea_10", "matrix_6_0_0", "matrix_6_0_1", "matrix_6_0_2", "matrix_6_0_3", "matrix_6_0_4", "matrix_6_0_5", "matrix_6_1_0", "matrix_6_1_1", "matrix_6_1_2", "matrix_6_1_3", "matrix_6_1_4", "matrix_6_1_5", "matrix_6_2_0", "matrix_6_2_1", "matrix_6_2_2", "matrix_6_2_3", "matrix_6_2_4", "matrix_6_2_5", "matrix_6_3_0", "matrix_6_3_1", "matrix_6_3_2", "matrix_6_3_3", "matrix_6_3_4", "matrix_6_3_5", "matrix_6_4_0", "matrix_6_4_1", "matrix_6_4_2", "matrix_6_4_3", "matrix_6_4_4", "matrix_6_4_5", "textarea_11", "textarea_12", "matrix_7_0_0", "matrix_7_0_1", "matrix_7_0_2", "matrix_7_0_3", "matrix_7_0_4", "matrix_7_0_5", "matrix_7_1_0", "matrix_7_1_1", "matrix_7_1_2", "matrix_7_1_3", "matrix_7_1_4", "matrix_7_1_5", "matrix_7_2_0", "matrix_7_2_1", "matrix_7_2_2", "matrix_7_2_3", "matrix_7_2_4", "matrix_7_2_5", "matrix_7_3_0", "matrix_7_3_1", "matrix_7_3_2", "matrix_7_3_3", "matrix_7_3_4", "matrix_7_3_5", "textarea_13", "textarea_14", "matrix_8_0_0", "matrix_8_0_1", "matrix_8_0_2", "matrix_8_0_3", "matrix_8_0_4", "matrix_8_0_5", "matrix_8_1_0", "matrix_8_1_1", "matrix_8_1_2", "matrix_8_1_3", "matrix_8_1_4", "matrix_8_1_5", "matrix_8_2_0", "matrix_8_2_1", "matrix_8_2_2", "matrix_8_2_3", "matrix_8_2_4", "matrix_8_2_5", "matrix_8_3_0", "matrix_8_3_1", "matrix_8_3_2", "matrix_8_3_3", "matrix_8_3_4", "matrix_8_3_5", "matrix_8_4_0", "matrix_8_4_1", "matrix_8_4_2", "matrix_8_4_3", "matrix_8_4_4", "matrix_8_4_5", "textarea_15", "textarea_16", "matrix_9_0_0", "matrix_9_0_1", "matrix_9_0_2", "matrix_9_0_3", "matrix_9_0_4", "textarea_17", "textarea_18", "textarea_19", "button_1"],
+            "fieldIds": ["radio_1_0", "radio_1_1", "radio_1_2", "radio_1_3", "radio_1_4", "text_1", "text_2", "email_1", "date_1", "selectlist_1", "selectlist_2", "selectlist_4", "selectlist_3", "selectlist_6", "selectlist_7", "selectlist_5", "matrix_1_0_0", "matrix_1_0_1", "matrix_1_0_2", "matrix_1_0_3", "matrix_1_0_4", "matrix_1_0_5", "matrix_1_1_0", "matrix_1_1_1", "matrix_1_1_2", "matrix_1_1_3", "matrix_1_1_4", "matrix_1_1_5", "matrix_1_2_0", "matrix_1_2_1", "matrix_1_2_2", "matrix_1_2_3", "matrix_1_2_4", "matrix_1_2_5", "matrix_1_3_0", "matrix_1_3_1", "matrix_1_3_2", "matrix_1_3_3", "matrix_1_3_4", "matrix_1_3_5", "matrix_1_4_0", "matrix_1_4_1", "matrix_1_4_2", "matrix_1_4_3", "matrix_1_4_4", "matrix_1_4_5", "textarea_1", "textarea_2", "matrix_2_0_0", "matrix_2_0_1", "matrix_2_0_2", "matrix_2_0_3", "matrix_2_0_4", "matrix_2_0_5", "matrix_2_1_0", "matrix_2_1_1", "matrix_2_1_2", "matrix_2_1_3", "matrix_2_1_4", "matrix_2_1_5", "matrix_2_2_0", "matrix_2_2_1", "matrix_2_2_2", "matrix_2_2_3", "matrix_2_2_4", "matrix_2_2_5", "matrix_2_3_0", "matrix_2_3_1", "matrix_2_3_2", "matrix_2_3_3", "matrix_2_3_4", "matrix_2_3_5", "matrix_2_4_0", "matrix_2_4_1", "matrix_2_4_2", "matrix_2_4_3", "matrix_2_4_4", "matrix_2_4_5", "textarea_3", "textarea_4", "matrix_3_0_0", "matrix_3_0_1", "matrix_3_0_2", "matrix_3_0_3", "matrix_3_0_4", "matrix_3_0_5", "matrix_3_1_0", "matrix_3_1_1", "matrix_3_1_2", "matrix_3_1_3", "matrix_3_1_4", "matrix_3_1_5", "matrix_3_2_0", "matrix_3_2_1", "matrix_3_2_2", "matrix_3_2_3", "matrix_3_2_4", "matrix_3_2_5", "matrix_3_3_0", "matrix_3_3_1", "matrix_3_3_2", "matrix_3_3_3", "matrix_3_3_4", "matrix_3_3_5", "matrix_3_4_0", "matrix_3_4_1", "matrix_3_4_2", "matrix_3_4_3", "matrix_3_4_4", "matrix_3_4_5", "textarea_5", "textarea_6", "matrix_4_0_0", "matrix_4_0_1", "matrix_4_0_2", "matrix_4_0_3", "matrix_4_0_4", "matrix_4_0_5", "matrix_4_1_0", "matrix_4_1_1", "matrix_4_1_2", "matrix_4_1_3", "matrix_4_1_4", "matrix_4_1_5", "matrix_4_2_0", "matrix_4_2_1", "matrix_4_2_2", "matrix_4_2_3", "matrix_4_2_4", "matrix_4_2_5", "matrix_4_3_0", "matrix_4_3_1", "matrix_4_3_2", "matrix_4_3_3", "matrix_4_3_4", "matrix_4_3_5", "matrix_4_4_0", "matrix_4_4_1", "matrix_4_4_2", "matrix_4_4_3", "matrix_4_4_4", "matrix_4_4_5", "textarea_7", "textarea_8", "matrix_5_0_0", "matrix_5_0_1", "matrix_5_0_2", "matrix_5_0_3", "matrix_5_0_4", "matrix_5_0_5", "matrix_5_1_0", "matrix_5_1_1", "matrix_5_1_2", "matrix_5_1_3", "matrix_5_1_4", "matrix_5_1_5", "matrix_5_2_0", "matrix_5_2_1", "matrix_5_2_2", "matrix_5_2_3", "matrix_5_2_4", "matrix_5_2_5", "matrix_5_3_0", "matrix_5_3_1", "matrix_5_3_2", "matrix_5_3_3", "matrix_5_3_4", "matrix_5_3_5", "matrix_5_4_0", "matrix_5_4_1", "matrix_5_4_2", "matrix_5_4_3", "matrix_5_4_4", "matrix_5_4_5", "textarea_9", "textarea_10", "matrix_6_0_0", "matrix_6_0_1", "matrix_6_0_2", "matrix_6_0_3", "matrix_6_0_4", "matrix_6_0_5", "matrix_6_1_0", "matrix_6_1_1", "matrix_6_1_2", "matrix_6_1_3", "matrix_6_1_4", "matrix_6_1_5", "matrix_6_2_0", "matrix_6_2_1", "matrix_6_2_2", "matrix_6_2_3", "matrix_6_2_4", "matrix_6_2_5", "matrix_6_3_0", "matrix_6_3_1", "matrix_6_3_2", "matrix_6_3_3", "matrix_6_3_4", "matrix_6_3_5", "matrix_6_4_0", "matrix_6_4_1", "matrix_6_4_2", "matrix_6_4_3", "matrix_6_4_4", "matrix_6_4_5", "textarea_11", "textarea_12", "matrix_7_0_0", "matrix_7_0_1", "matrix_7_0_2", "matrix_7_0_3", "matrix_7_0_4", "matrix_7_0_5", "matrix_7_1_0", "matrix_7_1_1", "matrix_7_1_2", "matrix_7_1_3", "matrix_7_1_4", "matrix_7_1_5", "matrix_7_2_0", "matrix_7_2_1", "matrix_7_2_2", "matrix_7_2_3", "matrix_7_2_4", "matrix_7_2_5", "matrix_7_3_0", "matrix_7_3_1", "matrix_7_3_2", "matrix_7_3_3", "matrix_7_3_4", "matrix_7_3_5", "textarea_13", "textarea_14", "matrix_8_0_0", "matrix_8_0_1", "matrix_8_0_2", "matrix_8_0_3", "matrix_8_0_4", "matrix_8_0_5", "matrix_8_1_0", "matrix_8_1_1", "matrix_8_1_2", "matrix_8_1_3", "matrix_8_1_4", "matrix_8_1_5", "matrix_8_2_0", "matrix_8_2_1", "matrix_8_2_2", "matrix_8_2_3", "matrix_8_2_4", "matrix_8_2_5", "matrix_8_3_0", "matrix_8_3_1", "matrix_8_3_2", "matrix_8_3_3", "matrix_8_3_4", "matrix_8_3_5", "matrix_8_4_0", "matrix_8_4_1", "matrix_8_4_2", "matrix_8_4_3", "matrix_8_4_4", "matrix_8_4_5", "textarea_15", "textarea_16", "matrix_9_0_0", "matrix_9_0_1", "matrix_9_0_2", "matrix_9_0_3", "matrix_9_0_4", "textarea_17", "textarea_18", "textarea_19", "button_1"],
             "submitted": false,
             "runOppositeActions": true,
             "skips": [],
@@ -421,6 +489,8 @@ while ($row = $result->fetch_assoc()) {
                                         <div class="title">Overall Assessment</div>
                                     </div>
                                 </div>
+                                <!-- Employee display -->
+                                <div id="selected-employee" class="selected-employee"></div>
 
                                 <fieldset class="row">
 
@@ -583,8 +653,11 @@ while ($row = $result->fetch_assoc()) {
                                         </div>
                                     </div>
 
+                                    <hr>
+
+                                    <span>This is a confidential evaluation and your identity will not be disclosed to the person you are evaluating!</span>
                                     <!-- Conditional Evaluator Name -->
-                                    <div class="col-12">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label class="form-label" for="text_2">Evaluator Name</label>
                                             <input type="text" id="text_2" name="text_2" class="form-control" readonly>
@@ -592,14 +665,14 @@ while ($row = $result->fetch_assoc()) {
                                     </div>
 
                                     <!-- Conditional Evaluator Email -->
-                                    <div class="col-12">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label class="form-label" for="email_1">Evaluator Email</label>
                                             <input type="email" id="email_1" name="email_1" class="form-control" readonly>
                                         </div>
                                     </div>
 
-
+                                    <hr>
 
                                     <!-- Evaluator Name -->
                                     <!--
@@ -651,8 +724,8 @@ while ($row = $result->fetch_assoc()) {
                                                 <option value="May">May</option>
                                                 <option value="June">June</option>
                                                 <option value="July">July</option>
-                                                <option value="August" selected>August</option>
-                                                <option value="September">September</option>
+                                                <option value="August">August</option>
+                                                <option value="September" selected>September</option>
                                                 <option value="October">October</option>
                                                 <option value="November">November</option>
                                                 <option value="December">December</option>
@@ -843,9 +916,7 @@ while ($row = $result->fetch_assoc()) {
                                         <div class="form-group">
                                             <table id="matrix_1" class="table-matrix table table-striped table-hover" data-matrix-type="radio">
                                                 <caption>
-                                                    <label for="matrix_1" class="form-label">
-                                                        <h2>Job Knowledge and Technical Skills</h2>
-                                                    </label>
+                                                    <label for="matrix_1" class="form-label">Job Knowledge and Technical Skills</label>
                                                 </caption>
                                                 <thead>
                                                     <tr>
@@ -1125,9 +1196,7 @@ while ($row = $result->fetch_assoc()) {
                                         <div class="form-group">
                                             <table id="matrix_2" class="table-matrix table table-striped table-hover" data-matrix-type="radio">
                                                 <caption>
-                                                    <label for="matrix_2" class="form-label">
-                                                        <h2>Quality of Work</h2>
-                                                    </label>
+                                                    <label for="matrix_2" class="form-label">Quality of Work</label>
                                                 </caption>
                                                 <thead>
                                                     <tr>
@@ -1407,9 +1476,7 @@ while ($row = $result->fetch_assoc()) {
                                         <div class="form-group">
                                             <table id="matrix_3" class="table-matrix table table-striped table-hover" data-matrix-type="radio">
                                                 <caption>
-                                                    <label for="matrix_3" class="form-label">
-                                                        <h2>Productivity and Efficiency</h2>
-                                                    </label>
+                                                    <label for="matrix_3" class="form-label">Productivity and Efficiency</label>
                                                 </caption>
                                                 <thead>
                                                     <tr>
@@ -1689,9 +1756,7 @@ while ($row = $result->fetch_assoc()) {
                                         <div class="form-group">
                                             <table id="matrix_4" class="table-matrix table table-striped table-hover" data-matrix-type="radio">
                                                 <caption>
-                                                    <label for="matrix_4" class="form-label">
-                                                        <h2>Communication Skills</h2>
-                                                    </label>
+                                                    <label for="matrix_4" class="form-label">Communication Skills</label>
                                                 </caption>
                                                 <thead>
                                                     <tr>
@@ -1971,9 +2036,7 @@ while ($row = $result->fetch_assoc()) {
                                         <div class="form-group">
                                             <table id="matrix_5" class="table-matrix table table-striped table-hover" data-matrix-type="radio">
                                                 <caption>
-                                                    <label for="matrix_5" class="form-label">
-                                                        <h2>Teamwork and Collaboration</h2>
-                                                    </label>
+                                                    <label for="matrix_5" class="form-label">Teamwork and Collaboration</label>
                                                 </caption>
                                                 <thead>
                                                     <tr>
@@ -2083,189 +2146,142 @@ while ($row = $result->fetch_assoc()) {
                                                     </tr>
                                                     <tr>
                                                         <th>
-                                                            <label for="matrix_5_2">Third Question</label>
+                                                            <label for="matrix_5_2">Shares information appropriately</label>
                                                         </th>
                                                         <td class="text-center matrix_5_q_3 matrix_5_a_1" title="1">
                                                             <div class="radio">
                                                                 <span id="matrix_5_2"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_0" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Third Question" data-matrix-answer="1" value="1">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_0" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="1" value="1">
                                                                 <label for="matrix_5_2_0"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_3 matrix_5_a_2" title="2">
                                                             <div class="radio">
                                                                 <span id="matrix_5_2"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_1" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Third Question" data-matrix-answer="2" value="2">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_1" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="2" value="2">
                                                                 <label for="matrix_5_2_1"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_3 matrix_5_a_3" title="3">
                                                             <div class="radio">
                                                                 <span id="matrix_5_2"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_2" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Third Question" data-matrix-answer="3" value="3">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_2" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="3" value="3">
                                                                 <label for="matrix_5_2_2"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_3 matrix_5_a_4" title="4">
                                                             <div class="radio">
                                                                 <span id="matrix_5_2"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_3" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Third Question" data-matrix-answer="4" value="4">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_3" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="4" value="4">
                                                                 <label for="matrix_5_2_3"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_3 matrix_5_a_5" title="5">
                                                             <div class="radio">
                                                                 <span id="matrix_5_2"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_4" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Third Question" data-matrix-answer="5" value="5">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_4" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="5" value="5">
                                                                 <label for="matrix_5_2_4"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_3 matrix_5_a_6" title="NA">
                                                             <div class="radio">
                                                                 <span id="matrix_5_2"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_5" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Third Question" data-matrix-answer="NA" value="NA">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_2" id="matrix_5_2_5" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="NA" value="NA">
                                                                 <label for="matrix_5_2_5"></label>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th>
-                                                            <label for="matrix_5_3">Shares information appropriately</label>
+                                                            <label for="matrix_5_3">Respects diverse perspectives</label>
                                                         </th>
                                                         <td class="text-center matrix_5_q_4 matrix_5_a_1" title="1">
                                                             <div class="radio">
                                                                 <span id="matrix_5_3"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_0" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="1" value="1">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_0" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="1" value="1">
                                                                 <label for="matrix_5_3_0"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_4 matrix_5_a_2" title="2">
                                                             <div class="radio">
                                                                 <span id="matrix_5_3"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_1" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="2" value="2">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_1" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="2" value="2">
                                                                 <label for="matrix_5_3_1"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_4 matrix_5_a_3" title="3">
                                                             <div class="radio">
                                                                 <span id="matrix_5_3"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_2" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="3" value="3">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_2" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="3" value="3">
                                                                 <label for="matrix_5_3_2"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_4 matrix_5_a_4" title="4">
                                                             <div class="radio">
                                                                 <span id="matrix_5_3"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_3" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="4" value="4">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_3" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="4" value="4">
                                                                 <label for="matrix_5_3_3"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_4 matrix_5_a_5" title="5">
                                                             <div class="radio">
                                                                 <span id="matrix_5_3"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_4" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="5" value="5">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_4" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="5" value="5">
                                                                 <label for="matrix_5_3_4"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_4 matrix_5_a_6" title="NA">
                                                             <div class="radio">
                                                                 <span id="matrix_5_3"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_5" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Shares information appropriately" data-matrix-answer="NA" value="NA">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_3" id="matrix_5_3_5" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="NA" value="NA">
                                                                 <label for="matrix_5_3_5"></label>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th>
-                                                            <label for="matrix_5_4">Respects diverse perspectives</label>
+                                                            <label for="matrix_5_4">Supports colleagues</label>
                                                         </th>
                                                         <td class="text-center matrix_5_q_5 matrix_5_a_1" title="1">
                                                             <div class="radio">
                                                                 <span id="matrix_5_4"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_0" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="1" value="1">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_0" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="1" value="1">
                                                                 <label for="matrix_5_4_0"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_5 matrix_5_a_2" title="2">
                                                             <div class="radio">
                                                                 <span id="matrix_5_4"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_1" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="2" value="2">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_1" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="2" value="2">
                                                                 <label for="matrix_5_4_1"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_5 matrix_5_a_3" title="3">
                                                             <div class="radio">
                                                                 <span id="matrix_5_4"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_2" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="3" value="3">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_2" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="3" value="3">
                                                                 <label for="matrix_5_4_2"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_5 matrix_5_a_4" title="4">
                                                             <div class="radio">
                                                                 <span id="matrix_5_4"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_3" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="4" value="4">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_3" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="4" value="4">
                                                                 <label for="matrix_5_4_3"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_5 matrix_5_a_5" title="5">
                                                             <div class="radio">
                                                                 <span id="matrix_5_4"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_4" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="5" value="5">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_4" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="5" value="5">
                                                                 <label for="matrix_5_4_4"></label>
                                                             </div>
                                                         </td>
                                                         <td class="text-center matrix_5_q_5 matrix_5_a_6" title="NA">
                                                             <div class="radio">
                                                                 <span id="matrix_5_4"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_5" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Respects diverse perspectives" data-matrix-answer="NA" value="NA">
+                                                                <input class="form-check-input" type="radio" name="matrix_5_4" id="matrix_5_4_5" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="NA" value="NA">
                                                                 <label for="matrix_5_4_5"></label>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>
-                                                            <label for="matrix_5_5">Supports colleagues</label>
-                                                        </th>
-                                                        <td class="text-center matrix_5_q_6 matrix_5_a_1" title="1">
-                                                            <div class="radio">
-                                                                <span id="matrix_5_5"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_5" id="matrix_5_5_0" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="1" value="1">
-                                                                <label for="matrix_5_5_0"></label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-center matrix_5_q_6 matrix_5_a_2" title="2">
-                                                            <div class="radio">
-                                                                <span id="matrix_5_5"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_5" id="matrix_5_5_1" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="2" value="2">
-                                                                <label for="matrix_5_5_1"></label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-center matrix_5_q_6 matrix_5_a_3" title="3">
-                                                            <div class="radio">
-                                                                <span id="matrix_5_5"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_5" id="matrix_5_5_2" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="3" value="3">
-                                                                <label for="matrix_5_5_2"></label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-center matrix_5_q_6 matrix_5_a_4" title="4">
-                                                            <div class="radio">
-                                                                <span id="matrix_5_5"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_5" id="matrix_5_5_3" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="4" value="4">
-                                                                <label for="matrix_5_5_3"></label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-center matrix_5_q_6 matrix_5_a_5" title="5">
-                                                            <div class="radio">
-                                                                <span id="matrix_5_5"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_5" id="matrix_5_5_4" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="5" value="5">
-                                                                <label for="matrix_5_5_4"></label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-center matrix_5_q_6 matrix_5_a_6" title="NA">
-                                                            <div class="radio">
-                                                                <span id="matrix_5_5"></span>
-                                                                <input class="form-check-input" type="radio" name="matrix_5_5" id="matrix_5_5_5" data-matrix-id="matrix_5" data-matrix-label="Teamwork and Collaboration" data-matrix-question="Supports colleagues" data-matrix-answer="NA" value="NA">
-                                                                <label for="matrix_5_5_5"></label>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -2300,9 +2316,7 @@ while ($row = $result->fetch_assoc()) {
                                         <div class="form-group">
                                             <table id="matrix_6" class="table-matrix table table-striped table-hover" data-matrix-type="radio">
                                                 <caption>
-                                                    <label for="matrix_6" class="form-label">
-                                                        <h2>Problem-Solving and Initiative</h2>
-                                                    </label>
+                                                    <label for="matrix_6" class="form-label">Problem-Solving and Initiative</label>
                                                 </caption>
                                                 <thead>
                                                     <tr>
@@ -2582,9 +2596,7 @@ while ($row = $result->fetch_assoc()) {
                                         <div class="form-group">
                                             <table id="matrix_7" class="table-matrix table table-striped table-hover" data-matrix-type="radio">
                                                 <caption>
-                                                    <label for="matrix_7" class="form-label">
-                                                        <h2>Professionalism and Work Ethic</h2>
-                                                    </label>
+                                                    <label for="matrix_7" class="form-label">Professionalism and Work Ethic</label>
                                                 </caption>
                                                 <thead>
                                                     <tr>
@@ -2817,9 +2829,7 @@ while ($row = $result->fetch_assoc()) {
                                         <div class="form-group">
                                             <table id="matrix_8" class="table-matrix table table-striped table-hover" data-matrix-type="radio">
                                                 <caption>
-                                                    <label for="matrix_8" class="form-label">
-                                                        <h2>Adaptability and Continuous Improvement</h2>
-                                                    </label>
+                                                    <label for="matrix_8" class="form-label">Adaptability and Continuous Improvement</label>
                                                 </caption>
                                                 <thead>
                                                     <tr>
@@ -3104,9 +3114,7 @@ while ($row = $result->fetch_assoc()) {
                                         <div class="form-group">
                                             <table id="matrix_9" class="table-matrix table table-striped table-hover" data-matrix-type="radio">
                                                 <caption>
-                                                    <label for="matrix_9" class="form-label">
-                                                        <h2>Overall Performance Assessment</h2>
-                                                    </label>
+                                                    <label for="matrix_9" class="form-label">Overall Performance Assessment</label>
                                                 </caption>
                                                 <thead>
                                                     <tr>
@@ -3313,6 +3321,25 @@ while ($row = $result->fetch_assoc()) {
             }
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const employeeSelect = document.getElementById("selectlist_1");
+            const display = document.getElementById("selected-employee");
+
+            employeeSelect.addEventListener("change", function() {
+                const selectedOption = employeeSelect.options[employeeSelect.selectedIndex];
+                const fullName = selectedOption.text.trim();
+
+                if (fullName && selectedOption.value) {
+                    display.textContent = "Employee being evaluated: " + fullName;
+                } else {
+                    display.textContent = "";
+                }
+            });
+        });
+    </script>
+
 
 </body>
 

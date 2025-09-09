@@ -2,6 +2,7 @@
 *.sql
 *.log
 *.zip
-apps/performance/app
+apps/performance/app/
+apps/performance/test/
 apps/internal/XinstallX/
 apps/internal/install/
