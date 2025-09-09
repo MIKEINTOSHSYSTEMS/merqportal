@@ -40,6 +40,9 @@ foreach ($employeeData['perspective_counts'] as $perspective => $count) {
         $perspectiveCounts[] = $count;
     }
 }
+
+require_once 'header.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -109,6 +112,7 @@ foreach ($employeeData['perspective_counts'] as $perspective => $count) {
         .header-section {
             background-color: #003366;
             color: white;
+            margin-top: 70px;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
@@ -369,6 +373,8 @@ foreach ($employeeData['perspective_counts'] as $perspective => $count) {
             </div>
         </div>
     </div>
+
+    <?php require_once 'footer.php'; ?>
 
     <script>
         // Category Performance Chart

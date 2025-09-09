@@ -6,3 +6,5 @@ apps/performance/app/
 apps/performance/test/
 apps/internal/XinstallX/
 apps/internal/install/
+apps/internal/application/logs/
+apps/internal/temp/

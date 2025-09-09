@@ -1,6 +1,7 @@
 <?php
 // report.php - Main reporting dashboard
 require_once 'config.php';
+require_once 'header.php';
 
 // Get all submissions
 $submissions = getSubmissions();
@@ -227,6 +228,11 @@ function exportToPDF($employeeEvaluations)
                 margin: 0px;
                 transform: translate(0px, 40px);
             }
+        }
+
+        .mb-4 {
+            margin-top: 55px !important;
+            margin-bottom: 1.5rem !important;
         }
     </style>
 </head>
@@ -673,5 +679,6 @@ function exportToPDF($employeeEvaluations)
         </script>
     </div>
 </body>
+<?php require_once 'footer.php'; ?>
 
 </html>

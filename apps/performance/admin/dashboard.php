@@ -71,6 +71,9 @@ foreach ($categoryAverages as $category => $total) {
         $categoryAverages[$category] = $total / $categoryCounts[$category];
     }
 }
+
+
+require_once 'header.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -128,6 +131,7 @@ foreach ($categoryAverages as $category => $total) {
         }
 
         .sidebar {
+            margin-top: 66px;
             background-color: #f8f9fa;
             height: 100vh;
             position: sticky;
@@ -160,6 +164,11 @@ foreach ($categoryAverages as $category => $total) {
                 height: 250px;
             }
         }
+
+        .mb-4 {
+            margin-top: 55px !important;
+            margin-bottom: 1.5rem !important;
+        }
     </style>
 </head>
 
@@ -168,10 +177,12 @@ foreach ($categoryAverages as $category => $total) {
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-3 col-lg-2 sidebar d-md-block">
+                <!--
                 <div class="text-center mb-4">
                     <img src="https://merqconsultancy.org/wp-content/uploads/2017/07/merq.png" alt="MERQ Consultancy" class="img-fluid" style="max-height: 60px;">
                     <h5 class="mt-2">Performance Evaluation System</h5>
                 </div>
+    -->
 
                 <form method="get" action="dashboard.php">
                     <div class="mb-3">
@@ -225,8 +236,9 @@ foreach ($categoryAverages as $category => $total) {
                     </div>
                     <hr>
                     </hr>
-                    <br></br>
+                    <!--
                     <a href="../index.php" class="btn btn-secondary w-100"> <i class="bi bi-pen"></i> Go to Performance Evaluation App</a>
+                            -->
                 </form>
             </div>
 
@@ -414,6 +426,8 @@ foreach ($categoryAverages as $category => $total) {
             </div>
         </div>
     </div>
+
+    <?php require_once 'footer.php'; ?>
 
     <script>
         // Performance Distribution Chart
