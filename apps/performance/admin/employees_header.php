@@ -1,10 +1,33 @@
 <?php
-// header.php - Responsive header with navigation
-$currentPage = basename($_SERVER['PHP_SELF']);
+// Include session configuration to ensure consistent session settings across the application
+//require_once __DIR__ . '/../../timesheet/includes/session-config.php';
 
-require_once 'auth_check.php'; // Add this line for authentication
+// Now the session is already started with the correct settings, no need to call session_start() here
 
+if (!headers_sent()) {
+    ob_start(); // Start output buffering if headers are not sent
+}
 ?>
+<?php
+
+$currentPage = basename($_SERVER['PHP_SELF']);
+require_once 'auth_check.php'; // Added this line for authentication
+
+require_once __DIR__ . '/../../timesheet/config/config.php';
+//require_once __DIR__ . '/config.php';
+
+// Initialize calendar preference
+$ethiopianCalendar = $_SESSION['ethiopian_calendar'] ?? false;
+
+// Initialize language switcher variables
+$translation = new Translation();
+$languages = [
+    'en' => 'English',
+    'am' => 'አማርኛ'
+];
+$currentLanguage = $_SESSION['language'] ?? 'en';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,11 +35,38 @@ require_once 'auth_check.php'; // Add this line for authentication
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MERQ Consultancy - Performance Evaluation System Administration</title>
+
     <link rel="icon" type="image/x-icon" href="/assets/images/merq-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
+    <link rel="icon" type="image/png" href="/assets/images/icon-192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic&display=swap" rel="stylesheet">
+    <script src="../assets/js/script.js"></script>
     <style>
+        .ethiopian-text {
+            font-family: 'Noto Sans Ethiopic', sans-serif;
+        }
+
+        .icon-shape {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            transition: transform 0.2s ease;
+        }
+
         /* Header and Sidebar Specific Styles Only */
         .sys-header {
             background-color: #072247D4;
@@ -156,7 +206,6 @@ require_once 'auth_check.php'; // Add this line for authentication
             display: none;
         }
 
-
         /* Development Badges */
         .dev-badge {
             position: absolute;
@@ -182,7 +231,6 @@ require_once 'auth_check.php'; // Add this line for authentication
         .sys-sidebar-collapsed .dev-badge {
             display: none;
         }
-
 
         /* Main Content Area */
         .sys-main-content {
@@ -243,6 +291,91 @@ require_once 'auth_check.php'; // Add this line for authentication
             }
         }
     </style>
+    <?php if ($ethiopianCalendar): ?>
+        <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/calendar.css">
+        <script src="<?= BASE_URL ?>/assets/js/calendar.js"></script>
+        <script>
+            // Complete conversion functions as shown above
+            /*
+                        function convertToEthiopian(dateStr) {
+                            const date = new Date(dateStr);
+                            const ec = new EthiopianCalendar(date);
+                            return {
+                                date: ec.GetECDate('Y-m-d'),
+                                year: ec.EC_year,
+                                month: ec.EC_month,
+                                day: ec.EC_day
+                            };
+                        }
+
+                        function convertToGregorian(ethDateStr) {
+                            const parts = ethDateStr.split('-');
+                            const ecYear = parseInt(parts[0]);
+                            const ecMonth = parseInt(parts[1]);
+                            const ecDay = parseInt(parts[2]);
+
+                            const ec = new EthiopianCalendar(new Date());
+                            const gcDate = ec.ethiopianToGregorian(ecYear, ecMonth, ecDay);
+
+                            // Format as YYYY-MM-DD
+                            const gcDateStr = `${gcDate.year}-${gcDate.month.toString().padStart(2, '0')}-${gcDate.day.toString().padStart(2, '0')}`;
+                            return {
+                                date: gcDateStr,
+                                year: gcDate.year,
+                                month: gcDate.month,
+                                day: gcDate.day
+                            };
+                        }
+
+                        */
+            // Helper function to update all date displays on the page
+            function updateDateDisplays() {
+                document.querySelectorAll('[data-date]').forEach(element => {
+                    const dateStr = element.getAttribute('data-date');
+                    if (document.body.classList.contains('ethiopian-calendar')) {
+                        const ethDate = convertToEthiopian(dateStr);
+                        element.textContent = ethDate.date;
+                        element.classList.add('ethiopian-text');
+                    } else {
+                        // For Gregorian, just display as-is
+                        element.textContent = dateStr;
+                        element.classList.remove('ethiopian-text');
+                    }
+                });
+            }
+
+            // Initialize on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                updateDateDisplays();
+
+                // Update when calendar switch is toggled
+                const calendarSwitch = document.getElementById('calendarSwitch');
+                if (calendarSwitch) {
+                    calendarSwitch.addEventListener('change', function() {
+                        updateDateDisplays();
+                    });
+                }
+            });
+
+            // Initialize on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                updateDateDisplays();
+
+                // Update when calendar switch is toggled
+                const calendarSwitch = document.getElementById('calendarSwitch');
+                if (calendarSwitch) {
+                    calendarSwitch.addEventListener('change', function() {
+                        if (this.checked) {
+                            document.body.classList.add('ethiopian-calendar');
+                        } else {
+                            document.body.classList.remove('ethiopian-calendar');
+                        }
+                        updateDateDisplays();
+                    });
+                }
+            });
+        </script>
+    <?php endif; ?>
 </head>
 
 <body class="sys-sidebar-expanded">
@@ -275,7 +408,7 @@ require_once 'auth_check.php'; // Add this line for authentication
         <ul class="sys-sidebar-menu">
             <li class="sys-sidebar-header">Main Navigation</li>
             <li>
-                <a href="dashboard.php" class="<?= $currentPage == 'dashboard.php' ? 'sys-active' : '' ?>">
+                <a href="dashboard.php" class="<?= $currentPage == './dashboard.php' ? 'sys-active' : '' ?>">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -332,5 +465,7 @@ require_once 'auth_check.php'; // Add this line for authentication
     </aside>
 
     <!-- Main Content -->
-    <main class=" sys-main-content">
+    <main class="sys-main-content">
         <div class="container-fluid">
+            <?php displayFlashMessages(); ?>
+        </div>

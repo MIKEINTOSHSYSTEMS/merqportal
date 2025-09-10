@@ -13,12 +13,17 @@ $employeesFromDB = getEmployeesFromDatabase();
 $selectedEmployee = $_GET['employee'] ?? '';
 $selectedPerspective = $_GET['perspective'] ?? '';
 $selectedCategory = $_GET['category'] ?? '';
+$startDate = $_GET['start_date'] ?? '';
+$endDate = $_GET['end_date'] ?? '';
 
 // Filter evaluations if needed
 $filteredEvaluations = $employeeEvaluations;
 if (!empty($selectedEmployee) && isset($employeeEvaluations[$selectedEmployee])) {
     $filteredEvaluations = [$selectedEmployee => $employeeEvaluations[$selectedEmployee]];
 }
+
+// Apply additional filters
+$filteredEvaluations = applyFilters($filteredEvaluations, $selectedPerspective, $selectedCategory, $startDate, $endDate);
 
 // Prepare data for charts
 $performanceCounts = [
@@ -50,7 +55,7 @@ $categoryAverages = [
 
 $categoryCounts = array_fill_keys(array_keys($categoryAverages), 0);
 
-foreach ($employeeEvaluations as $data) {
+foreach ($filteredEvaluations as $data) {
     $performanceCounts[$data['performance_category']]++;
 
     foreach ($data['perspective_counts'] as $perspective => $count) {
@@ -72,6 +77,46 @@ foreach ($categoryAverages as $category => $total) {
     }
 }
 
+// Function to apply filters
+function applyFilters($evaluations, $perspective, $category, $startDate, $endDate)
+{
+    $filtered = [];
+
+    foreach ($evaluations as $employeeId => $data) {
+        // Filter by perspective
+        if (!empty($perspective) && (!isset($data['perspective_counts'][$perspective]) || $data['perspective_counts'][$perspective] == 0)) {
+            continue;
+        }
+
+        // Filter by category
+        if (!empty($category) && $data['performance_category'] !== $category) {
+            continue;
+        }
+
+        // Filter by date range
+        if (!empty($startDate) || !empty($endDate)) {
+            $hasValidDate = false;
+            foreach ($data['evaluations'] as $evaluation) {
+                $evalDate = strtotime($evaluation['submission_date']);
+                $startTimestamp = !empty($startDate) ? strtotime($startDate) : 0;
+                $endTimestamp = !empty($endDate) ? strtotime($endDate) : PHP_INT_MAX;
+
+                if ($evalDate >= $startTimestamp && $evalDate <= $endTimestamp) {
+                    $hasValidDate = true;
+                    break;
+                }
+            }
+
+            if (!$hasValidDate) {
+                continue;
+            }
+        }
+
+        $filtered[$employeeId] = $data;
+    }
+
+    return $filtered;
+}
 
 require_once 'header.php';
 ?>
@@ -85,6 +130,7 @@ require_once 'header.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <style>
         .card-dashboard {
             transition: transform 0.3s;
@@ -169,6 +215,26 @@ require_once 'header.php';
             margin-top: 55px !important;
             margin-bottom: 1.5rem !important;
         }
+
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .chart-legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 10px;
+        }
+
+        .chart-legend-color {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
     </style>
 </head>
 
@@ -177,13 +243,6 @@ require_once 'header.php';
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-3 col-lg-2 sidebar d-md-block">
-                <!--
-                <div class="text-center mb-4">
-                    <img src="https://merqconsultancy.org/wp-content/uploads/2017/07/merq.png" alt="MERQ Consultancy" class="img-fluid" style="max-height: 60px;">
-                    <h5 class="mt-2">Performance Evaluation System</h5>
-                </div>
-    -->
-
                 <form method="get" action="dashboard.php">
                     <div class="mb-3">
                         <label for="employeeFilter" class="form-label">Employee</label>
@@ -221,24 +280,31 @@ require_once 'header.php';
                         </select>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="startDate" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="startDate" name="start_date" value="<?= htmlspecialchars($startDate) ?>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="endDate" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="endDate" name="end_date" value="<?= htmlspecialchars($endDate) ?>">
+                    </div>
+
                     <button type="submit" class="btn btn-primary w-100 mb-2">Apply Filters</button>
                     <a href="dashboard.php" class="btn btn-outline-secondary w-100">Reset Filters</a>
 
                     <hr>
 
                     <div class="d-grid gap-2">
-                        <a href="export.php?type=excel&employee=<?= htmlspecialchars($selectedEmployee) ?>&perspective=<?= htmlspecialchars($selectedPerspective) ?>&category=<?= htmlspecialchars($selectedCategory) ?>" class="btn btn-success">
+                        <a href="export.php?type=excel&employee=<?= htmlspecialchars($selectedEmployee) ?>&perspective=<?= htmlspecialchars($selectedPerspective) ?>&category=<?= htmlspecialchars($selectedCategory) ?>&start_date=<?= htmlspecialchars($startDate) ?>&end_date=<?= htmlspecialchars($endDate) ?>" class="btn btn-success">
                             <i class="bi bi-file-earmark-excel"></i> Export to Excel
                         </a>
-                        <a href="export.php?type=pdf&employee=<?= htmlspecialchars($selectedEmployee) ?>&perspective=<?= htmlspecialchars($selectedPerspective) ?>&category=<?= htmlspecialchars($selectedCategory) ?>" class="btn btn-danger">
+                        <a href="export.php?type=pdf&employee=<?= htmlspecialchars($selectedEmployee) ?>&perspective=<?= htmlspecialchars($selectedPerspective) ?>&category=<?= htmlspecialchars($selectedCategory) ?>&start_date=<?= htmlspecialchars($startDate) ?>&end_date=<?= htmlspecialchars($endDate) ?>" class="btn btn-danger">
                             <i class="bi bi-file-earmark-pdf"></i> Export to PDF
                         </a>
                     </div>
                     <hr>
                     </hr>
-                    <!--
-                    <a href="../index.php" class="btn btn-secondary w-100"> <i class="bi bi-pen"></i> Go to Performance Evaluation App</a>
-                            -->
                 </form>
             </div>
 
@@ -255,7 +321,7 @@ require_once 'header.php';
                         <div class="card card-dashboard text-white bg-primary">
                             <div class="card-body">
                                 <h5 class="card-title">Employees Evaluated</h5>
-                                <h2 class="card-text"><?= count($employeeEvaluations) ?></h2>
+                                <h2 class="card-text"><?= count($filteredEvaluations) ?></h2>
                             </div>
                         </div>
                     </div>
@@ -267,7 +333,7 @@ require_once 'header.php';
                                     <?php
                                     $totalScore = 0;
                                     $count = 0;
-                                    foreach ($employeeEvaluations as $data) {
+                                    foreach ($filteredEvaluations as $data) {
                                         $totalScore += $data['weighted_score'];
                                         $count++;
                                     }
@@ -310,6 +376,7 @@ require_once 'header.php';
                                 <div class="chart-container">
                                     <canvas id="performanceChart"></canvas>
                                 </div>
+                                <div class="chart-legend" id="performanceLegend"></div>
                             </div>
                         </div>
                     </div>
@@ -322,6 +389,7 @@ require_once 'header.php';
                                 <div class="chart-container">
                                     <canvas id="perspectiveChart"></canvas>
                                 </div>
+                                <div class="chart-legend" id="perspectiveLegend"></div>
                             </div>
                         </div>
                     </div>
@@ -430,6 +498,9 @@ require_once 'header.php';
     <?php require_once 'footer.php'; ?>
 
     <script>
+        // Register the plugin to all charts
+        Chart.register(ChartDataLabels);
+
         // Performance Distribution Chart
         const performanceCtx = document.getElementById('performanceChart').getContext('2d');
         const performanceChart = new Chart(performanceCtx, {
@@ -465,6 +536,49 @@ require_once 'header.php';
                 plugins: {
                     legend: {
                         position: 'right',
+                        labels: {
+                            generateLabels: function(chart) {
+                                const data = chart.data;
+                                if (data.labels.length && data.datasets.length) {
+                                    return data.labels.map(function(label, i) {
+                                        const value = data.datasets[0].data[i];
+                                        const percentage = Math.round((value / data.datasets[0].data.reduce((a, b) => a + b, 0)) * 100);
+                                        return {
+                                            text: `${label}: ${value} (${percentage}%)`,
+                                            fillStyle: data.datasets[0].backgroundColor[i],
+                                            strokeStyle: data.datasets[0].backgroundColor[i],
+                                            lineWidth: 1,
+                                            hidden: isNaN(data.datasets[0].data[i]) || chart.getDatasetMeta(0).data[i].hidden,
+                                            index: i
+                                        };
+                                    });
+                                }
+                                return [];
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100);
+                                return `${label}: ${value} (${percentage}%)`;
+                            }
+                        }
+                    },
+                    datalabels: {
+                        color: '#fff',
+                        font: {
+                            weight: 'bold',
+                            size: 12
+                        },
+                        formatter: (value, ctx) => {
+                            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = Math.round((value / total) * 100);
+                            return `${percentage}%`;
+                        }
                     }
                 }
             }
@@ -497,6 +611,29 @@ require_once 'header.php';
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw}`;
+                            }
+                        }
+                    },
+                    datalabels: {
+                        color: '#000',
+                        anchor: 'end',
+                        align: 'top',
+                        font: {
+                            weight: 'bold'
+                        },
+                        formatter: function(value) {
+                            return value;
+                        }
+                    }
+                },
                 scales: {
                     y: {
                         beginAtZero: true,
@@ -561,6 +698,26 @@ require_once 'header.php';
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.raw + '%';
+                            }
+                        }
+                    },
+                    datalabels: {
+                        color: '#000',
+                        anchor: 'end',
+                        align: 'top',
+                        font: {
+                            weight: 'bold'
+                        },
+                        formatter: function(value) {
+                            return value + '%';
+                        }
+                    }
+                },
                 scales: {
                     y: {
                         beginAtZero: true,
@@ -568,15 +725,6 @@ require_once 'header.php';
                         ticks: {
                             callback: function(value) {
                                 return value + '%';
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return context.dataset.label + ': ' + context.raw + '%';
                             }
                         }
                     }

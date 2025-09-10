@@ -4,6 +4,7 @@ require_once 'config.php';
 
 $employeeId = $_GET['employee'] ?? '';
 if (empty($employeeId)) {
+    //header('Location: employee_report.php');
     header('Location: dashboard.php');
     exit;
 }
@@ -50,15 +51,22 @@ require_once 'header.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Performance Report - <?= htmlspecialchars($employeeDetails['full_name'] ?? '') ?></title>
+    <title>MERQ Employee Performance Report</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <style>
         .card-report {
+            transition: transform 0.3s;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+        }
+
+        .card-report:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
         .performance-badge {
@@ -93,9 +101,10 @@ require_once 'header.php';
             color: white;
         }
 
-        .category-score {
-            font-weight: bold;
-            font-size: 1.1rem;
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 30px;
         }
 
         .evaluation-table th {
@@ -103,19 +112,14 @@ require_once 'header.php';
             color: white;
         }
 
-        .chart-container {
-            position: relative;
-            height: 300px;
-            margin-bottom: 30px;
-        }
-
-        .header-section {
+        .accordion-button:not(.collapsed) {
             background-color: #003366;
             color: white;
-            margin-top: 70px;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        }
+
+        .matrix-table th {
+            background-color: #003366;
+            color: white;
         }
 
         @media (max-width: 768px) {
@@ -123,13 +127,34 @@ require_once 'header.php';
                 height: 250px;
             }
 
-            .header-section {
-                padding: 15px;
+            .card-report {
+                margin-bottom: 15px;
             }
+        }
 
-            .header-section h1 {
-                font-size: 1.8rem;
-            }
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .chart-legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 10px;
+        }
+
+        .chart-legend-color {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+
+        .mb-4 {
+            margin-top: 70px;
+            margin-bottom: 1.5rem !important;
         }
     </style>
 </head>

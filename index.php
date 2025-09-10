@@ -120,6 +120,12 @@ try {
     if (isLoggedIn()) {
         $userStats = getUserStats($_SESSION['user_id']);
     }
+
+    // Get performance stats for logged-in users
+    $performanceStats = [];
+    if (isLoggedIn()) {
+        $performanceStats = getPerformanceStats($_SESSION['user_id']);
+    }
 } catch (Exception $e) {
     // Handle critical errors
     die("System error: " . $e->getMessage());
@@ -257,6 +263,121 @@ try {
             justify-content: center;
             font-size: 0.7rem;
             font-weight: bold;
+        }
+
+        /* Performance Stats Styles */
+        .performance-details {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .perspectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .perspective-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background-color: rgba(0, 0, 0, 0.03);
+            border-radius: 6px;
+        }
+
+        .perspective-name {
+            font-weight: 500;
+        }
+
+        .perspective-count {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .category-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .category-item {
+            margin-bottom: 1rem;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-name {
+            font-weight: 500;
+        }
+
+        .category-score {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .view-report-btn {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .view-report-btn .btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .view-report-btn .btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        .no-performance-data {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+
+        /* Progress bar styles */
+        .progress {
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+
+        .progress-bar.rejected {
+            background-color: #dc3545;
+        }
+
+        .progress-bar.pending {
+            background-color: #fd7e14;
+        }
+
+        .progress-bar.approved {
+            background-color: #28a745;
         }
     </style>
 </head>
@@ -566,7 +687,94 @@ try {
                         </div>
                     </div>
 
+                    <!-- Performance Stats -->
+                    <div class="stat-card">
+                        <div class="stat-icon 
+                <?= ($performanceStats['performance_category'] ?? '') === 'Needs Significant Improvement' ? 'rejected' : '' ?>
+                <?= ($performanceStats['performance_category'] ?? '') === 'Developing' ? 'pending' : '' ?>
+                <?= ($performanceStats['performance_category'] ?? '') === 'Meets Expectations' ? 'approved' : '' ?>
+                <?= ($performanceStats['performance_category'] ?? '') === 'Exceeds Expectations' ? 'approved' : '' ?>
+                <?= ($performanceStats['performance_category'] ?? '') === 'Outstanding' ? 'approved' : '' ?>
+                <?= empty($performanceStats['performance_category']) || $performanceStats['performance_category'] === 'Not Evaluated' ? 'timesheet' : '' ?>">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Performance Score</h4>
+                            <p><?= $performanceStats['weighted_score'] ?>%</p>
+                            <small><?= $performanceStats['performance_category'] ?></small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon announcements">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Evaluations</h4>
+                            <p><?= $performanceStats['total_evaluations'] ?></p>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Performance Details Section -->
+                <?php if ($performanceStats['total_evaluations'] > 0): ?>
+                    <div class="performance-details">
+                        <h3>Performance Details</h3>
+
+                        <!-- Evaluation Perspectives -->
+                        <div class="perspectives-section">
+                            <h4>Evaluation Perspectives</h4>
+                            <div class="perspectives-grid">
+                                <?php foreach ($performanceStats['perspective_counts'] as $perspective => $count): ?>
+                                    <?php if ($count > 0): ?>
+                                        <div class="perspective-item">
+                                            <span class="perspective-name"><?= htmlspecialchars($perspective) ?></span>
+                                            <span class="perspective-count"><?= $count ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+
+                        <!-- Category Scores -->
+                        <div class="category-scores">
+                            <h4>Category Scores</h4>
+                            <div class="category-grid">
+                                <?php foreach ($performanceStats['category_scores'] as $category => $scoreData): ?>
+                                    <?php if ($scoreData['count'] > 0): ?>
+                                        <div class="category-item">
+                                            <div class="category-header">
+                                                <span class="category-name"><?= htmlspecialchars($category) ?></span>
+                                                <span class="category-score"><?= round($scoreData['percentage'], 1) ?>%</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar 
+                                        <?= ($scoreData['percentage'] ?? 0) < 30 ? 'rejected' : '' ?>
+                                        <?= ($scoreData['percentage'] ?? 0) >= 30 && ($scoreData['percentage'] ?? 0) < 61 ? 'pending' : '' ?>
+                                        <?= ($scoreData['percentage'] ?? 0) >= 61 && ($scoreData['percentage'] ?? 0) < 76 ? 'approved' : '' ?>
+                                        <?= ($scoreData['percentage'] ?? 0) >= 76 && ($scoreData['percentage'] ?? 0) <= 90 ? 'approved' : '' ?>
+                                        <?= ($scoreData['percentage'] ?? 0) > 90 ? 'approved' : '' ?>"
+                                                    style="width: <?= $scoreData['percentage'] ?>%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+
+                        <!-- View Full Report Button -->
+                        <div class="view-report-btn">
+                            <a href="/apps/performance/public/myreport.php?employee=<?= $_SESSION['user_id'] ?>" class="btn btn-primary">
+                                <i class="fas fa-file-alt"></i> View Full Performance Report
+                            </a>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="no-performance-data">
+                        <p>No performance evaluations available yet.</p>
+                    </div>
+                <?php endif; ?>
             <?php else: ?>
                 <div class="quick-stats">
                     <p>Please log in to view your statistics</p>

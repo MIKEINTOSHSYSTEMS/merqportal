@@ -281,39 +281,39 @@ class User
         $pdo = (new Database())->getConnection();
 
         $sql = "SELECT 
-        u.user_id, 
-        u.employee_id,
-        u.is_doctor,
-        u.full_name,
-        u.first_name,
-        u.middle_name,
-        u.last_name,
-        u.username,
-        u.email,
-        u.phone,
-        u.alternate_phone,
-        u.role,
-        u.join_date,
-        u.hire_date,
-        u.leave_balance,
-        u.last_leave_increment,
-        u.is_active,
-        d.department_name,        
-        p.position_title,  
-        u.supervisor_id,
-        s.full_name AS supervisor_name,
-        u.password_hash,
-        u.last_login,
-        u.created_at,
-        u.updated_at
-    FROM users u
-    LEFT JOIN positions p 
-        ON u.position_id = p.position_id
-    LEFT JOIN departments d 
-        ON u.department_id = d.department_id
-    LEFT JOIN users s 
-        ON u.supervisor_id = s.user_id
-    WHERE 1=1";
+    u.user_id, 
+    u.employee_id,
+    u.is_doctor,
+    u.full_name,
+    u.first_name,
+    u.middle_name,
+    u.last_name,
+    u.username,
+    u.email,
+    u.phone,
+    u.alternate_phone,
+    u.role,
+    u.join_date,
+    u.hire_date,
+    u.leave_balance,
+    u.last_leave_increment,
+    u.is_active,
+    d.department_name,        
+    p.position_title,  
+    u.supervisor_id,
+    s.full_name AS supervisor_name,
+    u.password_hash,
+    u.last_login,
+    u.created_at,
+    u.updated_at
+FROM users u
+LEFT JOIN positions p 
+    ON u.position_id = p.position_id
+LEFT JOIN departments d 
+    ON u.department_id = d.department_id
+LEFT JOIN users s 
+    ON u.supervisor_id = s.user_id
+WHERE u.user_id NOT IN (1, 2, 3)"; // Added exclusion here
 
         $params = [];
 
@@ -354,9 +354,9 @@ class User
         $pdo = (new Database())->getConnection();
 
         $sql = "SELECT COUNT(*) as count
-    FROM users u
-    LEFT JOIN departments d ON u.department_id = d.department_id
-    WHERE 1=1";
+FROM users u
+LEFT JOIN departments d ON u.department_id = d.department_id
+WHERE u.user_id NOT IN (1, 2, 3)"; // Added exclusion here
 
         $params = [];
 
