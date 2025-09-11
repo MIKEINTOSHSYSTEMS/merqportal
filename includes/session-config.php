@@ -14,7 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
             'path'     => APP_COOKIE_PATH,
             'domain'   => APP_COOKIE_DOMAIN,
             'secure'   => APP_COOKIE_SECURE,
-            //'httponly' => APP_COOKIE_HTTPONLY,
+            'httponly' => APP_COOKIE_HTTPONLY,
             'samesite' => APP_SESSION_COOKIE_SAME_SITE
         ]);
     }
@@ -66,11 +66,12 @@ if (session_status() === PHP_SESSION_NONE) {
                     if ($row = $stmt->fetch()) {
                         $data = $row['data'] ?? '';
 
-                        // Handle CodeIgniter-style prefix (__ci|)
+                        // Handle CodeIgniter's session format: __ci|base64_encoded_data
                         if ($data && strpos($data, '__ci|') === 0) {
                             $parts = explode('|', $data, 2);
                             if (count($parts) > 1) {
-                                return base64_decode($parts[1]) ?: '';
+                                $decoded = base64_decode($parts[1]);
+                                return $decoded !== false ? $decoded : '';
                             }
                         }
 
@@ -83,6 +84,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 public function write(string $sessionId, string $data): bool
                 {
                     $timestamp = time();
+
+                    // Use CodeIgniter's format for consistency: __ci|base64_encoded_data
                     $ci_data = '__ci|' . base64_encode($data);
 
                     $stmt = $this->pdo->prepare(
@@ -108,7 +111,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                 public function gc(int $maxlifetime): int|false
                 {
-                    $old = time() - (APP_SESSION_EXPIRATION ?? $maxlifetime);
+                    $old = time() - $maxlifetime;
                     $stmt = $this->pdo->prepare(
                         "DELETE FROM {$this->table} WHERE timestamp < :old"
                     );
@@ -121,10 +124,12 @@ if (session_status() === PHP_SESSION_NONE) {
             session_set_save_handler($handler, true);
         } catch (PDOException $e) {
             error_log("Session DB connection failed: " . $e->getMessage());
+            // Fallback to default session handler
         }
     }
 
-
+    // Start PHP session
+    session_start();
 
     // Function to check if user is logged in
     function is_logged_in()
@@ -212,12 +217,5 @@ if (session_status() === PHP_SESSION_NONE) {
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
 
-    // Clean output buffer
-  //  if (ob_get_length() > 0) {
-  //      ob_end_flush();
-  //  }
-
-    // Start PHP session
-    session_start();
     ob_end_flush();
 }
