@@ -131,25 +131,31 @@ if (session_status() === PHP_SESSION_NONE) {
     // Start PHP session
     session_start();
 
-    // Function to check if user is logged in
-    function is_logged_in()
-    {
-        return isset($_SESSION['client_user_id']) || isset($_SESSION['staff_user_id']);
+    // CRITICAL: Ensure session variables use CodeIgniter-compatible format
+    // Convert integer user IDs to strings to match CodeIgniter's format
+    if (isset($_SESSION['staff_user_id']) && is_int($_SESSION['staff_user_id'])) {
+        $_SESSION['staff_user_id'] = (string)$_SESSION['staff_user_id'];
     }
 
-    // Function to get user data from session
+    if (isset($_SESSION['client_user_id']) && is_int($_SESSION['client_user_id'])) {
+        $_SESSION['client_user_id'] = (string)$_SESSION['client_user_id'];
+    }
+
+    // Add CodeIgniter-specific session variables if they don't exist
+    if (!isset($_SESSION['__ci_last_regenerate'])) {
+        $_SESSION['__ci_last_regenerate'] = time();
+    }
+
+    // Function to check if user is logged in - CodeIgniter compatible
+    function is_logged_in()
+    {
+        return isset($_SESSION['staff_logged_in']) && $_SESSION['staff_logged_in'] === true;
+    }
+
+    // Function to get user data from session - CodeIgniter compatible
     function get_session_user_data()
     {
-        if (isset($_SESSION['client_user_id'])) {
-            return [
-                'user_id' => $_SESSION['client_user_id'],
-                'username' => $_SESSION['client_username'] ?? '',
-                'email' => $_SESSION['client_email'] ?? '',
-                'firstname' => $_SESSION['client_firstname'] ?? '',
-                'lastname' => $_SESSION['client_lastname'] ?? '',
-                'user_type' => 'client'
-            ];
-        } elseif (isset($_SESSION['staff_user_id'])) {
+        if (isset($_SESSION['staff_user_id']) && isset($_SESSION['staff_logged_in']) && $_SESSION['staff_logged_in'] === true) {
             return [
                 'user_id' => $_SESSION['staff_user_id'],
                 'username' => $_SESSION['staff_username'] ?? '',
@@ -203,7 +209,7 @@ if (session_status() === PHP_SESSION_NONE) {
         return $session_data;
     }
 
-    // CSRF token functions (if needed)
+    // CSRF token functions - CodeIgniter compatible
     function get_csrf_token()
     {
         if (!isset($_SESSION['csrf_token'])) {
