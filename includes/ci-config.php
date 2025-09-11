@@ -15,6 +15,7 @@ define('SESS_DRIVER', 'database');
 define('SESS_SAVE_PATH', 'tblsessions'); // <-- matches your table name
 define('APP_SESSION_COOKIE_NAME', 'sp_session');
 define('APP_SESSION_EXPIRATION', 28800); // 8 hours
+define('APP_SESSION_REGENERATE_DESTROY', true);  // Ensure this is set in both apps
 
 // Environment-based configuration for sessions and cookies
 //if ($_SERVER['HTTP_HOST'] == 'merqapp') {
@@ -41,3 +42,8 @@ define('APP_ENC_KEY', '128cbd12780fecc24842b90d717efa2b');
 
 // Database prefix (optional, not used in session handler directly)
 define('APP_DB_PREFIX', 'tbl');
+
+/**
+ * Enables CSRF Protection
+ */
+define('APP_CSRF_PROTECTION', true);

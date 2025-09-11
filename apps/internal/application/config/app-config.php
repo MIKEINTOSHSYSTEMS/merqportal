@@ -80,9 +80,10 @@ define('APP_DB_COLLATION', 'utf8mb4_unicode_ci');
  *
  */
 define('SESS_DRIVER', 'database');
-define('SESS_SAVE_PATH', 'sessions');
-//define('SESS_SAVE_PATH', 'tblsessions');
+//define('SESS_SAVE_PATH', 'sessions');
+define('SESS_SAVE_PATH', 'tblsessions');
 define('APP_SESSION_COOKIE_SAME_SITE', 'Lax');
+define('APP_SESSION_REGENERATE_DESTROY', true);  // Ensure this is set in both apps
 
 /**
  * Enables CSRF Protection
