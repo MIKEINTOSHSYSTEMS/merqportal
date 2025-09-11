@@ -19,8 +19,8 @@ define('APP_SESSION_EXPIRATION', 28800); // 8 hours
 // Environment-based configuration for sessions and cookies
 //if ($_SERVER['HTTP_HOST'] == 'merqapp') {
 if ($_SERVER['HTTP_HOST'] == 'localhost') {
-    // Development environment (http://merqapp/)
-    define('APP_COOKIE_DOMAIN', '.merqconsultancy.org');  // Share cookies across subdomains
+    // Development environment (http://localhost/)
+    define('APP_COOKIE_DOMAIN', 'localhost');  // Local testing domain
     define('APP_COOKIE_SECURE', false);  // Don't use Secure flag for development (HTTP)
     define('APP_SESSION_COOKIE_SAME_SITE', 'Lax');  // More lenient SameSite for development
 } else {
