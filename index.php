@@ -3,6 +3,15 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+
+// Disable caching at the server level
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+
 // Include session configuration first
 require_once __DIR__ . '/includes/session-config.php';
 
@@ -141,7 +150,7 @@ try {
     <meta name="description" content="MERQ Consultancy Employee Portal">
     <meta name="theme-color" content="#2a4365">
     <title>MERQ Consultancy | Employee Portal</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css?v=<?php echo time(); ?>">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="assets/images/icon-192.png">
     <link rel="apple-touch-icon" href="assets/images/icon-192.png">
@@ -575,7 +584,9 @@ try {
                         <input type="text" id="appSearch" placeholder="Search applications...">
                         <button><i class="fas fa-search"></i></button>
                     </div>
-                    <button class="refresh-btn"><a href="/"><i class="fas fa-sync-alt"></i> Refresh</a></button>
+                    <button class="refresh-btn" onclick="hardRefresh()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
                 </div>
             </div>
 
@@ -764,11 +775,15 @@ try {
                         </div>
 
                         <!-- View Full Report Button -->
+
+                        <!--
                         <div class="view-report-btn">
                             <a href="/apps/performance/public/myreport.php?employee=<?= $_SESSION['user_id'] ?>" class="btn btn-primary">
                                 <i class="fas fa-file-alt"></i> View Full Performance Report
                             </a>
                         </div>
+
+                                    -->
                     </div>
                 <?php else: ?>
                     <div class="no-performance-data">
@@ -1237,8 +1252,20 @@ try {
         });
     </script>
 
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/pwa.js"></script>
+    <script>
+        // Force cache busting and hard refresh on page load
+        if (!window.location.href.includes('cache_bust')) {
+            window.location.href = window.location.pathname + '?cache_bust=' + new Date().getTime();
+        }
+
+        // Optional: If you want to have a JavaScript hard refresh (Ctrl+Shift+R)
+        function hardRefresh() {
+            location.reload(true);
+        }
+    </script>
+
+    <script src="assets/js/script.js?v=<?php echo time(); ?>"></script>
+    <script src="assets/js/pwa.js?v=<?php echo time(); ?>"></script>
 
 </body>
 

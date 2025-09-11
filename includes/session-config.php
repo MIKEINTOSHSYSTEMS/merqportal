@@ -14,7 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
             'path'     => APP_COOKIE_PATH,
             'domain'   => APP_COOKIE_DOMAIN,
             'secure'   => APP_COOKIE_SECURE,
-            'httponly' => APP_COOKIE_HTTPONLY,
+            //'httponly' => APP_COOKIE_HTTPONLY,
             'samesite' => APP_SESSION_COOKIE_SAME_SITE
         ]);
     }

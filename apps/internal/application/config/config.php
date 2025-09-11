@@ -435,7 +435,8 @@ $config['sess_cookie_samesite'] = (defined('APP_SESSION_COOKIE_SAME_SITE') ? APP
 |
 */
 $config['cookie_prefix']   = (defined('APP_COOKIE_PREFIX') ? APP_COOKIE_PREFIX : '');
-$config['cookie_domain']   = (defined('APP_COOKIE_DOMAIN') ? APP_COOKIE_DOMAIN : '');
+//$config['cookie_domain']   = (defined('APP_COOKIE_DOMAIN') ? APP_COOKIE_DOMAIN : '');
+$config['cookie_domain']   = (defined('APP_COOKIE_DOMAIN') ? APP_COOKIE_DOMAIN : '.merqconsultancy.org');  // Share cookies across subdomains
 $config['cookie_path']     = (defined('APP_COOKIE_PATH') ? APP_COOKIE_PATH : '/');
 $config['cookie_secure']   = (defined('APP_COOKIE_SECURE') ? APP_COOKIE_SECURE : false);
 $config['cookie_httponly'] = (defined('APP_COOKIE_HTTPONLY') ? APP_COOKIE_HTTPONLY : false);
