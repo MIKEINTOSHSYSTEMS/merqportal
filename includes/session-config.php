@@ -124,6 +124,99 @@ if (session_status() === PHP_SESSION_NONE) {
         }
     }
 
+
+
+    // Function to check if user is logged in
+    function is_logged_in()
+    {
+        return isset($_SESSION['client_user_id']) || isset($_SESSION['staff_user_id']);
+    }
+
+    // Function to get user data from session
+    function get_session_user_data()
+    {
+        if (isset($_SESSION['client_user_id'])) {
+            return [
+                'user_id' => $_SESSION['client_user_id'],
+                'username' => $_SESSION['client_username'] ?? '',
+                'email' => $_SESSION['client_email'] ?? '',
+                'firstname' => $_SESSION['client_firstname'] ?? '',
+                'lastname' => $_SESSION['client_lastname'] ?? '',
+                'user_type' => 'client'
+            ];
+        } elseif (isset($_SESSION['staff_user_id'])) {
+            return [
+                'user_id' => $_SESSION['staff_user_id'],
+                'username' => $_SESSION['staff_username'] ?? '',
+                'email' => $_SESSION['staff_email'] ?? '',
+                'firstname' => $_SESSION['staff_firstname'] ?? '',
+                'lastname' => $_SESSION['staff_lastname'] ?? '',
+                'user_type' => 'staff'
+            ];
+        }
+
+        return null;
+    }
+
+    // Function to get full user details from database
+    function get_user_full_details($user_id, $user_type = 'staff')
+    {
+        global $pdo;
+
+        $db_prefix = defined('APP_DB_PREFIX') ? APP_DB_PREFIX : 'tbl';
+
+        if ($user_type === 'staff') {
+            $table = $db_prefix . 'staff';
+            $stmt = $pdo->prepare("SELECT * FROM {$table} WHERE staffid = :user_id");
+        } else {
+            $table = $db_prefix . 'clients';
+            $stmt = $pdo->prepare("SELECT * FROM {$table} WHERE userid = :user_id");
+        }
+
+        $stmt->execute([':user_id' => $user_id]);
+
+        if ($user = $stmt->fetch()) {
+            return $user;
+        }
+
+        return null;
+    }
+
+    // Function to get current user with full details
+    function get_current_user_full_details()
+    {
+        $session_data = get_session_user_data();
+
+        if ($session_data) {
+            $full_details = get_user_full_details($session_data['user_id'], $session_data['user_type']);
+
+            if ($full_details) {
+                return array_merge($session_data, $full_details);
+            }
+        }
+
+        return $session_data;
+    }
+
+    // CSRF token functions (if needed)
+    function get_csrf_token()
+    {
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        return $_SESSION['csrf_token'];
+    }
+
+    function verify_csrf_token($token)
+    {
+        return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+    }
+
+    // Clean output buffer
+  //  if (ob_get_length() > 0) {
+  //      ob_end_flush();
+  //  }
+
     // Start PHP session
     session_start();
     ob_end_flush();
