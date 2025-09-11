@@ -1,20 +1,5 @@
 <?php
-//require_once __DIR__ . '/../../timesheet/config/config.php';
-//require_once __DIR__ . '/../../timesheet/includes/auth-check.php';
-//require_once 'config.php';
 require_once __DIR__ . '/employees_header.php';
-//require_once __DIR__ . '/users_header.php';
-//require_once __DIR__ . '/header.php';
-
-// Only admin can access this page
-/*
-
-if (!hasRole('admin')) {
-    //header('Location: ' . BASE_URL . '/pages/dashboard.php');
-    header('Location: ' . BASE_URL . 'employee_management.php');
-    exit;
-}
-*/
 
 $user = new User();
 $auth = new Auth();
@@ -189,98 +174,392 @@ $positions = $pdo->query("SELECT position_id, position_title FROM positions ORDE
 $supervisors = $pdo->query("SELECT user_id, full_name FROM users WHERE is_active = 1 ORDER BY full_name")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<style>
-    .mb-4 {
-        margin-top: 70px;
-        margin-bottom: 1.5rem !important;
-    }
-</style>
-<div class="container-fluid">
-    <h1 class="mb-4">Employees Management</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-    <?php if ($error): ?>
-        <div class="alert alert-danger"><?= e($error) ?></div>
-    <?php endif; ?>
-    <?php if ($success): ?>
-        <div class="alert alert-success"><?= e($success) ?></div>
-    <?php endif; ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
 
-    <!-- Filters and Search -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="mb-0">Filters & Search</h5>
-        </div>
-        <div class="card-body">
-            <form method="GET" class="row g-3">
-                <div class="col-md-3">
-                    <label class="form-label">Search</label>
-                    <input type="text" class="form-control" name="search" value="<?= e($search) ?>" placeholder="Search users...">
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label">Role</label>
-                    <select class="form-select" name="role_filter">
-                        <option value="">All Roles</option>
-                        <option value="employee" <?= $role_filter === 'employee' ? 'selected' : '' ?>>Employee</option>
-                        <option value="consultant" <?= $role_filter === 'consultant' ? 'selected' : '' ?>>Consultant</option>
-                        <option value="manager" <?= $role_filter === 'manager' ? 'selected' : '' ?>>Manager</option>
-                        <option value="admin" <?= $role_filter === 'admin' ? 'selected' : '' ?>>Admin</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label">Status</label>
-                    <select class="form-select" name="status_filter">
-                        <option value="">All Status</option>
-                        <option value="active" <?= $status_filter === 'active' ? 'selected' : '' ?>>Active</option>
-                        <option value="inactive" <?= $status_filter === 'inactive' ? 'selected' : '' ?>>Inactive</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label">Department</label>
-                    <select class="form-select" name="department_filter">
-                        <option value="">All Departments</option>
-                        <?php foreach ($departments as $dept): ?>
-                            <option value="<?= $dept['department_id'] ?>" <?= $department_filter == $dept['department_id'] ? 'selected' : '' ?>>
-                                <?= e($dept['department_name']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label">Sort By</label>
-                    <select class="form-select" name="sort_by">
-                        <option value="full_name" <?= $sort_by === 'full_name' ? 'selected' : '' ?>>Name</option>
-                        <option value="email" <?= $sort_by === 'email' ? 'selected' : '' ?>>Email</option>
-                        <option value="role" <?= $sort_by === 'role' ? 'selected' : '' ?>>Role</option>
-                        <option value="department_name" <?= $sort_by === 'department_name' ? 'selected' : '' ?>>Department</option>
-                        <option value="hire_date" <?= $sort_by === 'hire_date' ? 'selected' : '' ?>>Hire Date</option>
-                    </select>
-                </div>
-                <div class="col-md-1">
-                    <label class="form-label">Order</label>
-                    <select class="form-select" name="sort_order">
-                        <option value="ASC" <?= $sort_order === 'ASC' ? 'selected' : '' ?>>ASC</option>
-                        <option value="DESC" <?= $sort_order === 'DESC' ? 'selected' : '' ?>>DESC</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Apply Filters</button>
-                    <a href="employee_management.php" class="btn btn-secondary">Reset</a>
-                </div>
-            </form>
-        </div>
-    </div>
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-    <!-- Create New User Form -->
-    <div class="card mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Create New User</h5>
-            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#createUserForm">
-                Toggle Form
-            </button>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #00C7FFFF;
+            --secondary-color: #0073ACFF;
+            --success-color: #4cc9f0;
+            --info-color: #4895ef;
+            --warning-color: #f72585;
+            --danger-color: #e63946;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: #343a40;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: none;
+            margin-bottom: 24px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #e9ecef;
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px 12px 0 0 !important;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .table-responsive {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table th {
+            background-color: #f1f5fd;
+            color: #495057;
+            font-weight: 600;
+            border-top: none;
+            padding: 1rem 0.75rem;
+        }
+
+        .table td {
+            padding: 0.9rem 0.75rem;
+            vertical-align: middle;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .badge {
+            font-weight: 500;
+            padding: 0.5em 0.8em;
+            border-radius: 6px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 8px;
+            padding: 0.6rem 0.75rem;
+            border: 1px solid #ced4da;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+        }
+
+        .pagination .page-link {
+            border-radius: 8px;
+            margin: 0 3px;
+            color: var(--primary-color);
+            border: 1px solid #dee2e6;
+        }
+
+        .pagination .page-link {
+            border-radius: 8px;
+            margin: 0 3px;
+            color: #fd7e14;
+            border: 1px solid #dee2e6;
+        }
+
+        .active>.page-link,
+        .page-link.active {
+            z-index: 3;
+            color: var(--bs-pagination-active-color);
+            background-color: #00c7ff;
+            border-color: #fd7e14;
+        }
+
+        .create-user-toggle {
+            background-color: var(--success-color);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(76, 201, 240, 0.3);
+        }
+
+        .create-user-toggle:hover {
+            transform: rotate(90deg);
+            background-color: var(--info-color);
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .stats-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stats-label {
+            color: var(--gray-color);
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .table-responsive {
+                overflow-x: auto;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .bulk-actions {
+                margin-top: 15px;
+                width: 100%;
+            }
+        }
+
+        .floating-action-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .floating-action-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+            background: var(--secondary-color);
+        }
+
+        .py-4 {
+            padding-top: 4.5rem !important;
+            padding-bottom: 1.5rem !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-users me-2"></i>Employee Management</h1>
+            <div class="d-flex">
+                <button class="btn btn-primary me-2" data-bs-toggle="collapse" data-bs-target="#filtersCard">
+                    <i class="fas fa-filter me-1"></i> Filters
+                </button>
+                <div class="create-user-toggle" data-bs-toggle="collapse" data-bs-target="#createUserForm">
+                    <i class="fas fa-plus"></i>
+                </div>
+            </div>
         </div>
-        <div class="collapse show" id="createUserForm">
+
+        <!-- Stats Overview -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number"><?= $total_users ?></div>
+                    <div class="stats-label">Total Employees</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number"><?= count(array_filter($users, function ($u) {
+                                                    return $u['is_active'];
+                                                })) ?></div>
+                    <div class="stats-label">Active Employees</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number"><?= count(array_filter($users, function ($u) {
+                                                    return $u['role'] === 'admin';
+                                                })) ?></div>
+                    <div class="stats-label">Administrators</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number"><?= count($departments) ?></div>
+                    <div class="stats-label">Departments</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="collapse" id="filtersCard">
+            <div class="filter-section mb-4">
+                <h5 class="mb-3"><i class="fas fa-filter me-2"></i>Filters & Search</h5>
+                <form method="GET" class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label">Search</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control" name="search" value="<?= e($search) ?>" placeholder="Search employees...">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Role</label>
+                        <select class="form-select" name="role_filter">
+                            <option value="">All Roles</option>
+                            <option value="employee" <?= $role_filter === 'employee' ? 'selected' : '' ?>>Employee</option>
+                            <option value="consultant" <?= $role_filter === 'consultant' ? 'selected' : '' ?>>Consultant</option>
+                            <option value="manager" <?= $role_filter === 'manager' ? 'selected' : '' ?>>Manager</option>
+                            <option value="admin" <?= $role_filter === 'admin' ? 'selected' : '' ?>>Admin</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" name="status_filter">
+                            <option value="">All Status</option>
+                            <option value="active" <?= $status_filter === 'active' ? 'selected' : '' ?>>Active</option>
+                            <option value="inactive" <?= $status_filter === 'inactive' ? 'selected' : '' ?>>Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Department</label>
+                        <select class="form-select" name="department_filter">
+                            <option value="">All Departments</option>
+                            <?php foreach ($departments as $dept): ?>
+                                <option value="<?= $dept['department_id'] ?>" <?= $department_filter == $dept['department_id'] ? 'selected' : '' ?>>
+                                    <?= e($dept['department_name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Sort By</label>
+                        <select class="form-select" name="sort_by">
+                            <option value="full_name" <?= $sort_by === 'full_name' ? 'selected' : '' ?>>Name</option>
+                            <option value="email" <?= $sort_by === 'email' ? 'selected' : '' ?>>Email</option>
+                            <option value="role" <?= $sort_by === 'role' ? 'selected' : '' ?>>Role</option>
+                            <option value="department_name" <?= $sort_by === 'department_name' ? 'selected' : '' ?>>Department</option>
+                            <option value="hire_date" <?= $sort_by === 'hire_date' ? 'selected' : '' ?>>Hire Date</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-label">Order</label>
+                        <select class="form-select" name="sort_order">
+                            <option value="ASC" <?= $sort_order === 'ASC' ? 'selected' : '' ?>>ASC</option>
+                            <option value="DESC" <?= $sort_order === 'DESC' ? 'selected' : '' ?>>DESC</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check me-1"></i> Apply Filters</button>
+                        <a href="employee_management.php" class="btn btn-outline-secondary"><i class="fas fa-sync me-1"></i> Reset</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Create New User Form -->
+        <div class="card mb-4 collapse" id="createUserForm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-user-plus me-2"></i>Create New Employee</h5>
+                <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#createUserForm">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
             <div class="card-body">
-                <form method="POST" id="createUserForm">
+                <form method="POST" id="createUserFormElement">
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label class="form-label">Employee ID</label>
@@ -322,7 +601,12 @@ $supervisors = $pdo->query("SELECT user_id, full_name FROM users WHERE is_active
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Password <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" name="password" required>
+                            <div class="input-group">
+                                <input type="password" class="form-control" name="password" id="passwordField" required>
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -388,425 +672,537 @@ $supervisors = $pdo->query("SELECT user_id, full_name FROM users WHERE is_active
                         </div>
                     </div>
 
-                    <button type="submit" name="create_user" class="btn btn-primary">Create User</button>
+                    <button type="submit" name="create_user" class="btn btn-primary"><i class="fas fa-user-plus me-1"></i> Create Employee</button>
                 </form>
             </div>
         </div>
-    </div>
 
-    <!-- User List with Bulk Actions -->
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">User List (<?= $total_users ?> users found)</h5>
-            <div class="d-flex">
-                <select class="form-select me-2" id="per_page" onchange="updatePerPage(this.value)">
-                    <option value="5" <?= $per_page == 5 ? 'selected' : '' ?>>5 per page</option>
-                    <option value="10" <?= $per_page == 10 ? 'selected' : '' ?>>10 per page</option>
-                    <option value="15" <?= $per_page == 15 ? 'selected' : '' ?>>15 per page</option>
-                    <option value="20" <?= $per_page == 20 ? 'selected' : '' ?>>20 per page</option>
-                    <option value="50" <?= $per_page == 50 ? 'selected' : '' ?>>50 per page</option>
-                    <option value="100" <?= $per_page == 100 ? 'selected' : '' ?>>100 per page</option>
-                    <option value="9999" <?= $per_page > 100 ? 'selected' : '' ?>>All</option>
-                </select>
-
-                <form method="POST" class="d-flex bulk-action-form">
-                    <input type="hidden" name="selected_users" id="selectedUsers">
-                    <select class="form-select me-2" name="bulk_action_type" id="bulkActionType">
-                        <option value="">Bulk Actions</option>
-                        <option value="activate">Activate</option>
-                        <option value="deactivate">Deactivate</option>
-                        <option value="delete">Delete</option>
-                        <option value="export">Export</option>
+        <!-- User List with Bulk Actions -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-list me-2"></i>Employee List (<?= $total_users ?> employees found)</h5>
+                <div class="d-flex align-items-center">
+                    <select class="form-select me-2" id="per_page" onchange="updatePerPage(this.value)" style="width: auto;">
+                        <option value="5" <?= $per_page == 5 ? 'selected' : '' ?>>5 per page</option>
+                        <option value="10" <?= $per_page == 10 ? 'selected' : '' ?>>10 per page</option>
+                        <option value="15" <?= $per_page == 15 ? 'selected' : '' ?>>15 per page</option>
+                        <option value="20" <?= $per_page == 20 ? 'selected' : '' ?>>20 per page</option>
+                        <option value="50" <?= $per_page == 50 ? 'selected' : '' ?>>50 per page</option>
+                        <option value="100" <?= $per_page == 100 ? 'selected' : '' ?>>100 per page</option>
+                        <option value="9999" <?= $per_page > 100 ? 'selected' : '' ?>>All</option>
                     </select>
-                    <button type="submit" name="bulk_action" class="btn btn-outline-secondary" id="bulkActionBtn" disabled>
-                        Apply
-                    </button>
+
+                    <form method="POST" class="d-flex bulk-action-form">
+                        <input type="hidden" name="selected_users" id="selectedUsers">
+                        <select class="form-select me-2" name="bulk_action_type" id="bulkActionType" style="width: auto;">
+                            <option value="">Bulk Actions</option>
+                            <option value="activate">Activate</option>
+                            <option value="deactivate">Deactivate</option>
+                            <option value="delete">Delete</option>
+                            <option value="export">Export</option>
+                        </select>
+                        <button type="submit" name="bulk_action" class="btn btn-outline-secondary" id="bulkActionBtn" disabled>
+                            Apply
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th width="30">
+                                    <input type="checkbox" id="selectAll">
+                                </th>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Role</th>
+                                <th>Department</th>
+                                <th>Position</th>
+                                <th>Supervisor</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($users)): ?>
+                                <tr>
+                                    <td colspan="11" class="text-center py-4">No employees found</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($users as $u): ?>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="user-checkbox" value="<?= $u['user_id'] ?>">
+                                        </td>
+                                        <td><?= e($u['employee_id'] ?? 'N/A') ?></td>
+                                        <td>
+                                            <?= e($u['full_name']) ?>
+                                            <?php if ($u['is_doctor']): ?>
+                                                <span class="badge bg-info ms-1">Dr</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td><?= e($u['email']) ?></td>
+                                        <td><?= e($u['phone'] ?? 'N/A') ?></td>
+                                        <td>
+                                            <span class="badge bg-<?=
+                                                                    $u['role'] == 'admin' ? 'danger' : ($u['role'] == 'manager' ? 'warning' : ($u['role'] == 'consultant' ? 'info' : 'secondary')) ?>">
+                                                <?= ucfirst(e($u['role'])) ?>
+                                            </span>
+                                        </td>
+                                        <td><?= e($u['department_name'] ?? 'N/A') ?></td>
+                                        <td><?= e($u['position_title'] ?? 'N/A') ?></td>
+                                        <td><?= e($u['supervisor_name'] ?? 'N/A') ?></td>
+                                        <td>
+                                            <span class="badge bg-<?= $u['is_active'] ? 'success' : 'danger' ?>">
+                                                <?= $u['is_active'] ? 'Active' : 'Inactive' ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-outline-primary edit-user"
+                                                    data-user-id="<?= $u['user_id'] ?>"
+                                                    data-employee-id="<?= e($u['employee_id'] ?? '') ?>"
+                                                    data-first-name="<?= e($u['first_name']) ?>"
+                                                    data-middle-name="<?= e($u['middle_name'] ?? '') ?>"
+                                                    data-last-name="<?= e($u['last_name']) ?>"
+                                                    data-username="<?= e($u['username'] ?? '') ?>"
+                                                    data-email="<?= e($u['email']) ?>"
+                                                    data-phone="<?= e($u['phone'] ?? '') ?>"
+                                                    data-alternate-phone="<?= e($u['alternate_phone'] ?? '') ?>"
+                                                    data-role="<?= e($u['role']) ?>"
+                                                    data-department-id="<?= e($u['department_id'] ?? '') ?>"
+                                                    data-position-id="<?= e($u['position_id'] ?? '') ?>"
+                                                    data-supervisor-id="<?= e($u['supervisor_id'] ?? '') ?>"
+                                                    data-join-date="<?= e($u['join_date'] ?? '') ?>"
+                                                    data-hire-date="<?= e($u['hire_date'] ?? '') ?>"
+                                                    data-is-doctor="<?= $u['is_doctor'] ?>"
+                                                    data-is-active="<?= $u['is_active'] ?>">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <form method="POST" class="d-inline">
+                                                    <input type="hidden" name="user_id" value="<?= $u['user_id'] ?>">
+                                                    <button type="submit" name="delete_user" class="btn btn-sm btn-outline-<?= $u['is_active'] ? 'danger' : 'success' ?>">
+                                                        <?= $u['is_active'] ? '<i class="fas fa-user-times"></i>' : '<i class="fas fa-user-check"></i>' ?>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <?php if ($total_pages > 1): ?>
+                    <nav aria-label="User pagination" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                                <a class="page-link" href="<?= generatePaginationLink(1, $per_page) ?>">First</a>
+                            </li>
+                            <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                                <a class="page-link" href="<?= generatePaginationLink($page - 1, $per_page) ?>">Previous</a>
+                            </li>
+
+                            <?php
+                            $start_page = max(1, $page - 2);
+                            $end_page = min($total_pages, $start_page + 4);
+                            $start_page = max(1, $end_page - 4);
+
+                            for ($i = $start_page; $i <= $end_page; $i++):
+                            ?>
+                                <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                                    <a class="page-link" href="<?= generatePaginationLink($i, $per_page) ?>"><?= $i ?></a>
+                                </li>
+                            <?php endfor; ?>
+
+                            <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
+                                <a class="page-link" href="<?= generatePaginationLink($page + 1, $per_page) ?>">Next</a>
+                            </li>
+                            <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
+                                <a class="page-link" href="<?= generatePaginationLink($total_pages, $per_page) ?>">Last</a>
+                            </li>
+                        </ul>
+                    </nav>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="floating-action-btn" data-bs-toggle="collapse" data-bs-target="#createUserForm">
+        <i class="fas fa-plus"></i>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-user-edit me-2"></i>Edit Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" id="editUserForm">
+                    <div class="modal-body">
+                        <input type="hidden" name="user_id" id="edit_user_id">
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Employee ID</label>
+                                <input type="text" class="form-control" name="employee_id" id="edit_employee_id">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">First Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="first_name" id="edit_first_name" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" name="middle_name" id="edit_middle_name">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="last_name" id="edit_last_name" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username" id="edit_username">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" name="email" id="edit_email" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Phone</label>
+                                <input type="text" class="form-control" name="phone" id="edit_phone">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Alternate Phone</label>
+                                <input type="text" class="form-control" name="alternate_phone" id="edit_alternate_phone">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">New Password (leave blank to keep current)</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="password" id="edit_password">
+                                    <button class="btn btn-outline-secondary" type="button" id="toggleEditPassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Role <span class="text-danger">*</span></label>
+                                <select class="form-select" name="role" id="edit_role" required>
+                                    <option value="employee">Employee</option>
+                                    <option value="consultant">Consultant</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="admin">Administrator</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Department</label>
+                                <select class="form-select" name="department_id" id="edit_department_id">
+                                    <option value="">Select Department</option>
+                                    <?php foreach ($departments as $dept): ?>
+                                        <option value="<?= $dept['department_id'] ?>"><?= e($dept['department_name']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Position</label>
+                                <select class="form-select" name="position_id" id="edit_position_id">
+                                    <option value="">Select Position</option>
+                                    <?php foreach ($positions as $pos): ?>
+                                        <option value="<?= $pos['position_id'] ?>"><?= e($pos['position_title']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Supervisor</label>
+                                <select class="form-select" name="supervisor_id" id="edit_supervisor_id">
+                                    <option value="">Select Supervisor</option>
+                                    <?php foreach ($supervisors as $sup): ?>
+                                        <option value="<?= $sup['user_id'] ?>"><?= e($sup['full_name']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Join Date</label>
+                                <input type="date" class="form-control" name="join_date" id="edit_join_date">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Hire Date</label>
+                                <input type="date" class="form-control" name="hire_date" id="edit_hire_date">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check mt-4 pt-2">
+                                    <input class="form-check-input" type="checkbox" name="is_doctor" id="edit_is_doctor" value="1">
+                                    <label class="form-check-label" for="edit_is_doctor">Is Doctor</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check mt-4 pt-2">
+                                    <input class="form-check-input" type="checkbox" name="is_active" id="edit_is_active">
+                                    <label class="form-check-label" for="edit_is_active">Active</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="update_user" class="btn btn-primary">Save Changes</button>
+                    </div>
                 </form>
             </div>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th width="30">
-                                <input type="checkbox" id="selectAll">
-                            </th>
-                            <th>Employee ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Role</th>
-                            <th>Department</th>
-                            <th>Position</th>
-                            <th>Supervisor</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (empty($users)): ?>
-                            <tr>
-                                <td colspan="11" class="text-center">No users found</td>
-                            </tr>
-                        <?php else: ?>
-                            <?php foreach ($users as $u): ?>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="user-checkbox" value="<?= $u['user_id'] ?>">
-                                    </td>
-                                    <td><?= e($u['employee_id'] ?? 'N/A') ?></td>
-                                    <td>
-                                        <?= e($u['full_name']) ?>
-                                        <?php if ($u['is_doctor']): ?>
-                                            <span class="badge bg-info">Dr</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td><?= e($u['email']) ?></td>
-                                    <td><?= e($u['phone'] ?? 'N/A') ?></td>
-                                    <td>
-                                        <span class="badge bg-<?=
-                                                                $u['role'] == 'admin' ? 'danger' : ($u['role'] == 'manager' ? 'warning' : ($u['role'] == 'consultant' ? 'info' : 'secondary')) ?>">
-                                            <?= ucfirst(e($u['role'])) ?>
-                                        </span>
-                                    </td>
-                                    <td><?= e($u['department_name'] ?? 'N/A') ?></td>
-                                    <td><?= e($u['position_title'] ?? 'N/A') ?></td>
-                                    <td><?= e($u['supervisor_name'] ?? 'N/A') ?></td>
-                                    <td>
-                                        <span class="badge bg-<?= $u['is_active'] ? 'success' : 'danger' ?>">
-                                            <?= $u['is_active'] ? 'Active' : 'Inactive' ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-sm btn-outline-primary edit-user"
-                                                data-user-id="<?= $u['user_id'] ?>"
-                                                data-employee-id="<?= e($u['employee_id'] ?? '') ?>"
-                                                data-first-name="<?= e($u['first_name']) ?>"
-                                                data-middle-name="<?= e($u['middle_name'] ?? '') ?>"
-                                                data-last-name="<?= e($u['last_name']) ?>"
-                                                data-username="<?= e($u['username'] ?? '') ?>"
-                                                data-email="<?= e($u['email']) ?>"
-                                                data-phone="<?= e($u['phone'] ?? '') ?>"
-                                                data-alternate-phone="<?= e($u['alternate_phone'] ?? '') ?>"
-                                                data-role="<?= e($u['role']) ?>"
-                                                data-department-id="<?= e($u['department_id'] ?? '') ?>"
-                                                data-position-id="<?= e($u['position_id'] ?? '') ?>"
-                                                data-supervisor-id="<?= e($u['supervisor_id'] ?? '') ?>"
-                                                data-join-date="<?= e($u['join_date'] ?? '') ?>"
-                                                data-hire-date="<?= e($u['hire_date'] ?? '') ?>"
-                                                data-is-doctor="<?= $u['is_doctor'] ?>"
-                                                data-is-active="<?= $u['is_active'] ?>">
-                                                Edit
-                                            </button>
-                                            <form method="POST" class="d-inline">
-                                                <input type="hidden" name="user_id" value="<?= $u['user_id'] ?>">
-                                                <button type="submit" name="delete_user" class="btn btn-sm btn-outline-<?= $u['is_active'] ? 'danger' : 'success' ?>">
-                                                    <?= $u['is_active'] ? 'Deactivate' : 'Activate' ?>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Pagination -->
-            <?php if ($total_pages > 1): ?>
-                <nav aria-label="User pagination">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                            <a class="page-link" href="<?= generatePaginationLink(1, $per_page) ?>">First</a>
-                        </li>
-                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                            <a class="page-link" href="<?= generatePaginationLink($page - 1, $per_page) ?>">Previous</a>
-                        </li>
-
-                        <?php
-                        $start_page = max(1, $page - 2);
-                        $end_page = min($total_pages, $start_page + 4);
-                        $start_page = max(1, $end_page - 4);
-
-                        for ($i = $start_page; $i <= $end_page; $i++):
-                        ?>
-                            <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                                <a class="page-link" href="<?= generatePaginationLink($i, $per_page) ?>"><?= $i ?></a>
-                            </li>
-                        <?php endfor; ?>
-
-                        <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                            <a class="page-link" href="<?= generatePaginationLink($page + 1, $per_page) ?>">Next</a>
-                        </li>
-                        <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                            <a class="page-link" href="<?= generatePaginationLink($total_pages, $per_page) ?>">Last</a>
-                        </li>
-                    </ul>
-                </nav>
-            <?php endif; ?>
-        </div>
     </div>
-</div>
 
-<!-- Edit User Modal -->
-<div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit User</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method="POST" id="editUserForm">
-                <div class="modal-body">
-                    <input type="hidden" name="user_id" id="edit_user_id">
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="form-label">Employee ID</label>
-                            <input type="text" class="form-control" name="employee_id" id="edit_employee_id">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">First Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="first_name" id="edit_first_name" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Middle Name</label>
-                            <input type="text" class="form-control" name="middle_name" id="edit_middle_name">
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="form-label">Last Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="last_name" id="edit_last_name" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Username</label>
-                            <input type="text" class="form-control" name="username" id="edit_username">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" name="email" id="edit_email" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="form-label">Phone</label>
-                            <input type="text" class="form-control" name="phone" id="edit_phone">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Alternate Phone</label>
-                            <input type="text" class="form-control" name="alternate_phone" id="edit_alternate_phone">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">New Password (leave blank to keep current)</label>
-                            <input type="password" class="form-control" name="password" id="edit_password">
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label class="form-label">Role <span class="text-danger">*</span></label>
-                            <select class="form-select" name="role" id="edit_role" required>
-                                <option value="employee">Employee</option>
-                                <option value="consultant">Consultant</option>
-                                <option value="manager">Manager</option>
-                                <option value="admin">Administrator</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Department</label>
-                            <select class="form-select" name="department_id" id="edit_department_id">
-                                <option value="">Select Department</option>
-                                <?php foreach ($departments as $dept): ?>
-                                    <option value="<?= $dept['department_id'] ?>"><?= e($dept['department_name']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Position</label>
-                            <select class="form-select" name="position_id" id="edit_position_id">
-                                <option value="">Select Position</option>
-                                <?php foreach ($positions as $pos): ?>
-                                    <option value="<?= $pos['position_id'] ?>"><?= e($pos['position_title']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Supervisor</label>
-                            <select class="form-select" name="supervisor_id" id="edit_supervisor_id">
-                                <option value="">Select Supervisor</option>
-                                <?php foreach ($supervisors as $sup): ?>
-                                    <option value="<?= $sup['user_id'] ?>"><?= e($sup['full_name']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label class="form-label">Join Date</label>
-                            <input type="date" class="form-control" name="join_date" id="edit_join_date">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Hire Date</label>
-                            <input type="date" class="form-control" name="hire_date" id="edit_hire_date">
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check mt-4 pt-2">
-                                <input class="form-check-input" type="checkbox" name="is_doctor" id="edit_is_doctor" value="1">
-                                <label class="form-check-label" for="edit_is_doctor">Is Doctor</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check mt-4 pt-2">
-                                <input class="form-check-input" type="checkbox" name="is_active" id="edit_is_active">
-                                <label class="form-check-label" for="edit_is_active">Active</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name="update_user" class="btn btn-primary">Save Changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handle edit user button clicks
-        document.querySelectorAll('.edit-user').forEach(button => {
-            button.addEventListener('click', function() {
-                const userId = this.dataset.userId;
-                const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
-
-                // Show loading state
-                document.getElementById('editUserForm').querySelectorAll('input, select').forEach(el => {
-                    el.disabled = true;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show SweetAlert for success/error messages
+            <?php if ($error): ?>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: '<?= addslashes($error) ?>',
+                    confirmButtonColor: '#4361ee'
                 });
+            <?php endif; ?>
 
-                // Fetch user data via AJAX
-                fetch(`get_employee_data.php?user_id=${userId}`)
-                    .then(response => response.json())
-                    .then(user => {
-                        // Populate form fields with user data
-                        document.getElementById('edit_user_id').value = user.user_id;
-                        document.getElementById('edit_employee_id').value = user.employee_id || '';
-                        document.getElementById('edit_first_name').value = user.first_name;
-                        document.getElementById('edit_middle_name').value = user.middle_name || '';
-                        document.getElementById('edit_last_name').value = user.last_name;
-                        document.getElementById('edit_username').value = user.username || '';
-                        document.getElementById('edit_email').value = user.email;
-                        document.getElementById('edit_phone').value = user.phone || '';
-                        document.getElementById('edit_alternate_phone').value = user.alternate_phone || '';
-                        document.getElementById('edit_role').value = user.role;
+            <?php if ($success): ?>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '<?= addslashes($success) ?>',
+                    confirmButtonColor: '#4361ee',
+                    timer: 3000
+                });
+            <?php endif; ?>
 
-                        // Set department selection
-                        if (user.department_id) {
-                            document.getElementById('edit_department_id').value = user.department_id;
-                        }
+            // Password visibility toggle
+            document.getElementById('togglePassword').addEventListener('click', function() {
+                const passwordField = document.getElementById('passwordField');
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
 
-                        // Set position selection
-                        if (user.position_id) {
-                            document.getElementById('edit_position_id').value = user.position_id;
-                        }
+            document.getElementById('toggleEditPassword').addEventListener('click', function() {
+                const passwordField = document.getElementById('edit_password');
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
 
-                        // Set supervisor selection
-                        if (user.supervisor_id) {
-                            document.getElementById('edit_supervisor_id').value = user.supervisor_id;
-                        }
+            // Handle edit user button clicks
+            document.querySelectorAll('.edit-user').forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = this.dataset.userId;
+                    const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
 
-                        // Set date fields
-                        document.getElementById('edit_join_date').value = user.join_date || '';
-                        document.getElementById('edit_hire_date').value = user.hire_date || '';
-
-                        // Set checkboxes
-                        document.getElementById('edit_is_doctor').checked = user.is_doctor == 1;
-                        document.getElementById('edit_is_active').checked = user.is_active == 1;
-
-                        // Enable form fields
-                        document.getElementById('editUserForm').querySelectorAll('input, select').forEach(el => {
-                            el.disabled = false;
-                        });
-
-                        modal.show();
-                    })
-                    .catch(error => {
-                        console.error('Error fetching user data:', error);
-                        alert('Error loading user data. Please try again.');
+                    // Show loading state
+                    document.getElementById('editUserForm').querySelectorAll('input, select').forEach(el => {
+                        el.disabled = true;
                     });
+
+                    // Fetch user data via AJAX
+                    fetch(`get_employee_data.php?user_id=${userId}`)
+                        .then(response => response.json())
+                        .then(user => {
+                            // Populate form fields with user data
+                            document.getElementById('edit_user_id').value = user.user_id;
+                            document.getElementById('edit_employee_id').value = user.employee_id || '';
+                            document.getElementById('edit_first_name').value = user.first_name;
+                            document.getElementById('edit_middle_name').value = user.middle_name || '';
+                            document.getElementById('edit_last_name').value = user.last_name;
+                            document.getElementById('edit_username').value = user.username || '';
+                            document.getElementById('edit_email').value = user.email;
+                            document.getElementById('edit_phone').value = user.phone || '';
+                            document.getElementById('edit_alternate_phone').value = user.alternate_phone || '';
+                            document.getElementById('edit_role').value = user.role;
+
+                            // Set department selection
+                            if (user.department_id) {
+                                document.getElementById('edit_department_id').value = user.department_id;
+                            }
+
+                            // Set position selection
+                            if (user.position_id) {
+                                document.getElementById('edit_position_id').value = user.position_id;
+                            }
+
+                            // Set supervisor selection
+                            if (user.supervisor_id) {
+                                document.getElementById('edit_supervisor_id').value = user.supervisor_id;
+                            }
+
+                            // Set date fields
+                            document.getElementById('edit_join_date').value = user.join_date || '';
+                            document.getElementById('edit_hire_date').value = user.hire_date || '';
+
+                            // Set checkboxes
+                            document.getElementById('edit_is_doctor').checked = user.is_doctor == 1;
+                            document.getElementById('edit_is_active').checked = user.is_active == 1;
+
+                            // Enable form fields
+                            document.getElementById('editUserForm').querySelectorAll('input, select').forEach(el => {
+                                el.disabled = false;
+                            });
+
+                            modal.show();
+                        })
+                        .catch(error => {
+                            console.error('Error fetching user data:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Error loading employee data. Please try again.',
+                                confirmButtonColor: '#4361ee'
+                            });
+                        });
+                });
+            });
+
+            // Select all checkbox functionality
+            document.getElementById('selectAll').addEventListener('change', function() {
+                const checkboxes = document.querySelectorAll('.user-checkbox');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+                updateBulkActionButton();
+            });
+
+            // Update bulk action button when checkboxes change
+            document.querySelectorAll('.user-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', updateBulkActionButton);
+            });
+
+            // Bulk action form submission
+            document.querySelector('.bulk-action-form').addEventListener('submit', function(e) {
+                const selectedUsers = Array.from(document.querySelectorAll('.user-checkbox:checked'))
+                    .map(checkbox => checkbox.value);
+
+                if (selectedUsers.length === 0) {
+                    e.preventDefault();
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'No Selection',
+                        text: 'Please select at least one employee',
+                        confirmButtonColor: '#4361ee'
+                    });
+                    return;
+                }
+
+                const actionType = document.getElementById('bulkActionType').value;
+                if (!actionType) {
+                    e.preventDefault();
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'No Action',
+                        text: 'Please select a bulk action',
+                        confirmButtonColor: '#4361ee'
+                    });
+                    return;
+                }
+
+                if (actionType === 'delete') {
+                    e.preventDefault();
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Confirm Deletion',
+                        html: `You are about to delete ${selectedUsers.length} employee(s). This action cannot be undone.<br><br>Are you sure?`,
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete them!',
+                        confirmButtonColor: '#e63946',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById('selectedUsers').value = JSON.stringify(selectedUsers);
+                            this.submit();
+                        }
+                    });
+                } else {
+                    document.getElementById('selectedUsers').value = JSON.stringify(selectedUsers);
+                }
+            });
+
+            // Delete user confirmation
+            document.querySelectorAll('form').forEach(form => {
+                if (form.querySelector('button[name="delete_user"]')) {
+                    form.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const button = this.querySelector('button[name="delete_user"]');
+                        const action = button.textContent.includes('Deactivate') ? 'deactivate' : 'activate';
+
+                        Swal.fire({
+                            icon: 'question',
+                            title: `Confirm ${action}`,
+                            text: `Are you sure you want to ${action} this employee?`,
+                            showCancelButton: true,
+                            confirmButtonText: `Yes, ${action}`,
+                            confirmButtonColor: action === 'deactivate' ? '#e63946' : '#4361ee',
+                            cancelButtonText: 'Cancel'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                this.submit();
+                            }
+                        });
+                    });
+                }
             });
         });
 
-        // Select all checkbox functionality
-        document.getElementById('selectAll').addEventListener('change', function() {
-            const checkboxes = document.querySelectorAll('.user-checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = this.checked;
-            });
-            updateBulkActionButton();
-        });
+        function updateBulkActionButton() {
+            const selectedCount = document.querySelectorAll('.user-checkbox:checked').length;
+            const bulkActionBtn = document.getElementById('bulkActionBtn');
+            const bulkActionType = document.getElementById('bulkActionType');
 
-        // Update bulk action button when checkboxes change
-        document.querySelectorAll('.user-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', updateBulkActionButton);
-        });
-
-        // Bulk action form submission
-        document.querySelector('.bulk-action-form').addEventListener('submit', function(e) {
-            const selectedUsers = Array.from(document.querySelectorAll('.user-checkbox:checked'))
-                .map(checkbox => checkbox.value);
-
-            if (selectedUsers.length === 0) {
-                e.preventDefault();
-                alert('Please select at least one user');
-                return;
+            if (selectedCount > 0 && bulkActionType.value) {
+                bulkActionBtn.disabled = false;
+                bulkActionBtn.textContent = `Apply to ${selectedCount} employee(s)`;
+            } else {
+                bulkActionBtn.disabled = true;
+                bulkActionBtn.textContent = 'Apply';
             }
-
-            document.getElementById('selectedUsers').value = JSON.stringify(selectedUsers);
-        });
-    });
-
-    function updateBulkActionButton() {
-        const selectedCount = document.querySelectorAll('.user-checkbox:checked').length;
-        const bulkActionBtn = document.getElementById('bulkActionBtn');
-        const bulkActionType = document.getElementById('bulkActionType');
-
-        if (selectedCount > 0 && bulkActionType.value) {
-            bulkActionBtn.disabled = false;
-            bulkActionBtn.textContent = `Apply to ${selectedCount} user(s)`;
-        } else {
-            bulkActionBtn.disabled = true;
-            bulkActionBtn.textContent = 'Apply';
         }
+
+        function updatePerPage(value) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('per_page', value);
+            url.searchParams.set('page', '1'); // Reset to first page
+            window.location.href = url.toString();
+        }
+
+        // Update bulk action button when action type changes
+        document.getElementById('bulkActionType').addEventListener('change', updateBulkActionButton);
+    </script>
+
+    <?php
+    // Helper function to generate pagination links
+    function generatePaginationLink($page, $per_page)
+    {
+        $params = $_GET;
+        $params['page'] = $page;
+        $params['per_page'] = $per_page;
+        return 'employee_management.php?' . http_build_query($params);
     }
 
-    function updatePerPage(value) {
-        const url = new URL(window.location.href);
-        url.searchParams.set('per_page', value);
-        url.searchParams.set('page', '1'); // Reset to first page
-        window.location.href = url.toString();
-    }
-
-    // Update bulk action button when action type changes
-    document.getElementById('bulkActionType').addEventListener('change', updateBulkActionButton);
-</script>
-
-<?php
-// Helper function to generate pagination links
-function generatePaginationLink($page, $per_page)
-{
-    $params = $_GET;
-    $params['page'] = $page;
-    $params['per_page'] = $per_page;
-    return 'employee_management.php?' . http_build_query($params);
-}
-
-require_once __DIR__ . '/footer.php';
+    require_once __DIR__ . '/footer.php';

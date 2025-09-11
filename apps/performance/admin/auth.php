@@ -1,21 +1,30 @@
 <?php
 // auth.php - Authentication handler
-session_start();
+require_once 'db_connection.php';
 
-// Hardcoded credentials (to be replaced with database check in the future)
-$valid_username = 'admin';
-$valid_password = 'merq@eval7';
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    require_once __DIR__ . '/../../../includes/ci-config.php';
+    require_once __DIR__ . '/../../../includes/session-config.php';
+    session_start();
+}
 
 // Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? '';
+    $email = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
     // Validate credentials
-    if ($username === $valid_username && $password === $valid_password) {
+    $staff = verify_staff_credentials($email, $password);
+
+    if ($staff) {
         // Authentication successful
         $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $username;
+        $_SESSION['username'] = $staff['email'];
+        $_SESSION['staff_user_id'] = $staff['staffid'];
+        $_SESSION['staff_firstname'] = $staff['firstname'];
+        $_SESSION['staff_lastname'] = $staff['lastname'];
+        $_SESSION['staff_email'] = $staff['email'];
         $_SESSION['login_time'] = time();
 
         // Redirect to dashboard
@@ -23,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     } else {
         // Authentication failed
-        $_SESSION['error'] = 'Invalid username or password';
+        $_SESSION['error'] = 'Invalid email or password';
         header('Location: login.php');
         exit;
     }

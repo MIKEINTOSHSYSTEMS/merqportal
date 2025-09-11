@@ -1,5 +1,16 @@
 <?php
 // config.php - Configuration and API setup
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Include session configuration but don't start session yet
+require_once __DIR__ . '/../../../includes/ci-config.php';
+
+// Check if session is already started
+if (session_status() === PHP_SESSION_NONE) {
+    require_once __DIR__ . '/../../../includes/session-config.php';
+}
+
 define('BASE_URL', 'https://formapp.merqconsultancy.org/api/v1');
 define('API_KEY', 'Q5vxZHNxaX1JLgtNBizHaHLXTTDFLxhgmopOsY4d');
 define('FORM_ID', 13);

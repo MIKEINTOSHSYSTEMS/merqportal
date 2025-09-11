@@ -2,8 +2,21 @@
 // header.php - Responsive header with navigation
 $currentPage = basename($_SERVER['PHP_SELF']);
 
+// Check if session is already started
+if (session_status() === PHP_SESSION_NONE) {
+    //require_once __DIR__ . '/../../../includes/ci-config.php';
+    require_once __DIR__ . '/../../../includes/session-config.php';
+}
+
 require_once 'auth_check.php'; // Add this line for authentication
 
+// Get user data from session
+$staffName = isset($_SESSION['staff_firstname']) && isset($_SESSION['staff_lastname'])
+    ? $_SESSION['staff_firstname'] . ' ' . $_SESSION['staff_lastname']
+    : 'User';
+
+$staffEmail = isset($_SESSION['staff_email']) ? $_SESSION['staff_email'] : '';
+$avatarName = urlencode($staffName);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +101,6 @@ require_once 'auth_check.php'; // Add this line for authentication
             width: 250px;
             background: #072247;
             z-index: 1020;
-            z-index: 1020;
             transition: all 0.3s ease;
             overflow-y: auto;
             padding-top: 70px;
@@ -156,7 +168,6 @@ require_once 'auth_check.php'; // Add this line for authentication
             display: none;
         }
 
-
         /* Development Badges */
         .dev-badge {
             position: absolute;
@@ -182,7 +193,6 @@ require_once 'auth_check.php'; // Add this line for authentication
         .sys-sidebar-collapsed .dev-badge {
             display: none;
         }
-
 
         /* Main Content Area */
         .sys-main-content {
@@ -263,8 +273,8 @@ require_once 'auth_check.php'; // Add this line for authentication
                     </div>
                 </div>
                 <div class="sys-nav-user-info">
-                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=random" alt="User">
-                    <span class="d-none d-md-inline">Admin User</span>
+                    <img src="https://ui-avatars.com/api/?name=<?= $avatarName ?>&background=random" alt="User">
+                    <span class="d-none d-md-inline"><?= htmlspecialchars($staffName) ?></span>
                 </div>
             </div>
         </div>
@@ -288,7 +298,7 @@ require_once 'auth_check.php'; // Add this line for authentication
             </li>
             <li class="sys-sidebar-header">Management</li>
             <li>
-                <a href="employee_report.php" class="<?= $currentPage == 'employee_report.php' ? 'sys-active' : '' ?>">
+                <a href="#" class="<?= $currentPage == 'employee_report.php' ? 'sys-active' : '' ?>">
                     <i class="fas fa-users"></i>
                     <span>Employee Reports</span>
                 </a>
@@ -323,14 +333,12 @@ require_once 'auth_check.php'; // Add this line for authentication
             <hr>
             <li>
                 <a href="../index.php"> <i class="fas fa-pen-alt"></i>
-
                     <span>Go to Evaluation</span>
-
                 </a>
             </li>
         </ul>
     </aside>
 
     <!-- Main Content -->
-    <main class=" sys-main-content">
+    <main class="sys-main-content">
         <div class="container-fluid">

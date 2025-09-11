@@ -1,6 +1,11 @@
 <?php
 // dashboard.php - Main dashboard page
 require_once 'config.php';
+require_once 'auth_check.php';
+
+
+// Get employees from database
+$employees = getEmployeesFromDatabase();
 
 // Fetch and process data
 $submissions = getSubmissions();
@@ -181,8 +186,8 @@ require_once 'header.php';
             background-color: #f8f9fa;
             height: 100vh;
             position: sticky;
-            top: 0;
-            padding-top: 20px;
+            top: 100px;
+            padding-top: 70px;
         }
 
         .main-content {
@@ -234,6 +239,11 @@ require_once 'header.php';
             height: 15px;
             margin-right: 5px;
             border-radius: 3px;
+        }
+
+        .bg-primary {
+            --bs-bg-opacity: 1;
+            background-color: rgb(7 34 71) !important;
         }
     </style>
 </head>

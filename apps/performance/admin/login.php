@@ -24,7 +24,7 @@ if (isset($_SESSION['error'])) {
     <title>Login - MERQ Performance Evaluation System</title>
     <link rel="icon" type="image/x-icon" href="/assets/images/merq-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome@6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #003366;
@@ -178,8 +178,8 @@ if (isset($_SESSION['error'])) {
             <?php endif; ?>
 
             <div class="form-group">
-                <i class="fas fa-user input-icon"></i>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required autofocus>
+                <i class="fas fa-envelope input-icon"></i>
+                <input type="email" class="form-control" id="username" name="username" placeholder="Email Address" required autofocus>
             </div>
 
             <div class="form-group">
@@ -218,7 +218,7 @@ if (isset($_SESSION['error'])) {
             }
         });
 
-        // Focus on username field when page loads
+        // Focus on email field when page loads
         document.getElementById('username').focus();
     </script>
 </body>

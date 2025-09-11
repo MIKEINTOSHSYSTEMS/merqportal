@@ -1,8 +1,14 @@
 <?php
 // auth_check.php - Authentication check for protected pages
-session_start();
 
-// Check if user is logged in
+// Check if session is already started
+if (session_status() === PHP_SESSION_NONE) {
+    require_once __DIR__ . '/../../../includes/ci-config.php';
+    require_once __DIR__ . '/../../../includes/session-config.php';
+    session_start();
+}
+
+// Check if user is logged in using our custom session variable
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     // User is not logged in, redirect to login page
     header('Location: login.php');

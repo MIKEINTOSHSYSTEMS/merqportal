@@ -1,12 +1,22 @@
 <?php
-// Include session configuration to ensure consistent session settings across the application
-//require_once __DIR__ . '/../../timesheet/includes/session-config.php';
+// header.php - Responsive header with navigation
+$currentPage = basename($_SERVER['PHP_SELF']);
 
-// Now the session is already started with the correct settings, no need to call session_start() here
-
-if (!headers_sent()) {
-    ob_start(); // Start output buffering if headers are not sent
+// Check if session is already started
+if (session_status() === PHP_SESSION_NONE) {
+    //require_once __DIR__ . '/../../../includes/ci-config.php';
+    require_once __DIR__ . '/../../../includes/session-config.php';
 }
+
+require_once 'auth_check.php'; // Add this line for authentication
+
+// Get user data from session
+$staffName = isset($_SESSION['staff_firstname']) && isset($_SESSION['staff_lastname'])
+    ? $_SESSION['staff_firstname'] . ' ' . $_SESSION['staff_lastname']
+    : 'User';
+
+$staffEmail = isset($_SESSION['staff_email']) ? $_SESSION['staff_email'] : '';
+$avatarName = urlencode($staffName);
 ?>
 <?php
 
@@ -396,8 +406,8 @@ $currentLanguage = $_SESSION['language'] ?? 'en';
                     </div>
                 </div>
                 <div class="sys-nav-user-info">
-                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=random" alt="User">
-                    <span class="d-none d-md-inline">Admin User</span>
+                    <img src="https://ui-avatars.com/api/?name=<?= $avatarName ?>&background=random" alt="User">
+                    <span class="d-none d-md-inline"><?= htmlspecialchars($staffName) ?></span>
                 </div>
             </div>
         </div>
