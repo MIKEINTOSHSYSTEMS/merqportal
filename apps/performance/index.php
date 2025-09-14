@@ -1034,10 +1034,10 @@ while ($row = $result->fetch_assoc()) {
                                             <p class="form-text">Select the period which this evaluation is for</p>
                                             <select id="selectlist_4" name="selectlist_4[]" data-alias="" class="form-select">
                                                 <option value="" disabled selected>Please Select</option>
-                                                <option value="Monthly" selected>Monthly</option>
+                                                <option value="Monthly">Monthly</option>
                                                 <option value="Quarterly">Quarterly</option>
                                                 <option value="Biannually">Biannually</option>
-                                                <option value="Annually">Annually</option>
+                                                <option value="Annually" selected>Annually</option>
                                             </select>
                                         </div>
                                     </div>
