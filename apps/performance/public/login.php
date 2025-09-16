@@ -119,7 +119,7 @@ if (isset($_SESSION['error'])) {
         }
 
         .btn-login:hover {
-            background: #00264d;
+            background: var(--accent-color);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 51, 102, 0.3);
         }

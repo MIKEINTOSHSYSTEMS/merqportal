@@ -482,6 +482,7 @@ if ($userData && isset($userData['category_scores']) && is_array($userData['cate
                         <p class="mb-0 text-muted">Welcome, <b><?= htmlspecialchars($_SESSION['full_name'] ?? 'User') ?></b></p>
                         <p class="mb-0 text-muted">Position: <b><?= htmlspecialchars($employeeDetails['position_title'] ?? '') ?></b></p>
                         <p>Under <b><?= htmlspecialchars($employeeDetails['department_name'] ?? '') ?> Depratment</b></p>
+                        <p>Supervisor: <b><?= htmlspecialchars($employeeDetails['supervisor_name'] ?? '') ?> </b></p>
                     </div>
                     <div class="d-flex mt-2 mt-md-0">
                         <!--
