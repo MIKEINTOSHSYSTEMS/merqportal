@@ -465,9 +465,9 @@ require_once 'header.php';
                                                     <div class="progress" style="height: 20px;">
                                                         <div class="progress-bar 
                                                             <?= $data['weighted_score'] < 30 ? 'bg-needs-improvement' : '' ?>
-                                                            <?= $data['weighted_score'] >= 30 && $data['weighted_score'] < 61 ? 'bg-developing' : '' ?>
-                                                            <?= $data['weighted_score'] >= 61 && $data['weighted_score'] < 76 ? 'bg-meets-expectations' : '' ?>
-                                                            <?= $data['weighted_score'] >= 76 && $data['weighted_score'] <= 90 ? 'bg-exceeds-expectations' : '' ?>
+                                                            <?= $data['weighted_score'] >= 30 && $data['weighted_score'] <= 60 ? 'bg-developing' : '' ?>
+                                                            <?= $data['weighted_score'] >= 60 && $data['weighted_score'] <= 75 ? 'bg-meets-expectations' : '' ?>
+                                                            <?= $data['weighted_score'] >= 75 && $data['weighted_score'] <= 90 ? 'bg-exceeds-expectations' : '' ?>
                                                             <?= $data['weighted_score'] > 90 ? 'bg-outstanding' : '' ?>"
                                                             role="progressbar"
                                                             style="width: <?= $data['weighted_score'] ?>%;"
