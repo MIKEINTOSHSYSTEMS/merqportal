@@ -2,6 +2,7 @@
 *.sql
 *.log
 *.zip
+*.code-workspace
 apps/performance/app/
 apps/performance/test/
 apps/internal/XinstallX/

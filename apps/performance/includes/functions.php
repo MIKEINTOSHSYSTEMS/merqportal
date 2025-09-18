@@ -306,7 +306,7 @@ function getPerformanceStats($employeeId)
                     'Needs Significant Improvement' => [0, 30],
                     'Developing' => [30, 60],
                     'Meets Expectations' => [60, 75],
-                    'Exceeds Expectations' => [76, 90],
+                    'Exceeds Expectations' => [75, 90],
                     'Outstanding' => [90, 100]
                 ];
 
