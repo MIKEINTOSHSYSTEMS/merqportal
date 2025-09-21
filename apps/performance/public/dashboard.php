@@ -8,6 +8,8 @@ $userId = $_SESSION['user_id'];
 
 // Fetch and process data for this user only
 $submissions = getSubmissions();
+// Count them
+$totalSubmissions = count($submissions);
 $employeeEvaluations = calculateWeightedScores($submissions);
 
 // Filter to show only the current user's data

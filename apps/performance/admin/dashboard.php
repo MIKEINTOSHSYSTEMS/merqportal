@@ -9,6 +9,8 @@ $employees = getEmployeesFromDatabase();
 
 // Fetch and process data
 $submissions = getSubmissions();
+// Count them
+$totalSubmissions = count($submissions);
 $employeeEvaluations = calculateWeightedScores($submissions);
 
 // Get employees from database for dropdown
@@ -329,7 +331,7 @@ require_once 'header.php';
             <div class="col-md-9 col-lg-10 main-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2>Performance Evaluation Dashboard</h2>
-                    <span class="badge bg-primary"><?= count($submissions) ?> Submissions</span>
+                    <span class="badge bg-primary"><?= $totalSubmissions ?> Submissions</span>
                 </div>
 
                 <!-- Summary Cards -->
