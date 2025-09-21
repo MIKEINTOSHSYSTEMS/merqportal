@@ -33,7 +33,8 @@ $PERFORMANCE_CATEGORIES = [
     'Developing' => [30, 60],
     'Meets Expectations' => [60, 75],
     'Exceeds Expectations' => [75, 90],
-    'Outstanding' => [90, 100]
+    'Outstanding' => [90, 120],
+    'Not Rated' => [0, 0] 
 ];
 
 // Fetch data from API

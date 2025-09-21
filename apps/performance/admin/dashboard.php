@@ -36,7 +36,8 @@ $performanceCounts = [
     'Developing' => 0,
     'Meets Expectations' => 0,
     'Exceeds Expectations' => 0,
-    'Outstanding' => 0
+    'Outstanding' => 0,
+    'Not Rated' => 0
 ];
 
 $perspectiveCounts = [
@@ -245,6 +246,11 @@ require_once 'header.php';
             --bs-bg-opacity: 1;
             background-color: rgb(7 34 71) !important;
         }
+
+        .bg-not-rated {
+            background-color: #6c757d;
+            color: white;
+        }
     </style>
 </head>
 
@@ -287,6 +293,7 @@ require_once 'header.php';
                             <option value="Meets Expectations" <?= $selectedCategory === 'Meets Expectations' ? 'selected' : '' ?>>Meets Expectations</option>
                             <option value="Exceeds Expectations" <?= $selectedCategory === 'Exceeds Expectations' ? 'selected' : '' ?>>Exceeds Expectations</option>
                             <option value="Outstanding" <?= $selectedCategory === 'Outstanding' ? 'selected' : '' ?>>Outstanding</option>
+                            <option value="Not Rated" <?= $selectedCategory === 'Not Rated' ? 'selected' : '' ?>>Not Rated</option>
                         </select>
                     </div>
 
@@ -356,9 +363,19 @@ require_once 'header.php';
                     <div class="col-md-3">
                         <div class="card card-dashboard text-white bg-success">
                             <div class="card-body">
-                                <h5 class="card-title">Top Performers</h5>
+                                <h5 class="card-title">Outstanding Performers</h5>
                                 <h2 class="card-text">
-                                    <?= $performanceCounts['Exceeds Expectations'] + $performanceCounts['Outstanding'] ?>
+                                    <?= $performanceCounts['Outstanding'] +  $performanceCounts['Not Rated'] ?>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-dashboard text-white bg-exceeds-expectations">
+                            <div class="card-body">
+                                <h5 class="card-title">Exceeds Expectations</h5>
+                                <h2 class="card-text">
+                                    <?= $performanceCounts['Exceeds Expectations'] ?>
                                 </h2>
                             </div>
                         </div>
@@ -366,9 +383,19 @@ require_once 'header.php';
                     <div class="col-md-3">
                         <div class="card card-dashboard text-white bg-warning">
                             <div class="card-body">
+                                <h5 class="card-title">Meets Expectation</h5>
+                                <h2 class="card-text">
+                                    <?= $performanceCounts['Meets Expectations'] + $performanceCounts['Developing'] ?>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-dashboard text-white bg-danger">
+                            <div class="card-body">
                                 <h5 class="card-title">Need Improvement</h5>
                                 <h2 class="card-text">
-                                    <?= $performanceCounts['Needs Significant Improvement'] + $performanceCounts['Developing'] ?>
+                                    <?= $performanceCounts['Needs Significant Improvement'] + $performanceCounts['Needs Significant Improvement'] ?>
                                 </h2>
                             </div>
                         </div>
@@ -484,7 +511,8 @@ require_once 'header.php';
                                                         <?= $data['performance_category'] === 'Developing' ? 'bg-developing' : '' ?>
                                                         <?= $data['performance_category'] === 'Meets Expectations' ? 'bg-meets-expectations' : '' ?>
                                                         <?= $data['performance_category'] === 'Exceeds Expectations' ? 'bg-exceeds-expectations' : '' ?>
-                                                        <?= $data['performance_category'] === 'Outstanding' ? 'bg-outstanding' : '' ?>">
+                                                        <?= $data['performance_category'] === 'Outstanding' ? 'bg-outstanding' : '' ?>
+                                                        <?= $data['performance_category'] === 'Not Rated' ? 'bg-not-rated' : '' ?>">
                                                         <?= htmlspecialchars($data['performance_category']) ?>
                                                     </span>
                                                 </td>
@@ -521,7 +549,8 @@ require_once 'header.php';
                     'Developing',
                     'Meets Expectations',
                     'Exceeds Expectations',
-                    'Outstanding'
+                    'Outstanding',
+                    'Not Rated' // Add this
                 ],
                 datasets: [{
                     data: [
@@ -529,14 +558,16 @@ require_once 'header.php';
                         <?= $performanceCounts['Developing'] ?>,
                         <?= $performanceCounts['Meets Expectations'] ?>,
                         <?= $performanceCounts['Exceeds Expectations'] ?>,
-                        <?= $performanceCounts['Outstanding'] ?>
+                        <?= $performanceCounts['Outstanding'] ?>,
+                        <?= $performanceCounts['Not Rated'] ?> // Add this
                     ],
                     backgroundColor: [
                         '#dc3545',
                         '#fd7e14',
                         '#ffc107',
                         '#20c997',
-                        '#198754'
+                        '#198754',
+                        '#6c757d'
                     ]
                 }]
             },
