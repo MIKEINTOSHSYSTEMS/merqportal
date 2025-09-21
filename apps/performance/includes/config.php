@@ -130,7 +130,7 @@ function getEmployeeDetails($employeeId)
     ];
 }
 
-// Calculate weighted scores based on perspective
+// Calculate weighted scores based on perspective (FIXED VERSION)
 function calculateWeightedScores($submissions)
 {
     $weights = [
@@ -212,29 +212,49 @@ function calculateWeightedScores($submissions)
         }
     }
 
-    // Calculate weighted scores for each employee
+    // Calculate weighted scores for each employee (FIXED LOGIC)
     foreach ($employeeEvaluations as $employeeId => &$data) {
-        $totalWeight = 0;
-        $weightedSum = 0;
+        // Group evaluations by perspective and calculate average per perspective
+        $perspectiveAverages = [];
 
         foreach ($data['evaluations'] as $evaluation) {
             $perspective = $evaluation['perspective'];
+            if (!isset($perspectiveAverages[$perspective])) {
+                $perspectiveAverages[$perspective] = [
+                    'total' => 0,
+                    'count' => 0
+                ];
+            }
+            $perspectiveAverages[$perspective]['total'] += $evaluation['score'];
+            $perspectiveAverages[$perspective]['count']++;
+        }
 
-            if (isset($weights[$perspective]) && $weights[$perspective] > 0) {
-                $weightedSum += $evaluation['score'] * $weights[$perspective];
-                $totalWeight += $weights[$perspective];
+        // Calculate average score for each perspective
+        foreach ($perspectiveAverages as $perspective => $values) {
+            $perspectiveAverages[$perspective] = $values['total'] / $values['count'];
+        }
+
+        // Calculate weighted score using perspective averages
+        $weightedSum = 0;
+        $appliedWeight = 0;
+
+        foreach ($weights as $perspective => $weight) {
+            if (isset($perspectiveAverages[$perspective]) && $weight > 0) {
+                $weightedSum += $perspectiveAverages[$perspective] * $weight;
+                $appliedWeight += $weight;
             }
         }
 
-        // If some perspectives are missing, adjust weights
-        if ($totalWeight > 0 && $totalWeight < 1) {
-            $weightedSum = $weightedSum / $totalWeight;
+        // Normalize if not all weights were applied
+        if ($appliedWeight > 0 && $appliedWeight < 1) {
+            $weightedSum = $weightedSum / $appliedWeight;
         }
 
-        $data['weighted_score'] = $weightedSum;
+        // Ensure the score doesn't exceed 100%
+        $data['weighted_score'] = min(100, $weightedSum);
 
         // Determine performance category
-        $data['performance_category'] = getPerformanceCategory($weightedSum);
+        $data['performance_category'] = getPerformanceCategory($data['weighted_score']);
 
         // Calculate category scores
         $data['category_scores'] = calculateCategoryScores($data['evaluations']);
