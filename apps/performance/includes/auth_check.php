@@ -19,8 +19,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 $currentUserId = $_SESSION['user_id'];
 $requestedUserId = $_GET['employee'] ?? $currentUserId;
 
-// If user is not admin and trying to access someone else's data, redirect to their own dashboard
-if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
+// Allow admins OR user_id = 35 to bypass restrictions
+$isPrivilegedUser = (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($_SESSION['user_id'] == 35);
+
+if (!$isPrivilegedUser) {
     if (isset($_GET['employee']) && $_GET['employee'] != $currentUserId) {
         header('Location: dashboard.php');
         exit;

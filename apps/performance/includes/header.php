@@ -384,22 +384,26 @@ $isEvaluationActive = $showEvaluation;
             <li>
                 <a href="dashboard.php" class="<?= $currentPage == 'dashboard.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
                     <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
+                    <span>My Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="employee_report.php" class="<?= $currentPage == 'employee_report.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                <a href="my_report.php" class="<?= $currentPage == 'my_report.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
                     <i class="fas fa-chart-bar"></i>
                     <span>My Report</span>
                 </a>
             </li>
 
-            <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
+            <?php if ((isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($_SESSION['user_id'] == 35)): ?>
                 <li class="sys-sidebar-header">Administration</li>
                 <li>
+                    <a href="admin_dashboard.php" class="<?= $currentPage == 'admin_dashboard.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Admin Dashboard</span>
+                    </a>
                     <a href="report.php" class="<?= $currentPage == 'report.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
                         <i class="fas fa-users"></i>
-                        <span>All Reports</span>
+                        <span>All Employees Reports</span>
                     </a>
                 </li>
             <?php endif; ?>
@@ -436,78 +440,78 @@ $isEvaluationActive = $showEvaluation;
                 <div class="loading-spinner">
                     <img src="/assets/images/merq-logo.png" width="100%"></img>
                 </div>
-                    <p>Loading evaluation form...</p>
-                </div>
+                <p>Loading evaluation form...</p>
             </div>
-        <?php endif; ?>
+        </div>
+    <?php endif; ?>
 
-        <!-- Main Content -->
-        <main class="sys-main-content">
-            <div class="container-fluid">
+    <!-- Main Content -->
+    <main class="sys-main-content">
+        <div class="container-fluid">
 
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const body = document.body;
-                        const openEvaluationBtn = document.getElementById('openEvaluation');
-                        const closeEvaluationBtn = document.getElementById('closeEvaluation');
-                        const evaluationContainer = document.getElementById('evaluationContainer');
-                        const mainContent = document.getElementById('mainContent');
-                        // Check if sidebar state is saved in localStorage
-                        const sidebarState = localStorage.getItem('sysSidebarState');
-                        if (sidebarState === 'collapsed') {
-                            body.classList.remove('sys-sidebar-expanded');
-                            body.classList.add('sys-sidebar-collapsed');
-                        }
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const body = document.body;
+                    const openEvaluationBtn = document.getElementById('openEvaluation');
+                    const closeEvaluationBtn = document.getElementById('closeEvaluation');
+                    const evaluationContainer = document.getElementById('evaluationContainer');
+                    const mainContent = document.getElementById('mainContent');
+                    // Check if sidebar state is saved in localStorage
+                    const sidebarState = localStorage.getItem('sysSidebarState');
+                    if (sidebarState === 'collapsed') {
+                        body.classList.remove('sys-sidebar-expanded');
+                        body.classList.add('sys-sidebar-collapsed');
+                    }
 
-                        // Open evaluation iframe
-                        if (openEvaluationBtn) {
-                            openEvaluationBtn.addEventListener('click', function(e) {
-                                e.preventDefault();
-                                window.location.href = '<?php echo $currentPage; ?>?evaluation=true';
-                            });
-                        }
-
-                        // Close evaluation iframe
-                        if (closeEvaluationBtn) {
-                            closeEvaluationBtn.addEventListener('click', function() {
-                                window.location.href = '<?php echo $currentPage; ?>';
-                            });
-                        }
-
-                        // Handle iframe messages (for potential communication between iframe and parent)
-                        window.addEventListener('message', function(event) {
-                            // You can add communication logic here if needed
-                            console.log('Message received from iframe:', event.data);
-
-                            // Example: Close iframe when evaluation is completed
-                            if (event.data === 'evaluation_completed') {
-                                window.location.href = '<?php echo $currentPage; ?>';
-                            }
+                    // Open evaluation iframe
+                    if (openEvaluationBtn) {
+                        openEvaluationBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            window.location.href = '<?php echo $currentPage; ?>?evaluation=true';
                         });
+                    }
 
-                        // Adjust iframe container position when sidebar is toggled
-                        const observer = new MutationObserver(function(mutations) {
-                            mutations.forEach(function(mutation) {
-                                if (mutation.attributeName === 'class') {
-                                    // If evaluation container is visible, adjust its position
-                                    if (evaluationContainer && evaluationContainer.style.display !== 'none') {
-                                        const leftPosition = body.classList.contains('sys-sidebar-collapsed') ? '70px' : '250px';
-                                        evaluationContainer.style.left = leftPosition;
-                                    }
+                    // Close evaluation iframe
+                    if (closeEvaluationBtn) {
+                        closeEvaluationBtn.addEventListener('click', function() {
+                            window.location.href = '<?php echo $currentPage; ?>';
+                        });
+                    }
+
+                    // Handle iframe messages (for potential communication between iframe and parent)
+                    window.addEventListener('message', function(event) {
+                        // You can add communication logic here if needed
+                        console.log('Message received from iframe:', event.data);
+
+                        // Example: Close iframe when evaluation is completed
+                        if (event.data === 'evaluation_completed') {
+                            window.location.href = '<?php echo $currentPage; ?>';
+                        }
+                    });
+
+                    // Adjust iframe container position when sidebar is toggled
+                    const observer = new MutationObserver(function(mutations) {
+                        mutations.forEach(function(mutation) {
+                            if (mutation.attributeName === 'class') {
+                                // If evaluation container is visible, adjust its position
+                                if (evaluationContainer && evaluationContainer.style.display !== 'none') {
+                                    const leftPosition = body.classList.contains('sys-sidebar-collapsed') ? '70px' : '250px';
+                                    evaluationContainer.style.left = leftPosition;
                                 }
-                            });
-                        });
-
-                        observer.observe(body, {
-                            attributes: true,
-                            attributeFilter: ['class']
-                        });
-
-                        // Add keyboard shortcut to close iframe (ESC key)
-                        document.addEventListener('keydown', function(e) {
-                            if (e.key === 'Escape' && evaluationContainer && evaluationContainer.style.display !== 'none') {
-                                window.location.href = '<?php echo $currentPage; ?>';
                             }
                         });
                     });
-                </script>
+
+                    observer.observe(body, {
+                        attributes: true,
+                        attributeFilter: ['class']
+                    });
+
+                    // Add keyboard shortcut to close iframe (ESC key)
+                    document.addEventListener('keydown', function(e) {
+                        if (e.key === 'Escape' && evaluationContainer && evaluationContainer.style.display !== 'none') {
+                            window.location.href = '<?php echo $currentPage; ?>';
+                        }
+                    });
+                });
+            </script>

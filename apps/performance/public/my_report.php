@@ -1,11 +1,14 @@
 <?php
-// employee_report.php - Detailed employee evaluation report
+// my_report.php - Detailed employee evaluation report
 require_once '../includes/config.php';
+require_once '../includes/auth_check.php'; // Add authentication check
 
-$employeeId = $_GET['employee'] ?? '';
-if (empty($employeeId)) {
-    header('Location: dashboard.php');
-    exit;
+// Get employee ID from query parameter or use logged-in user's ID
+$employeeId = $_GET['employee'] ?? $_SESSION['user_id'];
+
+// Ensure user can only access their own data unless they're admin
+if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
+    $employeeId = $_SESSION['user_id'];
 }
 
 // Fetch and process data
@@ -13,7 +16,9 @@ $submissions = getSubmissions();
 $employeeEvaluations = calculateWeightedScores($submissions);
 
 if (!isset($employeeEvaluations[$employeeId])) {
-    die("Employee not found or no evaluations available.");
+    // If no evaluation data, redirect to dashboard
+    header('Location: dashboard.php');
+    exit;
 }
 
 $employeeData = $employeeEvaluations[$employeeId];
@@ -385,15 +390,18 @@ require_once '../includes/header.php';
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                     <div>
-                        <h1 class="h2 mb-1"><?= htmlspecialchars($employeeDetails['full_name'] ?? '') ?></h1>
-                        <p class="mb-0 text-muted"><?= htmlspecialchars($employeeDetails['position_title'] ?? '') ?> - <?= htmlspecialchars($employeeDetails['department_name'] ?? '') ?></p>
+                        <h1 class="h2 mb-1">Performance Report</h1>
+                        <p class="mb-0 text-muted"><b><?= htmlspecialchars($_SESSION['full_name'] ?? 'User') ?></b></p>
+                        <p class="mb-0 text-muted">Position: <b><?= htmlspecialchars($employeeDetails['position_title'] ?? '') ?></b></p>
+                        <p>Under <b><?= htmlspecialchars($employeeDetails['department_name'] ?? '') ?> Depratment</b></p>
+                        <p>Supervisor: <b><?= htmlspecialchars($employeeDetails['supervisor_name'] ?? '') ?> </b></p>
                     </div>
                     <div class="d-flex mt-2 mt-md-0">
                         <button onclick="printReport()" class="btn btn-light me-2 no-print">
                             <i class="fas fa-print me-1"></i> Print Report
                         </button>
-                        <a href="report.php" class="btn btn-light me-2 no-print">
-                            <i class="fas fa-arrow-left me-1"></i> Back to Reports
+                        <a href="dashboard.php" class="btn btn-light me-2 no-print">
+                            <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
                         </a>
                         <div class="dropdown no-print">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">

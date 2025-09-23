@@ -616,7 +616,7 @@ function getMatrixQuestions($evaluationDetails)
                     <div class="card card-report">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5>Employee Performance Summary</h5>
-                            <span class="badge bg-secondary"><?= count($employeeScores) ?> Employees</span>
+                            <span class="badge bg-secondary"><?= count($employeeScores) ?> Employees Evaluated</span>
                         </div>
                         <div class="card-body">
                             <div class="row mb-4">
