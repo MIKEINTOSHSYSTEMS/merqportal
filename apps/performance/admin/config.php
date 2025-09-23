@@ -391,3 +391,338 @@ function getMatrixQuestions($submission)
 
     return $matrixQuestions;
 }
+
+
+// Check if user has access to employee data
+function canAccessEmployeeData($requestedEmployeeId)
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Admin can access all data
+    if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) {
+        return true;
+    }
+
+    // Users can only access their own data
+    if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $requestedEmployeeId) {
+        return true;
+    }
+
+    return false;
+}
+
+// Get CEO feedback for an employee (including drafts for CEO)
+function getCEOFeedback($employeeId, $includeDrafts = false)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        error_log("DB Connection failed: " . $conn->connect_error);
+        return [];
+    }
+
+    $sql = "SELECT 
+                cf.*,
+                cfc.category_name,
+                cfc.category_description,
+                u.full_name as ceo_name
+            FROM ceo_feedback cf
+            LEFT JOIN ceo_feedback_categories cfc ON cf.category_id = cfc.id
+            LEFT JOIN users u ON cf.ceo_id = u.user_id
+            WHERE cf.employee_id = ?";
+
+    if (!$includeDrafts) {
+        $sql .= " AND cf.status = 'published'";
+    }
+
+    $sql .= " ORDER BY 
+                CASE cf.priority 
+                    WHEN 'critical' THEN 1
+                    WHEN 'high' THEN 2
+                    WHEN 'medium' THEN 3
+                    WHEN 'low' THEN 4
+                    ELSE 5
+                END,
+                cf.created_at DESC";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $employeeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $feedback = [];
+    while ($row = $result->fetch_assoc()) {
+        $feedback[] = $row;
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $feedback;
+}
+
+// Save CEO feedback
+function saveCEOFeedback($employeeId, $ceoId, $feedbackData)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        return ['success' => false, 'message' => 'Database connection failed'];
+    }
+
+    $sql = "INSERT INTO ceo_feedback 
+            (employee_id, ceo_id, category_id, feedback_text, priority, status, target_completion_date) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = $conn->prepare($sql);
+
+    // Handle empty target date
+    $targetDate = (!empty($feedbackData['target_date']) && $feedbackData['target_date'] != '') ? $feedbackData['target_date'] : null;
+
+    $stmt->bind_param(
+        "iiissss",
+        $employeeId,
+        $ceoId,
+        $feedbackData['category_id'],
+        $feedbackData['text'],
+        $feedbackData['priority'],
+        $feedbackData['status'],
+        $targetDate
+    );
+
+    if ($stmt->execute()) {
+        $feedbackId = $conn->insert_id;
+        $stmt->close();
+        $conn->close();
+        return ['success' => true, 'id' => $feedbackId];
+    } else {
+        $error = $stmt->error;
+        $stmt->close();
+        $conn->close();
+        return ['success' => false, 'message' => $error];
+    }
+}
+
+// Update CEO feedback
+function updateCEOFeedback($feedbackId, $feedbackData)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        return ['success' => false, 'message' => 'Database connection failed'];
+    }
+
+    $sql = "UPDATE ceo_feedback 
+            SET category_id = ?, feedback_text = ?, priority = ?, status = ?, 
+                target_completion_date = ?, updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?";
+
+    $stmt = $conn->prepare($sql);
+
+    $targetDate = (!empty($feedbackData['target_date']) && $feedbackData['target_date'] != '') ? $feedbackData['target_date'] : null;
+
+    $stmt->bind_param(
+        "issssi",
+        $feedbackData['category_id'],
+        $feedbackData['text'],
+        $feedbackData['priority'],
+        $feedbackData['status'],
+        $targetDate,
+        $feedbackId
+    );
+
+    if ($stmt->execute()) {
+        $stmt->close();
+        $conn->close();
+        return ['success' => true];
+    } else {
+        $error = $stmt->error;
+        $stmt->close();
+        $conn->close();
+        return ['success' => false, 'message' => $error];
+    }
+}
+
+// Get single feedback item
+function getCEOFeedbackItem($feedbackId)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        return null;
+    }
+
+    $sql = "SELECT 
+                cf.*,
+                cfc.category_name,
+                cfc.category_description,
+                u.full_name as ceo_name
+            FROM ceo_feedback cf
+            LEFT JOIN ceo_feedback_categories cfc ON cf.category_id = cfc.id
+            LEFT JOIN users u ON cf.ceo_id = u.user_id
+            WHERE cf.id = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $feedbackId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $feedback = $result->fetch_assoc();
+
+    $stmt->close();
+    $conn->close();
+
+    return $feedback;
+}
+
+// Get feedback responses
+function getFeedbackResponses($feedbackId)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        return [];
+    }
+
+    $sql = "SELECT 
+                cfr.*,
+                u.full_name as employee_name
+            FROM ceo_feedback_responses cfr
+            LEFT JOIN users u ON cfr.employee_id = u.user_id
+            WHERE cfr.feedback_id = ?
+            ORDER BY cfr.submitted_at DESC";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $feedbackId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $responses = [];
+    while ($row = $result->fetch_assoc()) {
+        $responses[] = $row;
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $responses;
+}
+
+// Save employee response
+function saveFeedbackResponse($feedbackId, $employeeId, $responseText)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        return ['success' => false, 'message' => 'Database connection failed'];
+    }
+
+    $sql = "INSERT INTO ceo_feedback_responses 
+            (feedback_id, employee_id, response_text) 
+            VALUES (?, ?, ?)";
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bind_param(
+        "iis",
+        $feedbackId,
+        $employeeId,
+        $responseText
+    );
+
+    if ($stmt->execute()) {
+        $responseId = $conn->insert_id;
+        $stmt->close();
+        $conn->close();
+        return ['success' => true, 'id' => $responseId];
+    } else {
+        $error = $stmt->error;
+        $stmt->close();
+        $conn->close();
+        return ['success' => false, 'message' => $error];
+    }
+}
+
+// Delete CEO feedback
+function deleteCEOFeedback($feedbackId)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        return ['success' => false, 'message' => 'Database connection failed'];
+    }
+
+    // First delete any responses
+    $sql1 = "DELETE FROM ceo_feedback_responses WHERE feedback_id = ?";
+    $stmt1 = $conn->prepare($sql1);
+    $stmt1->bind_param("i", $feedbackId);
+    $stmt1->execute();
+    $stmt1->close();
+
+    // Then delete the feedback
+    $sql2 = "DELETE FROM ceo_feedback WHERE id = ?";
+    $stmt2 = $conn->prepare($sql2);
+    $stmt2->bind_param("i", $feedbackId);
+
+    if ($stmt2->execute()) {
+        $stmt2->close();
+        $conn->close();
+        return ['success' => true];
+    } else {
+        $error = $stmt2->error;
+        $stmt2->close();
+        $conn->close();
+        return ['success' => false, 'message' => $error];
+    }
+}
+
+// Get feedback categories
+function getCEOFeedbackCategories()
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        return [];
+    }
+
+    $sql = "SELECT * FROM ceo_feedback_categories WHERE is_active = TRUE ORDER BY display_order";
+    $result = $conn->query($sql);
+
+    $categories = [];
+    while ($row = $result->fetch_assoc()) {
+        $categories[] = $row;
+    }
+
+    $conn->close();
+    return $categories;
+}
+
+// Check if user is CEO
+function isCEO($userId)
+{
+    return $userId == 35; // Your CEO user ID
+}
+
+// Function to set alert messages
+function setAlert($message, $type = 'success')
+{
+    $_SESSION['alert_message'] = $message;
+    $_SESSION['alert_type'] = $type;
+}
+
+// Function to display alerts
+function displayAlerts()
+{
+    if (isset($_SESSION['alert_message'])) {
+        $message = $_SESSION['alert_message'];
+        $type = $_SESSION['alert_type'];
+
+        echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: '$type',
+                title: '$message',
+                confirmButtonColor: '#3085d6'
+            });
+        });
+        </script>";
+
+        // Clear the session variables
+        unset($_SESSION['alert_message']);
+        unset($_SESSION['alert_type']);
+    }
+}

@@ -387,7 +387,17 @@ require_once 'header.php';
                             <div class="card-body">
                                 <h5 class="card-title">Meets Expectation</h5>
                                 <h2 class="card-text">
-                                    <?= $performanceCounts['Meets Expectations'] + $performanceCounts['Developing'] ?>
+                                    <?= $performanceCounts['Meets Expectations'] ?>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-dashboard text-white bg-developing">
+                            <div class="card-body">
+                                <h5 class="card-title">Developing</h5>
+                                <h2 class="card-text">
+                                    <?= $performanceCounts['Developing'] ?>
                                 </h2>
                             </div>
                         </div>

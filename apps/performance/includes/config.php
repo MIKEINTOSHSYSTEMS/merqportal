@@ -694,3 +694,33 @@ function isCEO($userId)
 {
     return $userId == 35; // Your CEO user ID
 }
+
+// Function to set alert messages
+function setAlert($message, $type = 'success')
+{
+    $_SESSION['alert_message'] = $message;
+    $_SESSION['alert_type'] = $type;
+}
+
+// Function to display alerts
+function displayAlerts()
+{
+    if (isset($_SESSION['alert_message'])) {
+        $message = $_SESSION['alert_message'];
+        $type = $_SESSION['alert_type'];
+
+        echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: '$type',
+                title: '$message',
+                confirmButtonColor: '#3085d6'
+            });
+        });
+        </script>";
+
+        // Clear the session variables
+        unset($_SESSION['alert_message']);
+        unset($_SESSION['alert_type']);
+    }
+}

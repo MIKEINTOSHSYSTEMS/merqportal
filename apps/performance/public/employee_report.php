@@ -88,6 +88,9 @@ if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
 
     // Handle form submissions
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $showAlert = false;
+        $alertScript = '';
+
         if (isset($_POST['ceo_feedback'])) {
             // Add new feedback
             $feedbackType = intval($_POST['category_id']);
@@ -97,7 +100,18 @@ if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
             $targetDate = !empty($_POST['target_completion_date']) ? $_POST['target_completion_date'] : null;
 
             if (empty($feedbackText)) {
-                echo "<script>Swal.fire('Error!', 'Please enter feedback text.', 'error');</script>";
+                $alertScript = "
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Please enter feedback text.',
+                        confirmButtonColor: '#3085d6'
+                    });
+                });
+                </script>";
+                $showAlert = true;
             } else {
                 $feedbackData = [
                     'category_id' => $feedbackType,
@@ -110,12 +124,36 @@ if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
                 $result = saveCEOFeedback($employeeId, $_SESSION['user_id'], $feedbackData);
 
                 if ($result['success']) {
-                    echo "<script>
-                        Swal.fire('Success!', 'Feedback saved successfully.', 'success')
-                            .then(() => window.location.reload());
+                    $employeeName = htmlspecialchars($employeeDetails['full_name'] ?? 'the employee');
+                    $alertScript = "
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successfully Added CEO Feedback for {$employeeName}!',
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#3085d6',
+                            timer: 3000,
+                            timerProgressBar: true
+                        }).then((result) => {
+                            window.location.href = 'employee_report.php?employee=$employeeId';
+                        });
+                    });
                     </script>";
+                    $showAlert = true;
                 } else {
-                    echo "<script>Swal.fire('Error!', 'Failed to save feedback.', 'error');</script>";
+                    $alertScript = "
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to save feedback.',
+                            confirmButtonColor: '#3085d6'
+                        });
+                    });
+                    </script>";
+                    $showAlert = true;
                 }
             }
         } elseif (isset($_POST['update_feedback'])) {
@@ -138,23 +176,69 @@ if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
             $result = updateCEOFeedback($feedbackId, $feedbackData);
 
             if ($result['success']) {
-                echo "<script>
-                    Swal.fire('Success!', 'Feedback updated successfully.', 'success')
-                        .then(() => window.location.reload());
-                </script>";
+                $employeeName = htmlspecialchars($employeeDetails['full_name'] ?? 'the employee');
+                setAlert("Successfully Updated CEO Feedback for {$employeeName}!", 'success');
+                header("Location: employee_report.php?employee=" . $employeeId);
+                exit;
             } else {
-                echo "<script>Swal.fire('Error!', 'Failed to update feedback.', 'error');</script>";
+                setAlert("Failed to update feedback.", 'error');
             }
+        }
+
+        // Store alert script to output later
+        if ($showAlert) {
+            $GLOBALS['alert_script'] = $alertScript;
         }
     }
 
-    // Handle delete
+    // Handle delete via GET parameter
     if (isset($_GET['delete_feedback'])) {
         $result = deleteCEOFeedback($_GET['delete_feedback']);
         if ($result['success']) {
-            header("Location: employee_report.php?employee=" . $employeeId . "&feedback_deleted=1");
-            exit;
+            $employeeName = htmlspecialchars($employeeDetails['full_name'] ?? 'the employee');
+            $GLOBALS['alert_script'] = "
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Feedback for {$employeeName} Deleted Successfully!',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#3085d6',
+                    timer: 3000,
+                    timerProgressBar: true
+                }).then((result) => {
+                    window.location.href = 'employee_report.php?employee=$employeeId';
+                });
+            });
+            </script>";
+        } else {
+            $GLOBALS['alert_script'] = "
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed to delete feedback.',
+                    confirmButtonColor: '#3085d6'
+                });
+            });
+            </script>";
         }
+    }
+
+    // Show success message for feedback deletion from query parameter
+    if (isset($_GET['feedback_deleted']) && $_GET['feedback_deleted'] == 1) {
+        $employeeName = htmlspecialchars($employeeDetails['full_name'] ?? 'the employee');
+        $GLOBALS['alert_script'] = "
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Feedback for {$employeeName} Deleted Successfully!',
+                confirmButtonColor: '#3085d6'
+            });
+        });
+        </script>";
     }
 }
 
@@ -174,6 +258,7 @@ require_once '../includes/header.php';
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #00C7FFFF;
@@ -500,7 +585,7 @@ require_once '../includes/header.php';
         </div>
 
         <!-- Filters Section -->
-         <!--
+<!--
         <div class="filter-section no-print">
             <div class="filter-group">
                 <label class="form-label">Perspective Filter</label>
@@ -988,7 +1073,7 @@ require_once '../includes/header.php';
                                                                                     $feedback['priority'] == 'low' ? 'success' : ($feedback['priority'] == 'medium' ? 'warning' : ($feedback['priority'] == 'high' ? 'danger' : 'dark'))
                                                                                     ?> me-2"><?= ucfirst($feedback['priority']) ?></span>
                                                             <span class="badge bg-<?=
-                                                                                    $feedback['status'] == 'published' ? 'success' : ($feedback['status'] == 'draft' ? 'secondary' : 'dark')
+                                                                                    $feedback['status'] == 'published' ? 'primary' : ($feedback['status'] == 'draft' ? 'secondary' : 'dark')
                                                                                     ?> me-2"><?= ucfirst($feedback['status']) ?></span>
                                                             <?= htmlspecialchars($feedback['category_name'] ?? 'General') ?>
                                                         </span>
@@ -1006,7 +1091,7 @@ require_once '../includes/header.php';
                                                                                                                 $feedback['priority'] == 'low' ? 'success' : ($feedback['priority'] == 'medium' ? 'warning' : ($feedback['priority'] == 'high' ? 'danger' : 'dark'))
                                                                                                                 ?>"><?= ucfirst($feedback['priority']) ?></span><br>
                                                             <strong>Status:</strong> <span class="badge bg-<?=
-                                                                                                            $feedback['status'] == 'published' ? 'success' : ($feedback['status'] == 'draft' ? 'secondary' : 'dark')
+                                                                                                            $feedback['status'] == 'published' ? 'primary' : ($feedback['status'] == 'draft' ? 'secondary' : 'dark')
                                                                                                             ?>"><?= ucfirst($feedback['status']) ?></span>
                                                         </div>
                                                         <div class="btn-group">
@@ -1081,350 +1166,469 @@ require_once '../includes/header.php';
         <i class="fas fa-print"></i>
     </div>
 
+    <!-- SweetAlert Scripts -->
+    <?php if (isset($GLOBALS['alert_script'])): ?>
+        <?= $GLOBALS['alert_script'] ?>
+        <?php unset($GLOBALS['alert_script']); ?>
+    <?php endif; ?>
+
     <?php require_once '../includes/footer.php'; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Print function
-        function printReport() {
-            window.print();
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Print function
+    function printReport() {
+        window.print();
+    }
+
+    // Initialize all accordions properly
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Bootstrap accordions
+        const accordions = document.querySelectorAll('.accordion-button');
+        accordions.forEach(button => {
+            button.addEventListener('click', function() {
+                const target = this.getAttribute('data-bs-target');
+                const collapseElement = document.querySelector(target);
+
+                // Toggle icon
+                const icon = this.querySelector('i');
+                if (icon) {
+                    if (this.classList.contains('collapsed')) {
+                        icon.classList.remove('fa-plus-circle');
+                        icon.classList.add('fa-minus-circle');
+                    } else {
+                        icon.classList.remove('fa-minus-circle');
+                        icon.classList.add('fa-plus-circle');
+                    }
+                }
+            });
+        });
+
+        // Make sure all accordions start collapsed
+        const collapses = document.querySelectorAll('.accordion-collapse');
+        collapses.forEach(collapse => {
+            collapse.classList.remove('show');
+        });
+
+        // Enhanced CEO Feedback functionality
+        // Auto-resize textareas
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+            // Trigger initial resize
+            textarea.dispatchEvent(new Event('input'));
+        });
+
+        // Form validation for CEO feedback
+        const ceoFeedbackForm = document.getElementById('ceoFeedbackForm');
+        if (ceoFeedbackForm) {
+            ceoFeedbackForm.addEventListener('submit', function(e) {
+                const textarea = this.querySelector('textarea[name="feedback_text"]');
+                const categorySelect = this.querySelector('select[name="category_id"]');
+
+                if (categorySelect.value === '') {
+                    e.preventDefault();
+                    Swal.fire('Validation Error', 'Please select a feedback category.', 'warning');
+                    categorySelect.focus();
+                    return;
+                }
+
+                if (textarea.value.trim().length < 10) {
+                    e.preventDefault();
+                    Swal.fire('Validation Error', 'Please enter at least 10 characters of feedback.', 'warning');
+                    textarea.focus();
+                    return;
+                }
+            });
         }
 
-        // Initialize all accordions properly
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Bootstrap accordions
-            const accordions = document.querySelectorAll('.accordion-button');
-            accordions.forEach(button => {
-                button.addEventListener('click', function() {
-                    const target = this.getAttribute('data-bs-target');
-                    const collapseElement = document.querySelector(target);
-
-                    // Toggle icon
-                    const icon = this.querySelector('i');
-                    if (icon) {
-                        if (this.classList.contains('collapsed')) {
-                            icon.classList.remove('fa-plus-circle');
-                            icon.classList.add('fa-minus-circle');
-                        } else {
-                            icon.classList.remove('fa-minus-circle');
-                            icon.classList.add('fa-plus-circle');
-                        }
-                    }
-                });
-            });
-
-            // Make sure all accordions start collapsed
-            const collapses = document.querySelectorAll('.accordion-collapse');
-            collapses.forEach(collapse => {
-                collapse.classList.remove('show');
-            });
+        // Priority badge coloring
+        document.querySelectorAll('.badge').forEach(badge => {
+            const text = badge.textContent.toLowerCase().trim();
+            if (text === 'low') badge.classList.add('bg-success');
+            else if (text === 'medium') badge.classList.add('bg-warning');
+            else if (text === 'high') badge.classList.add('bg-danger');
+            else if (text === 'critical') badge.classList.add('bg-dark');
+            else if (text === 'draft') badge.classList.add('bg-secondary');
+            else if (text === 'published') badge.classList.add('bg-primary');
+            else if (text === 'archived') badge.classList.add('bg-dark');
         });
 
-        // Category Performance Chart
-        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-        const categoryChart = new Chart(categoryCtx, {
-            type: 'bar',
-            data: {
-                labels: <?= json_encode($categoryLabels) ?>,
-                datasets: [{
-                    label: 'Score (%)',
-                    data: <?= json_encode($categoryScores) ?>,
-                    backgroundColor: '#00799BFF',
-                    //backgroundColor: 'rgba(67, 97, 238, 0.7)',
-                    borderColor: 'rgb(54, 162, 235)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                            callback: function(value) {
-                                return value + '%';
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return context.dataset.label + ': ' + context.raw + '%';
-                            }
-                        }
-                    },
-                    datalabels: {
-                        anchor: 'end',
-                        align: 'end',
-                        formatter: function(value) {
+        // Auto-close alerts after 3 seconds (for non-interactive alerts)
+        const alerts = document.querySelectorAll('.swal2-container');
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                if (alert && alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 3000);
+        });
+    });
+
+    // Category Performance Chart
+    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+    const categoryChart = new Chart(categoryCtx, {
+        type: 'bar',
+        data: {
+            labels: <?= json_encode($categoryLabels) ?>,
+            datasets: [{
+                label: 'Score (%)',
+                data: <?= json_encode($categoryScores) ?>,
+                backgroundColor: '#00799BFF',
+                borderColor: 'rgb(54, 162, 235)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
                             return value + '%';
-                        },
-                        color: '#343a40',
-                        font: {
-                            weight: 'bold'
                         }
                     }
                 }
             },
-            plugins: [ChartDataLabels]
-        });
-
-        // Perspective Distribution Chart
-        const perspectiveCtx = document.getElementById('perspectiveChart').getContext('2d');
-        const perspectiveChart = new Chart(perspectiveCtx, {
-            type: 'pie',
-            data: {
-                labels: <?= json_encode($perspectiveLabels) ?>,
-                datasets: [{
-                    data: <?= json_encode($perspectiveCounts) ?>,
-                    backgroundColor: [
-                        '#4e73df',
-                        '#1cc88a',
-                        '#f6c23e',
-                        '#36b9cc',
-                        '#7209b7',
-                        '#3a0ca3',
-                        '#560bad'
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'right',
-                        labels: {
-                            generateLabels: function(chart) {
-                                const data = chart.data;
-                                if (data.labels.length && data.datasets.length) {
-                                    return data.labels.map(function(label, i) {
-                                        const value = data.datasets[0].data[i];
-                                        const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
-                                        const percentage = Math.round((value / total) * 100);
-
-                                        return {
-                                            text: label + ': ' + value + ' (' + percentage + '%)',
-                                            fillStyle: data.datasets[0].backgroundColor[i],
-                                            hidden: false,
-                                            index: i
-                                        };
-                                    });
-                                }
-                                return [];
-                            }
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = context.raw || 0;
-                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                const percentage = ((value / total) * 100).toFixed(1);
-                                return `${label}: ${value} (${percentage}%)`;
-                            }
-                        }
-                    },
-                    datalabels: {
-                        formatter: (value, ctx) => {
-                            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-                            const percentage = ((value / total) * 100).toFixed(1);
-                            return percentage + '%';
-                        },
-                        color: '#fff',
-                        font: {
-                            weight: 'bold',
-                            size: 11
-                        }
-                    }
-                }
-            },
-            plugins: [ChartDataLabels]
-        });
-
-        // Performance Trend Chart
-        const trendCtx = document.getElementById('trendChart').getContext('2d');
-        const trendChart = new Chart(trendCtx, {
-            type: 'line',
-            data: {
-                labels: <?= json_encode($submissionDates) ?>,
-                datasets: [{
-                    label: 'Performance Score',
-                    data: <?= json_encode($performanceTrend) ?>,
-                    backgroundColor: 'rgba(67, 97, 238, 0.1)',
-                    borderColor: '#2897B9FF',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.3,
-                    pointBackgroundColor: 'rgb(67, 97, 238)',
-                    pointRadius: 4,
-                    pointHoverRadius: 6
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        min: Math.max(0, Math.min(...<?= json_encode($performanceTrend) ?>) - 10),
-                        max: 100,
-                        ticks: {
-                            callback: function(value) {
-                                return value + '%';
-                            }
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.raw + '%';
                         }
                     }
                 },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return context.dataset.label + ': ' + context.raw + '%';
-                            }
-                        }
+                datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    formatter: function(value) {
+                        return value + '%';
                     },
-                    annotation: {
-                        annotations: {
-                            line1: {
-                                type: 'line',
-                                yMin: 60,
-                                yMax: 60,
-                                borderColor: 'rgb(255, 193, 7)',
-                                borderWidth: 2,
-                                borderDash: [5, 5],
-                                label: {
-                                    display: true,
-                                    content: 'Meets Expectations Threshold',
-                                    position: 'end'
-                                }
+                    color: '#343a40',
+                    font: {
+                        weight: 'bold'
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+
+    // Perspective Distribution Chart
+    const perspectiveCtx = document.getElementById('perspectiveChart').getContext('2d');
+    const perspectiveChart = new Chart(perspectiveCtx, {
+        type: 'pie',
+        data: {
+            labels: <?= json_encode($perspectiveLabels) ?>,
+            datasets: [{
+                data: <?= json_encode($perspectiveCounts) ?>,
+                backgroundColor: [
+                    '#4e73df',
+                    '#1cc88a',
+                    '#f6c23e',
+                    '#36b9cc',
+                    '#7209b7',
+                    '#3a0ca3',
+                    '#560bad'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        generateLabels: function(chart) {
+                            const data = chart.data;
+                            if (data.labels.length && data.datasets.length) {
+                                return data.labels.map(function(label, i) {
+                                    const value = data.datasets[0].data[i];
+                                    const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+
+                                    return {
+                                        text: label + ': ' + value + ' (' + percentage + '%)',
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        hidden: false,
+                                        index: i
+                                    };
+                                });
+                            }
+                            return [];
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return `${label}: ${value} (${percentage}%)`;
+                        }
+                    }
+                },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                        const percentage = ((value / total) * 100).toFixed(1);
+                        return percentage + '%';
+                    },
+                    color: '#fff',
+                    font: {
+                        weight: 'bold',
+                        size: 11
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+
+    // Performance Trend Chart
+    const trendCtx = document.getElementById('trendChart').getContext('2d');
+    const trendChart = new Chart(trendCtx, {
+        type: 'line',
+        data: {
+            labels: <?= json_encode($submissionDates) ?>,
+            datasets: [{
+                label: 'Performance Score',
+                data: <?= json_encode($performanceTrend) ?>,
+                backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                borderColor: '#2897B9FF',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.3,
+                pointBackgroundColor: 'rgb(67, 97, 238)',
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: Math.max(0, Math.min(...<?= json_encode($performanceTrend) ?>) - 10),
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.raw + '%';
+                        }
+                    }
+                },
+                annotation: {
+                    annotations: {
+                        line1: {
+                            type: 'line',
+                            yMin: 60,
+                            yMax: 60,
+                            borderColor: 'rgb(255, 193, 7)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            label: {
+                                display: true,
+                                content: 'Meets Expectations Threshold',
+                                position: 'end'
                             }
                         }
                     }
                 }
             }
+        }
+    });
+
+    // Filter functionality
+    document.getElementById('applyFilters').addEventListener('click', function() {
+        const perspectiveFilter = document.getElementById('perspectiveFilter').value;
+        const performanceFilter = document.getElementById('performanceFilter').value;
+        const dateFilter = document.getElementById('dateFilter').value;
+
+        // This would typically make an AJAX request to filter data
+        // For now, we'll just show a notification
+        Swal.fire({
+            icon: 'info',
+            title: 'This feature is under development! | Filters Applied |',
+            text: `Perspective: ${perspectiveFilter}, Performance: ${performanceFilter}, Date Range: ${dateFilter}`,
+            confirmButtonColor: '#00F7FFFF',
+            timer: 2000
+        });
+    });
+
+    document.getElementById('resetFilters').addEventListener('click', function() {
+        document.getElementById('perspectiveFilter').value = 'all';
+        document.getElementById('performanceFilter').value = 'all';
+        document.getElementById('dateFilter').value = 'all';
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Filters Reset',
+            confirmButtonColor: '#00FFD0FF',
+            timer: 1500
+        });
+    });
+
+    // Enhanced form handling with better UX
+    function handleFormSubmission(formElement) {
+        const submitButton = formElement.querySelector('button[type="submit"]');
+        const originalText = submitButton.innerHTML;
+
+        // Show loading state
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Processing...';
+        submitButton.disabled = true;
+
+        // Add loading class for visual feedback
+        submitButton.classList.add('loading');
+
+        return function() {
+            // Reset button state after a delay (as fallback)
+            setTimeout(() => {
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+                submitButton.classList.remove('loading');
+            }, 3000);
+        };
+    }
+
+    // Add loading state to CEO feedback form
+    const ceoForm = document.getElementById('ceoFeedbackForm');
+    if (ceoForm) {
+        ceoForm.addEventListener('submit', function(e) {
+            const resetButton = handleFormSubmission(this);
+
+            // Optional: Add a small delay to show the loading state
+            setTimeout(resetButton, 1000);
+        });
+    }
+
+    // Add CSS for loading state
+    const style = document.createElement('style');
+    style.textContent = `
+    .btn.loading {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+    .btn.loading:hover {
+        transform: none !important;
+    }
+`;
+    document.head.appendChild(style);
+
+    // CEO Feedback Form Enhancement
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-resize textareas
+        const textareas = document.querySelectorAll('textarea[name="feedback_text"]');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
         });
 
-        // Filter functionality
-        document.getElementById('applyFilters').addEventListener('click', function() {
-            const perspectiveFilter = document.getElementById('perspectiveFilter').value;
-            const performanceFilter = document.getElementById('performanceFilter').value;
-            const dateFilter = document.getElementById('dateFilter').value;
-
-            // This would typically make an AJAX request to filter data
-            // For now, we'll just show a notification
-            Swal.fire({
-                icon: 'info',
-                title: 'This feature is under development! | Filters Applied |',
-                text: `Perspective: ${perspectiveFilter}, Performance: ${performanceFilter}, Date Range: ${dateFilter}`,
-                confirmButtonColor: '#00F7FFFF',
-                timer: 2000
-            });
+        // Priority color coding
+        const priorityBadges = document.querySelectorAll('.badge.bg-success, .badge.bg-warning, .badge.bg-danger, .badge.bg-dark');
+        priorityBadges.forEach(badge => {
+            const text = badge.textContent.toLowerCase().trim();
+            if (text === 'low') badge.classList.add('bg-success');
+            else if (text === 'medium') badge.classList.add('bg-warning');
+            else if (text === 'high') badge.classList.add('bg-danger');
+            else if (text === 'critical') badge.classList.add('bg-dark');
         });
+    });
 
-        document.getElementById('resetFilters').addEventListener('click', function() {
-            document.getElementById('perspectiveFilter').value = 'all';
-            document.getElementById('performanceFilter').value = 'all';
-            document.getElementById('dateFilter').value = 'all';
-
-            Swal.fire({
-                icon: 'success',
-                title: 'Filters Reset',
-                confirmButtonColor: '#00FFD0FF',
-                timer: 1500
+    // Form validation
+    function validateFeedbackForm() {
+        const form = document.getElementById('ceoFeedbackForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const textarea = form.querySelector('textarea[name="feedback_text"]');
+                if (textarea.value.trim().length < 10) {
+                    e.preventDefault();
+                    Swal.fire('Validation Error', 'Please enter at least 10 characters of feedback.', 'warning');
+                    textarea.focus();
+                }
             });
-        });
+        }
+    }
 
+    validateFeedbackForm();
+</script>
 
-        // CEO Feedback Form Enhancement
-        document.addEventListener('DOMContentLoaded', function() {
-            // Auto-resize textareas
-            const textareas = document.querySelectorAll('textarea[name="feedback_text"]');
-            textareas.forEach(textarea => {
-                textarea.addEventListener('input', function() {
-                    this.style.height = 'auto';
-                    this.style.height = (this.scrollHeight) + 'px';
-                });
+<script>
+    // Enhanced CEO Feedback functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-resize textareas
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
             });
-
-            // Priority color coding
-            const priorityBadges = document.querySelectorAll('.badge.bg-success, .badge.bg-warning, .badge.bg-danger, .badge.bg-dark');
-            priorityBadges.forEach(badge => {
-                const text = badge.textContent.toLowerCase().trim();
-                if (text === 'low') badge.classList.add('bg-success');
-                else if (text === 'medium') badge.classList.add('bg-warning');
-                else if (text === 'high') badge.classList.add('bg-danger');
-                else if (text === 'critical') badge.classList.add('bg-dark');
-            });
+            // Trigger initial resize
+            textarea.dispatchEvent(new Event('input'));
         });
 
         // Form validation
-        function validateFeedbackForm() {
-            const form = document.getElementById('ceoFeedbackForm');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    const textarea = form.querySelector('textarea[name="feedback_text"]');
-                    if (textarea.value.trim().length < 10) {
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const textareas = this.querySelectorAll('textarea[required]');
+                for (let textarea of textareas) {
+                    if (textarea.value.trim().length < 5) {
                         e.preventDefault();
-                        Swal.fire('Validation Error', 'Please enter at least 10 characters of feedback.', 'warning');
+                        Swal.fire('Validation Error', 'Please enter at least 5 characters.', 'warning');
                         textarea.focus();
+                        return;
                     }
-                });
-            }
-        }
-
-        validateFeedbackForm();
-    </script>
-
-    <script>
-        // Enhanced CEO Feedback functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Auto-resize textareas
-            const textareas = document.querySelectorAll('textarea');
-            textareas.forEach(textarea => {
-                textarea.addEventListener('input', function() {
-                    this.style.height = 'auto';
-                    this.style.height = (this.scrollHeight) + 'px';
-                });
-                // Trigger initial resize
-                textarea.dispatchEvent(new Event('input'));
-            });
-
-            // Form validation
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    const textareas = this.querySelectorAll('textarea[required]');
-                    for (let textarea of textareas) {
-                        if (textarea.value.trim().length < 5) {
-                            e.preventDefault();
-                            Swal.fire('Validation Error', 'Please enter at least 5 characters.', 'warning');
-                            textarea.focus();
-                            return;
-                        }
-                    }
-                });
-            });
-
-            // Priority badge coloring
-            document.querySelectorAll('.badge').forEach(badge => {
-                const text = badge.textContent.toLowerCase().trim();
-                if (text === 'low') badge.classList.add('bg-success');
-                else if (text === 'medium') badge.classList.add('bg-warning');
-                else if (text === 'high') badge.classList.add('bg-danger');
-                else if (text === 'critical') badge.classList.add('bg-dark');
-                else if (text === 'draft') badge.classList.add('bg-secondary');
-                else if (text === 'published') badge.classList.add('bg-success');
-                else if (text === 'archived') badge.classList.add('bg-dark');
+                }
             });
         });
-    </script>
 
+        // Priority badge coloring
+        document.querySelectorAll('.badge').forEach(badge => {
+            const text = badge.textContent.toLowerCase().trim();
+            if (text === 'low') badge.classList.add('bg-success');
+            else if (text === 'medium') badge.classList.add('bg-warning');
+            else if (text === 'high') badge.classList.add('bg-danger');
+            else if (text === 'critical') badge.classList.add('bg-dark');
+            else if (text === 'draft') badge.classList.add('bg-secondary');
+            else if (text === 'published') badge.classList.add('bg-primary');
+            else if (text === 'archived') badge.classList.add('bg-dark');
+        });
+    });
+</script>
+<script>
+    // Debug SweetAlert
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('SweetAlert2 available:', typeof Swal !== 'undefined');
+
+        // Test SweetAlert
+        if (typeof Swal !== 'undefined') {
+            console.log('SweetAlert2 is loaded correctly');
+        } else {
+            console.error('SweetAlert2 is not loaded. Check the script source.');
+        }
+    });
+</script>
 
 </body>
 

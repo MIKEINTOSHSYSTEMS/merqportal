@@ -76,6 +76,174 @@ if (isset($employeeData['perspective_counts']) && is_array($employeeData['perspe
     $perspectives = array_keys($employeeData['perspective_counts']);
 }
 
+
+// Add this after fetching employee data, before requiring header
+$ceoFeedback = [];
+if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
+    $ceoFeedback = getCEOFeedback($employeeId);
+}
+
+// Handle CEO feedback operations
+if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
+    $ceoFeedback = getCEOFeedback($employeeId, true); // Include drafts
+
+    // Handle form submissions
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $showAlert = false;
+        $alertScript = '';
+
+        if (isset($_POST['ceo_feedback'])) {
+            // Add new feedback
+            $feedbackType = intval($_POST['category_id']);
+            $feedbackText = trim($_POST['feedback_text']);
+            $priority = $_POST['priority'];
+            $status = $_POST['status'];
+            $targetDate = !empty($_POST['target_completion_date']) ? $_POST['target_completion_date'] : null;
+
+            if (empty($feedbackText)) {
+                $alertScript = "
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Please enter feedback text.',
+                        confirmButtonColor: '#3085d6'
+                    });
+                });
+                </script>";
+                $showAlert = true;
+            } else {
+                $feedbackData = [
+                    'category_id' => $feedbackType,
+                    'text' => $feedbackText,
+                    'priority' => $priority,
+                    'status' => $status,
+                    'target_date' => $targetDate
+                ];
+
+                $result = saveCEOFeedback($employeeId, $_SESSION['user_id'], $feedbackData);
+
+                if ($result['success']) {
+                    $employeeName = htmlspecialchars($employeeDetails['full_name'] ?? 'the employee');
+                    $alertScript = "
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successfully Added CEO Feedback for {$employeeName}!',
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#3085d6',
+                            timer: 3000,
+                            timerProgressBar: true
+                        }).then((result) => {
+                            window.location.href = 'employee_report.php?employee=$employeeId';
+                        });
+                    });
+                    </script>";
+                    $showAlert = true;
+                } else {
+                    $alertScript = "
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to save feedback.',
+                            confirmButtonColor: '#3085d6'
+                        });
+                    });
+                    </script>";
+                    $showAlert = true;
+                }
+            }
+        } elseif (isset($_POST['update_feedback'])) {
+            // Update existing feedback
+            $feedbackId = intval($_POST['feedback_id']);
+            $feedbackType = intval($_POST['category_id']);
+            $feedbackText = trim($_POST['feedback_text']);
+            $priority = $_POST['priority'];
+            $status = $_POST['status'];
+            $targetDate = !empty($_POST['target_completion_date']) ? $_POST['target_completion_date'] : null;
+
+            $feedbackData = [
+                'category_id' => $feedbackType,
+                'text' => $feedbackText,
+                'priority' => $priority,
+                'status' => $status,
+                'target_date' => $targetDate
+            ];
+
+            $result = updateCEOFeedback($feedbackId, $feedbackData);
+
+            if ($result['success']) {
+                $employeeName = htmlspecialchars($employeeDetails['full_name'] ?? 'the employee');
+                setAlert("Successfully Updated CEO Feedback for {$employeeName}!", 'success');
+                header("Location: employee_report.php?employee=" . $employeeId);
+                exit;
+            } else {
+                setAlert("Failed to update feedback.", 'error');
+            }
+        }
+
+        // Store alert script to output later
+        if ($showAlert) {
+            $GLOBALS['alert_script'] = $alertScript;
+        }
+    }
+
+    // Handle delete via GET parameter
+    if (isset($_GET['delete_feedback'])) {
+        $result = deleteCEOFeedback($_GET['delete_feedback']);
+        if ($result['success']) {
+            $employeeName = htmlspecialchars($employeeDetails['full_name'] ?? 'the employee');
+            $GLOBALS['alert_script'] = "
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Feedback for {$employeeName} Deleted Successfully!',
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#3085d6',
+                    timer: 3000,
+                    timerProgressBar: true
+                }).then((result) => {
+                    window.location.href = 'employee_report.php?employee=$employeeId';
+                });
+            });
+            </script>";
+        } else {
+            $GLOBALS['alert_script'] = "
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed to delete feedback.',
+                    confirmButtonColor: '#3085d6'
+                });
+            });
+            </script>";
+        }
+    }
+
+    // Show success message for feedback deletion from query parameter
+    if (isset($_GET['feedback_deleted']) && $_GET['feedback_deleted'] == 1) {
+        $employeeName = htmlspecialchars($employeeDetails['full_name'] ?? 'the employee');
+        $GLOBALS['alert_script'] = "
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Feedback for {$employeeName} Deleted Successfully!',
+                confirmButtonColor: '#3085d6'
+            });
+        });
+        </script>";
+    }
+}
+
+
 require_once 'header.php';
 
 ?>
@@ -418,6 +586,8 @@ require_once 'header.php';
         </div>
 
         <!-- Filters Section -->
+<!--
+
         <div class="filter-section no-print">
             <div class="filter-group">
                 <label class="form-label">Perspective Filter</label>
@@ -460,6 +630,8 @@ require_once 'header.php';
                 </button>
             </div>
         </div>
+
+                    -->
 
         <!-- Performance Overview Cards -->
         <div class="row mb-4">
@@ -801,6 +973,197 @@ require_once 'header.php';
                     </div>
                 </div>
             </div>
+
+
+            <!-- CEO Feedback Section -->
+            <?php if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])): ?>
+                <div class="card card-report">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="card-title mb-0"><i class="fas fa-comment-medical me-2"></i>CEO Feedback & Comments</h5>
+                    </div>
+                    <div class="card-body">
+
+                        <!-- Feedback Form -->
+                        <div class="mb-4">
+                            <h6><?= isset($_GET['edit_feedback']) ? 'Edit Feedback' : 'Add New Feedback' ?></h6>
+                            <?php
+                            $editFeedback = null;
+                            if (isset($_GET['edit_feedback'])) {
+                                $editFeedback = getCEOFeedbackItem($_GET['edit_feedback']);
+                            }
+                            ?>
+
+                            <form method="post" id="ceoFeedbackForm">
+                                <?php if ($editFeedback): ?>
+                                    <input type="hidden" name="update_feedback" value="1">
+                                    <input type="hidden" name="feedback_id" value="<?= $editFeedback['id'] ?>">
+                                <?php else: ?>
+                                    <input type="hidden" name="ceo_feedback" value="1">
+                                <?php endif; ?>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Feedback Category</label>
+                                        <select class="form-select" name="category_id" required>
+                                            <option value="">Select Category</option>
+                                            <?php foreach (getCEOFeedbackCategories() as $category): ?>
+                                                <option value="<?= $category['id'] ?>"
+                                                    <?= ($editFeedback && $editFeedback['category_id'] == $category['id']) || (!$editFeedback && $category['id'] == 1) ? 'selected' : '' ?>>
+                                                    <?= htmlspecialchars($category['category_name']) ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Priority</label>
+                                        <select class="form-select" name="priority" required>
+                                            <option value="medium" <?= ($editFeedback && $editFeedback['priority'] == 'medium') ? 'selected' : '' ?>>Medium</option>
+                                            <option value="low" <?= ($editFeedback && $editFeedback['priority'] == 'low') ? 'selected' : '' ?>>Low</option>
+                                            <option value="high" <?= ($editFeedback && $editFeedback['priority'] == 'high') ? 'selected' : '' ?>>High</option>
+                                            <option value="critical" <?= ($editFeedback && $editFeedback['priority'] == 'critical') ? 'selected' : '' ?>>Critical</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Status</label>
+                                        <select class="form-select" name="status" required>
+                                            <option value="draft" <?= ($editFeedback && $editFeedback['status'] == 'draft') ? 'selected' : '' ?>>Draft</option>
+                                            <option value="published" <?= ($editFeedback && $editFeedback['status'] == 'published') ? 'selected' : '' ?> selected>Publish</option>
+                                            <option value="archived" <?= ($editFeedback && $editFeedback['status'] == 'archived') ? 'selected' : '' ?>>Archive</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Feedback Text</label>
+                                    <textarea class="form-control" name="feedback_text" rows="4"
+                                        placeholder="Enter detailed feedback and comments..." required><?= $editFeedback ? htmlspecialchars($editFeedback['feedback_text']) : '' ?></textarea>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Target Completion Date (Optional)</label>
+                                        <input type="date" class="form-control" name="target_completion_date"
+                                            value="<?= $editFeedback && $editFeedback['target_completion_date'] ? htmlspecialchars($editFeedback['target_completion_date']) : '' ?>">
+                                    </div>
+                                </div>
+
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-warning">
+                                        <i class="fas fa-save me-1"></i> <?= $editFeedback ? 'Update' : 'Save' ?> Feedback
+                                    </button>
+                                    <?php if ($editFeedback): ?>
+                                        <a href="employee_report.php?employee=<?= $employeeId ?>" class="btn btn-outline-secondary">
+                                            <i class="fas fa-times me-1"></i> Cancel
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </form>
+                        </div>
+
+                        <hr>
+
+                        <!-- Existing Feedback -->
+                        <h6>Existing Feedback</h6>
+                        <?php if (!empty($ceoFeedback)): ?>
+                            <div class="accordion" id="ceoFeedbackAccordion">
+                                <?php foreach ($ceoFeedback as $index => $feedback): ?>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="feedbackHeading<?= $index ?>">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#feedbackCollapse<?= $index ?>" aria-expanded="false">
+                                                <div class="d-flex justify-content-between w-100 me-3">
+                                                    <span>
+                                                        <span class="badge bg-<?=
+                                                                                $feedback['priority'] == 'low' ? 'success' : ($feedback['priority'] == 'medium' ? 'warning' : ($feedback['priority'] == 'high' ? 'danger' : 'dark'))
+                                                                                ?> me-2"><?= ucfirst($feedback['priority']) ?></span>
+                                                        <span class="badge bg-<?=
+                                                                                $feedback['status'] == 'published' ? 'primary' : ($feedback['status'] == 'draft' ? 'secondary' : 'dark')
+                                                                                ?> me-2"><?= ucfirst($feedback['status']) ?></span>
+                                                        <?= htmlspecialchars($feedback['category_name'] ?? 'General') ?>
+                                                    </span>
+                                                    <small class="text-muted"><?= date('M j, Y', strtotime($feedback['created_at'])) ?></small>
+                                                </div>
+                                            </button>
+                                        </h2>
+                                        <div id="feedbackCollapse<?= $index ?>" class="accordion-collapse collapse"
+                                            aria-labelledby="feedbackHeading<?= $index ?>" data-bs-parent="#ceoFeedbackAccordion">
+                                            <div class="accordion-body">
+                                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                                    <div>
+                                                        <strong>Category:</strong> <?= htmlspecialchars($feedback['category_name'] ?? 'General') ?><br>
+                                                        <strong>Priority:</strong> <span class="badge bg-<?=
+                                                                                                            $feedback['priority'] == 'low' ? 'success' : ($feedback['priority'] == 'medium' ? 'warning' : ($feedback['priority'] == 'high' ? 'danger' : 'dark'))
+                                                                                                            ?>"><?= ucfirst($feedback['priority']) ?></span><br>
+                                                        <strong>Status:</strong> <span class="badge bg-<?=
+                                                                                                        $feedback['status'] == 'published' ? 'primary' : ($feedback['status'] == 'draft' ? 'secondary' : 'dark')
+                                                                                                        ?>"><?= ucfirst($feedback['status']) ?></span>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <a href="?employee=<?= $employeeId ?>&edit_feedback=<?= $feedback['id'] ?>"
+                                                            class="btn btn-sm btn-outline-primary">
+                                                            <i class="fas fa-edit"></i> Edit
+                                                        </a>
+                                                        <a href="?employee=<?= $employeeId ?>&delete_feedback=<?= $feedback['id'] ?>"
+                                                            class="btn btn-sm btn-outline-danger"
+                                                            onclick="return confirm('Are you sure you want to delete this feedback?')">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <strong>Feedback:</strong>
+                                                    <p class="mt-2 p-3 bg-light rounded"><?= nl2br(htmlspecialchars($feedback['feedback_text'])) ?></p>
+                                                </div>
+
+                                                <?php if (!empty($feedback['target_completion_date'])): ?>
+                                                    <div class="mb-3">
+                                                        <strong>Target Completion Date:</strong>
+                                                        <span class="ms-2"><?= date('F j, Y', strtotime($feedback['target_completion_date'])) ?></span>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                                <!-- Employee Responses -->
+                                                <?php $responses = getFeedbackResponses($feedback['id']); ?>
+                                                <?php if (!empty($responses)): ?>
+                                                    <div class="mt-4">
+                                                        <h6>Employee Responses:</h6>
+                                                        <?php foreach ($responses as $response): ?>
+                                                            <div class="card mb-2">
+                                                                <div class="card-body">
+                                                                    <p class="mb-2"><?= nl2br(htmlspecialchars($response['response_text'])) ?></p>
+                                                                    <small class="text-muted">
+                                                                        By: <?= htmlspecialchars($response['employee_name']) ?>
+                                                                        on <?= date('M j, Y g:i A', strtotime($response['submitted_at'])) ?>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                                <div class="text-muted small">
+                                                    <strong>Added by:</strong> <?= htmlspecialchars($feedback['ceo_name']) ?>
+                                                    on <?= date('F j, Y g:i A', strtotime($feedback['created_at'])) ?>
+                                                    <?php if ($feedback['updated_at'] != $feedback['created_at']): ?>
+                                                        <br><strong>Last updated:</strong> <?= date('F j, Y g:i A', strtotime($feedback['updated_at'])) ?>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php else: ?>
+                            <p class="text-muted">No CEO feedback added yet.</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+
+
+
         </div>
     </div>
 
@@ -1067,7 +1430,152 @@ require_once 'header.php';
                 timer: 1500
             });
         });
+
+
+        // Enhanced form handling with better UX
+        function handleFormSubmission(formElement) {
+            const submitButton = formElement.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+
+            // Show loading state
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Processing...';
+            submitButton.disabled = true;
+
+            // Add loading class for visual feedback
+            submitButton.classList.add('loading');
+
+            return function() {
+                // Reset button state after a delay (as fallback)
+                setTimeout(() => {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('loading');
+                }, 3000);
+            };
+        }
+
+        // Add loading state to CEO feedback form
+        const ceoForm = document.getElementById('ceoFeedbackForm');
+        if (ceoForm) {
+            ceoForm.addEventListener('submit', function(e) {
+                const resetButton = handleFormSubmission(this);
+
+                // Optional: Add a small delay to show the loading state
+                setTimeout(resetButton, 1000);
+            });
+        }
+
+        // Add CSS for loading state
+        const style = document.createElement('style');
+        style.textContent = `
+    .btn.loading {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+    .btn.loading:hover {
+        transform: none !important;
+    }
+`;
+        document.head.appendChild(style);
+
+        // CEO Feedback Form Enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-resize textareas
+            const textareas = document.querySelectorAll('textarea[name="feedback_text"]');
+            textareas.forEach(textarea => {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+            });
+
+            // Priority color coding
+            const priorityBadges = document.querySelectorAll('.badge.bg-success, .badge.bg-warning, .badge.bg-danger, .badge.bg-dark');
+            priorityBadges.forEach(badge => {
+                const text = badge.textContent.toLowerCase().trim();
+                if (text === 'low') badge.classList.add('bg-success');
+                else if (text === 'medium') badge.classList.add('bg-warning');
+                else if (text === 'high') badge.classList.add('bg-danger');
+                else if (text === 'critical') badge.classList.add('bg-dark');
+            });
+        });
+
+        // Form validation
+        function validateFeedbackForm() {
+            const form = document.getElementById('ceoFeedbackForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const textarea = form.querySelector('textarea[name="feedback_text"]');
+                    if (textarea.value.trim().length < 10) {
+                        e.preventDefault();
+                        Swal.fire('Validation Error', 'Please enter at least 10 characters of feedback.', 'warning');
+                        textarea.focus();
+                    }
+                });
+            }
+        }
+
+        validateFeedbackForm();
     </script>
+
+    <script>
+        // Enhanced CEO Feedback functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-resize textareas
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach(textarea => {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+                // Trigger initial resize
+                textarea.dispatchEvent(new Event('input'));
+            });
+
+            // Form validation
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const textareas = this.querySelectorAll('textarea[required]');
+                    for (let textarea of textareas) {
+                        if (textarea.value.trim().length < 5) {
+                            e.preventDefault();
+                            Swal.fire('Validation Error', 'Please enter at least 5 characters.', 'warning');
+                            textarea.focus();
+                            return;
+                        }
+                    }
+                });
+            });
+
+            // Priority badge coloring
+            document.querySelectorAll('.badge').forEach(badge => {
+                const text = badge.textContent.toLowerCase().trim();
+                if (text === 'low') badge.classList.add('bg-success');
+                else if (text === 'medium') badge.classList.add('bg-warning');
+                else if (text === 'high') badge.classList.add('bg-danger');
+                else if (text === 'critical') badge.classList.add('bg-dark');
+                else if (text === 'draft') badge.classList.add('bg-secondary');
+                else if (text === 'published') badge.classList.add('bg-primary');
+                else if (text === 'archived') badge.classList.add('bg-dark');
+            });
+        });
+    </script>
+    <script>
+        // Debug SweetAlert
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('SweetAlert2 available:', typeof Swal !== 'undefined');
+
+            // Test SweetAlert
+            if (typeof Swal !== 'undefined') {
+                console.log('SweetAlert2 is loaded correctly');
+            } else {
+                console.error('SweetAlert2 is not loaded. Check the script source.');
+            }
+        });
+    </script>
+
+
 </body>
 
 </html>
