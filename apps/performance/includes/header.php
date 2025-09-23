@@ -14,6 +14,15 @@ $userName = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'User';
 $userEmail = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 $avatarName = urlencode($userName);
 
+// Get employee ID from query parameter or use logged-in user's ID
+$employeeId = $_GET['employee'] ?? $_SESSION['user_id'];
+
+// Get the logged-in user's ID
+$userId = $_SESSION['user_id'];
+
+// Get employee details
+$employeeDetails = getEmployeeDetails($userId);
+
 // Check if we're showing the evaluation iframe
 $showEvaluation = isset($_GET['evaluation']) && $_GET['evaluation'] == 'true';
 
@@ -31,6 +40,9 @@ $isEvaluationActive = $showEvaluation;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Add this after Bootstrap CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         /* Header and Sidebar Specific Styles Only */
         .sys-header {
@@ -349,6 +361,69 @@ $isEvaluationActive = $showEvaluation;
                 transform: rotate(360deg);
             }
         }
+
+
+        /* Dropdown Styles */
+        .sys-nav-user-info .dropdown-toggle {
+            color: white !important;
+            text-decoration: none;
+        }
+
+        .sys-nav-user-info .dropdown-toggle:hover {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .sys-nav-user-info .dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .sys-nav-user-info .dropdown-item {
+            padding: 10px 15px;
+            transition: all 0.3s;
+        }
+
+        .sys-nav-user-info .dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .sys-nav-user-info .dropdown-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Modal enhancements */
+        .modal-header {
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #dee2e6;
+        }
+
+        /* Password strength indicator */
+        .password-strength {
+            height: 5px;
+            margin-top: 5px;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .password-weak {
+            background-color: #dc3545;
+            width: 25%;
+        }
+
+        .password-medium {
+            background-color: #ffc107;
+            width: 50%;
+        }
+
+        .password-strong {
+            background-color: #28a745;
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -370,8 +445,34 @@ $isEvaluationActive = $showEvaluation;
                     </div>
                 </div>
                 <div class="sys-nav-user-info">
-                    <img src="https://ui-avatars.com/api/?name=<?= $avatarName ?>&background=random" alt="User">
-                    <span class="d-none d-md-inline"><?= htmlspecialchars($userName) ?></span>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle d-flex align-items-center text-decoration-none text-white"
+                            id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://ui-avatars.com/api/?name=<?= $avatarName ?>&background=random" alt="User">
+                            <span class="d-none d-md-inline ms-2"><?= htmlspecialchars($userName) ?></span>
+                            <!--<i class="fas fa-caret-down ms-1"></i>-->
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">
+                                    <i class="fas fa-user me-2"></i>My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                    <i class="fas fa-key me-2"></i>Change Password
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="logout.php">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -424,6 +525,134 @@ $isEvaluationActive = $showEvaluation;
             </li>
         </ul>
     </aside>
+
+    <!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="profileModalLabel">My Profile</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="https://ui-avatars.com/api/?name=<?= $avatarName ?>&background=007bff&color=fff&size=150"
+                                alt="Profile" class="rounded-circle mb-3" width="150" height="150">
+                            <h5><?= htmlspecialchars($userName) ?></h5>
+                            <p class="text-muted"><?= htmlspecialchars($_SESSION['role'] ?? 'User') ?></p>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <strong>Employee ID:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <strong>Email:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    <?= htmlspecialchars($userEmail) ?>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <strong>Position:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    <?= htmlspecialchars($employeeDetails['position_title'] ?? 'N/A') ?>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <strong>Department:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    <?= htmlspecialchars($employeeDetails['department_name'] ?? 'N/A') ?>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <strong>Supervisor:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    <?= htmlspecialchars($employeeDetails['supervisor_name'] ?? 'N/A') ?>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <strong>Last Login:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    <?= isset($_SESSION['login_time']) ? date('M j, Y g:i A', $_SESSION['login_time']) : 'N/A' ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="changePasswordForm" method="POST" action="../includes/change_password.php">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Current Password</label>
+                            <input type="password" class="form-control" id="currentPassword" name="current_password" required>
+                            <div class="invalid-feedback" id="currentPasswordError"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input type="password" class="form-control" id="newPassword" name="new_password" required
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                title="Password must be at least 8 characters including: 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character (@$!%*?&)">
+                            <div class="form-text">
+                                <strong>Password must contain:</strong>
+                                <ul class="small mb-0 mt-1">
+                                    <li>Minimum 8 characters</li>
+                                    <li>At least one uppercase letter (A-Z)</li>
+                                    <li>At least one lowercase letter (a-z)</li>
+                                    <li>At least one number (0-9)</li>
+                                    <li>At least one special character: @ $ ! % * ? &</li>
+                                </ul>
+                            </div>
+                            <div class="invalid-feedback" id="newPasswordError"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirm_password" required>
+                            <div class="invalid-feedback" id="confirmPasswordError"></div>
+                        </div>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            After changing your password, you'll be logged out and need to login again.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-warning" id="changePasswordBtn">
+                            <i class="fas fa-key me-1"></i> Change Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Evaluation Iframe Container (Initially Hidden) -->
     <?php if ($showEvaluation): ?>
@@ -513,5 +742,170 @@ $isEvaluationActive = $showEvaluation;
                             window.location.href = '<?php echo $currentPage; ?>';
                         }
                     });
+                });
+
+
+                // Password change form handling
+                document.addEventListener('DOMContentLoaded', function() {
+                    const changePasswordForm = document.getElementById('changePasswordForm');
+                    if (changePasswordForm) {
+                        changePasswordForm.addEventListener('submit', function(e) {
+                            e.preventDefault();
+
+                            const submitBtn = document.getElementById('changePasswordBtn');
+                            const originalText = submitBtn.innerHTML;
+
+                            // Show loading state
+                            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Changing...';
+                            submitBtn.disabled = true;
+
+                            // Clear previous errors
+                            document.querySelectorAll('.is-invalid').forEach(el => {
+                                el.classList.remove('is-invalid');
+                            });
+
+                            // Validate form
+                            const currentPassword = document.getElementById('currentPassword').value;
+                            const newPassword = document.getElementById('newPassword').value;
+                            const confirmPassword = document.getElementById('confirmPassword').value;
+
+                            let isValid = true;
+
+                            if (!currentPassword) {
+                                document.getElementById('currentPassword').classList.add('is-invalid');
+                                document.getElementById('currentPasswordError').textContent = 'Current password is required';
+                                isValid = false;
+                            }
+
+                            if (!newPassword) {
+                                document.getElementById('newPassword').classList.add('is-invalid');
+                                document.getElementById('newPasswordError').textContent = 'New password is required';
+                                isValid = false;
+                            } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(newPassword)) {
+                                document.getElementById('newPassword').classList.add('is-invalid');
+                                document.getElementById('newPasswordError').textContent = 'Password must meet all requirements: 8+ characters, uppercase, lowercase, number, and special character (@$!%*?&)';
+                                isValid = false;
+                            }
+
+                            if (!confirmPassword) {
+                                document.getElementById('confirmPassword').classList.add('is-invalid');
+                                document.getElementById('confirmPasswordError').textContent = 'Please confirm your password';
+                                isValid = false;
+                            } else if (newPassword !== confirmPassword) {
+                                document.getElementById('confirmPassword').classList.add('is-invalid');
+                                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+                                isValid = false;
+                            }
+
+                            if (!isValid) {
+                                submitBtn.innerHTML = originalText;
+                                submitBtn.disabled = false;
+                                return;
+                            }
+
+                            // Submit via AJAX
+                            const formData = new FormData(changePasswordForm);
+
+                            fetch('../includes/change_password.php', {
+                                    method: 'POST',
+                                    body: formData
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    if (data.success) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Success!',
+                                            text: data.message,
+                                            confirmButtonColor: '#3085d6',
+                                            confirmButtonText: 'OK'
+                                        }).then((result) => {
+                                            // Close modal and reset form
+                                            const modal = bootstrap.Modal.getInstance(document.getElementById('changePasswordModal'));
+                                            modal.hide();
+                                            changePasswordForm.reset();
+
+                                            // Redirect after successful password change
+                                            if (data.redirect) {
+                                                // Small delay to show success message
+                                                setTimeout(() => {
+                                                    window.location.href = data.redirect;
+                                                }, 1000);
+                                            }
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Error',
+                                            text: data.message,
+                                            confirmButtonColor: '#3085d6',
+                                            confirmButtonText: 'OK'
+                                        });
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: 'An error occurred while changing password. Please try again.',
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'OK'
+                                    });
+                                })
+                                .finally(() => {
+                                    submitBtn.innerHTML = originalText;
+                                    submitBtn.disabled = false;
+                                });
+                        });
+                    }
+
+                    // Real-time password validation
+                    const newPasswordInput = document.getElementById('newPassword');
+                    const confirmPasswordInput = document.getElementById('confirmPassword');
+
+                    if (newPasswordInput && confirmPasswordInput) {
+                        confirmPasswordInput.addEventListener('input', function() {
+                            if (newPasswordInput.value !== this.value && this.value.length > 0) {
+                                this.classList.add('is-invalid');
+                                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+                            } else {
+                                this.classList.remove('is-invalid');
+                            }
+                        });
+
+                        newPasswordInput.addEventListener('input', function() {
+                            if (this.value && !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(this.value)) {
+                                this.classList.add('is-invalid');
+                                document.getElementById('newPasswordError').textContent = 'Password must meet all requirements';
+                            } else {
+                                this.classList.remove('is-invalid');
+                            }
+
+                            // Also validate confirmation password in real-time
+                            if (confirmPasswordInput.value && this.value !== confirmPasswordInput.value) {
+                                confirmPasswordInput.classList.add('is-invalid');
+                                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+                            } else if (confirmPasswordInput.value) {
+                                confirmPasswordInput.classList.remove('is-invalid');
+                            }
+                        });
+                    }
+
+                    // Clear validation on modal hide
+                    const changePasswordModal = document.getElementById('changePasswordModal');
+                    if (changePasswordModal) {
+                        changePasswordModal.addEventListener('hidden.bs.modal', function() {
+                            changePasswordForm.reset();
+                            document.querySelectorAll('.is-invalid').forEach(el => {
+                                el.classList.remove('is-invalid');
+                            });
+                        });
+                    }
                 });
             </script>

@@ -14,10 +14,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    // Validate credentials using users table
-    $user = verify_user_credentials($email, $password);
+    // Basic validation
+    if (empty($email) || empty($password)) {
+        $_SESSION['error'] = 'Email and password are required';
+        header('Location: ../public/login.php');
+        exit;
+    }
 
-    if ($user) {
+    // Create database connection
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        $_SESSION['error'] = 'System error. Please try again later.';
+        header('Location: ../public/login.php');
+        exit;
+    }
+
+    // Validate credentials using users table
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND is_active = 1");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+    $stmt->close();
+    $conn->close();
+
+    if ($user && password_verify($password, $user['password_hash'])) {
+        // Get user profile for additional info
+        $user_profile = getEmployeeDetails($user['user_id']);
+
         // Authentication successful
         $_SESSION['loggedin'] = true;
         $_SESSION['user_id'] = $user['user_id'];
@@ -34,6 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['is_admin'] = $user['is_admin'];
         $_SESSION['login_time'] = time();
 
+        $_SESSION['position_title'] = $user_profile['position_title'] ?? '';
+        $_SESSION['department_name'] = $user_profile['department_name'] ?? '';
+        $_SESSION['supervisor_name'] = $user_profile['supervisor_name'] ?? '';
+
         // Redirect based on role
         if ($user['is_admin'] == 1 || $user['role'] === 'admin') {
             header('Location: ../public/report.php');
@@ -42,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         exit;
     } else {
-        // Authentication failed
-        $_SESSION['error'] = 'Invalid email or password';
+        // Authentication failed - more specific error
+        $_SESSION['error'] = 'Invalid email or password. Please check your credentials and try again.';
         header('Location: ../public/login.php');
         exit;
     }
