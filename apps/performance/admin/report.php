@@ -869,6 +869,61 @@ function getMatrixQuestions($evaluationDetails)
     <?php endif; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sysSidebarToggle');
+            const sidebarOverlay = document.getElementById('sysSidebarOverlay');
+            const body = document.body;
+
+            // Toggle sidebar on button click
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    if (body.classList.contains('sys-sidebar-expanded')) {
+                        body.classList.remove('sys-sidebar-expanded');
+                        body.classList.add('sys-sidebar-collapsed');
+                    } else {
+                        body.classList.remove('sys-sidebar-collapsed');
+                        body.classList.add('sys-sidebar-expanded');
+                    }
+                });
+            }
+
+            // Close sidebar when clicking on overlay (mobile)
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function() {
+                    body.classList.remove('sys-sidebar-expanded');
+                    body.classList.add('sys-sidebar-collapsed');
+                });
+            }
+
+            // Close sidebar when clicking on a link (mobile)
+            const sidebarLinks = document.querySelectorAll('.sys-sidebar-menu a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        body.classList.remove('sys-sidebar-expanded');
+                        body.classList.add('sys-sidebar-collapsed');
+                    }
+                });
+            });
+
+            // Auto-collapse sidebar on mobile when page loads
+            function handleResize() {
+                if (window.innerWidth <= 768) {
+                    body.classList.remove('sys-sidebar-expanded');
+                    body.classList.add('sys-sidebar-collapsed');
+                } else {
+                    // On desktop, ensure sidebar is expanded by default
+                    body.classList.remove('sys-sidebar-collapsed');
+                    body.classList.add('sys-sidebar-expanded');
+                }
+            }
+
+            // Initial call and event listener for resize
+            handleResize();
+            window.addEventListener('resize', handleResize);
+        });
+    </script>
 </body>
 
 </html>
