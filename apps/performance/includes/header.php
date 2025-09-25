@@ -28,6 +28,19 @@ $showEvaluation = isset($_GET['evaluation']) && $_GET['evaluation'] == 'true';
 
 // Determine if the evaluation menu item should be active
 $isEvaluationActive = $showEvaluation;
+
+
+$showFeedbackMenu = false;
+$loggedInUserId = $_SESSION['user_id'] ?? null;
+
+if ($loggedInUserId) {
+    $publishedFeedback = getCEOFeedback($loggedInUserId, false);
+    if (!empty($publishedFeedback)) {
+        $showFeedbackMenu = true;
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -495,6 +508,15 @@ $isEvaluationActive = $showEvaluation;
                 </a>
             </li>
 
+            <?php if ($showFeedbackMenu): ?>
+                <li>
+                    <a href="feedback.php" class="<?= $currentPage == 'feedback.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                        <i class="fas fa-table"></i>
+                        <span>Feedbacks</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
             <?php if ((isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($_SESSION['user_id'] == 35)): ?>
                 <li class="sys-sidebar-header">Administration</li>
                 <li>
@@ -530,7 +552,7 @@ $isEvaluationActive = $showEvaluation;
     <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
+                <div class="modal-header bg-info text-white">
                     <h5 class="modal-title" id="profileModalLabel">My Profile</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
