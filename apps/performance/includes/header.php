@@ -545,6 +545,12 @@ if ($loggedInUserId) {
                     <span>Go to Evaluation</span>
                 </a>
             </li>
+            <li>
+                <a href="help.php" class="<?= $currentPage == 'help.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                    <i class="fas fa-question"></i>
+                    <span>Help</span>
+                </a>
+            </li>
         </ul>
     </aside>
 
