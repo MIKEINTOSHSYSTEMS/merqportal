@@ -53,8 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
 
         if ($result['success']) {
             echo "<script>
-                Swal.fire('Success!', 'Response submitted successfully.', 'success')
-                    .then(() => window.location.reload());
+        Swal.fire('Success!', 'Response submitted successfully.', 'success')
+            .then(() => {
+                // Change the page location to dashboard.php
+                window.location.href = 'dashboard.php';
+            });
             </script>";
         } else {
             echo "<script>Swal.fire('Error!', 'Failed to submit response.', 'error');</script>";
