@@ -726,3 +726,9 @@ function displayAlerts()
         unset($_SESSION['alert_type']);
     }
 }
+
+require_once 'SettingsManager.php';
+
+// Initialize settings manager
+$settingsManager = new SettingsManager(new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME));
+

@@ -1,5 +1,17 @@
 <?php
-// Display all errors and warnings
+require_once 'admin/config.php';
+
+// Initialize settings manager
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$settingsManager = new SettingsManager($conn);
+
+// Check if evaluation is active
+if (!$settingsManager->isEvaluationActive()) {
+    header('Location: ' . $settingsManager->getRedirectUrl());
+    exit;
+}
+
+// Continue with existing code...
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 

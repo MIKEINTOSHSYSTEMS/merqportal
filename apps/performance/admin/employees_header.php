@@ -450,6 +450,15 @@ $currentLanguage = $_SESSION['language'] ?? 'en';
                 </a>
             </li>
             <li class="sys-sidebar-header">Account</li>
+
+            <li>
+                <a href="settings.php" class="<?= $currentPage == 'settings.php' ? 'sys-active' : '' ?>">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+
+            <!--
             <li>
                 <a href="#">
                     <i class="fas fa-cog"></i>
@@ -457,6 +466,7 @@ $currentLanguage = $_SESSION['language'] ?? 'en';
                     <span class="dev-badge dev-badge-in-development">In Development</span>
                 </a>
             </li>
+        -->
             <li>
                 <a href="logout.php">
                     <i class="fas fa-sign-out-alt"></i>
