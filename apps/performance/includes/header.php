@@ -40,6 +40,71 @@ if ($loggedInUserId) {
     }
 }
 
+// Get the logged-in user's ID and role
+$currentUserId = $_SESSION['user_id'];
+$isAdmin = (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($currentUserId == 35);
+
+// Function to get supervisor's subordinates
+function getSupervisorSubordinates($supervisorId)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        error_log("DB Connection failed: " . $conn->connect_error);
+        return [];
+    }
+
+    $sql = "SELECT 
+                u.user_id, 
+                u.employee_id,
+                u.full_name,
+                u.first_name,
+                u.middle_name,
+                u.last_name,
+                u.email,    
+                u.role,
+                p.position_title, 
+                d.department_name, 
+                u.supervisor_id,
+                s.full_name AS supervisor_name
+            FROM users u
+            LEFT JOIN positions p ON u.position_id = p.position_id
+            LEFT JOIN departments d ON u.department_id = d.department_id
+            LEFT JOIN users s ON u.supervisor_id = s.user_id
+            WHERE u.supervisor_id = ? AND u.is_active = 1
+            ORDER BY u.full_name ASC";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $supervisorId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $subordinates = [];
+    while ($row = $result->fetch_assoc()) {
+        $subordinates[$row['user_id']] = $row;
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $subordinates;
+}
+
+
+// Get employees based on user role
+if ($isAdmin) {
+    // Admins/CEO see all employees
+    $employees = getEmployeesFromDatabase();
+} else {
+    // Supervisors see only their subordinates
+    $employees = getSupervisorSubordinates($currentUserId);
+}
+
+// Check if user is a supervisor (has subordinates)
+$isSupervisor = false;
+if (!$isAdmin && isset($_SESSION['user_id'])) {
+    $subordinates = getSupervisorSubordinates($_SESSION['user_id']);
+    $isSupervisor = !empty($subordinates);
+}
 
 ?>
 <!DOCTYPE html>
@@ -56,387 +121,9 @@ if ($loggedInUserId) {
     <!-- Add this after Bootstrap CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="../css/main.css" rel="stylesheet">
     <style>
-        /* Header and Sidebar Specific Styles Only */
-        .sys-header {
-            background-color: #072247D4;
-            height: 70px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1030;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: left 0.3s ease;
-        }
 
-        .sys-sidebar-expanded .sys-header {
-            left: 250px;
-        }
-
-        .sys-sidebar-collapsed .sys-header {
-            left: 70px;
-        }
-
-        @media (max-width: 768px) {
-
-            .sys-sidebar-expanded .sys-header,
-            .sys-sidebar-collapsed .sys-header {
-                left: 0;
-            }
-        }
-
-        .sys-logo-container {
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            height: 70px;
-        }
-
-        .sys-logo {
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .sys-brand-text {
-            color: white;
-            font-weight: 600;
-            font-size: 1.2rem;
-            white-space: nowrap;
-        }
-
-        .sys-nav-user-info {
-            color: white;
-            display: flex;
-            align-items: center;
-        }
-
-        .sys-nav-user-info img {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            margin-right: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        /* Sidebar Styles */
-        .sys-sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 250px;
-            background: #072247;
-            z-index: 1020;
-            transition: all 0.3s ease;
-            overflow-y: auto;
-            padding-top: 70px;
-        }
-
-        .sys-sidebar-collapsed .sys-sidebar {
-            width: 70px;
-        }
-
-        .sys-sidebar-menu {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-
-        .sys-sidebar-menu li {
-            margin-bottom: 5px;
-            position: relative;
-        }
-
-        .sys-sidebar-menu a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            transition: all 0.3s;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .sys-sidebar-menu a:hover,
-        .sys-sidebar-menu a.sys-active {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-left: 4px solid #20c997;
-        }
-
-        .sys-sidebar-menu i {
-            margin-right: 15px;
-            font-size: 1.1rem;
-            min-width: 25px;
-            text-align: center;
-        }
-
-        .sys-sidebar-collapsed .sys-sidebar-menu span {
-            display: none;
-        }
-
-        .sys-sidebar-collapsed .sys-sidebar-menu i {
-            margin-right: 0;
-        }
-
-        .sys-sidebar-header {
-            color: rgba(255, 255, 255, 0.6);
-            padding: 15px 15px 5px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .sys-sidebar-collapsed .sys-sidebar-header {
-            display: none;
-        }
-
-        /* Development Badges */
-        .dev-badge {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.65rem;
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
-        .dev-badge-in-development {
-            background-color: #fd7e14;
-            color: white;
-        }
-
-        .dev-badge-coming-soon {
-            background-color: #6f42c1;
-            color: white;
-        }
-
-        .sys-sidebar-collapsed .dev-badge {
-            display: none;
-        }
-
-        /* Main Content Area */
-        .sys-main-content {
-            margin-left: 250px;
-            transition: margin-left 0.3s ease;
-            min-height: calc(100vh - 70px);
-            padding-top: 20px;
-        }
-
-        .sys-sidebar-collapsed .sys-main-content {
-            margin-left: 70px;
-        }
-
-        @media (max-width: 768px) {
-            .sys-sidebar {
-                transform: translateX(-100%);
-                width: 250px;
-            }
-
-            .sys-sidebar-expanded .sys-sidebar {
-                transform: translateX(0);
-            }
-
-            .sys-main-content {
-                margin-left: 0 !important;
-            }
-        }
-
-        /* Toggle Button */
-        .sys-sidebar-toggle {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0 15px;
-        }
-
-        /* Mobile overlay */
-        .sys-sidebar-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1010;
-            display: none;
-        }
-
-        .sys-sidebar-expanded .sys-sidebar-overlay {
-            display: block;
-        }
-
-        @media (min-width: 769px) {
-            .sys-sidebar-overlay {
-                display: none !important;
-            }
-        }
-
-        /* Evaluation Iframe Styles */
-        .evaluation-container {
-            position: fixed;
-            top: 70px;
-            left: 250px;
-            right: 0;
-            bottom: 0;
-            z-index: 1000;
-            background: white;
-            transition: all 0.3s ease;
-        }
-
-        .sys-sidebar-collapsed .evaluation-container {
-            left: 70px;
-        }
-
-        @media (max-width: 768px) {
-            .evaluation-container {
-                left: 0 !important;
-            }
-        }
-
-        .evaluation-header {
-            background: #072247;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .evaluation-iframe {
-            width: 100%;
-            height: calc(100% - 50px);
-            /*height: calc(100% - 100px);*/
-            border: none;
-        }
-
-        .close-evaluation {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background-color 0.3s;
-        }
-
-        .close-evaluation:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Blur effect for main content when iframe is open */
-        .content-blur {
-            filter: blur(3px);
-            pointer-events: none;
-            user-select: none;
-        }
-
-        /* Loading indicator */
-        .iframe-loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #FF7700FF;
-            border-top: 4px solid #007FC7FF;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-
-        /* Dropdown Styles */
-        .sys-nav-user-info .dropdown-toggle {
-            color: white !important;
-            text-decoration: none;
-        }
-
-        .sys-nav-user-info .dropdown-toggle:hover {
-            color: rgba(255, 255, 255, 0.8) !important;
-        }
-
-        .sys-nav-user-info .dropdown-menu {
-            border: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        .sys-nav-user-info .dropdown-item {
-            padding: 10px 15px;
-            transition: all 0.3s;
-        }
-
-        .sys-nav-user-info .dropdown-item:hover {
-            background-color: #f8f9fa;
-        }
-
-        .sys-nav-user-info .dropdown-item i {
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Modal enhancements */
-        .modal-header {
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .modal-footer {
-            border-top: 1px solid #dee2e6;
-        }
-
-        /* Password strength indicator */
-        .password-strength {
-            height: 5px;
-            margin-top: 5px;
-            border-radius: 3px;
-            transition: all 0.3s;
-        }
-
-        .password-weak {
-            background-color: #dc3545;
-            width: 25%;
-        }
-
-        .password-medium {
-            background-color: #ffc107;
-            width: 50%;
-        }
-
-        .password-strong {
-            background-color: #28a745;
-            width: 100%;
-        }
     </style>
 </head>
 
@@ -458,6 +145,12 @@ if ($loggedInUserId) {
                     </div>
                 </div>
                 <div class="sys-nav-user-info">
+                    <!-- Theme Toggle Button -->
+                    <button class="btn btn-sm btn-outline-light me-2 theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </button>
+
+                    <!-- User Dropdown -->
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle d-flex align-items-center text-decoration-none text-white"
                             id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -507,6 +200,22 @@ if ($loggedInUserId) {
                     <span>My Report</span>
                 </a>
             </li>
+
+            <?php if ($isSupervisor || $isAdmin): ?>
+                <li class="sys-sidebar-header">Supervisor Menu</li>
+                <li>
+                    <a href="supervisor_dashboard.php" class="<?= $currentPage == 'supervisor_dashboard.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Supervisor Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="supervisor_report.php" class="<?= $currentPage == 'supervisor_report.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                        <i class="fas fa-users"></i>
+                        <span>Supervisor Report</span>
+                    </a>
+                </li>
+            <?php endif; ?>
 
             <?php if ($showFeedbackMenu): ?>
                 <li>
@@ -935,5 +644,68 @@ if ($loggedInUserId) {
                             });
                         });
                     }
+                });
+
+
+
+                // Theme Toggle Functionality
+                document.addEventListener('DOMContentLoaded', function() {
+                    const themeToggle = document.getElementById('themeToggle');
+                    const themeIcon = document.getElementById('themeIcon');
+                    const body = document.body;
+
+                    // Check for saved theme preference or default to light
+                    const currentTheme = localStorage.getItem('theme') || 'light';
+
+                    // Apply the saved theme
+                    if (currentTheme === 'dark') {
+                        body.setAttribute('data-theme', 'dark');
+                        themeIcon.className = 'fas fa-sun';
+                        themeToggle.title = 'Switch to light mode';
+                    } else {
+                        body.removeAttribute('data-theme');
+                        themeIcon.className = 'fas fa-moon';
+                        themeToggle.title = 'Switch to dark mode';
+                    }
+
+                    // Theme toggle event listener
+                    if (themeToggle) {
+                        themeToggle.addEventListener('click', function() {
+                            if (body.getAttribute('data-theme') === 'dark') {
+                                // Switch to light mode
+                                body.removeAttribute('data-theme');
+                                themeIcon.className = 'fas fa-moon';
+                                themeToggle.title = 'Switch to dark mode';
+                                localStorage.setItem('theme', 'light');
+                            } else {
+                                // Switch to dark mode
+                                body.setAttribute('data-theme', 'dark');
+                                themeIcon.className = 'fas fa-sun';
+                                themeToggle.title = 'Switch to light mode';
+                                localStorage.setItem('theme', 'dark');
+                            }
+                        });
+                    }
+
+                    // Detect system preference (optional)
+                    if (currentTheme === 'system' || !currentTheme) {
+                        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                            body.setAttribute('data-theme', 'dark');
+                            themeIcon.className = 'fas fa-sun';
+                        }
+                    }
+
+                    // Listen for system theme changes
+                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                        if (localStorage.getItem('theme') === 'system' || !localStorage.getItem('theme')) {
+                            if (event.matches) {
+                                body.setAttribute('data-theme', 'dark');
+                                themeIcon.className = 'fas fa-sun';
+                            } else {
+                                body.removeAttribute('data-theme');
+                                themeIcon.className = 'fas fa-moon';
+                            }
+                        }
+                    });
                 });
             </script>

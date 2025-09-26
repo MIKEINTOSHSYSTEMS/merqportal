@@ -1,11 +1,41 @@
 <?php
-// employee_report.php - Detailed employee evaluation report
+// subordinate_report.php - Detailed employee evaluation report for supervisors
 require_once '../includes/config.php';
+require_once '../includes/auth_check.php'; // Add authentication check
+require_once '../includes/header.php';
+
+// Get the logged-in user's ID and role
+$currentUserId = $_SESSION['user_id'];
+$isAdmin = (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($currentUserId == 35);
+
+// Check if user is a supervisor
+$isSupervisor = false;
+$subordinates = [];
+if (!$isAdmin) {
+    $subordinates = getSupervisorSubordinates($currentUserId);
+    $isSupervisor = !empty($subordinates);
+}
 
 $employeeId = $_GET['employee'] ?? '';
 if (empty($employeeId)) {
     header('Location: dashboard.php');
     exit;
+}
+
+// Check if user has access to this employee's data
+if (!$isAdmin && !$isSupervisor) {
+    // Regular employees can only view their own report
+    if ($employeeId != $currentUserId) {
+        header('Location: my_report.php');
+        exit;
+    }
+} elseif ($isSupervisor && !$isAdmin) {
+    // Supervisors can only view their subordinates' reports
+    if (!isset($subordinates[$employeeId])) {
+        $_SESSION['error'] = 'You do not have permission to view this employee\'s report.';
+        header('Location: supervisor_dashboard.php');
+        exit;
+    }
 }
 
 // Fetch and process data
@@ -23,6 +53,14 @@ $employeeName = htmlspecialchars($employeeDetails['full_name'] ?? 'NA');
 $employeePosition = htmlspecialchars($employeeDetails['position_title'] ?? 'NA');
 $employeeDepartment = htmlspecialchars($employeeDetails['department_name'] ?? 'NA');
 $employeeSupervisor = htmlspecialchars($employeeDetails['supervisor_name'] ?? 'NA');
+
+// Add supervisor context information
+$supervisorContext = '';
+if ($isSupervisor && !$isAdmin) {
+    $supervisorContext = ' (Your Subordinate)';
+} elseif ($isAdmin) {
+    $supervisorContext = ' (Admin View)';
+}
 
 $strengthsAndImprovements = getStrengthsAndImprovements($employeeData['evaluations']);
 
@@ -88,7 +126,7 @@ if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
     $ceoFeedback = getCEOFeedback($employeeId);
 }
 
-// Handle CEO feedback operations
+// Handle CEO feedback operations (only for CEO)
 if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
     $ceoFeedback = getCEOFeedback($employeeId, true); // Include drafts
 
@@ -143,7 +181,7 @@ if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
                             timer: 3000,
                             timerProgressBar: true
                         }).then((result) => {
-                            window.location.href = 'employee_report.php?employee=$employeeId';
+                            window.location.href = 'subordinate_report.php?employee=$employeeId';
                         });
                     });
                     </script>";
@@ -184,7 +222,7 @@ if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
             if ($result['success']) {
                 $employeeName = htmlspecialchars($employeeDetails['full_name'] ?? 'the employee');
                 setAlert("Successfully Updated CEO Feedback for {$employeeName}!", 'success');
-                header("Location: employee_report.php?employee=" . $employeeId);
+                header("Location: subordinate_report.php?employee=" . $employeeId);
                 exit;
             } else {
                 setAlert("Failed to update feedback.", 'error');
@@ -214,7 +252,7 @@ if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
                     timer: 3000,
                     timerProgressBar: true
                 }).then((result) => {
-                    window.location.href = 'employee_report.php?employee=$employeeId';
+                    window.location.href = 'subordinate_report.php?employee=$employeeId';
                 });
             });
             </script>";
@@ -248,8 +286,7 @@ if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
     }
 }
 
-require_once '../includes/header.php';
-
+//require_once '../includes/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -257,7 +294,7 @@ require_once '../includes/header.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MERQ Employee Performance Report</title>
+    <title>MERQ Employee Performance Report<?= $supervisorContext ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -267,7 +304,298 @@ require_once '../includes/header.php';
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="../css/main.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #00C7FFFF;
+            --secondary-color: #0073ACFF;
+            --success-color: #4cc9f0;
+            --info-color: #00EAFFFF;
+            --warning-color: #f72585;
+            --danger-color: #e63946;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --light-gray: #e9ecef;
+        }
 
+        /*        body {
+            background-color: #f5f7fb;
+            color: #343a40;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+            */
+
+        .supervisor-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .card-report {
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: none;
+            margin-bottom: 24px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .card-report:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #e9ecef;
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px 12px 0 0 !important;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+
+        .performance-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .bg-needs-improvement {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .bg-developing {
+            background-color: #fd7e14;
+            color: white;
+        }
+
+        .bg-meets-expectations {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .bg-exceeds-expectations {
+            background-color: #20c997;
+            color: white;
+        }
+
+        .bg-outstanding {
+            background-color: #198754;
+            color: white;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container-sm {
+            height: 250px;
+        }
+
+        .evaluation-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .accordion-button::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        }
+
+        .accordion-button:not(.collapsed)::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        }
+
+        .matrix-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 250px;
+            }
+
+            .chart-container-sm {
+                height: 200px;
+            }
+
+            .card-report {
+                margin-bottom: 15px;
+            }
+
+            .filter-section {
+                flex-direction: column;
+            }
+        }
+
+        .filter-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .print-only {
+            display: none;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .print-section,
+            .print-section * {
+                visibility: visible;
+            }
+
+            .print-section {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .print-only {
+                display: block;
+            }
+
+            .card-report {
+                break-inside: avoid;
+            }
+
+            .chart-container {
+                height: 200px;
+            }
+
+            .accordion-button::after {
+                display: none !important;
+            }
+
+            .accordion-button:not(.collapsed) {
+                background-color: white !important;
+                color: black !important;
+                box-shadow: none;
+            }
+
+            .accordion-collapse {
+                display: block !important;
+                height: auto !important;
+            }
+        }
+
+        .stats-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stats-label {
+            color: var(--gray-color);
+            font-weight: 500;
+        }
+
+        .suggestion-card {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .floating-action-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .floating-action-btn:hover {
+            transform: scale(1.1);
+            background: var(--secondary-color);
+        }
+
+        .btn-link {
+            --bs-btn-font-weight: 400;
+            --bs-btn-color: #00c7ff;
+            --bs-btn-bg: transparent;
+            --bs-btn-border-color: transparent;
+            --bs-btn-hover-color: var(--bs-link-hover-color);
+            --bs-btn-hover-border-color: transparent;
+            --bs-btn-active-color: var(--bs-link-hover-color);
+            --bs-btn-active-border-color: transparent;
+            --bs-btn-disabled-color: #6c757d;
+            --bs-btn-disabled-border-color: transparent;
+            --bs-btn-box-shadow: 0 0 0 #000;
+            --bs-btn-focus-shadow-rgb: 49, 132, 253;
+            text-decoration: underline;
+        }
+
+        .mb-4 {
+            margin-top: 70px;
+            margin-bottom: 1.5rem !important;
+        }
     </style>
 </head>
 
@@ -276,46 +604,39 @@ require_once '../includes/header.php';
         <!-- Header Section -->
         <div class="row mb-4">
             <div class="col-12">
-                <!-- Print Header (Only visible when printing) -->
-                <div class="print-only mb-4">
-                    <b>Employee Performance Report</b>
-                    <hr>
-                    <h1><?= htmlspecialchars($employeeName) ?></h1>
-                    <p>Position: <b><?= htmlspecialchars($employeePosition)  ?></b> | Department: <b><?= htmlspecialchars(html_entity_decode($employeeDepartment))  ?></b></p>
-                    <p> Supervisor : <b> <?= htmlspecialchars($employeeSupervisor) ?></b> </p>
-                    <p>Generated on: <?= date('F j, Y') ?></p>
-                    <hr>
-                </div>
-
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
-                    <div class="no-print">
-                        <h1 class="h2 mb-1"><?= htmlspecialchars($employeeName) ?></h1>
+                    <div>
+                        <h1 class="h2 mb-1">
+                            <?= htmlspecialchars($employeeName) ?>
+                            <?php if ($supervisorContext): ?>
+                                <span class="supervisor-badge"><?= $supervisorContext ?></span>
+                            <?php endif; ?>
+                        </h1>
                         <p class="mb-0 text-muted">Position : <b><?= htmlspecialchars($employeePosition) ?> </b></p>
                         <p>Department: <b><?= htmlspecialchars(html_entity_decode($employeeDepartment)) ?></b></p>
                         <p> Supervisor : <b> <?= htmlspecialchars($employeeSupervisor) ?></b> </p>
                         <small>Report generated on <b><?= date('F j, Y') ?></b></small>
-                        <!-- DEBUG INFORMATION - Remove this after testing -->
-                        <!--
-                        <div class="alert alert-warning mt-2 no-print" style="font-size: 0.8rem;">
-                            <strong>Debug Info:</strong><br>
-                            URL Employee ID: <?= htmlspecialchars($employeeId) ?><br>
-                            URL Employee Full Name: <?= htmlspecialchars($employeeName) ?><br>
-                            URL Employee Position: <?= htmlspecialchars($employeePosition) ?><br>
-                            URL Employee Department: <?= htmlspecialchars($employeeDepartment) ?><br>
-                            URL Employee Supervisor: <?= htmlspecialchars($employeeSupervisor) ?><br>
-                            Database Employee ID: <?= htmlspecialchars($employeeDetails['user_id'] ?? 'Not found') ?><br>
-                            Employee Name from DB: "<?= htmlspecialchars($employeeDetails['full_name'] ?? 'Not found') ?>"<br>
-                            Has Evaluations: <?= isset($employeeEvaluations[$employeeId]) ? 'Yes' : 'No' ?>
-                        </div>
-                        -->
                     </div>
                     <div class="d-flex mt-2 mt-md-0">
                         <button onclick="printReport()" class="btn btn-light me-2 no-print">
                             <i class="fas fa-print me-1"></i> Print Report
                         </button>
-                        <a href="report.php" class="btn btn-light me-2 no-print">
-                            <i class="fas fa-arrow-left me-1"></i> Back to Reports
-                        </a>
+
+                        <!-- Dynamic back button based on user role -->
+                        <?php if ($isSupervisor && !$isAdmin): ?>
+                            <a href="supervisor_report.php" class="btn btn-light me-2 no-print">
+                                <i class="fas fa-arrow-left me-1"></i> Back to Supervisor Report
+                            </a>
+                        <?php elseif ($isAdmin): ?>
+                            <a href="report.php" class="btn btn-light me-2 no-print">
+                                <i class="fas fa-arrow-left me-1"></i> Back to Reports
+                            </a>
+                        <?php else: ?>
+                            <a href="my_report.php" class="btn btn-light me-2 no-print">
+                                <i class="fas fa-arrow-left me-1"></i> Back to My Report
+                            </a>
+                        <?php endif; ?>
+
                         <div class="dropdown no-print">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-download me-1"></i> Export
@@ -330,7 +651,13 @@ require_once '../includes/header.php';
             </div>
         </div>
 
-
+        <!-- Print Header (Only visible when printing) -->
+        <div class="print-only mb-4">
+            <h1>Employee Performance Report: <?= htmlspecialchars($employeeDetails['full_name'] ?? '') ?></h1>
+            <p>Position: <?= htmlspecialchars($employeeDetails['position_title'] ?? '') ?> | Department: <?= htmlspecialchars($employeeDetails['department_name'] ?? '') ?></p>
+            <p>Generated on: <?= date('F j, Y') ?></p>
+            <hr>
+        </div>
 
         <!-- Filters Section -->
         <!--
@@ -499,10 +826,8 @@ require_once '../includes/header.php';
 
             <!-- Right Column - Details -->
             <div class="col-lg-7">
-
                 <!-- Category Scores -->
                 <div class="card card-report">
-                    <!--<div class="card-header bg-info text-white">-->
                     <div class="card-header">
                         <h5 class="card-title mb-0"><i class="fa-solid fa-arrow-up-9-1 me-2"></i>Category Scores</h5>
                     </div>
@@ -533,8 +858,6 @@ require_once '../includes/header.php';
                         <?php endforeach; ?>
                     </div>
                 </div>
-
-
 
                 <!-- Improvement Suggestions -->
                 <div class="card card-report suggestion-card">
@@ -796,7 +1119,7 @@ require_once '../includes/header.php';
                                             <i class="fas fa-save me-1"></i> <?= $editFeedback ? 'Update' : 'Save' ?> Feedback
                                         </button>
                                         <?php if ($editFeedback): ?>
-                                            <a href="employee_report.php?employee=<?= $employeeId ?>" class="btn btn-outline-secondary">
+                                            <a href="subordinate_report.php?employee=<?= $employeeId ?>" class="btn btn-outline-secondary">
                                                 <i class="fas fa-times me-1"></i> Cancel
                                             </a>
                                         <?php endif; ?>

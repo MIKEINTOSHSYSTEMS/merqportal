@@ -1,6 +1,7 @@
 <?php
 // footer.php - Footer with copyright and disclaimer
 ?>
+<link href="../css/main.css" rel="stylesheet">
 </div> <!-- Close container-fluid from header -->
 </div> <!-- Close container-fluid from main content -->
 </main>

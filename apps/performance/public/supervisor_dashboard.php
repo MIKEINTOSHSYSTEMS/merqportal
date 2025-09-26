@@ -1,20 +1,42 @@
 <?php
-// admin_dashboard.php - Main dashboard page
+// supervisor_dashboard.php - Main dashboard page for supervisors
 require_once '../includes/config.php';
 require_once '../includes/auth_check.php';
+require_once '../includes/header.php';
 
+// Get the logged-in user's ID and role
+$currentUserId = $_SESSION['user_id'];
+$isAdmin = (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($currentUserId == 35);
 
-// Get employees from database
-$employees = getEmployeesFromDatabase();
+// Get employees based on user role
+if ($isAdmin) {
+    // Admins/CEO see all employees
+    $employees = getEmployeesFromDatabase();
+} else {
+    // Supervisors see only their subordinates
+    $employees = getSupervisorSubordinates($currentUserId);
+}
+
+// If no subordinates found and user is not admin, show message
+if (!$isAdmin && empty($employees)) {
+    $_SESSION['info'] = 'You are not assigned as a supervisor for any employees.';
+}
 
 // Fetch and process data
 $submissions = getSubmissions();
-// Count them
 $totalSubmissions = count($submissions);
 $employeeEvaluations = calculateWeightedScores($submissions);
 
-// Get employees from database for dropdown
-$employeesFromDB = getEmployeesFromDatabase();
+// Filter evaluations to only include employees the supervisor can access
+$filteredEvaluations = [];
+foreach ($employeeEvaluations as $employeeId => $data) {
+    if (isset($employees[$employeeId]) || $isAdmin) {
+        $filteredEvaluations[$employeeId] = $data;
+    }
+}
+
+// Get employees for dropdown (only those the supervisor can access)
+$employeesFromDB = $employees;
 
 // Handle filters
 $selectedEmployee = $_GET['employee'] ?? '';
@@ -24,9 +46,8 @@ $startDate = $_GET['start_date'] ?? '';
 $endDate = $_GET['end_date'] ?? '';
 
 // Filter evaluations if needed
-$filteredEvaluations = $employeeEvaluations;
-if (!empty($selectedEmployee) && isset($employeeEvaluations[$selectedEmployee])) {
-    $filteredEvaluations = [$selectedEmployee => $employeeEvaluations[$selectedEmployee]];
+if (!empty($selectedEmployee) && isset($filteredEvaluations[$selectedEmployee])) {
+    $filteredEvaluations = [$selectedEmployee => $filteredEvaluations[$selectedEmployee]];
 }
 
 // Apply additional filters
@@ -85,6 +106,54 @@ foreach ($categoryAverages as $category => $total) {
     }
 }
 
+// Function to get supervisor's subordinates
+/*
+function getSupervisorSubordinates($supervisorId)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        error_log("DB Connection failed: " . $conn->connect_error);
+        return [];
+    }
+
+    $sql = "SELECT 
+                u.user_id, 
+                u.employee_id,
+                u.full_name,
+                u.first_name,
+                u.middle_name,
+                u.last_name,
+                u.email,    
+                u.role,
+                p.position_title, 
+                d.department_name, 
+                u.supervisor_id,
+                s.full_name AS supervisor_name
+            FROM users u
+            LEFT JOIN positions p ON u.position_id = p.position_id
+            LEFT JOIN departments d ON u.department_id = d.department_id
+            LEFT JOIN users s ON u.supervisor_id = s.user_id
+            WHERE u.supervisor_id = ? AND u.is_active = 1
+            ORDER BY u.full_name ASC";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $supervisorId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $subordinates = [];
+    while ($row = $result->fetch_assoc()) {
+        $subordinates[$row['user_id']] = $row;
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $subordinates;
+}
+*/
+
+
 // Function to apply filters
 function applyFilters($evaluations, $perspective, $category, $startDate, $endDate)
 {
@@ -126,15 +195,16 @@ function applyFilters($evaluations, $perspective, $category, $startDate, $endDat
     return $filtered;
 }
 
-require_once '../includes/header.php';
+//require_once '../includes/header.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MERQ Performance Evaluation Dashboard</title>
+    <title>MERQ Performance Evaluation Dashboard - Supervisor View</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -150,7 +220,21 @@ require_once '../includes/header.php';
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-3 col-lg-2 sidebar d-md-block">
-                <form method="get" action="admin_dashboard.php">
+                <!-- Supervisor Info -->
+                <div class="supervisor-info">
+                    <h6><i class="bi bi-person-badge"></i> Supervisor Dashboard</h6>
+                    <small>
+                        <?php
+                        if ($isAdmin) {
+                            echo "Viewing: All Employees (Admin Access)";
+                        } else {
+                            echo "Viewing: My Subordinates (" . count($employees) . " employees)";
+                        }
+                        ?>
+                    </small>
+                </div>
+
+                <form method="get" action="supervisor_dashboard.php">
                     <div class="mb-3">
                         <label for="employeeFilter" class="form-label">Employee</label>
                         <select class="form-select" id="employeeFilter" name="employee">
@@ -199,7 +283,7 @@ require_once '../includes/header.php';
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 mb-2">Apply Filters</button>
-                    <a href="admin_dashboard.php" class="btn btn-outline-secondary w-100">Reset Filters</a>
+                    <a href="supervisor_dashboard.php" class="btn btn-outline-secondary w-100">Reset Filters</a>
 
                     <hr>
 
@@ -211,225 +295,185 @@ require_once '../includes/header.php';
                             <i class="bi bi-file-earmark-pdf"></i> Export to PDF
                         </a>
                     </div>
-                    <hr>
-                    </hr>
                 </form>
             </div>
 
             <!-- Main content -->
             <div class="col-md-9 col-lg-10 main-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2>Performance Evaluation Dashboard</h2>
+                    <h2>Supervisor Performance Dashboard</h2>
                     <span class="badge bg-primary"><?= $totalSubmissions ?> Submissions</span>
                 </div>
 
-                <!-- Summary Cards -->
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card card-dashboard text-white bg-primary">
-                            <div class="card-body">
-                                <h5 class="card-title">Employees Evaluated</h5>
-                                <h2 class="card-text"><?= count($filteredEvaluations) ?></h2>
-                            </div>
-                        </div>
+                <?php if (!$isAdmin && empty($employees)): ?>
+                    <div class="alert alert-info">
+                        <h4><i class="bi bi-info-circle"></i> No Subordinates Assigned</h4>
+                        <p>You are not currently assigned as a supervisor for any employees. Please contact HR if this is incorrect.</p>
                     </div>
-                    <div class="col-md-3">
-                        <div class="card card-dashboard text-white bg-info">
-                            <div class="card-body">
-                                <h5 class="card-title">Average Score</h5>
-                                <h2 class="card-text">
-                                    <?php
-                                    $totalScore = 0;
-                                    $count = 0;
-                                    foreach ($filteredEvaluations as $data) {
-                                        $totalScore += $data['weighted_score'];
-                                        $count++;
-                                    }
-                                    echo $count > 0 ? round($totalScore / $count, 1) . '%' : 'N/A';
-                                    ?>
-                                </h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-dashboard text-white bg-success">
-                            <div class="card-body">
-                                <h5 class="card-title">Outstanding</h5>
-                                <h2 class="card-text">
-                                    <?= $performanceCounts['Outstanding'] +  $performanceCounts['Not Rated'] ?>
-                                </h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-dashboard text-white bg-exceeds-expectations">
-                            <div class="card-body">
-                                <h5 class="card-title">Exceeds Expectations</h5>
-                                <h2 class="card-text">
-                                    <?= $performanceCounts['Exceeds Expectations'] ?>
-                                </h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-dashboard text-white bg-warning">
-                            <div class="card-body">
-                                <h5 class="card-title">Meets Expectation</h5>
-                                <h2 class="card-text">
-                                    <?= $performanceCounts['Meets Expectations'] ?>
-                                </h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-dashboard text-white bg-developing">
-                            <div class="card-body">
-                                <h5 class="card-title">Developing</h5>
-                                <h2 class="card-text">
-                                    <?= $performanceCounts['Developing'] ?>
-                                </h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-dashboard text-white bg-danger">
-                            <div class="card-body">
-                                <h5 class="card-title">Need Improvement</h5>
-                                <h2 class="card-text">
-                                    <?= $performanceCounts['Needs Significant Improvement'] + $performanceCounts['Needs Significant Improvement'] ?>
-                                </h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php else: ?>
 
-                <!-- Charts -->
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                        <div class="card card-dashboard">
-                            <div class="card-header">
-                                <h5>Performance Distribution</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart-container">
-                                    <canvas id="performanceChart"></canvas>
+                    <!-- Summary Cards -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card card-dashboard text-white bg-primary">
+                                <div class="card-body">
+                                    <h5 class="card-title">Employees Evaluated</h5>
+                                    <h2 class="card-text"><?= count($filteredEvaluations) ?></h2>
                                 </div>
-                                <div class="chart-legend" id="performanceLegend"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card card-dashboard">
-                            <div class="card-header">
-                                <h5>Evaluation Perspectives</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart-container">
-                                    <canvas id="perspectiveChart"></canvas>
+                        <div class="col-md-3">
+                            <div class="card card-dashboard text-white bg-info">
+                                <div class="card-body">
+                                    <h5 class="card-title">Average Score</h5>
+                                    <h2 class="card-text">
+                                        <?php
+                                        $totalScore = 0;
+                                        $count = 0;
+                                        foreach ($filteredEvaluations as $data) {
+                                            $totalScore += $data['weighted_score'];
+                                            $count++;
+                                        }
+                                        echo $count > 0 ? round($totalScore / $count, 1) . '%' : 'N/A';
+                                        ?>
+                                    </h2>
                                 </div>
-                                <div class="chart-legend" id="perspectiveLegend"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Additional Charts -->
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <div class="card card-dashboard">
-                            <div class="card-header">
-                                <h5>Category Performance Averages</h5>
+                        <div class="col-md-3">
+                            <div class="card card-dashboard text-white bg-success">
+                                <div class="card-body">
+                                    <h5 class="card-title">Outstanding</h5>
+                                    <h2 class="card-text">
+                                        <?= $performanceCounts['Outstanding'] +  $performanceCounts['Not Rated'] ?>
+                                    </h2>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="chart-container">
-                                    <canvas id="categoryChart"></canvas>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card card-dashboard text-white bg-exceeds-expectations">
+                                <div class="card-body">
+                                    <h5 class="card-title">Exceeds Expectations</h5>
+                                    <h2 class="card-text">
+                                        <?= $performanceCounts['Exceeds Expectations'] ?>
+                                    </h2>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Employee Evaluations Table -->
-                <div class="card card-dashboard mt-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5>Employee Evaluations</h5>
-                        <span class="badge bg-secondary"><?= count($filteredEvaluations) ?> Results</span>
+                    <!-- Charts -->
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card card-dashboard">
+                                <div class="card-header">
+                                    <h5>Performance Distribution</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="performanceChart"></canvas>
+                                    </div>
+                                    <div class="chart-legend" id="performanceLegend"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card card-dashboard">
+                                <div class="card-header">
+                                    <h5>Evaluation Perspectives</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="perspectiveChart"></canvas>
+                                    </div>
+                                    <div class="chart-legend" id="perspectiveLegend"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover evaluation-table">
-                                <thead>
-                                    <tr>
-                                        <th>Employee</th>
-                                        <th>Evaluations</th>
-                                        <th>Weighted Score</th>
-                                        <th>Performance Category</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if (empty($filteredEvaluations)): ?>
+
+                    <!-- Employee Evaluations Table -->
+                    <div class="card card-dashboard mt-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5>Employee Evaluations</h5>
+                            <span class="badge bg-secondary"><?= count($filteredEvaluations) ?> Results</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover evaluation-table">
+                                    <thead>
                                         <tr>
-                                            <td colspan="5" class="text-center">No evaluations found with the selected filters.</td>
+                                            <th>Employee</th>
+                                            <th>Evaluations</th>
+                                            <th>Weighted Score</th>
+                                            <th>Performance Category</th>
+                                            <th>Actions</th>
                                         </tr>
-                                    <?php else: ?>
-                                        <?php foreach ($filteredEvaluations as $employeeId => $data): ?>
-                                            <?php $employee = $data['details']; ?>
+                                    </thead>
+                                    <tbody>
+                                        <?php if (empty($filteredEvaluations)): ?>
                                             <tr>
-                                                <td>
-                                                    <strong><?= htmlspecialchars($employee['full_name']) ?></strong><br>
-                                                    <small class="text-muted"><?= htmlspecialchars($employee['position_title']) ?></small>
-                                                </td>
-                                                <td>
-                                                    <?php foreach ($data['perspective_counts'] as $perspective => $count): ?>
-                                                        <?php if ($count > 0): ?>
-                                                            <span class="badge bg-light text-dark me-1">
-                                                                <?= htmlspecialchars($perspective) ?>: <?= $count ?>
-                                                            </span>
-                                                        <?php endif; ?>
-                                                    <?php endforeach; ?>
-                                                </td>
-                                                <td>
-                                                    <div class="progress" style="height: 20px;">
-                                                        <div class="progress-bar 
+                                                <td colspan="5" class="text-center">No evaluations found with the selected filters.</td>
+                                            </tr>
+                                        <?php else: ?>
+                                            <?php foreach ($filteredEvaluations as $employeeId => $data): ?>
+                                                <?php $employee = $data['details']; ?>
+                                                <tr>
+                                                    <td>
+                                                        <strong><?= htmlspecialchars($employee['full_name']) ?></strong><br>
+                                                        <small class="text-muted"><?= htmlspecialchars($employee['position_title']) ?></small>
+                                                    </td>
+                                                    <td>
+                                                        <?php foreach ($data['perspective_counts'] as $perspective => $count): ?>
+                                                            <?php if ($count > 0): ?>
+                                                                <span class="badge bg-light text-dark me-1">
+                                                                    <?= htmlspecialchars($perspective) ?>: <?= $count ?>
+                                                                </span>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    </td>
+                                                    <td>
+                                                        <div class="progress" style="height: 20px;">
+                                                            <div class="progress-bar 
                                                             <?= $data['weighted_score'] < 30 ? 'bg-needs-improvement' : '' ?>
                                                             <?= $data['weighted_score'] >= 30 && $data['weighted_score'] <= 60 ? 'bg-developing' : '' ?>
                                                             <?= $data['weighted_score'] >= 60 && $data['weighted_score'] <= 75 ? 'bg-meets-expectations' : '' ?>
                                                             <?= $data['weighted_score'] >= 75 && $data['weighted_score'] <= 90 ? 'bg-exceeds-expectations' : '' ?>
                                                             <?= $data['weighted_score'] > 90 ? 'bg-outstanding' : '' ?>"
-                                                            role="progressbar"
-                                                            style="width: <?= $data['weighted_score'] ?>%;"
-                                                            aria-valuenow="<?= $data['weighted_score'] ?>"
-                                                            aria-valuemin="0"
-                                                            aria-valuemax="100">
-                                                            <?= round($data['weighted_score'], 1) ?>%
+                                                                role="progressbar"
+                                                                style="width: <?= $data['weighted_score'] ?>%;"
+                                                                aria-valuenow="<?= $data['weighted_score'] ?>"
+                                                                aria-valuemin="0"
+                                                                aria-valuemax="100">
+                                                                <?= round($data['weighted_score'], 1) ?>%
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span class="performance-badge 
+                                                    </td>
+                                                    <td>
+                                                        <span class="performance-badge 
                                                         <?= $data['performance_category'] === 'Needs Significant Improvement' ? 'bg-needs-improvement' : '' ?>
                                                         <?= $data['performance_category'] === 'Developing' ? 'bg-developing' : '' ?>
                                                         <?= $data['performance_category'] === 'Meets Expectations' ? 'bg-meets-expectations' : '' ?>
                                                         <?= $data['performance_category'] === 'Exceeds Expectations' ? 'bg-exceeds-expectations' : '' ?>
                                                         <?= $data['performance_category'] === 'Outstanding' ? 'bg-outstanding' : '' ?>
                                                         <?= $data['performance_category'] === 'Not Rated' ? 'bg-not-rated' : '' ?>">
-                                                        <?= htmlspecialchars($data['performance_category']) ?>
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <a href="employee_report.php?employee=<?= htmlspecialchars($employeeId) ?>" class="btn btn-sm btn-info">
-                                                        <i class="bi bi-eye"></i> View Report
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </tbody>
-                            </table>
+                                                            <?= htmlspecialchars($data['performance_category']) ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="subordinate_report.php?employee=<?= htmlspecialchars($employeeId) ?>" class="btn btn-sm btn-info">
+                                                            <i class="bi bi-eye"></i> View Report
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -574,7 +618,7 @@ require_once '../includes/header.php';
                             family: 'Arial'
                         },
                         titleColor: '#527D83FF', // Tooltip title color
-                        bodyColor: '#00D9FFFF' // Tooltip body color
+                        bodyColor: '#007148FF' // Tooltip body color
                     },
                     datalabels: {
                         color: '#0097BAFF', // Set datalabels to custom color
@@ -593,7 +637,7 @@ require_once '../includes/header.php';
                         beginAtZero: true,
                         ticks: {
                             precision: 0,
-                            color: '#2164F4FF' // Set Y axis tick labels to custom color
+                            color: '#00277CFF' // Set Y axis tick labels to custom color
                         }
                     },
                     x: {
@@ -676,7 +720,7 @@ require_once '../includes/header.php';
                             family: 'Arial'
                         },
                         titleColor: 'red', // Tooltip title color
-                        bodyColor: 'orange' // Tooltip body color
+                        bodyColor: 'blue' // Tooltip body color
                     },
                     datalabels: {
                         color: '#005663FF', // Set datalabels to custom color
