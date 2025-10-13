@@ -19,7 +19,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 $currentUserId = $_SESSION['user_id'];
 $requestedUserId = $_GET['employee'] ?? $currentUserId;
 
-// Allow admins OR user_id = 35 (CEO) OR user_id = 15 (Special Admin) to bypass restrictions
+// Allow admins OR user_id = 35 (CEO) OR user_id = 15 (HR Admin) to bypass restrictions
 $isPrivilegedUser = (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) ||
     ($_SESSION['user_id'] == 35) ||
     ($_SESSION['user_id'] == 15);
@@ -29,6 +29,28 @@ if (!$isPrivilegedUser) {
         header('Location: dashboard.php');
         exit;
     }
+}
+
+// Check page-specific permissions
+$currentPage = basename($_SERVER['PHP_SELF']);
+$menuItemMap = [
+    'dashboard.php' => 'dashboard',
+    'my_report.php' => 'my_report',
+    'supervisor_dashboard.php' => 'supervisor_dashboard',
+    'supervisor_report.php' => 'supervisor_report',
+    'admin_dashboard.php' => 'admin_dashboard',
+    'report.php' => 'report',
+    'feedback.php' => 'feedback',
+    'permissions.php' => 'permissions',
+    'help.php' => 'help'
+];
+
+$currentMenuItem = $menuItemMap[$currentPage] ?? 'dashboard';
+
+// Check if user has permission to access the current page
+if (!hasPermission($currentUserId, $currentMenuItem)) {
+    header('Location: dashboard.php?error=access_denied');
+    exit;
 }
 
 // Optional: Check session expiration (e.g., 1 hour)

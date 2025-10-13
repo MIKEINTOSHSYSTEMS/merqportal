@@ -29,11 +29,21 @@ $showEvaluation = isset($_GET['evaluation']) && $_GET['evaluation'] == 'true';
 // Determine if the evaluation menu item should be active
 $isEvaluationActive = $showEvaluation;
 
+// Check permissions for various menu items
+$canAccessDashboard = hasPermission($userId, 'dashboard');
+$canAccessMyReport = hasPermission($userId, 'my_report');
+$canAccessSupervisorDashboard = hasPermission($userId, 'supervisor_dashboard');
+$canAccessSupervisorReport = hasPermission($userId, 'supervisor_report');
+$canAccessAdminDashboard = hasPermission($userId, 'admin_dashboard');
+$canAccessReport = hasPermission($userId, 'report');
+$canAccessFeedback = hasPermission($userId, 'feedback');
+$canAccessPermissions = hasPermission($userId, 'permissions');
+$canAccessHelp = hasPermission($userId, 'help');
 
 $showFeedbackMenu = false;
 $loggedInUserId = $_SESSION['user_id'] ?? null;
 
-if ($loggedInUserId) {
+if ($loggedInUserId && $canAccessFeedback) {
     $publishedFeedback = getCEOFeedback($loggedInUserId, false);
     if (!empty($publishedFeedback)) {
         $showFeedbackMenu = true;
@@ -89,7 +99,6 @@ function getSupervisorSubordinates($supervisorId)
     return $subordinates;
 }
 
-
 // Get employees based on user role
 if ($isAdmin) {
     // Admins/CEO/HR Admin (user_id 15) see all employees
@@ -123,7 +132,15 @@ if (!$isAdmin && isset($_SESSION['user_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="../css/main.css" rel="stylesheet">
     <style>
+        .permission-badge {
+            font-size: 0.7em;
+            margin-left: 5px;
+        }
 
+        .menu-item-disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
     </style>
 </head>
 
@@ -188,36 +205,52 @@ if (!$isAdmin && isset($_SESSION['user_id'])) {
     <aside class="sys-sidebar">
         <ul class="sys-sidebar-menu">
             <li class="sys-sidebar-header">Main Navigation</li>
-            <li>
-                <a href="dashboard.php" class="<?= $currentPage == 'dashboard.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>My Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="my_report.php" class="<?= $currentPage == 'my_report.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>My Report</span>
-                </a>
-            </li>
 
-            <?php if ($isSupervisor || $isAdmin): ?>
-                <li class="sys-sidebar-header">Supervisor Menu</li>
+            <!-- Dashboard -->
+            <?php if ($canAccessDashboard): ?>
                 <li>
-                    <a href="supervisor_dashboard.php" class="<?= $currentPage == 'supervisor_dashboard.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Supervisor Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="supervisor_report.php" class="<?= $currentPage == 'supervisor_report.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
-                        <i class="fas fa-users"></i>
-                        <span>Supervisor Report</span>
+                    <a href="dashboard.php" class="<?= $currentPage == 'dashboard.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>My Dashboard</span>
                     </a>
                 </li>
             <?php endif; ?>
 
-            <?php if ($showFeedbackMenu): ?>
+            <!-- My Report -->
+            <?php if ($canAccessMyReport): ?>
+                <li>
+                    <a href="my_report.php" class="<?= $currentPage == 'my_report.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>My Report</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
+            <!-- Supervisor Menu -->
+            <?php if (($isSupervisor || $isAdmin) && ($canAccessSupervisorDashboard || $canAccessSupervisorReport)): ?>
+                <li class="sys-sidebar-header">Supervisor Menu</li>
+
+                <?php if ($canAccessSupervisorDashboard): ?>
+                    <li>
+                        <a href="supervisor_dashboard.php" class="<?= $currentPage == 'supervisor_dashboard.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Supervisor Dashboard</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ($canAccessSupervisorReport): ?>
+                    <li>
+                        <a href="supervisor_report.php" class="<?= $currentPage == 'supervisor_report.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                            <i class="fas fa-users"></i>
+                            <span>Supervisor Report</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            <?php endif; ?>
+
+            <!-- Feedback Menu -->
+            <?php if ($showFeedbackMenu && $canAccessFeedback): ?>
                 <li>
                     <a href="feedback.php" class="<?= $currentPage == 'feedback.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
                         <i class="fas fa-table"></i>
@@ -226,18 +259,36 @@ if (!$isAdmin && isset($_SESSION['user_id'])) {
                 </li>
             <?php endif; ?>
 
-            <?php if ((isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($_SESSION['user_id'] == 35) || ($_SESSION['user_id'] == 15)): ?>
+            <!-- Administration Menu -->
+            <?php if (($isAdmin || $currentUserId == 35 || $currentUserId == 15) && ($canAccessAdminDashboard || $canAccessReport || $canAccessPermissions)): ?>
                 <li class="sys-sidebar-header">HR & Administration</li>
-                <li>
-                    <a href="admin_dashboard.php" class="<?= $currentPage == 'admin_dashboard.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
-                        <i class="fas fa-chart-pie"></i>
-                        <span>Admin Dashboard</span>
-                    </a>
-                    <a href="report.php" class="<?= $currentPage == 'report.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
-                        <i class="fas fa-users"></i>
-                        <span>All Employees Reports</span>
-                    </a>
-                </li>
+
+                <?php if ($canAccessAdminDashboard): ?>
+                    <li>
+                        <a href="admin_dashboard.php" class="<?= $currentPage == 'admin_dashboard.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Admin Dashboard</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ($canAccessReport): ?>
+                    <li>
+                        <a href="report.php" class="<?= $currentPage == 'report.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                            <i class="fas fa-users"></i>
+                            <span>All Employees Reports</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ($canAccessPermissions && canManagePermissions($currentUserId)): ?>
+                    <li>
+                        <a href="permissions.php" class="<?= $currentPage == 'permissions.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Permission Management</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
             <?php endif; ?>
 
             <li class="sys-sidebar-header">Account</li>
@@ -248,18 +299,24 @@ if (!$isAdmin && isset($_SESSION['user_id'])) {
                 </a>
             </li>
             <hr>
+
+            <!-- Evaluation Link -->
             <li>
                 <a href="#" id="openEvaluation" class="<?= $isEvaluationActive ? 'sys-active' : '' ?>">
                     <i class="fas fa-pen-alt"></i>
                     <span>Go to Evaluation</span>
                 </a>
             </li>
-            <li>
-                <a href="help.php" class="<?= $currentPage == 'help.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
-                    <i class="fas fa-question"></i>
-                    <span>Help</span>
-                </a>
-            </li>
+
+            <!-- Help -->
+            <?php if ($canAccessHelp): ?>
+                <li>
+                    <a href="help.php" class="<?= $currentPage == 'help.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                        <i class="fas fa-question"></i>
+                        <span>Help</span>
+                    </a>
+                </li>
+            <?php endif; ?>
         </ul>
     </aside>
 

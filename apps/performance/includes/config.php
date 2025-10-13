@@ -730,3 +730,229 @@ function displayAlerts()
         unset($_SESSION['alert_type']);
     }
 }
+
+// =============================================================================
+// PERMISSION MANAGEMENT FUNCTIONS
+// =============================================================================
+
+/**
+ * Check if user has permission to access a specific menu item
+ * @param int $userId User ID to check permissions for
+ * @param string $menuItem Menu item identifier
+ * @return bool True if user has access, false otherwise
+ */
+function hasPermission($userId, $menuItem)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        error_log("DB Connection failed: " . $conn->connect_error);
+        return false;
+    }
+
+    $sql = "SELECT can_access FROM eval_perm WHERE user_id = ? AND menu_item = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("is", $userId, $menuItem);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $hasAccess = false;
+    if ($row = $result->fetch_assoc()) {
+        $hasAccess = (bool)$row['can_access'];
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $hasAccess;
+}
+
+/**
+ * Get all permissions for a specific user
+ * @param int $userId User ID to get permissions for
+ * @return array Array of permissions for the user
+ */
+function getUserPermissions($userId)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        error_log("DB Connection failed: " . $conn->connect_error);
+        return [];
+    }
+
+    $sql = "SELECT * FROM eval_perm WHERE user_id = ? ORDER BY menu_label";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $permissions = [];
+    while ($row = $result->fetch_assoc()) {
+        $permissions[$row['menu_item']] = $row;
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $permissions;
+}
+
+/**
+ * Get all users with their permissions
+ * @return array Array of all users with their permissions
+ */
+function getAllUsersWithPermissions()
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        error_log("DB Connection failed: " . $conn->connect_error);
+        return [];
+    }
+
+    $sql = "SELECT 
+                u.user_id, 
+                u.full_name, 
+                u.email,
+                u.role,
+                p.position_title,
+                d.department_name,
+                COUNT(ep.id) as permission_count
+            FROM users u
+            LEFT JOIN positions p ON u.position_id = p.position_id
+            LEFT JOIN departments d ON u.department_id = d.department_id
+            LEFT JOIN eval_perm ep ON u.user_id = ep.user_id
+            WHERE u.user_id NOT IN (1, 2, 3)
+            GROUP BY u.user_id
+            ORDER BY u.full_name ASC";
+
+    $result = $conn->query($sql);
+    $users = [];
+
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $users[$row['user_id']] = $row;
+        }
+    }
+
+    $conn->close();
+    return $users;
+}
+
+/**
+ * Update user permissions
+ * @param int $userId User ID to update permissions for
+ * @param array $permissions Array of permissions to update
+ * @return array Result of the operation
+ */
+function updateUserPermissions($userId, $permissions)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        return ['success' => false, 'message' => 'Database connection failed'];
+    }
+
+    // Start transaction
+    $conn->begin_transaction();
+
+    try {
+        // Delete existing permissions for this user
+        $deleteSql = "DELETE FROM eval_perm WHERE user_id = ?";
+        $deleteStmt = $conn->prepare($deleteSql);
+        $deleteStmt->bind_param("i", $userId);
+        $deleteStmt->execute();
+        $deleteStmt->close();
+
+        // Insert new permissions
+        $insertSql = "INSERT INTO eval_perm (user_id, menu_item, menu_label, can_access, can_view, can_edit, can_delete, can_manage) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $insertStmt = $conn->prepare($insertSql);
+
+        foreach ($permissions as $menuItem => $permData) {
+            $insertStmt->bind_param(
+                "issiiiii",
+                $userId,
+                $menuItem,
+                $permData['menu_label'],
+                $permData['can_access'],
+                $permData['can_view'],
+                $permData['can_edit'],
+                $permData['can_delete'],
+                $permData['can_manage']
+            );
+            $insertStmt->execute();
+        }
+
+        $insertStmt->close();
+        $conn->commit();
+
+        return ['success' => true, 'message' => 'Permissions updated successfully'];
+    } catch (Exception $e) {
+        $conn->rollback();
+        return ['success' => false, 'message' => 'Failed to update permissions: ' . $e->getMessage()];
+    } finally {
+        $conn->close();
+    }
+}
+
+/**
+ * Get available menu items for permission management
+ * @return array Array of available menu items
+ */
+function getAvailableMenuItems()
+{
+    return [
+        'dashboard' => 'My Dashboard',
+        'my_report' => 'My Report',
+        'supervisor_dashboard' => 'Supervisor Dashboard',
+        'supervisor_report' => 'Supervisor Report',
+        'admin_dashboard' => 'Admin Dashboard',
+        'report' => 'All Employees Reports',
+        'feedback' => 'Feedbacks',
+        'permissions' => 'Permission Management',
+        'help' => 'Help'
+    ];
+}
+
+/**
+ * Check if user can manage permissions (only admin users)
+ * @param int $userId User ID to check
+ * @return bool True if user can manage permissions
+ */
+function canManagePermissions($userId)
+{
+    // Only admin users, CEO (35), and HR Admin (15) can manage permissions
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    return (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) ||
+        $userId == 35 ||
+        $userId == 15;
+}
+
+/**
+ * Initialize default permissions for a new user
+ * @param int $userId User ID to initialize permissions for
+ * @return bool True if successful
+ */
+function initializeDefaultPermissions($userId)
+{
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        return false;
+    }
+
+    $menuItems = getAvailableMenuItems();
+    $sql = "INSERT INTO eval_perm (user_id, menu_item, menu_label, can_access, can_view, can_edit, can_delete, can_manage) 
+            VALUES (?, ?, ?, 1, 1, 0, 0, 0)";
+    $stmt = $conn->prepare($sql);
+
+    foreach ($menuItems as $menuItem => $menuLabel) {
+        // Default permissions: can access and view, but not edit, delete, or manage
+        $stmt->bind_param("iss", $userId, $menuItem, $menuLabel);
+        $stmt->execute();
+    }
+
+    $stmt->close();
+    $conn->close();
+    return true;
+}
