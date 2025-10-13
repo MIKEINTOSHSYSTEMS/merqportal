@@ -19,8 +19,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 $currentUserId = $_SESSION['user_id'];
 $requestedUserId = $_GET['employee'] ?? $currentUserId;
 
-// Allow admins OR user_id = 35 to bypass restrictions
-$isPrivilegedUser = (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($_SESSION['user_id'] == 35);
+// Allow admins OR user_id = 35 (CEO) OR user_id = 15 (Special Admin) to bypass restrictions
+$isPrivilegedUser = (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) ||
+    ($_SESSION['user_id'] == 35) ||
+    ($_SESSION['user_id'] == 15);
 
 if (!$isPrivilegedUser) {
     if (isset($_GET['employee']) && $_GET['employee'] != $currentUserId) {

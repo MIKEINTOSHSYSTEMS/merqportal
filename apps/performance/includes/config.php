@@ -692,7 +692,13 @@ function getCEOFeedbackCategories()
 // Check if user is CEO
 function isCEO($userId)
 {
-    return $userId == 35; // Your CEO user ID
+    return $userId == 35; // Your CEO user ID - user_id 15 is NOT considered CEO for feedback purposes
+}
+
+// Check if user can give CEO feedback (only user_id 35 can give CEO feedback)
+function canGiveCEOFeedback($userId)
+{
+    return $userId == 35; // Only the actual CEO (user_id 35) can give CEO feedback
 }
 
 // Function to set alert messages

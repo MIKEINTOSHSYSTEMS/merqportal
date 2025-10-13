@@ -42,7 +42,7 @@ if ($loggedInUserId) {
 
 // Get the logged-in user's ID and role
 $currentUserId = $_SESSION['user_id'];
-$isAdmin = (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($currentUserId == 35);
+$isAdmin = (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($currentUserId == 35) || ($currentUserId == 15);
 
 // Function to get supervisor's subordinates
 function getSupervisorSubordinates($supervisorId)
@@ -92,7 +92,7 @@ function getSupervisorSubordinates($supervisorId)
 
 // Get employees based on user role
 if ($isAdmin) {
-    // Admins/CEO see all employees
+    // Admins/CEO/HR Admin (user_id 15) see all employees
     $employees = getEmployeesFromDatabase();
 } else {
     // Supervisors see only their subordinates
@@ -226,8 +226,8 @@ if (!$isAdmin && isset($_SESSION['user_id'])) {
                 </li>
             <?php endif; ?>
 
-            <?php if ((isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($_SESSION['user_id'] == 35)): ?>
-                <li class="sys-sidebar-header">Administration</li>
+            <?php if ((isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) || ($_SESSION['user_id'] == 35) || ($_SESSION['user_id'] == 15)): ?>
+                <li class="sys-sidebar-header">HR & Administration</li>
                 <li>
                     <a href="admin_dashboard.php" class="<?= $currentPage == 'admin_dashboard.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
                         <i class="fas fa-chart-pie"></i>
