@@ -2,14 +2,16 @@
 // login.php - Enhanced Login page with SweetAlert
 session_start();
 
-// Update the redirect logic in login.php
+// Check if user is already logged in - FIXED VERSION
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    // User is already logged in, redirect to appropriate dashboard
     if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) {
         header('Location: admin_dashboard.php');
+        exit;
     } else {
         header('Location: dashboard.php');
+        exit;
     }
-    exit;
 }
 
 // Check if there's an error message
@@ -46,7 +48,7 @@ if (isset($_SESSION['error'])) {
     <link rel="icon" type="image/x-icon" href="/assets/images/merq-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="../css/main.css" rel="stylesheet">
+    <!-- REMOVED: <link href="../css/main.css" rel="stylesheet"> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         :root {
