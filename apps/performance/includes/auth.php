@@ -1,83 +1,91 @@
 <?php
-// auth.php - Authentication handler
-require_once 'db_connection.php';
+// auth.php - Authentication handling
+session_start();
+require_once 'config.php';
 
-// Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    require_once __DIR__ . '/../../../includes/ci-config.php';
-    require_once __DIR__ . '/../../../includes/session-config.php';
-    //session_start();
-}
-
-// Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $username = trim($_POST['username']);
+    $password = $_POST['password'];
 
-    // Basic validation
-    if (empty($email) || empty($password)) {
-        $_SESSION['error'] = 'Email and password are required';
-        header('Location: ../public/login.php');
+    // Validate input
+    if (empty($username) || empty($password)) {
+        $_SESSION['error'] = 'Please enter both email and password.';
+        header('Location: ../login.php');
         exit;
     }
 
-    // Create database connection
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    
     if ($conn->connect_error) {
-        $_SESSION['error'] = 'System error. Please try again later.';
-        header('Location: ../public/login.php');
+        $_SESSION['error'] = 'Database connection failed. Please try again.';
+        header('Location: ../login.php');
         exit;
     }
 
-    // Validate credentials using users table
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND is_active = 1");
-    $stmt->bind_param("s", $email);
+    // Prepare statement to prevent SQL injection
+    $sql = "SELECT user_id, username, email, password_hash, full_name, role, is_admin, is_active, 
+                   position_id, department_id, supervisor_id, employee_id
+            FROM users 
+            WHERE (email = ? OR username = ?) AND is_active = 1";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $username, $username);
     $stmt->execute();
     $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
+
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+        
+        // Verify password
+        if (password_verify($password, $user['password_hash'])) {
+            // Password is correct, set session variables
+            $_SESSION['loggedin'] = true;
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['full_name'] = $user['full_name'];
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['is_admin'] = $user['is_admin'];
+            $_SESSION['employee_id'] = $user['employee_id'];
+            $_SESSION['position_id'] = $user['position_id'];
+            $_SESSION['department_id'] = $user['department_id'];
+            $_SESSION['supervisor_id'] = $user['supervisor_id'];
+            $_SESSION['login_time'] = time();
+
+            // Update last_login timestamp
+            $updateSql = "UPDATE users SET last_login = NOW() WHERE user_id = ?";
+            $updateStmt = $conn->prepare($updateSql);
+            $updateStmt->bind_param("i", $user['user_id']);
+            $updateStmt->execute();
+            $updateStmt->close();
+
+            $stmt->close();
+            $conn->close();
+
+            // Redirect based on user role
+            if ($user['is_admin'] == 1 || $user['user_id'] == 35 || $user['user_id'] == 15) {
+                header('Location: admin_dashboard.php');
+            } else {
+                header('Location: dashboard.php');
+            }
+            exit;
+        } else {
+            // Password is incorrect
+            $_SESSION['error'] = 'invalid_password';
+            $_SESSION['attempted_username'] = $username;
+        }
+    } else {
+        // User not found
+        $_SESSION['error'] = 'invalid_username';
+        $_SESSION['attempted_username'] = $username;
+    }
+
     $stmt->close();
     $conn->close();
-
-    if ($user && password_verify($password, $user['password_hash'])) {
-        // Get user profile for additional info
-        $user_profile = getEmployeeDetails($user['user_id']);
-
-        // Authentication successful
-        $_SESSION['loggedin'] = true;
-        $_SESSION['user_id'] = $user['user_id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['full_name'] = $user['full_name'];
-        $_SESSION['first_name'] = $user['first_name'];
-        $_SESSION['last_name'] = $user['last_name'];
-        $_SESSION['role'] = $user['role'];
-        $_SESSION['position_id'] = $user['position_id'];
-        $_SESSION['department_id'] = $user['department_id'];
-        $_SESSION['supervisor_id'] = $user['supervisor_id'];
-        $_SESSION['employee_id'] = $user['employee_id'];
-        $_SESSION['is_admin'] = $user['is_admin'];
-        $_SESSION['login_time'] = time();
-
-        $_SESSION['position_title'] = $user_profile['position_title'] ?? '';
-        $_SESSION['department_name'] = $user_profile['department_name'] ?? '';
-        $_SESSION['supervisor_name'] = $user_profile['supervisor_name'] ?? '';
-
-        // Redirect based on role
-        if ($user['is_admin'] == 1 || $user['role'] === 'admin') {
-            header('Location: ../public/admin_dashboard.php');
-            //header('Location: ../public/report.php');
-        } else {
-            header('Location: ../public/dashboard.php');
-        }
-        exit;
-    } else {
-        // Authentication failed - more specific error
-        $_SESSION['error'] = 'Invalid email or password. Please check your credentials and try again.';
-        header('Location: ../public/login.php');
-        exit;
-    }
+    header('Location: ../public/login.php');
+    exit;
 } else {
-    // If not a POST request, redirect to login
     header('Location: ../public/login.php');
     exit;
 }
+?>
