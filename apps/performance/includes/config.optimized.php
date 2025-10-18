@@ -799,9 +799,6 @@ function getFeedbackResponses($feedbackId)
 /**
  * Save employee response
  */
-
-/* Older Version of the Save Employee Responses */
-/*
 function saveFeedbackResponse($feedbackId, $employeeId, $responseText)
 {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -834,48 +831,6 @@ function saveFeedbackResponse($feedbackId, $employeeId, $responseText)
         return ['success' => false, 'message' => $error];
     }
 }
-*/
-
-// Enhanced Save employee response function in config.php
-function saveFeedbackResponse($feedbackId, $employeeId, $responseText)
-{
-    // First verify the feedback exists and belongs to this employee
-    $feedbackItem = getCEOFeedbackItem($feedbackId);
-
-    if (!$feedbackItem) {
-        return ['success' => false, 'message' => 'Feedback item not found'];
-    }
-
-    if ($feedbackItem['employee_id'] != $employeeId) {
-        return ['success' => false, 'message' => 'Unauthorized to respond to this feedback'];
-    }
-
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-    if ($conn->connect_error) {
-        return ['success' => false, 'message' => 'Database connection failed'];
-    }
-
-    $sql = "INSERT INTO ceo_feedback_responses 
-            (feedback_id, employee_id, response_text) 
-            VALUES (?, ?, ?)";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iis", $feedbackId, $employeeId, $responseText);
-
-    if ($stmt->execute()) {
-        $responseId = $conn->insert_id;
-        $stmt->close();
-        $conn->close();
-        return ['success' => true, 'id' => $responseId];
-    } else {
-        $error = $stmt->error;
-        $stmt->close();
-        $conn->close();
-        return ['success' => false, 'message' => $error];
-    }
-}
-
-
 
 /**
  * Delete CEO feedback

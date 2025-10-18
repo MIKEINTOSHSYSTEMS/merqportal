@@ -5,7 +5,9 @@
 *.code-workspace
 apps/performance/app/
 apps/performance/test/
+apps/performance/includes/cache/
 apps/internal/XinstallX/
 apps/internal/install/
 apps/internal/application/logs/
 apps/internal/temp/
+apps/formapps/

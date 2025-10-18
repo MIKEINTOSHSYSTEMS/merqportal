@@ -36,192 +36,49 @@ $PERFORMANCE_CATEGORIES = [
     'Outstanding' => [90, 100]
 ];
 
-// Cache configuration for performance optimization
-define('CACHE_ENABLED', true);
-define('CACHE_TTL', 300); // 5 minutes cache
-define('CACHE_DIR', __DIR__ . '/cache');
-
-// Ensure cache directory exists
-if (CACHE_ENABLED && !is_dir(CACHE_DIR)) {
-    @mkdir(CACHE_DIR, 0755, true);
-}
-
-// =============================================================================
-// OPTIMIZED API FUNCTIONS WITH CACHING
-// =============================================================================
-
-/**
- * Generate cache key for API requests
- */
-function generateCacheKey($endpoint, $params = [])
-{
-    return md5($endpoint . json_encode($params) . FORM_ID);
-}
-
-/**
- * Get data from cache
- */
-function getFromCache($cacheKey)
-{
-    if (!CACHE_ENABLED) return false;
-
-    $cacheFile = CACHE_DIR . '/' . $cacheKey . '.cache';
-
-    if (file_exists($cacheFile) && (time() - filemtime($cacheFile)) < CACHE_TTL) {
-        return unserialize(file_get_contents($cacheFile));
-    }
-
-    return false;
-}
-
-/**
- * Save data to cache
- */
-function saveToCache($cacheKey, $data)
-{
-    if (!CACHE_ENABLED) return false;
-
-    $cacheFile = CACHE_DIR . '/' . $cacheKey . '.cache';
-    return file_put_contents($cacheFile, serialize($data));
-}
-
-/**
- * Clear cache for specific endpoint
- */
-function clearCache($endpoint, $params = [])
-{
-    $cacheKey = generateCacheKey($endpoint, $params);
-    $cacheFile = CACHE_DIR . '/' . $cacheKey . '.cache';
-
-    if (file_exists($cacheFile)) {
-        unlink($cacheFile);
-        return true;
-    }
-
-    return false;
-}
-
-/**
- * Clear all cache
- */
-function clearAllCache()
-{
-    if (!is_dir(CACHE_DIR)) return false;
-
-    $files = glob(CACHE_DIR . '/*.cache');
-    foreach ($files as $file) {
-        if (is_file($file)) {
-            unlink($file);
-        }
-    }
-    return true;
-}
-
-/**
- * OPTIMIZED: Fetch data from API with caching and performance improvements
- */
+// Fetch data from API
 function fetchFromAPI($endpoint, $params = [])
 {
-    // Check cache first for better performance
-    $cacheKey = generateCacheKey($endpoint, $params);
-    $cachedData = getFromCache($cacheKey);
-    if ($cachedData !== false) {
-        return $cachedData;
-    }
-
     $url = BASE_URL . $endpoint;
     if (!empty($params)) {
         $url .= '?' . http_build_query($params);
     }
 
     $ch = curl_init();
-
-    // Optimized curl options for maximum performance
-    curl_setopt_array($ch, [
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_HTTPHEADER => [
-            'X-Api-Key: ' . API_KEY,
-            'Accept: application/json',
-            'Connection: Keep-Alive',
-            'Keep-Alive: 300'
-        ],
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_SSL_VERIFYHOST => false,
-        CURLOPT_TIMEOUT => 20, // Balanced timeout
-        CURLOPT_CONNECTTIMEOUT => 8, // Connection timeout
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_MAXREDIRS => 3,
-        CURLOPT_ENCODING => '', // Enable compression
-        CURLOPT_USERAGENT => 'MERQ-Portal/1.0',
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_TCP_FASTOPEN => true, // Enable TCP fast open
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'X-Api-Key: ' . API_KEY,
+        'Accept: application/json'
     ]);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $error = curl_error($ch);
     curl_close($ch);
 
-    if ($httpCode === 200 && !empty($response)) {
-        $data = json_decode($response, true);
-        // Cache successful responses
-        if ($data !== null) {
-            saveToCache($cacheKey, $data);
-        }
-        return $data;
+    if ($httpCode === 200) {
+        return json_decode($response, true);
     }
 
-    error_log("API request failed: $url, HTTP Code: $httpCode, Error: $error");
+    error_log("API request failed: $url, HTTP Code: $httpCode");
     return false;
 }
 
-/**
- * OPTIMIZED: Get all submissions with caching
- */
+// Get all submissions
 function getSubmissions()
 {
-    $cacheKey = generateCacheKey('/forms/' . FORM_ID . '/submissions', ['expand' => 'files,comments']);
-    $cachedData = getFromCache($cacheKey);
-
-    if ($cachedData !== false) {
-        return $cachedData;
-    }
-
     $submissions = fetchFromAPI('/forms/' . FORM_ID . '/submissions', [
         'expand' => 'files,comments'
     ]);
 
-    $result = $submissions ?: [];
-
-    // Cache the result
-    if (!empty($result)) {
-        saveToCache($cacheKey, $result);
-    }
-
-    return $result;
+    return $submissions ?: [];
 }
 
-/**
- * OPTIMIZED: Get employee details from database with static caching
- */
+// Get employee details from database
 function getEmployeesFromDatabase()
 {
-    static $cachedEmployees = null;
-
-    // Use static caching within the same request for maximum performance
-    if ($cachedEmployees !== null) {
-        return $cachedEmployees;
-    }
-
-    $cacheKey = 'employees_database';
-    $cachedData = getFromCache($cacheKey);
-
-    if ($cachedData !== false) {
-        $cachedEmployees = $cachedData;
-        return $cachedData;
-    }
-
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     if ($conn->connect_error) {
         error_log("DB Connection failed: " . $conn->connect_error);
@@ -255,50 +112,27 @@ function getEmployeesFromDatabase()
         while ($row = $result->fetch_assoc()) {
             $employees[$row['user_id']] = $row;
         }
-        $result->free();
     }
 
     $conn->close();
-
-    // Cache the result
-    saveToCache($cacheKey, $employees);
-    $cachedEmployees = $employees;
-
     return $employees;
 }
 
-/**
- * OPTIMIZED: Get employee details with static caching
- */
+// Get employee details
 function getEmployeeDetails($employeeId)
 {
-    static $employeeCache = [];
-
-    if (isset($employeeCache[$employeeId])) {
-        return $employeeCache[$employeeId];
-    }
-
     $employees = getEmployeesFromDatabase();
-    $employeeDetails = isset($employees[$employeeId]) ? $employees[$employeeId] : [
+    return isset($employees[$employeeId]) ? $employees[$employeeId] : [
         'full_name' => 'Unknown Employee',
         'position_title' => 'Unknown Position',
         'department_name' => 'Unknown Department',
         'email' => 'N/A'
     ];
-
-    $employeeCache[$employeeId] = $employeeDetails;
-    return $employeeDetails;
 }
 
-/**
- * OPTIMIZED: Calculate weighted scores based on perspective with performance improvements
- */
+// Calculate weighted scores based on perspective (FIXED VERSION)
 function calculateWeightedScores($submissions)
 {
-    if (empty($submissions)) {
-        return [];
-    }
-
     $weights = [
         'Self-evaluation' => SELF_EVALUATION_WEIGHT,
         'Supervisor' => SUPERVISOR_WEIGHT,
@@ -308,16 +142,14 @@ function calculateWeightedScores($submissions)
     ];
 
     $employeeEvaluations = [];
-    $employeeDetailsCache = [];
 
-    // Single pass processing for better performance
     foreach ($submissions as $submission) {
         $perspective = '';
         $employeeId = '';
         $scores = [];
         $evaluationDate = '';
 
-        // Extract perspective, employee ID, and evaluation date efficiently
+        // Extract perspective, employee ID, and evaluation date
         foreach ($submission['answers'] as $answer) {
             if ($answer['name'] === 'radio_1') {
                 $perspective = $answer['answer'];
@@ -349,11 +181,6 @@ function calculateWeightedScores($submissions)
 
         // Initialize employee record if not exists
         if (!isset($employeeEvaluations[$employeeId])) {
-            // Cache employee details to avoid repeated function calls
-            if (!isset($employeeDetailsCache[$employeeId])) {
-                $employeeDetailsCache[$employeeId] = getEmployeeDetails($employeeId);
-            }
-
             $employeeEvaluations[$employeeId] = [
                 'evaluations' => [],
                 'weighted_score' => 0,
@@ -365,7 +192,7 @@ function calculateWeightedScores($submissions)
                     'Other' => 0
                 ],
                 'category_scores' => [],
-                'details' => $employeeDetailsCache[$employeeId]
+                'details' => getEmployeeDetails($employeeId)
             ];
         }
 
@@ -436,9 +263,7 @@ function calculateWeightedScores($submissions)
     return $employeeEvaluations;
 }
 
-/**
- * OPTIMIZED: Calculate scores by category with performance improvements
- */
+// Calculate scores by category
 function calculateCategoryScores($evaluations)
 {
     $categories = [
@@ -493,9 +318,7 @@ function calculateCategoryScores($evaluations)
     return $categoryScores;
 }
 
-/**
- * Determine performance category based on score percentage
- */
+// Determine performance category based on score percentage
 function getPerformanceCategory($score)
 {
     global $PERFORMANCE_CATEGORIES;
@@ -509,9 +332,7 @@ function getPerformanceCategory($score)
     return 'Not Rated';
 }
 
-/**
- * Get strengths and areas of improvement for an employee
- */
+// Get strengths and areas of improvement for an employee
 function getStrengthsAndImprovements($evaluations)
 {
     $strengths = [];
@@ -543,9 +364,7 @@ function getStrengthsAndImprovements($evaluations)
     return ['strengths' => $strengths, 'improvements' => $improvements];
 }
 
-/**
- * Get all matrix questions from a submission
- */
+// Get all matrix questions from a submission
 function getMatrixQuestions($submission)
 {
     $matrixQuestions = [];
@@ -572,9 +391,7 @@ function getMatrixQuestions($submission)
     return $matrixQuestions;
 }
 
-/**
- * Check if user has access to employee data
- */
+// Check if user has access to employee data
 function canAccessEmployeeData($requestedEmployeeId)
 {
     if (session_status() === PHP_SESSION_NONE) {
@@ -594,9 +411,7 @@ function canAccessEmployeeData($requestedEmployeeId)
     return false;
 }
 
-/**
- * Get CEO feedback for an employee (including drafts for CEO)
- */
+// Get CEO feedback for an employee (including drafts for CEO)
 function getCEOFeedback($employeeId, $includeDrafts = false)
 {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -645,9 +460,7 @@ function getCEOFeedback($employeeId, $includeDrafts = false)
     return $feedback;
 }
 
-/**
- * Save CEO feedback
- */
+// Save CEO feedback
 function saveCEOFeedback($employeeId, $ceoId, $feedbackData)
 {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -688,9 +501,7 @@ function saveCEOFeedback($employeeId, $ceoId, $feedbackData)
     }
 }
 
-/**
- * Update CEO feedback
- */
+// Update CEO feedback
 function updateCEOFeedback($feedbackId, $feedbackData)
 {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -729,9 +540,7 @@ function updateCEOFeedback($feedbackId, $feedbackData)
     }
 }
 
-/**
- * Get single feedback item
- */
+// Get single feedback item
 function getCEOFeedbackItem($feedbackId)
 {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -762,9 +571,7 @@ function getCEOFeedbackItem($feedbackId)
     return $feedback;
 }
 
-/**
- * Get feedback responses
- */
+// Get feedback responses
 function getFeedbackResponses($feedbackId)
 {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -796,12 +603,7 @@ function getFeedbackResponses($feedbackId)
     return $responses;
 }
 
-/**
- * Save employee response
- */
-
-/* Older Version of the Save Employee Responses */
-/*
+// Save employee response
 function saveFeedbackResponse($feedbackId, $employeeId, $responseText)
 {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -834,52 +636,8 @@ function saveFeedbackResponse($feedbackId, $employeeId, $responseText)
         return ['success' => false, 'message' => $error];
     }
 }
-*/
 
-// Enhanced Save employee response function in config.php
-function saveFeedbackResponse($feedbackId, $employeeId, $responseText)
-{
-    // First verify the feedback exists and belongs to this employee
-    $feedbackItem = getCEOFeedbackItem($feedbackId);
-
-    if (!$feedbackItem) {
-        return ['success' => false, 'message' => 'Feedback item not found'];
-    }
-
-    if ($feedbackItem['employee_id'] != $employeeId) {
-        return ['success' => false, 'message' => 'Unauthorized to respond to this feedback'];
-    }
-
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-    if ($conn->connect_error) {
-        return ['success' => false, 'message' => 'Database connection failed'];
-    }
-
-    $sql = "INSERT INTO ceo_feedback_responses 
-            (feedback_id, employee_id, response_text) 
-            VALUES (?, ?, ?)";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iis", $feedbackId, $employeeId, $responseText);
-
-    if ($stmt->execute()) {
-        $responseId = $conn->insert_id;
-        $stmt->close();
-        $conn->close();
-        return ['success' => true, 'id' => $responseId];
-    } else {
-        $error = $stmt->error;
-        $stmt->close();
-        $conn->close();
-        return ['success' => false, 'message' => $error];
-    }
-}
-
-
-
-/**
- * Delete CEO feedback
- */
+// Delete CEO feedback
 function deleteCEOFeedback($feedbackId)
 {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -911,9 +669,7 @@ function deleteCEOFeedback($feedbackId)
     }
 }
 
-/**
- * Get feedback categories
- */
+// Get feedback categories
 function getCEOFeedbackCategories()
 {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -933,34 +689,26 @@ function getCEOFeedbackCategories()
     return $categories;
 }
 
-/**
- * Check if user is CEO
- */
+// Check if user is CEO
 function isCEO($userId)
 {
     return $userId == 35; // Your CEO user ID - user_id 15 is NOT considered CEO for feedback purposes
 }
 
-/**
- * Check if user can give CEO feedback (only user_id 35 can give CEO feedback)
- */
+// Check if user can give CEO feedback (only user_id 35 can give CEO feedback)
 function canGiveCEOFeedback($userId)
 {
     return $userId == 35; // Only the actual CEO (user_id 35) can give CEO feedback
 }
 
-/**
- * Function to set alert messages
- */
+// Function to set alert messages
 function setAlert($message, $type = 'success')
 {
     $_SESSION['alert_message'] = $message;
     $_SESSION['alert_type'] = $type;
 }
 
-/**
- * Function to display alerts
- */
+// Function to display alerts
 function displayAlerts()
 {
     if (isset($_SESSION['alert_message'])) {
@@ -1209,9 +957,8 @@ function initializeDefaultPermissions($userId)
     return true;
 }
 
-/**
- * CEO feedback count
- */
+
+// ceo feedback count
 function getCEOFeedbackCount($employeeId)
 {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -1240,9 +987,7 @@ function getCEOFeedbackCount($employeeId)
     return $count;
 }
 
-/**
- * Function to get all employees with their CEO feedback counts
- */
+// Function to get all employees with their CEO feedback counts
 function getEmployeesWithCEOFeedbackCount()
 {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -1274,67 +1019,4 @@ function getEmployeesWithCEOFeedbackCount()
 
     $conn->close();
     return $employees;
-}
-
-// =============================================================================
-// CACHE MANAGEMENT UTILITIES
-// =============================================================================
-
-/**
- * Clear performance evaluation cache
- */
-function clearPerformanceCache()
-{
-    clearCache('/forms/' . FORM_ID . '/submissions', ['expand' => 'files,comments']);
-    clearCache('employees_database');
-    return true;
-}
-
-/**
- * Get cache statistics
- */
-function getCacheStats()
-{
-    if (!is_dir(CACHE_DIR)) {
-        return ['enabled' => CACHE_ENABLED, 'files' => 0, 'size' => 0];
-    }
-
-    $files = glob(CACHE_DIR . '/*.cache');
-    $totalSize = 0;
-
-    foreach ($files as $file) {
-        $totalSize += filesize($file);
-    }
-
-    return [
-        'enabled' => CACHE_ENABLED,
-        'files' => count($files),
-        'size' => round($totalSize / 1024, 2) . ' KB',
-        'ttl' => CACHE_TTL . ' seconds'
-    ];
-}
-
-// =============================================================================
-// BACKWARD COMPATIBILITY FUNCTIONS
-// =============================================================================
-
-/**
- * Force refresh of all cached data (for admin use)
- */
-function refreshAllData()
-{
-    clearAllCache();
-    return true;
-}
-
-/**
- * Check if cache is working
- */
-function isCacheWorking()
-{
-    $testKey = 'cache_test';
-    $testData = ['test' => 'data', 'timestamp' => time()];
-    saveToCache($testKey, $testData);
-    $retrieved = getFromCache($testKey);
-    return $retrieved !== false && $retrieved['test'] === 'data';
 }

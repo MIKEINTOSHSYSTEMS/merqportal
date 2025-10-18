@@ -161,7 +161,7 @@ body {
 
 
 .col-md-3.col-lg-2.sidebar.d-md-block {
-    padding-top: 70px;
+    padding-top: 2px;
     margin-bottom: 90px;
 }
 
@@ -907,7 +907,7 @@ border: var(--bs-accordion-border-width) transparent;
 .progress {
     height: 12px;
     border-radius: 10px;
-    background-color: var(--border-color);
+    /*background-color: var(--border-color);*/
     overflow: hidden;
     box-shadow: inset var(--shadow);
 }
@@ -915,8 +915,42 @@ border: var(--bs-accordion-border-width) transparent;
 .progress-bar {
     border-radius: 10px;
     transition: width 1s ease-in-out;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    /*background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);*/
 }
+
+        .performance-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .bg-needs-improvement {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .bg-developing {
+            background-color: #fd7e14;
+            color: white;
+        }
+
+        .bg-meets-expectations {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .bg-exceeds-expectations {
+            background-color: #20c997;
+            color: white;
+        }
+
+        .bg-outstanding {
+            background-color: #198754;
+            color: white;
+        }
+
+
 
 /* List Groups */
 .list-group-item {
@@ -1514,3 +1548,97 @@ button:focus,
 
 /* End of Permissions CSS
 */
+
+/* CEO Feedback Badge Animations */
+.ceo-feedback-badge {
+    transition: all 0.3s ease;
+}
+
+.ceo-feedback-badge:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+.ceo-feedback-pulse {
+    animation: pulse-gold 2s infinite;
+}
+
+@keyframes pulse-gold {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+    }
+}
+
+/* Enhanced card hover effects */
+.employee-card {
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.employee-card:hover {
+    border-color: #007bff;
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.15);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .ceo-feedback-badge {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+
+    .btn-group .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* Loading animations */
+.loading-spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Enhanced tooltips */
+.tooltip {
+    font-size: 0.875rem;
+}
+
+/* Smooth transitions for all interactive elements */
+.btn,
+.badge,
+.card,
+.progress-bar {
+    transition: all 0.3s ease;
+}
+
+textarea.form-control {
+    min-height: calc(1.5em + 2.75rem + calc(var(--bs-border-width) * 2));
+}
+
+.fw-bold {
+    font-weight: 70 !important;
+}

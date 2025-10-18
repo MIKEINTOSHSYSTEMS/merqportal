@@ -40,7 +40,8 @@ $canAccessFeedback = hasPermission($userId, 'feedback');
 $canAccessPermissions = hasPermission($userId, 'permissions');
 $canAccessHelp = hasPermission($userId, 'help');
 
-$showFeedbackMenu = false;
+$showFeedbackMenu = false; //if you want it to be viewed only published for that specific user
+//$showFeedbackMenu = true;
 $loggedInUserId = $_SESSION['user_id'] ?? null;
 
 if ($loggedInUserId && $canAccessFeedback) {
@@ -157,7 +158,7 @@ if (!$isAdmin && isset($_SESSION['user_id'])) {
                         <i class="fas fa-bars"></i>
                     </button>
                     <div class="sys-logo-container">
-                        <img src="https://merqconsultancy.org/wp-content/uploads/2017/07/merq.png" alt="MERQ Consultancy" class="sys-logo">
+                        <img src="/assets/images/merq-logo.png" alt="MERQ Consultancy" class="sys-logo">
                         <span class="sys-brand-text d-none d-md-block">Performance Evaluation System</span>
                     </div>
                 </div>
@@ -226,6 +227,16 @@ if (!$isAdmin && isset($_SESSION['user_id'])) {
                 </li>
             <?php endif; ?>
 
+            <!-- Feedback Menu -->
+            <?php if ($showFeedbackMenu && $canAccessFeedback): ?>
+                <li>
+                    <a href="feedback.php" class="<?= $currentPage == 'feedback.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                        <i class="fas fa-comment-dots me-2"></i>
+                        <span>Feedbacks</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
             <!-- Supervisor Menu -->
             <?php if (($isSupervisor || $isAdmin) && ($canAccessSupervisorDashboard || $canAccessSupervisorReport)): ?>
                 <li class="sys-sidebar-header">Supervisor Menu</li>
@@ -249,15 +260,6 @@ if (!$isAdmin && isset($_SESSION['user_id'])) {
                 <?php endif; ?>
             <?php endif; ?>
 
-            <!-- Feedback Menu -->
-            <?php if ($showFeedbackMenu && $canAccessFeedback): ?>
-                <li>
-                    <a href="feedback.php" class="<?= $currentPage == 'feedback.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
-                        <i class="fas fa-table"></i>
-                        <span>Feedbacks</span>
-                    </a>
-                </li>
-            <?php endif; ?>
 
             <!-- Administration Menu -->
             <?php if (($isAdmin || $currentUserId == 35 || $currentUserId == 15) && ($canAccessAdminDashboard || $canAccessReport || $canAccessPermissions)): ?>

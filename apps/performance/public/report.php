@@ -232,7 +232,37 @@ function getMatrixQuestions($evaluationDetails)
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <link href="../css/main.css" rel="stylesheet">
     <style>
+        .performance-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
 
+        .bg-needs-improvement {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .bg-developing {
+            background-color: #fd7e14;
+            color: white;
+        }
+
+        .bg-meets-expectations {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .bg-exceeds-expectations {
+            background-color: #20c997;
+            color: white;
+        }
+
+        .bg-outstanding {
+            background-color: #198754;
+            color: white;
+        }
     </style>
 </head>
 
@@ -499,30 +529,54 @@ function getMatrixQuestions($evaluationDetails)
                         </div>
                         <div class="card-body">
                             <div class="row mb-4">
+                                <?php
+                                // Get CEO feedback counts for all employees
+                                $ceoFeedbackCounts = [];
+                                foreach ($employeeScores as $employeeId => $data) {
+                                    $ceoFeedbackCounts[$employeeId] = getCEOFeedbackCount($employeeId);
+                                }
+                                ?>
+
                                 <?php foreach ($employeeScores as $employeeId => $data): ?>
                                     <?php $employee = $data['details']; ?>
+                                    <?php $feedbackCount = $ceoFeedbackCounts[$employeeId]; ?>
                                     <div class="col-md-4 mb-3">
-                                        <div class="card employee-card" onclick="window.location='employee_report.php?employee=<?= htmlspecialchars($employeeId) ?>'">
+                                        <div class="card employee-card"
+                                            onclick="window.location='employee_report.php?employee=<?= htmlspecialchars($employeeId) ?>'"
+                                            style="cursor: pointer; transition: all 0.3s ease;">
                                             <div class="card-body">
-                                                <div class="d-flex justify-content-between align-items-start">
-                                                    <div>
-                                                        <h5 class="card-title"><?= htmlspecialchars($employee['full_name'] ?? 'N/A') ?></h5>
+                                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                                    <div class="flex-grow-1">
+                                                        <h5 class="card-title mb-1"><?= htmlspecialchars($employee['full_name'] ?? 'N/A') ?></h5>
                                                         <p class="card-text mb-1">
                                                             <small class="text-muted"><?= htmlspecialchars($employee['position_title'] ?? 'N/A') ?></small>
                                                         </p>
-                                                        <p class="card-text mb-1">
+                                                        <p class="card-text mb-0">
                                                             <small class="text-muted"><?= htmlspecialchars($employee['department_name'] ?? 'N/A') ?></small>
                                                         </p>
                                                     </div>
-                                                    <span class="performance-badge 
-                                                        <?= $data['performance_category'] === 'Needs Significant Improvement' ? 'bg-needs-improvement' : '' ?>
-                                                        <?= $data['performance_category'] === 'Developing' ? 'bg-developing' : '' ?>
-                                                        <?= $data['performance_category'] === 'Meets Expectations' ? 'bg-meets-expectations' : '' ?>
-                                                        <?= $data['performance_category'] === 'Exceeds Expectations' ? 'bg-exceeds-expectations' : '' ?>
-                                                        <?= $data['performance_category'] === 'Outstanding' ? 'bg-outstanding' : '' ?>">
-                                                        <?= htmlspecialchars($data['performance_category']) ?>
-                                                    </span>
+                                                    <div class="flex-shrink-0">
+                                                        <span class="performance-badge 
+                                                <?= $data['performance_category'] === 'Needs Significant Improvement' ? 'bg-needs-improvement' : '' ?>
+                                                <?= $data['performance_category'] === 'Developing' ? 'bg-developing' : '' ?>
+                                                <?= $data['performance_category'] === 'Meets Expectations' ? 'bg-meets-expectations' : '' ?>
+                                                <?= $data['performance_category'] === 'Exceeds Expectations' ? 'bg-exceeds-expectations' : '' ?>
+                                                <?= $data['performance_category'] === 'Outstanding' ? 'bg-outstanding' : '' ?>">
+                                                            <?= htmlspecialchars($data['performance_category']) ?>
+                                                        </span>
+                                                    </div>
                                                 </div>
+
+                                                <!-- CEO Feedback Badge -->
+                                                <?php if ($feedbackCount > 0): ?>
+                                                    <div class="mb-3">
+                                                        <span class="badge bg-warning text-dark p-2 ceo-feedback-pulse">
+                                                            <i class="fas fa-user-tie me-1"></i>
+                                                            <?= $feedbackCount ?> CEO Feedback
+                                                        </span>
+                                                    </div>
+                                                <?php endif; ?>
+
                                                 <div class="mt-3">
                                                     <div class="d-flex justify-content-between align-items-center mb-1">
                                                         <span>Overall Score</span>
@@ -530,11 +584,11 @@ function getMatrixQuestions($evaluationDetails)
                                                     </div>
                                                     <div class="progress" style="height: 10px;">
                                                         <div class="progress-bar 
-                                                            <?= $data['weighted_score'] < 30 ? 'bg-needs-improvement' : '' ?>
-                                                            <?= $data['weighted_score'] >= 30 && $data['weighted_score'] < 61 ? 'bg-developing' : '' ?>
-                                                            <?= $data['weighted_score'] >= 61 && $data['weighted_score'] < 76 ? 'bg-meets-expectations' : '' ?>
-                                                            <?= $data['weighted_score'] >= 76 && $data['weighted_score'] <= 90 ? 'bg-exceeds-expectations' : '' ?>
-                                                            <?= $data['weighted_score'] > 90 ? 'bg-outstanding' : '' ?>"
+                                                <?= $data['weighted_score'] < 30 ? 'bg-needs-improvement' : '' ?>
+                                                <?= $data['weighted_score'] >= 30 && $data['weighted_score'] < 61 ? 'bg-developing' : '' ?>
+                                                <?= $data['weighted_score'] >= 61 && $data['weighted_score'] < 76 ? 'bg-meets-expectations' : '' ?>
+                                                <?= $data['weighted_score'] >= 76 && $data['weighted_score'] <= 90 ? 'bg-exceeds-expectations' : '' ?>
+                                                <?= $data['weighted_score'] > 90 ? 'bg-outstanding' : '' ?>"
                                                             role="progressbar"
                                                             style="width: <?= $data['weighted_score'] ?>%;"
                                                             aria-valuenow="<?= $data['weighted_score'] ?>"
@@ -546,14 +600,23 @@ function getMatrixQuestions($evaluationDetails)
                                                 <div class="mt-2">
                                                     <?php foreach ($data['perspective_counts'] as $perspective => $count): ?>
                                                         <?php if ($count > 0): ?>
-                                                            <span class="badge bg-light text-dark me-1">
+                                                            <span class="badge bg-light text-dark me-1 mb-1">
                                                                 <?= htmlspecialchars($perspective) ?>: <?= $count ?>
                                                             </span>
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
                                                 </div>
-                                                <div class="mt-3">
-                                                    <a href="employee_report.php?employee=<?= htmlspecialchars($employeeId) ?>" class="btn btn-sm btn-primary">View Full Report</a>
+                                                <div class="mt-3 d-flex gap-2">
+                                                    <a href="employee_report.php?employee=<?= htmlspecialchars($employeeId) ?>"
+                                                        class="btn btn-sm btn-primary flex-fill">
+                                                        <i class="fas fa-chart-bar me-1"></i>View Report
+                                                    </a>
+                                                    <?php if ($feedbackCount > 0): ?>
+                                                        <a href="feedback.php?employee=<?= htmlspecialchars($employeeId) ?>"
+                                                            class="btn btn-sm btn-warning flex-fill">
+                                                            <i class="fas fa-user-tie me-1"></i>Feedback
+                                                        </a>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                         </div>

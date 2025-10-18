@@ -1,73 +1,86 @@
 <?php
-// dashboard.php - Employee dashboard showing only their data
+// feedback.php - Enhanced CEO Feedback display
 require_once '../includes/config.php';
 require_once '../includes/header.php';
 
-
 // Get employee ID from query parameter or use logged-in user's ID
-$employeeId = $_GET['employee'] ?? $_SESSION['user_id'];
+$requestedEmployeeId = $_GET['employee'] ?? $_SESSION['user_id'];
+$loggedInUserId = $_SESSION['user_id'];
 
-// Get the logged-in user's ID
-$userId = $_SESSION['user_id'];
-
-// Fetch and process data for this user only
-$submissions = getSubmissions();
-// Count them
-$totalSubmissions = count($submissions);
-$employeeEvaluations = calculateWeightedScores($submissions);
-
-$employeeData = $employeeEvaluations[$employeeId];
-
-// Filter to show only the current user's data
-$userData = isset($employeeEvaluations[$userId]) ? $employeeEvaluations[$userId] : null;
-
-// Get employee details
-$employeeDetails = getEmployeeDetails($userId);
-$strengthsAndImprovements = $userData ? getStrengthsAndImprovements($userData['evaluations']) : ['strengths' => [], 'improvements' => []];
-
-// Prepare data for charts
-$categoryLabels = [];
-$categoryScores = [];
-
-if ($userData && isset($userData['category_scores']) && is_array($userData['category_scores'])) {
-    foreach ($userData['category_scores'] as $category => $scoreData) {
-        if (isset($scoreData['count']) && $scoreData['count'] > 0) {
-            $categoryLabels[] = substr($category, 0, 15) . (strlen($category) > 15 ? '...' : '');
-            $categoryScores[] = round($scoreData['percentage'], 1);
-        }
+// Enhanced authorization check
+function canViewFeedback($loggedInUserId, $requestedEmployeeId)
+{
+    // Users can always view their own feedback
+    if ($loggedInUserId == $requestedEmployeeId) {
+        return true;
     }
+
+    // Admin, CEO (35), and HR Admin (15) can view all feedback
+    if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) {
+        return true;
+    }
+
+    if ($loggedInUserId == 35 || $loggedInUserId == 15) {
+        return true;
+    }
+
+    // Check if user has permission to access feedback module
+    if (!hasPermission($loggedInUserId, 'feedback')) {
+        return false;
+    }
+
+    return false;
+}
+
+function canSubmitResponse($loggedInUserId, $feedbackEmployeeId)
+{
+    // ONLY the employee who received the feedback can submit responses
+    return $loggedInUserId == $feedbackEmployeeId;
+}
+
+// Check if user has permission to view this feedback
+if (!canViewFeedback($loggedInUserId, $requestedEmployeeId)) {
+    header('Location: dashboard.php?error=access_denied');
+    exit;
 }
 
 // Get CEO feedback for employee (only published)
-$ceoFeedback = getCEOFeedback($employeeId, false);
+$ceoFeedback = getCEOFeedback($requestedEmployeeId, false);
+$feedbackCount = count($ceoFeedback);
 
-// Handle employee response submission
+// Get employee details
+$employeeDetails = getEmployeeDetails($requestedEmployeeId);
+
+// Handle employee response submission with enhanced security
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response'])) {
     $feedbackId = intval($_POST['feedback_id']);
     $responseText = trim($_POST['response_text']);
 
-    if (empty($responseText)) {
+    // Additional security: Verify the feedback belongs to the logged-in user
+    $feedbackItem = getCEOFeedbackItem($feedbackId);
+
+    if (!$feedbackItem) {
+        echo "<script>Swal.fire('Error!', 'Invalid feedback item.', 'error');</script>";
+    } elseif (!canSubmitResponse($loggedInUserId, $feedbackItem['employee_id'])) {
+        echo "<script>Swal.fire('Error!', 'You are not authorized to respond to this feedback.', 'error');</script>";
+    } elseif (empty($responseText)) {
         echo "<script>Swal.fire('Error!', 'Please enter your response.', 'error');</script>";
     } else {
-        $result = saveFeedbackResponse($feedbackId, $employeeId, $responseText);
+        $result = saveFeedbackResponse($feedbackId, $loggedInUserId, $responseText);
 
         if ($result['success']) {
             echo "<script>
-        Swal.fire('Success!', 'Response submitted successfully.', 'success')
-            .then(() => {
-                // Change the page location to dashboard.php
-                window.location.href = 'dashboard.php';
-            });
+                Swal.fire('Success!', 'Response submitted successfully.', 'success')
+                    .then(() => {
+                        window.location.href = 'feedback.php?employee=' + $loggedInUserId;
+                    });
             </script>";
         } else {
             echo "<script>Swal.fire('Error!', 'Failed to submit response.', 'error');</script>";
         }
     }
 }
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,13 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MERQ Performance Evaluation Dashboard</title>
+    <title>CEO Feedback - MERQ Performance Evaluation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <script src="../script/performance.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../css/main.css" rel="stylesheet">
+    <script src="../js/interactive.js"></script>
     <style>
         :root {
             --primary-color: #003366;
@@ -516,303 +527,511 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
             margin-top: 5px;
             opacity: 0.9;
         }
+
+
+        .feedback-hero {
+            background: linear-gradient(135deg, #003366 0%, #004080 100%);
+            color: white;
+            padding: 1rem 0;
+            margin-top: 50px;
+            margin-bottom: 1rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .feedback-count-badge {
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .feedback-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .feedback-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feedback-header {
+            background: linear-gradient(135deg, #20c997 0%, #198754 100%);
+            color: white;
+            padding: 1.5rem;
+            border-bottom: none;
+        }
+
+        .priority-badge {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+        }
+
+        .feedback-content {
+            padding: 2rem;
+        }
+
+        .response-card {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-feedback-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #6c757d;
+        }
+
+        .no-feedback-icon {
+            font-size: 4rem;
+            color: #dee2e6;
+            margin-bottom: 1rem;
+        }
+
+        .feedback-stats {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #003366;
+            display: block;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .ceo-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #20c997;
+        }
+
+        .feedback-meta {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .feedback-hero {
+                padding: 2rem 0;
+            }
+
+            .feedback-content {
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="container-fluid py-4">
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center flex-wrap">
-
-                    <!-- CEO Feedback Section (Visible to Employee) -->
-                    <?php if (!empty($ceoFeedback)): ?>
-                        <div class="card card-report">
-                            <div class="card-header bg-info text-white">
-                                <h5 class="card-title mb-0"><i class="fas fa-user-tie me-2"></i>CEO Feedback & Guidance</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="accordion" id="ceoFeedbackAccordion">
-                                    <?php foreach ($ceoFeedback as $index => $feedback): ?>
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header" id="feedbackHeading<?= $index ?>">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#feedbackCollapse<?= $index ?>" aria-expanded="false">
-                                                    <div class="d-flex justify-content-between w-100 me-3">
-                                                        <span>
-                                                            <span class="badge bg-<?=
-                                                                                    $feedback['priority'] == 'low' ? 'success' : ($feedback['priority'] == 'medium' ? 'warning' : ($feedback['priority'] == 'high' ? 'danger' : 'dark'))
-                                                                                    ?> me-2"><?= ucfirst($feedback['priority']) ?></span>
-                                                            <?= htmlspecialchars($feedback['category_name'] ?? 'General Feedback') ?>
-                                                        </span>
-                                                        <small class="text-muted"><?= date('M j, Y', strtotime($feedback['created_at'])) ?></small>
-                                                    </div>
-                                                </button>
-                                            </h2>
-                                            <div id="feedbackCollapse<?= $index ?>" class="accordion-collapse collapse"
-                                                aria-labelledby="feedbackHeading<?= $index ?>" data-bs-parent="#ceoFeedbackAccordion">
-                                                <div class="accordion-body">
-                                                    <div class="mb-3">
-                                                        <strong>Category:</strong> <?= htmlspecialchars($feedback['category_name'] ?? 'General Feedback') ?><br>
-                                                        <strong>Priority:</strong> <span class="badge bg-<?=
-                                                                                                            $feedback['priority'] == 'low' ? 'success' : ($feedback['priority'] == 'medium' ? 'warning' : ($feedback['priority'] == 'high' ? 'danger' : 'dark'))
-                                                                                                            ?>"><?= ucfirst($feedback['priority']) ?></span>
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <strong>Feedback:</strong>
-                                                        <p class="mt-2 p-3 bg-light rounded"><?= nl2br(htmlspecialchars($feedback['feedback_text'])) ?></p>
-                                                    </div>
-
-                                                    <?php if (!empty($feedback['target_completion_date'])): ?>
-                                                        <div class="mb-3">
-                                                            <strong>Target Completion Date:</strong>
-                                                            <span class="ms-2"><?= date('F j, Y', strtotime($feedback['target_completion_date'])) ?></span>
-                                                        </div>
-                                                    <?php endif; ?>
-
-
-
-                                                    <!-- Existing Responses -->
-                                                    <?php $responses = getFeedbackResponses($feedback['id']); ?>
-                                                    <?php if (!empty($responses)): ?>
-                                                        <div class="mt-4">
-                                                            <h6>Your Previous Responses:</h6>
-                                                            <?php foreach ($responses as $response): ?>
-                                                                <div class="card mb-2">
-                                                                    <div class="card-body">
-                                                                        <p class="mb-2"><?= nl2br(htmlspecialchars($response['response_text'])) ?></p>
-                                                                        <small class="text-muted">
-                                                                            Submitted on <?= date('M j, Y g:i A', strtotime($response['submitted_at'])) ?>
-                                                                        </small>
-                                                                    </div>
-                                                                </div>
-                                                            <?php endforeach; ?>
-                                                        </div>
-                                                    <?php endif; ?>
-
-                                                    <!-- Response Form -->
-                                                    <div class="mt-4 p-3 border rounded">
-                                                        <h6>Your Response:</h6>
-                                                        <form method="post" class="mt-2">
-                                                            <input type="hidden" name="feedback_response" value="1">
-                                                            <input type="hidden" name="feedback_id" value="<?= $feedback['id'] ?>">
-
-                                                            <div class="mb-3">
-                                                                <textarea class="form-control" name="response_text" rows="3"
-                                                                    placeholder="Enter your response to this feedback..." required></textarea>
-                                                            </div>
-
-                                                            <button type="submit" class="btn btn-info btn-sm">
-                                                                <i class="fas fa-reply me-1"></i> Submit Response
-                                                            </button>
-                                                        </form>
-                                                    </div>
-
-                                                    <div class="text-muted small mt-3">
-                                                        <strong>From CEO:</strong> <?= htmlspecialchars($feedback['ceo_name']) ?>
-                                                        on <?= date('F j, Y g:i A', strtotime($feedback['created_at'])) ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
+    <!-- Hero Section -->
+    <div class="feedback-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-user-tie me-3"></i>
+                        <?= $loggedInUserId == $requestedEmployeeId ?
+                            'CEO Feedback & Guidance' :
+                            'CEO Feedback for ' . htmlspecialchars($employeeDetails['full_name']) ?>
+                    </h1>
+                    <p class="lead mb-4">
+                        <?php if ($loggedInUserId == $requestedEmployeeId): ?>
+                            Personalized feedback and development guidance from the CEO to help you grow professionally.
+                        <?php else: ?>
+                            Viewing CEO feedback for <?= htmlspecialchars($employeeDetails['full_name']) ?>.
+                        <?php endif; ?>
+                    </p>
+                    <div class="d-flex align-items-center">
+                        <div class="me-4">
+                            <img src="https://ui-avatars.com/api/?name=<?= urlencode($employeeDetails['full_name']) ?>&background=007bff&color=fff&size=64"
+                                alt="<?= htmlspecialchars($employeeDetails['full_name']) ?>"
+                                class="rounded-circle me-3" width="64" height="64">
+                        </div>
+                        <div>
+                            <h5 class="mb-1"><?= htmlspecialchars($employeeDetails['full_name']) ?></h5>
+                            <p class="mb-1"><?= htmlspecialchars($employeeDetails['position_title']) ?></p>
+                            <p class="mb-0"><?= htmlspecialchars($employeeDetails['department_name'] ?? '') ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <?php if ($feedbackCount > 0): ?>
+                        <div class="mb-3">
+                            <span class="badge bg-warning text-dark feedback-count-badge fs-6">
+                                <i class="fas fa-comment-dots me-2"></i>
+                                <?= $feedbackCount ?> Feedback Item(s)
+                            </span>
                         </div>
                     <?php endif; ?>
-
+                    <a href="dashboard.php" class="btn btn-light btn-lg">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <!-- Feedback Statistics -->
+        <?php if ($feedbackCount > 0): ?>
+            <div class="feedback-stats">
+                <div class="row text-center">
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <span class="stat-number"><?= $feedbackCount ?></span>
+                            <span class="stat-label">Total Feedback</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <?php
+                            $highPriorityCount = array_reduce($ceoFeedback, function ($count, $feedback) {
+                                return $count + ($feedback['priority'] === 'high' || $feedback['priority'] === 'critical' ? 1 : 0);
+                            }, 0);
+                            ?>
+                            <span class="stat-number text-danger"><?= $highPriorityCount ?></span>
+                            <span class="stat-label">High Priority</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <?php
+                            $withTargetDate = array_reduce($ceoFeedback, function ($count, $feedback) {
+                                return $count + (!empty($feedback['target_completion_date']) ? 1 : 0);
+                            }, 0);
+                            ?>
+                            <span class="stat-number text-info"><?= $withTargetDate ?></span>
+                            <span class="stat-label">With Deadlines</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <?php
+                            $responseCount = 0;
+                            foreach ($ceoFeedback as $feedback) {
+                                $responses = getFeedbackResponses($feedback['id']);
+                                $responseCount += count($responses);
+                            }
+                            ?>
+                            <span class="stat-number text-success"><?= $responseCount ?></span>
+                            <span class="stat-label">Your Responses</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <!-- Feedback Items -->
+        <div class="row">
+            <div class="col-12">
+                <?php if (empty($ceoFeedback)): ?>
+                    <!-- No Feedback State -->
+                    <div class="no-feedback-state">
+                        <div class="no-feedback-icon">
+                            <i class="fas fa-comment-slash"></i>
+                        </div>
+                        <h3 class="h4 text-muted mb-3">No CEO Feedback Yet</h3>
+                        <p class="text-muted mb-4">
+                            You haven't received any CEO feedback at the moment. <br>
+                            Continue your great work and check back later for personalized guidance.
+                        </p>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <a href="dashboard.php" class="btn btn-primary">
+                                <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+                            </a>
+                            <a href="my_report.php" class="btn btn-outline-primary">
+                                <i class="fas fa-chart-bar me-2"></i>View My Report
+                            </a>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <!-- Feedback Accordion -->
+                    <div class="accordion" id="ceoFeedbackAccordion">
+                        <?php foreach ($ceoFeedback as $index => $feedback): ?>
+                            <?php
+                            $responses = getFeedbackResponses($feedback['id']);
+                            $hasResponded = !empty($responses);
+                            ?>
+
+                            <div class="card feedback-card">
+                                <div class="card-header feedback-header" id="feedbackHeading<?= $index ?>">
+                                    <button class="accordion-button collapsed text-white bg-transparent border-0 p-0"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#feedbackCollapse<?= $index ?>"
+                                        aria-expanded="false"
+                                        aria-controls="feedbackCollapse<?= $index ?>">
+                                        <div class="d-flex justify-content-between align-items-center w-100 me-3">
+                                            <div class="d-flex align-items-center">
+                                                <span class="badge priority-badge bg-<?=
+                                                                                        $feedback['priority'] == 'low' ? 'success' : ($feedback['priority'] == 'medium' ? 'warning' : ($feedback['priority'] == 'high' ? 'danger' : 'dark'))
+                                                                                        ?> me-3">
+                                                    <?= ucfirst($feedback['priority']) ?> Priority
+                                                </span>
+                                                <div>
+                                                    <h6 class="mb-1"><?= htmlspecialchars($feedback['category_name'] ?? 'General Feedback') ?></h6>
+                                                    <small>
+                                                        <i class="fas fa-calendar me-1"></i>
+                                                        <?= date('M j, Y', strtotime($feedback['created_at'])) ?>
+                                                        <?php if (!empty($feedback['target_completion_date'])): ?>
+                                                            • <i class="fas fa-flag me-1"></i>
+                                                            Target: <?= date('M j, Y', strtotime($feedback['target_completion_date'])) ?>
+                                                        <?php endif; ?>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <?php if ($hasResponded): ?>
+                                                    <span class="badge bg-success me-2">
+                                                        <i class="fas fa-check me-1"></i>Responded
+                                                    </span>
+                                                <?php else: ?>
+                                                    <span class="badge bg-warning text-dark me-2">
+                                                        <i class="fas fa-clock me-1"></i>Awaiting Response
+                                                    </span>
+                                                <?php endif; ?>
+                                                <i class="fas fa-chevron-down accordion-arrow"></i>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+
+                                <div id="feedbackCollapse<?= $index ?>"
+                                    class="accordion-collapse collapse"
+                                    aria-labelledby="feedbackHeading<?= $index ?>"
+                                    data-bs-parent="#ceoFeedbackAccordion">
+                                    <div class="card-body feedback-content">
+                                        <!-- Feedback Meta -->
+                                        <div class="feedback-meta">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <strong>Category:</strong>
+                                                    <?= htmlspecialchars($feedback['category_name'] ?? 'General Feedback') ?>
+                                                    <?php if (!empty($feedback['category_description'])): ?>
+                                                        <br><small class="text-muted"><?= htmlspecialchars($feedback['category_description']) ?></small>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <strong>Priority:</strong>
+                                                    <span class="badge bg-<?=
+                                                                            $feedback['priority'] == 'low' ? 'success' : ($feedback['priority'] == 'medium' ? 'warning' : ($feedback['priority'] == 'high' ? 'danger' : 'dark'))
+                                                                            ?>">
+                                                        <?= ucfirst($feedback['priority']) ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Feedback Text -->
+
+                                        <!-- CEO Signature -->
+                                        <div class="text-muted small mt-4 pt-3 border-top">
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=CEO&background=20c997&color=fff&size=40"
+                                                    alt="CEO"
+                                                    class="ceo-avatar me-3">
+                                                <div>
+                                                    <strong>From: <?= htmlspecialchars($feedback['ceo_name']) ?></strong><br>
+                                                    <span>Chief Executive Officer</span><br>
+                                                    <span>Posted on <?= date('F j, Y g:i A', strtotime($feedback['created_at'])) ?></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <h6 class="text-primary mb-3">
+                                                <i class="fas fa-comment me-2"></i>Feedback Message:
+                                            </h6>
+                                            <div class="p-3 bg-light rounded border">
+                                                <?= nl2br(htmlspecialchars($feedback['feedback_text'])) ?>
+                                            </div>
+                                        </div>
+
+                                        <?php if (!empty($feedback['target_completion_date'])): ?>
+                                            <div class="alert alert-info mb-4">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-flag me-3 fs-4"></i>
+                                                    <div>
+                                                        <strong>Target Completion Date:</strong>
+                                                        <span class="ms-2 fw-bold"><?= date('F j, Y', strtotime($feedback['target_completion_date'])) ?></span>
+                                                        <?php
+                                                        $today = new DateTime();
+                                                        $targetDate = new DateTime($feedback['target_completion_date']);
+                                                        $daysRemaining = $today->diff($targetDate)->days;
+                                                        $isOverdue = $today > $targetDate;
+                                                        ?>
+                                                        <?php if ($isOverdue): ?>
+                                                            <span class="badge bg-danger ms-2">Overdue by <?= $daysRemaining ?> days</span>
+                                                        <?php else: ?>
+                                                            <span class="badge bg-success ms-2"><?= $daysRemaining ?> days remaining</span>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <!-- Previous Responses -->
+                                        <?php if (!empty($responses)): ?>
+                                            <div class="mb-4">
+                                                <h6 class="text-success mb-3">
+                                                    <i class="fas fa-reply me-2"></i>
+                                                    <?= canSubmitResponse($loggedInUserId, $feedback['employee_id']) ? 'Your Previous Responses' : 'Employee Responses' ?>:
+                                                </h6>
+                                                <?php foreach ($responses as $response): ?>
+                                                    <div class="response-card">
+                                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                                            <strong>
+                                                                <?= canSubmitResponse($loggedInUserId, $feedback['employee_id']) ?
+                                                                    'Your Response:' :
+                                                                    htmlspecialchars($response['employee_name'] ?? 'Employee') . "'s Response:" ?>
+                                                            </strong>
+                                                            <small class="text-muted">
+                                                                <?= date('M j, Y g:i A', strtotime($response['submitted_at'])) ?>
+                                                            </small>
+                                                        </div>
+                                                        <p class="mb-0"><?= nl2br(htmlspecialchars($response['response_text'])) ?></p>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <!-- Response Form -->
+                                        <?php if (canSubmitResponse($loggedInUserId, $feedback['employee_id'])): ?>
+                                            <div class="border rounded p-4 bg-white">
+                                                <h6 class="text-primary mb-3">
+                                                    <i class="fas fa-edit me-2"></i>
+                                                    <?= $hasResponded ? 'Add Another Response' : 'Submit Your Response' ?>
+                                                </h6>
+                                                <form method="post" class="mt-2">
+                                                    <input type="hidden" name="feedback_response" value="1">
+                                                    <input type="hidden" name="feedback_id" value="<?= $feedback['id'] ?>">
+
+                                                    <div class="mb-3">
+                                                        <label for="responseText<?= $index ?>" class="form-label">
+                                                            Your Response <span class="text-danger">*</span>
+                                                        </label>
+                                                        <textarea class="form-control"
+                                                            id="responseText<?= $index ?>"
+                                                            name="response_text"
+                                                            rows="4"
+                                                            placeholder="Share your thoughts, action plan, or any questions you have about this feedback..."
+                                                            required></textarea>
+                                                        <div class="form-text">
+                                                            Please provide a thoughtful response to the CEO's feedback.
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <small class="text-muted">
+                                                            <i class="fas fa-info-circle me-1"></i>
+                                                            Your response will be visible to the CEO and HR.
+                                                        </small>
+                                                        <button type="submit" class="btn btn-primary">
+                                                            <i class="fas fa-paper-plane me-2"></i>
+                                                            <?= $hasResponded ? 'Update Response' : 'Submit Response' ?>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        <?php else: ?>
+                                            <!-- Message for users who cannot respond -->
+                                            <?php if ($loggedInUserId != $feedback['employee_id']): ?>
+                                                <div class="alert alert-info mt-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-info-circle me-3 fs-5"></i>
+                                                        <div>
+                                                            <strong>View Only:</strong> This feedback is for
+                                                            <strong><?= htmlspecialchars(getEmployeeDetails($feedback['employee_id'])['full_name']) ?></strong>.
+                                                            Only they can submit responses.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <?php require_once '../includes/footer.php'; ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Initialize tooltips
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-
-        // Animate elements on page load
+        // Enhanced feedback page functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Animate stats cards
-            anime({
-                targets: '.stats-card',
-                translateY: [50, 0],
-                opacity: [0, 1],
-                delay: anime.stagger(100),
-                duration: 800,
-                easing: 'easeOutQuart'
-            });
+            // Auto-expand the first feedback item if there are any
+            const firstFeedbackItem = document.querySelector('.accordion-button');
+            if (firstFeedbackItem && !firstFeedbackItem.classList.contains('collapsed')) {
+                firstFeedbackItem.click();
+            }
 
-            // Animate progress bars
-            setTimeout(function() {
-                document.querySelectorAll('.progress-bar').forEach(function(bar) {
-                    bar.style.transition = 'width 1.5s ease-in-out';
-                });
-            }, 500);
-        });
-
-        // Category Performance Chart
-        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-        const categoryChart = new Chart(categoryCtx, {
-            type: 'bar',
-            data: {
-                labels: <?= json_encode($categoryLabels) ?>,
-                datasets: [{
-                    label: 'Score (%)',
-                    data: <?= json_encode($categoryScores) ?>,
-                    backgroundColor: '#00799BFF',
-                    borderColor: 'rgb(54, 162, 235)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                            callback: function(value) {
-                                return value + '%';
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.05)'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        }
+            // Add smooth scrolling to feedback items
+            const urlParams = new URLSearchParams(window.location.search);
+            const feedbackId = urlParams.get('feedback_id');
+            if (feedbackId) {
+                const feedbackElement = document.getElementById('feedbackHeading' + feedbackId);
+                if (feedbackElement) {
+                    const collapseElement = feedbackElement.querySelector('.accordion-button');
+                    if (collapseElement) {
+                        collapseElement.click();
+                        setTimeout(() => {
+                            feedbackElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                        }, 500);
                     }
-                },
-                plugins: {
-                    tooltip: {
-                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        titleFont: {
-                            size: 14,
-                            weight: 'bold'
-                        },
-                        bodyFont: {
-                            size: 13
-                        },
-                        callbacks: {
-                            label: function(context) {
-                                return context.dataset.label + ': ' + context.raw + '%';
-                            }
-                        }
-                    },
-                    legend: {
-                        display: false
-                    },
-                    datalabels: {
-                        anchor: 'end',
-                        align: 'end',
-                        formatter: function(value) {
-                            return value + '%';
-                        },
-                        color: '#343a40',
-                        font: {
-                            weight: 'bold',
-                            size: 11
-                        }
-                    }
-                },
-                animation: {
-                    duration: 2000,
-                    easing: 'easeOutQuart'
                 }
-            },
-            plugins: [ChartDataLabels]
-        });
-
-        // Refresh data function
-        function refreshData() {
-            const refreshBtn = document.getElementById('refreshBtn');
-            const originalHtml = refreshBtn.innerHTML;
-
-            // Show loading state
-            refreshBtn.innerHTML = '<span class="loading-spinner"></span> Refreshing...';
-            refreshBtn.disabled = true;
-
-            // Simulate refresh (in a real app, this would be an AJAX call)
-            setTimeout(function() {
-                // Reload the page
-                window.location.reload();
-            }, 1500);
-        }
-
-        // Scroll to top function
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // Add event listener for scroll to show/hide floating button
-        window.addEventListener('scroll', function() {
-            const floatingBtn = document.querySelector('.floating-action-btn');
-            if (window.scrollY > 300) {
-                floatingBtn.style.display = 'flex';
-                anime({
-                    targets: '.floating-action-btn',
-                    opacity: 1,
-                    scale: [0.8, 1],
-                    duration: 500,
-                    easing: 'easeOutQuart'
-                });
-            } else {
-                floatingBtn.style.display = 'none';
             }
-        });
 
-        // CEO Feedback Form Enhancement
-        document.addEventListener('DOMContentLoaded', function() {
-            // Auto-resize textareas
-            const textareas = document.querySelectorAll('textarea[name="feedback_text"]');
-            textareas.forEach(textarea => {
-                textarea.addEventListener('input', function() {
-                    this.style.height = 'auto';
-                    this.style.height = (this.scrollHeight) + 'px';
-                });
-            });
-
-            // Priority color coding
-            const priorityBadges = document.querySelectorAll('.badge.bg-success, .badge.bg-warning, .badge.bg-danger, .badge.bg-dark');
-            priorityBadges.forEach(badge => {
-                const text = badge.textContent.toLowerCase().trim();
-                if (text === 'low') badge.classList.add('bg-success');
-                else if (text === 'medium') badge.classList.add('bg-warning');
-                else if (text === 'high') badge.classList.add('bg-danger');
-                else if (text === 'critical') badge.classList.add('bg-dark');
-            });
-        });
-
-        // Form validation
-        function validateFeedbackForm() {
-            const form = document.getElementById('ceoFeedbackForm');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    const textarea = form.querySelector('textarea[name="feedback_text"]');
-                    if (textarea.value.trim().length < 10) {
-                        e.preventDefault();
-                        Swal.fire('Validation Error', 'Please enter at least 10 characters of feedback.', 'warning');
-                        textarea.focus();
-                    }
-                });
-            }
-        }
-
-        validateFeedbackForm();
-    </script>
-
-    <script>
-        // Enhanced CEO Feedback functionality
-        document.addEventListener('DOMContentLoaded', function() {
             // Auto-resize textareas
             const textareas = document.querySelectorAll('textarea');
             textareas.forEach(textarea => {
@@ -820,46 +1039,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
                     this.style.height = 'auto';
                     this.style.height = (this.scrollHeight) + 'px';
                 });
-                // Trigger initial resize
-                textarea.dispatchEvent(new Event('input'));
             });
 
-            // Form validation
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    const textareas = this.querySelectorAll('textarea[required]');
-                    for (let textarea of textareas) {
-                        if (textarea.value.trim().length < 5) {
-                            e.preventDefault();
-                            Swal.fire('Validation Error', 'Please enter at least 5 characters.', 'warning');
-                            textarea.focus();
-                            return;
-                        }
+            // Add animation to cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
                     }
                 });
+            }, observerOptions);
+
+            document.querySelectorAll('.feedback-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
             });
 
-            // Priority badge coloring
-            document.querySelectorAll('.badge').forEach(badge => {
-                const text = badge.textContent.toLowerCase().trim();
-                if (text === 'low') badge.classList.add('bg-success');
-                else if (text === 'medium') badge.classList.add('bg-warning');
-                else if (text === 'high') badge.classList.add('bg-danger');
-                else if (text === 'critical') badge.classList.add('bg-dark');
-                else if (text === 'draft') badge.classList.add('bg-secondary');
-                else if (text === 'published') badge.classList.add('bg-success');
-                else if (text === 'archived') badge.classList.add('bg-dark');
+            // Initialize tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            const tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // Add print functionality
+            const printButton = document.getElementById('printFeedback');
+            if (printButton) {
+                printButton.addEventListener('click', function() {
+                    window.print();
+                });
+            }
+        });
+
+        // Real-time character count for response textareas
+        document.querySelectorAll('textarea[name="response_text"]').forEach(textarea => {
+            const charCount = document.createElement('div');
+            charCount.className = 'form-text text-end';
+            charCount.textContent = '0 characters';
+            textarea.parentNode.insertBefore(charCount, textarea.nextSibling);
+
+            textarea.addEventListener('input', function() {
+                const count = this.value.length;
+                charCount.textContent = count + ' characters';
+                charCount.className = 'form-text text-end ' +
+                    (count < 10 ? 'text-danger' :
+                        count < 50 ? 'text-warning' : 'text-success');
             });
         });
     </script>
-
-    <?php require_once '../includes/footer.php'; ?>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 </html>

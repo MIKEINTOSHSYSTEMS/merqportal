@@ -3,11 +3,11 @@
 require_once '../includes/config.php';
 require_once '../includes/header.php';
 
-    // Check if user has permission to access dashboard
-    if (!hasPermission($_SESSION['user_id'], 'dashboard')) {
-        header('Location: dashboard.php?error=access_denied');
-        exit;
-    }
+// Check if user has permission to access dashboard
+if (!hasPermission($_SESSION['user_id'], 'dashboard')) {
+    header('Location: dashboard.php?error=access_denied');
+    exit;
+}
 
 
 
@@ -23,7 +23,7 @@ $submissions = getSubmissions();
 $totalSubmissions = count($submissions);
 $employeeEvaluations = calculateWeightedScores($submissions);
 
-$employeeData = $employeeEvaluations[$employeeId];
+//$employeeData = $employeeEvaluations[$employeeId];
 
 // Filter to show only the current user's data
 $userData = isset($employeeEvaluations[$userId]) ? $employeeEvaluations[$userId] : null;
@@ -86,9 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="../script/performance.js"></script>
+    <script src="../js/interactive.js"></script>
     <link href="../css/main.css" rel="stylesheet">
     <style>
-    
+
     </style>
 </head>
 
@@ -142,8 +143,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
                 </div>
                 <div class="col-md-3">
                     <div class="stats-card">
-                        <div class="stats-number"><?= count($userData['category_scores'] ?? []) ?></div>
-                        <div class="stats-label">Categories Evaluated</div>
+                        <?php $ceoFeedbackCount = getCEOFeedbackCount($userId); ?>
+                        <div class="stats-number"><?= $ceoFeedbackCount ?></div>
+                        <div class="stats-label">CEO Feedback</div>
+                        <?php if ($ceoFeedbackCount > 0): ?>
+                            <div class="mt-2">
+                                <span class="badge bg-warning text-dark ceo-feedback-pulse">
+                                    <i class="fas fa-user-tie me-1"></i>View Feedback
+                                </span>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -338,6 +347,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
                                                                                                             ?>"><?= ucfirst($feedback['priority']) ?></span>
                                                     </div>
 
+                                                    <div class="text-muted small mt-3">
+                                                        <strong>From CEO:</strong> <?= htmlspecialchars($feedback['ceo_name']) ?>
+                                                        on <?= date('F j, Y g:i A', strtotime($feedback['created_at'])) ?>
+                                                    </div>
+
                                                     <div class="mb-3">
                                                         <strong>Feedback:</strong>
                                                         <p class="mt-2 p-3 bg-light rounded"><?= nl2br(htmlspecialchars($feedback['feedback_text'])) ?></p>
@@ -388,10 +402,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
                                                         </form>
                                                     </div>
 
-                                                    <div class="text-muted small mt-3">
-                                                        <strong>From CEO:</strong> <?= htmlspecialchars($feedback['ceo_name']) ?>
-                                                        on <?= date('F j, Y g:i A', strtotime($feedback['created_at'])) ?>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

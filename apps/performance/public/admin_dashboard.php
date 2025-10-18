@@ -139,6 +139,7 @@ require_once '../includes/header.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="../js/interactive.js"></script>
     <link href="../css/main.css" rel="stylesheet">
     <style>
 
@@ -362,6 +363,7 @@ require_once '../includes/header.php';
                                     <tr>
                                         <th>Employee</th>
                                         <th>Evaluations</th>
+                                        <th>CEO Feedback</th>
                                         <th>Weighted Score</th>
                                         <th>Performance Category</th>
                                         <th>Actions</th>
@@ -370,33 +372,62 @@ require_once '../includes/header.php';
                                 <tbody>
                                     <?php if (empty($filteredEvaluations)): ?>
                                         <tr>
-                                            <td colspan="5" class="text-center">No evaluations found with the selected filters.</td>
+                                            <td colspan="6" class="text-center">No evaluations found with the selected filters.</td>
                                         </tr>
                                     <?php else: ?>
+                                        <?php
+                                        // Get CEO feedback counts for all employees
+                                        $ceoFeedbackCounts = [];
+                                        foreach ($filteredEvaluations as $employeeId => $data) {
+                                            $ceoFeedbackCounts[$employeeId] = getCEOFeedbackCount($employeeId);
+                                        }
+                                        ?>
+
                                         <?php foreach ($filteredEvaluations as $employeeId => $data): ?>
                                             <?php $employee = $data['details']; ?>
+                                            <?php $feedbackCount = $ceoFeedbackCounts[$employeeId]; ?>
                                             <tr>
                                                 <td>
-                                                    <strong><?= htmlspecialchars($employee['full_name']) ?></strong><br>
-                                                    <small class="text-muted"><?= htmlspecialchars($employee['position_title']) ?></small>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="https://ui-avatars.com/api/?name=<?= urlencode($employee['full_name']) ?>&background=007bff&color=fff&size=40"
+                                                                alt="<?= htmlspecialchars($employee['full_name']) ?>"
+                                                                class="rounded-circle me-3" width="40" height="40">
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            <strong><?= htmlspecialchars($employee['full_name']) ?></strong><br>
+                                                            <small class="text-muted"><?= htmlspecialchars($employee['position_title']) ?></small>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <?php foreach ($data['perspective_counts'] as $perspective => $count): ?>
                                                         <?php if ($count > 0): ?>
-                                                            <span class="badge bg-light text-dark me-1">
+                                                            <span class="badge bg-light text-dark me-1 mb-1">
                                                                 <?= htmlspecialchars($perspective) ?>: <?= $count ?>
                                                             </span>
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
                                                 </td>
                                                 <td>
+                                                    <?php if ($feedbackCount > 0): ?>
+                                                        <span class="badge bg-warning text-dark ceo-feedback-badge"
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-title="<?= $feedbackCount ?> CEO Feedback item(s)">
+                                                            <i class="fas fa-user-tie me-1"></i><?= $feedbackCount ?>
+                                                        </span>
+                                                    <?php else: ?>
+                                                        <span class="badge bg-secondary">None</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
                                                     <div class="progress" style="height: 20px;">
                                                         <div class="progress-bar 
-                                                            <?= $data['weighted_score'] < 30 ? 'bg-needs-improvement' : '' ?>
-                                                            <?= $data['weighted_score'] >= 30 && $data['weighted_score'] <= 60 ? 'bg-developing' : '' ?>
-                                                            <?= $data['weighted_score'] >= 60 && $data['weighted_score'] <= 75 ? 'bg-meets-expectations' : '' ?>
-                                                            <?= $data['weighted_score'] >= 75 && $data['weighted_score'] <= 90 ? 'bg-exceeds-expectations' : '' ?>
-                                                            <?= $data['weighted_score'] > 90 ? 'bg-outstanding' : '' ?>"
+                                            <?= $data['weighted_score'] < 30 ? 'bg-needs-improvement' : '' ?>
+                                            <?= $data['weighted_score'] >= 30 && $data['weighted_score'] <= 60 ? 'bg-developing' : '' ?>
+                                            <?= $data['weighted_score'] >= 60 && $data['weighted_score'] <= 75 ? 'bg-meets-expectations' : '' ?>
+                                            <?= $data['weighted_score'] >= 75 && $data['weighted_score'] <= 90 ? 'bg-exceeds-expectations' : '' ?>
+                                            <?= $data['weighted_score'] > 90 ? 'bg-outstanding' : '' ?>"
                                                             role="progressbar"
                                                             style="width: <?= $data['weighted_score'] ?>%;"
                                                             aria-valuenow="<?= $data['weighted_score'] ?>"
@@ -408,19 +439,32 @@ require_once '../includes/header.php';
                                                 </td>
                                                 <td>
                                                     <span class="performance-badge 
-                                                        <?= $data['performance_category'] === 'Needs Significant Improvement' ? 'bg-needs-improvement' : '' ?>
-                                                        <?= $data['performance_category'] === 'Developing' ? 'bg-developing' : '' ?>
-                                                        <?= $data['performance_category'] === 'Meets Expectations' ? 'bg-meets-expectations' : '' ?>
-                                                        <?= $data['performance_category'] === 'Exceeds Expectations' ? 'bg-exceeds-expectations' : '' ?>
-                                                        <?= $data['performance_category'] === 'Outstanding' ? 'bg-outstanding' : '' ?>
-                                                        <?= $data['performance_category'] === 'Not Rated' ? 'bg-not-rated' : '' ?>">
+                                        <?= $data['performance_category'] === 'Needs Significant Improvement' ? 'bg-needs-improvement' : '' ?>
+                                        <?= $data['performance_category'] === 'Developing' ? 'bg-developing' : '' ?>
+                                        <?= $data['performance_category'] === 'Meets Expectations' ? 'bg-meets-expectations' : '' ?>
+                                        <?= $data['performance_category'] === 'Exceeds Expectations' ? 'bg-exceeds-expectations' : '' ?>
+                                        <?= $data['performance_category'] === 'Outstanding' ? 'bg-outstanding' : '' ?>
+                                        <?= $data['performance_category'] === 'Not Rated' ? 'bg-not-rated' : '' ?>">
                                                         <?= htmlspecialchars($data['performance_category']) ?>
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <a href="employee_report.php?employee=<?= htmlspecialchars($employeeId) ?>" class="btn btn-sm btn-info">
-                                                        <i class="bi bi-eye"></i> View Report
-                                                    </a>
+                                                    <div class="btn-group" role="group">
+                                                        <a href="employee_report.php?employee=<?= htmlspecialchars($employeeId) ?>"
+                                                            class="btn btn-sm btn-info"
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-title="View Report">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
+                                                        <?php if ($feedbackCount > 0): ?>
+                                                            <a href="feedback.php?employee=<?= htmlspecialchars($employeeId) ?>"
+                                                                class="btn btn-sm btn-warning"
+                                                                data-bs-toggle="tooltip"
+                                                                data-bs-title="View CEO Feedback">
+                                                                <i class="fas fa-user-tie"></i>
+                                                            </a>
+                                                        <?php endif; ?>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

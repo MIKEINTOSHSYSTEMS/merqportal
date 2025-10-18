@@ -589,6 +589,10 @@ require_once '../includes/header.php';
                                                 </div>
 
                                                 <div class="mb-3">
+                                                    <div class="text-muted small mt-3">
+                                                        <strong>From CEO:</strong> <?= htmlspecialchars($feedback['ceo_name']) ?>
+                                                        on <?= date('F j, Y g:i A', strtotime($feedback['created_at'])) ?>
+                                                    </div>
                                                     <strong>Feedback:</strong>
                                                     <p class="mt-2 p-3 bg-light rounded"><?= nl2br(htmlspecialchars($feedback['feedback_text'])) ?></p>
                                                 </div>
@@ -600,23 +604,7 @@ require_once '../includes/header.php';
                                                     </div>
                                                 <?php endif; ?>
 
-                                                <!-- Response Form -->
-                                                <div class="mt-4 p-3 border rounded">
-                                                    <h6>Your Response:</h6>
-                                                    <form method="post" class="mt-2">
-                                                        <input type="hidden" name="feedback_response" value="1">
-                                                        <input type="hidden" name="feedback_id" value="<?= $feedback['id'] ?>">
 
-                                                        <div class="mb-3">
-                                                            <textarea class="form-control" name="response_text" rows="3"
-                                                                placeholder="Enter your response to this feedback..." required></textarea>
-                                                        </div>
-
-                                                        <button type="submit" class="btn btn-primary btn-sm">
-                                                            <i class="fas fa-reply me-1"></i> Submit Response
-                                                        </button>
-                                                    </form>
-                                                </div>
 
                                                 <!-- Existing Responses -->
                                                 <?php $responses = getFeedbackResponses($feedback['id']); ?>
@@ -636,10 +624,25 @@ require_once '../includes/header.php';
                                                     </div>
                                                 <?php endif; ?>
 
-                                                <div class="text-muted small mt-3">
-                                                    <strong>From CEO:</strong> <?= htmlspecialchars($feedback['ceo_name']) ?>
-                                                    on <?= date('F j, Y g:i A', strtotime($feedback['created_at'])) ?>
+
+                                                <!-- Response Form -->
+                                                <div class="mt-4 p-3 border rounded">
+                                                    <h6>Your Response:</h6>
+                                                    <form method="post" class="mt-2">
+                                                        <input type="hidden" name="feedback_response" value="1">
+                                                        <input type="hidden" name="feedback_id" value="<?= $feedback['id'] ?>">
+
+                                                        <div class="mb-3">
+                                                            <textarea class="form-control" name="response_text" rows="30"
+                                                                placeholder="Enter your response to this feedback..." required></textarea>
+                                                        </div>
+
+                                                        <button type="submit" class="btn btn-primary btn-sm">
+                                                            <i class="fas fa-reply me-1"></i> Submit Response
+                                                        </button>
+                                                    </form>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>

@@ -5,7 +5,8 @@ session_start();
 // Update the redirect logic in login.php
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) {
-        header('Location: report.php');
+        header('Location: admin_dashboard.php');
+        //header('Location: report.php');
     } else {
         header('Location: dashboard.php');
     }
