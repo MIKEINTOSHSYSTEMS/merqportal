@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate input
     if (empty($username) || empty($password)) {
         $_SESSION['error'] = 'Please enter both email and password.';
-        header('Location: ../login.php');
+        header('Location: ../public/login.php');
         exit;
     }
 
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if ($conn->connect_error) {
         $_SESSION['error'] = 'Database connection failed. Please try again.';
-        header('Location: ../login.php');
+        header('Location: ../public/login.php');
         exit;
     }
 
@@ -64,9 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Redirect based on user role
             if ($user['is_admin'] == 1 || $user['user_id'] == 35 || $user['user_id'] == 15) {
-                header('Location: admin_dashboard.php');
+                header('Location: ../public/admin_dashboard.php');
             } else {
-                header('Location: dashboard.php');
+                header('Location: ../public/dashboard.php');
             }
             exit;
         } else {
