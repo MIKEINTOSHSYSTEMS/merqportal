@@ -2,12 +2,14 @@
 // dashboard.php - Employee dashboard showing only their data
 require_once '../includes/config.php';
 require_once '../includes/header.php';
-
+/*
 // Check if user has permission to access dashboard
 if (!hasPermission($_SESSION['user_id'], 'dashboard')) {
     header('Location: dashboard.php?error=access_denied');
     exit;
 }
+
+*/
 
 
 
