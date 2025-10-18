@@ -11,7 +11,7 @@ if (session_status() === PHP_SESSION_NONE) {
 // Check if user is logged in using our custom session variable
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     // User is not logged in, redirect to login page
-    header('Location: ../public/login.php');
+    header('Location: login.php');
     exit;
 }
 
@@ -59,7 +59,7 @@ if (isset($_SESSION['login_time']) && (time() - $_SESSION['login_time'] > $sessi
     // Session expired
     session_unset();
     session_destroy();
-    header('Location: ../public/login.php?expired=1');
+    header('Location: login.php?expired=1');
     exit;
 }
 
