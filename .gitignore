@@ -11,3 +11,4 @@ apps/internal/install/
 apps/internal/application/logs/
 apps/internal/temp/
 apps/formapps/
+apps/ussd/
