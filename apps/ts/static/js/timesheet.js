@@ -215,8 +215,8 @@ class TimesheetManager {
             }
 
             const currentValue = (project.hours && project.hours[day.day]) ? project.hours[day.day] :
-                                (this.timesheetData.projects && this.timesheetData.projects[project.project_id] && this.timesheetData.projects[project.project_id][day.day]) ?
-                                this.timesheetData.projects[project.project_id][day.day] : '';
+                (this.timesheetData.projects && this.timesheetData.projects[project.project_id] && this.timesheetData.projects[project.project_id][day.day]) ?
+                    this.timesheetData.projects[project.project_id][day.day] : '';
             projectTotal += parseFloat(currentValue) || 0;
 
             const input = $('<input>')
@@ -491,36 +491,112 @@ class TimesheetManager {
 
         if (this.projects.length === 0) {
             container.html(`
-                <div class="alert alert-info">
-                    <i class="bi bi-info-circle me-2"></i>
-                    No projects added yet. Click "Add Project" to get started.
-                </div>
-            `);
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>
+                No projects added yet. Click "Add Project" to get started.
+            </div>
+        `);
             return;
         }
 
         this.projects.forEach((project, index) => {
-            const progressPercent = project.allocated_hours > 0 ? (project.total_hours / project.allocated_hours * 100) : 0;
-            const progressColor = progressPercent > 100 ? 'bg-danger' : progressPercent >= 80 ? 'bg-warning' : 'bg-success';
+            const projectId = project.project_id || project.id;
+            const totalHours = Object.values(project.hours || {}).reduce((sum, hours) => sum + (parseFloat(hours) || 0), 0);
+            const allocatedHours = parseFloat(project.allocated_hours) || 0;
+            const progressPercent = allocatedHours > 0 ? (totalHours / allocatedHours) * 100 : 0;
+
+            const progressColor = progressPercent > 100 ? 'text-danger' :
+                progressPercent >= 80 ? 'text-warning' : 'text-success';
 
             const projectCard = `
-                <div class="project-item border rounded p-3 mb-2 bg-light" data-project-id="${project.project_id}">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>${project.project_name} (${project.project_code})</strong>
-                            <br>
-                            <small class="text-muted">
-                                Allocated: ${project.allocated_hours}h |
-                                Worked: <span class="worked-hours-${project.project_id}">0.0</span>h |
-                                Progress: <span class="progress-${project.project_id}">0%</span>
-                            </small>
+            <div class="project-item border rounded p-3 mb-2 bg-light" data-project-id="${projectId}">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <strong>${project.project_name || project.name}</strong>
+                            <button type="button" class="btn btn-sm btn-outline-danger remove-project-btn" 
+                                    data-project-id="${projectId}" 
+                                    ${this.projects.length <= 1 ? 'disabled' : ''}>
+                                <i class="bi bi-trash"></i> Remove
+                            </button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <small class="text-muted">Allocated: ${allocatedHours.toFixed(1)}h</small>
+                            </div>
+                            <div class="col-md-4">
+                                <small class="text-muted">Worked: <span class="worked-hours-${projectId}">${totalHours.toFixed(1)}</span>h</small>
+                            </div>
+                            <div class="col-md-4">
+                                <small class="text-muted">Progress: <span class="progress-${projectId} ${progressColor}">${progressPercent.toFixed(1)}%</span></small>
+                            </div>
                         </div>
                     </div>
                 </div>
-            `;
+            </div>
+        `;
             container.append(projectCard);
         });
 
+        // Add event listeners for remove buttons
+        this.attachRemoveProjectListeners();
+    }
+
+    attachRemoveProjectListeners() {
+        $('.remove-project-btn').off('click').on('click', (e) => {
+            const projectId = $(e.target).closest('.remove-project-btn').data('project-id');
+            this.removeProject(projectId);
+        });
+    }
+
+    async removeProject(projectId) {
+        if (this.projects.length <= 1) {
+            this.showAlert('At least one project must remain', 'warning');
+            return;
+        }
+
+        Swal.fire({
+            title: 'Remove Project',
+            text: 'Are you sure you want to remove this project?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, remove it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await fetch(`api/projects.php?project_id=${projectId}&year=${this.currentYear}&month=${this.currentMonth}`, {
+                        method: 'DELETE'
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.success) {
+                        // Remove from local projects array
+                        this.projects = this.projects.filter(p => (p.project_id || p.id) != projectId);
+
+                        // Remove from timesheet data
+                        if (this.timesheetData.projects && this.timesheetData.projects[projectId]) {
+                            delete this.timesheetData.projects[projectId];
+                        }
+
+                        // Re-render projects list
+                        this.renderProjectsList();
+
+                        // Re-render timesheet
+                        this.renderTimesheet();
+
+                        this.showAlert('Project removed successfully', 'success');
+                    } else {
+                        this.showAlert(data.error || 'Failed to remove project', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error removing project:', error);
+                    this.showAlert('Network error occurred', 'error');
+                }
+            }
+        });
     }
 
 
@@ -654,6 +730,338 @@ class TimesheetManager {
         this.renderTimesheet();
     }
 
+
+    // Added this method to calculate and display live totals
+    updateLiveTotals() {
+        // Calculate total work hours across all projects
+        let totalWorkHours = 0;
+        let totalLeaveHours = 0;
+
+        // Calculate project totals
+        this.projects.forEach(project => {
+            const projectHours = Object.values(project.hours || {}).reduce((sum, hours) => sum + (parseFloat(hours) || 0), 0);
+            totalWorkHours += projectHours;
+        });
+
+        // Calculate leave totals
+        const leaveTypes = ['vacation', 'sick_leave', 'holiday', 'personal_leave', 'bereavement', 'other'];
+        leaveTypes.forEach(leaveType => {
+            const leaveHours = Object.values(this.timesheetData.leave_entries[leaveType] || {}).reduce((sum, hours) => sum + (parseFloat(hours) || 0), 0);
+            totalLeaveHours += leaveHours;
+        });
+
+        const grandTotal = totalWorkHours + totalLeaveHours;
+
+        // Update the UI with these totals
+        this.updateTotalsDisplayUI(totalWorkHours, totalLeaveHours, grandTotal);
+    }
+
+    updateTotalsDisplayUI(totalWorkHours, totalLeaveHours, grandTotal) {
+        // Create or update a totals display in the timesheet header or sidebar
+        let totalsDisplay = $('#liveTotalsDisplay');
+
+        if (totalsDisplay.length === 0) {
+            // Create the totals display if it doesn't exist
+            totalsDisplay = $(`
+            <div id="liveTotalsDisplay" class="card mt-3">
+                <div class="card-header">
+                    <h6 class="mb-0">📊 Live Totals</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <small class="text-muted">Total Work Hours</small>
+                            <div class="h5 text-primary" id="totalWorkHours">0.0</div>
+                        </div>
+                        <div class="col-md-4">
+                            <small class="text-muted">Total Leave Hours</small>
+                            <div class="h5 text-warning" id="totalLeaveHours">0.0</div>
+                        </div>
+                        <div class="col-md-4">
+                            <small class="text-muted">Grand Total</small>
+                            <div class="h5 text-success" id="grandTotal">0.0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `);
+
+            // Insert after projects container
+            $('#projectsContainer').after(totalsDisplay);
+        }
+
+        // Update the values
+        $('#totalWorkHours').text(totalWorkHours.toFixed(1));
+        $('#totalLeaveHours').text(totalLeaveHours.toFixed(1));
+        $('#grandTotal').text(grandTotal.toFixed(1));
+    }
+
+    // Update the handleHoursInput method to call live totals
+    async handleHoursInput(input, type, identifier, day) {
+        const value = parseFloat(input.value) || 0;
+
+        // Validate hours (0-24)
+        if (value < 0 || value > 24) {
+            this.showAlert('Hours must be between 0 and 24', 'warning');
+            input.value = '';
+            return;
+        }
+
+        // Update local data immediately for responsive UI
+        if (type === 'project') {
+            const project = this.projects.find(p => (p.project_id || p.id) == identifier);
+            if (project) {
+                if (!project.hours) project.hours = {};
+                project.hours[day] = value;
+            }
+        } else {
+            this.timesheetData.leave_entries[identifier][day] = value;
+        }
+
+        // Update totals immediately
+        this.updateTotalsDisplay();
+
+        // Update project progress
+        this.updateProjectProgress();
+
+        // Update live totals
+        this.updateLiveTotals();
+
+        // Prepare data for saving
+        const saveData = {
+            year: this.currentYear,
+            month: this.currentMonth
+        };
+
+        if (type === 'project') {
+            saveData.project_hours = {
+                [identifier]: {
+                    [day]: value
+                }
+            };
+        } else {
+            saveData.leave_hours = {
+                [identifier]: {
+                    [day]: value
+                }
+            };
+        }
+
+        try {
+            const response = await fetch('api/timesheet.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ action: 'save', ...saveData })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // Update totals from server response to ensure accuracy
+                if (result.totals) {
+                    this.timesheetData.daily_totals = result.totals.daily_totals;
+                    this.timesheetData.leave_totals = result.totals.leave_totals;
+                    this.timesheetData.grand_totals = result.totals.grand_totals;
+                    this.updateTotalsDisplay();
+                    this.updateProjectProgress();
+                    this.updateLiveTotals();
+                }
+            } else {
+                this.showAlert('Failed to save hours', 'error');
+            }
+        } catch (error) {
+            console.error('Error saving hours:', error);
+            this.showAlert('Network error occurred', 'error');
+        }
+    }
+
+    // Also update when loading timesheet
+    async loadTimesheet() {
+        const year = $('#yearSelect').val();
+        const month = $('#monthSelect').val();
+
+        if (!year || !month) {
+            this.showAlert('Please select both year and month', 'warning');
+            return;
+        }
+
+        this.currentYear = parseInt(year);
+        this.currentMonth = parseInt(month);
+
+        this.showLoading('Loading timesheet...');
+
+        try {
+            const response = await fetch('api/timesheet.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ action: 'load', year: this.currentYear, month: this.currentMonth })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                this.calendarData = data.calendar;
+                this.timesheetData = data.timesheet_data;
+                this.projects = data.projects;
+                this.monthDays = data.month_days;
+
+                // Populate project hours from saved data
+                if (this.timesheetData && this.timesheetData.projects) {
+                    this.projects.forEach(project => {
+                        const projectId = strval(project.project_id || project.id);
+                        if (this.timesheetData.projects[projectId]) {
+                            project.hours = this.timesheetData.projects[projectId];
+                        } else {
+                            project.hours = {};
+                        }
+                    });
+                }
+
+                this.renderProjectsList();
+                this.renderTimesheet();
+                this.enableActionButtons();
+
+                // Update live totals after loading
+                this.updateLiveTotals();
+
+                // Enable Add Project button
+                $('#addProjectBtn').prop('disabled', false);
+
+                this.showAlert('Timesheet loaded successfully', 'success');
+            } else {
+                this.showAlert(data.error || 'Failed to load timesheet', 'error');
+            }
+        } catch (error) {
+            console.error('Error loading timesheet:', error);
+            this.showAlert('Network error occurred', 'error');
+        } finally {
+            this.hideLoading();
+        }
+    }
+
+
+
+    // Realtime updates for hours and progress on Timesheet page
+
+    updateProjectProgress() {
+        this.projects.forEach(project => {
+            let totalHours = 0;
+
+            // Calculate total hours for this project
+            Object.values(project.hours || {}).forEach(hours => {
+                totalHours += parseFloat(hours) || 0;
+            });
+
+            const allocatedHours = parseFloat(project.allocated_hours) || 0;
+
+            // Update the project card
+            const projectCard = $(`.project-item[data-project-id="${project.project_id || project.id}"]`);
+            if (projectCard.length) {
+                // Update worked hours
+                projectCard.find(`.worked-hours-${project.project_id || project.id}`).text(totalHours.toFixed(1));
+
+                // Update progress
+                let progressPercent = 0;
+                if (allocatedHours > 0) {
+                    progressPercent = (totalHours / allocatedHours) * 100;
+                }
+                projectCard.find(`.progress-${project.project_id || project.id}`).text(progressPercent.toFixed(1) + '%');
+
+                // Color code based on progress
+                const progressElement = projectCard.find(`.progress-${project.project_id || project.id}`);
+                if (progressPercent > 100) {
+                    progressElement.removeClass('text-success text-warning').addClass('text-danger');
+                } else if (progressPercent >= 80) {
+                    progressElement.removeClass('text-success text-danger').addClass('text-warning');
+                } else {
+                    progressElement.removeClass('text-warning text-danger').addClass('text-success');
+                }
+            }
+        });
+    }
+
+    // Update the handleHoursInput method to include progress calculation
+    async handleHoursInput(input, type, identifier, day) {
+        const value = parseFloat(input.value) || 0;
+
+        // Validate hours (0-24)
+        if (value < 0 || value > 24) {
+            this.showAlert('Hours must be between 0 and 24', 'warning');
+            input.value = '';
+            return;
+        }
+
+        // Update local data immediately for responsive UI
+        if (type === 'project') {
+            const project = this.projects.find(p => (p.project_id || p.id) == identifier);
+            if (project) {
+                if (!project.hours) project.hours = {};
+                project.hours[day] = value;
+            }
+        } else {
+            this.timesheetData.leave_entries[identifier][day] = value;
+        }
+
+        // Update totals immediately
+        this.updateTotalsDisplay();
+
+        // Update project progress
+        this.updateProjectProgress();
+
+        // Prepare data for saving
+        const saveData = {
+            year: this.currentYear,
+            month: this.currentMonth
+        };
+
+        if (type === 'project') {
+            saveData.project_hours = {
+                [identifier]: {
+                    [day]: value
+                }
+            };
+        } else {
+            saveData.leave_hours = {
+                [identifier]: {
+                    [day]: value
+                }
+            };
+        }
+
+        try {
+            const response = await fetch('api/timesheet.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ action: 'save', ...saveData })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // Update totals from server response to ensure accuracy
+                if (result.totals) {
+                    this.timesheetData.daily_totals = result.totals.daily_totals;
+                    this.timesheetData.leave_totals = result.totals.leave_totals;
+                    this.timesheetData.grand_totals = result.totals.grand_totals;
+                    this.updateTotalsDisplay();
+                    this.updateProjectProgress();
+                }
+            } else {
+                this.showAlert('Failed to save hours', 'error');
+            }
+        } catch (error) {
+            console.error('Error saving hours:', error);
+            this.showAlert('Network error occurred', 'error');
+        }
+    }
+
+
     async previewTimesheet() {
         console.log('Starting preview generation...');
 
@@ -698,6 +1106,113 @@ class TimesheetManager {
         }
     }
 
+    showPreview(previewData) {
+        const previewContent = $('#previewContent');
+
+        let html = `
+        <div class="preview-content">
+            <h4 class="text-center mb-4">MERQ CONSULTANCY</h4>
+            <p class="text-center"><strong>ወርሃዊ የስራ ሰዓት መከታተያ / Monthly Timesheet Tracker</strong></p>
+            <hr>
+            
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <p><strong>ሰራተኛ/አማካሪ ስም / Employee/Consultant Name:</strong> ${window.userData && window.userData.full_name ? window.userData.full_name : 'Current User'}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>ወር / Month:</strong> ${previewData.month_name} ${previewData.year}</p>
+                </div>
+            </div>
+
+            <h5>ፕሮጀክቶች / Projects Summary:</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Total Hours</th>
+                            <th>Allocated Hours</th>
+                            <th>Equivalent Days</th>
+                            <th>% of Direct</th>
+                            <th>% of Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    `;
+
+        if (previewData.project_totals && previewData.project_totals.length > 0) {
+            previewData.project_totals.forEach(project => {
+                // Convert to numbers to ensure toFixed works
+                const totalHours = parseFloat(project.total_hours) || 0;
+                const allocatedHours = parseFloat(project.allocated_hours) || 0;
+                const equivDays = parseFloat(project.equiv_days) || 0;
+                const percentDirect = parseFloat(project.percent_direct) || 0;
+                const percentTotal = parseFloat(project.percent_total) || 0;
+
+                html += `
+                <tr>
+                    <td>${project.name || 'Unknown Project'}</td>
+                    <td>${totalHours.toFixed(1)}</td>
+                    <td>${allocatedHours.toFixed(1)}</td>
+                    <td>${equivDays.toFixed(1)}</td>
+                    <td>${percentDirect.toFixed(1)}%</td>
+                    <td>${percentTotal.toFixed(1)}%</td>
+                </tr>
+            `;
+            });
+        } else {
+            html += `
+            <tr>
+                <td colspan="6" class="text-center">No project data available</td>
+            </tr>
+        `;
+        }
+
+        html += `
+                    </tbody>
+                </table>
+            </div>
+
+            <h5 class="mt-4">ጠቅላላ ሰዓቶች ማጠቃለያ / Total Hours Summary:</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-bordered table-sm">
+                        <tr>
+                            <th>Total Work Hours:</th>
+                            <td class="fw-bold">${parseFloat(previewData.total_work_hours || 0).toFixed(1)}</td>
+                        </tr>
+                        <tr>
+                            <th>Total Leave Hours:</th>
+                            <td class="fw-bold">${parseFloat(previewData.total_leave_hours || 0).toFixed(1)}</td>
+                        </tr>
+                        <tr>
+                            <th>Grand Total:</th>
+                            <td class="fw-bold text-success">${parseFloat(previewData.grand_total || 0).toFixed(1)}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <h6>Declaration:</h6>
+                <p class="mb-2">
+                    እኔ፣ ከዚህ በላይ ያለው መረጃ እውነት መሆኑን፣ ከእውነታው በኋላ የሚወሰነው እና በእኔ በተከናወነው ትክክለኛ ስራ ላይ የተመሰረተ መሆኑን እገልጻለሁ።
+                </p>
+                <p class="mb-0">
+                    I, hereby declare that the foregoing information is true, is determined after the fact and is based on actual work performed by me.
+                </p>
+            </div>
+        </div>
+    `;
+
+        previewContent.html(html);
+        $('#previewModal').modal('show');
+    }
+
+
+
+
+    /*
     showPreview(previewData) {
         const previewContent = $('#previewContent');
 
@@ -794,6 +1309,8 @@ class TimesheetManager {
         $('#previewModal').modal('show');
     }
 
+    */
+
     async testApi() {
         try {
             console.log('Testing API connection...');
@@ -809,6 +1326,7 @@ class TimesheetManager {
         }
     }
 
+    /*
     showPreview(previewData) {
         const previewContent = $('#previewContent');
 
@@ -896,6 +1414,7 @@ class TimesheetManager {
         previewContent.html(html);
         $('#previewModal').modal('show');
     }
+    */
 
     exportTimesheet() {
         window.location.href = `api/export.php?year=${this.currentYear}&month=${this.currentMonth}`;

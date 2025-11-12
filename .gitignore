@@ -3,6 +3,8 @@
 *.log
 *.zip
 *.code-workspace
+apps/performance/xindex.php
+apps/performance/xindex.html
 apps/performance/app/
 apps/performance/test/
 apps/performance/includes/cache/
@@ -13,3 +15,4 @@ apps/internal/temp/
 apps/formapps/
 apps/ussd/
 apps/ts/vendor/
+apps/timesheet/desktop/
