@@ -144,6 +144,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
                 break;
 
+            case 'clear':
+                $year = intval($input['year'] ?? 0);
+                $month = intval($input['month'] ?? 0);
+
+                if (!$year || !$month) {
+                    Utils::jsonResponse(['error' => 'Year and month are required'], 400);
+                }
+
+                $monthDays = EthiopianDateConverter::getEthiopianMonthDays($year, $month);
+
+                // Clear timesheet data
+                $timesheetKey = "timesheet_{$userId}_{$year}_{$month}";
+                if (isset($_SESSION[$timesheetKey])) {
+                    // Clear project hours
+                    foreach ($_SESSION[$timesheetKey]['projects'] as $projectId => $projectData) {
+                        $_SESSION[$timesheetKey]['projects'][$projectId] = array_fill(1, $monthDays, 0.0);
+
+                        // Clear hours in database for each day
+                        for ($day = 1; $day <= $monthDays; $day++) {
+                            $projectModel->updateProjectHours($userId, $year, $month, $projectId, $day, 0.0);
+                        }
+                    }
+
+                    // Clear all leave hours
+                    foreach ($_SESSION[$timesheetKey]['leave_entries'] as $leaveType => $leaveData) {
+                        $_SESSION[$timesheetKey]['leave_entries'][$leaveType] = array_fill(1, $monthDays, 0.0);
+                    }
+
+                    // Reset totals
+                    $_SESSION[$timesheetKey]['daily_totals'] = array_fill(1, $monthDays, 0.0);
+                    $_SESSION[$timesheetKey]['leave_totals'] = array_fill(1, $monthDays, 0.0);
+                    $_SESSION[$timesheetKey]['grand_totals'] = array_fill(1, $monthDays, 0.0);
+                }
+
+                Utils::jsonResponse([
+                    'success' => true,
+                    'message' => 'Timesheet cleared successfully',
+                    'totals' => [
+                        'daily_totals' => array_fill(1, $monthDays, 0.0),
+                        'leave_totals' => array_fill(1, $monthDays, 0.0),
+                        'grand_totals' => array_fill(1, $monthDays, 0.0)
+                    ]
+                ]);
+                break;                
+
             case 'prefill':
                 $year = intval($input['year'] ?? 0);
                 $month = intval($input['month'] ?? 0);
@@ -231,6 +276,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ]
                 ]);
                 break;
+
+            case 'add_projects':
+                $year = intval($input['year'] ?? 0);
+                $month = intval($input['month'] ?? 0);
+                $projectIds = $input['project_ids'] ?? [];
+                $allocatedHours = floatval($input['allocated_hours'] ?? 0);
+
+                if (!$year || !$month) {
+                    Utils::jsonResponse(['error' => 'Year and month are required'], 400);
+                }
+
+                if (empty($projectIds)) {
+                    Utils::jsonResponse(['error' => 'No projects selected'], 400);
+                }
+
+                // Add projects to user's allocations
+                $addedProjects = [];
+                foreach ($projectIds as $projectId) {
+                    // Get project name first
+                    $project = $projectModel->getProjectById($projectId);
+                    if ($project) {
+                        $result = $projectModel->addUserProject($userId, $year, $month, $project['project_name'], $allocatedHours);
+                        if ($result) {
+                            $addedProjects[] = $result;
+                        }
+                    }
+                }
+
+                if (!empty($addedProjects)) {
+                    Utils::jsonResponse([
+                        'success' => true,
+                        'message' => count($addedProjects) . ' project(s) added successfully',
+                        'added_projects' => $addedProjects
+                    ]);
+                } else {
+                    Utils::jsonResponse(['error' => 'Failed to add projects'], 500);
+                }
+                break;                
 
             case 'preview':
                 $year = intval($input['year'] ?? 0);

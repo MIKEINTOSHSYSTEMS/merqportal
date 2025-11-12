@@ -665,11 +665,6 @@ class TimesheetManager {
         this.showLoading('Generating preview...');
 
         try {
-            console.log('Sending preview request:', {
-                year: this.currentYear,
-                month: this.currentMonth
-            });
-
             const response = await fetch('api/timesheet.php', {
                 method: 'POST',
                 headers: {
@@ -682,12 +677,8 @@ class TimesheetManager {
                 })
             });
 
-            console.log('Response status:', response.status);
-            console.log('Response ok:', response.ok);
-
             if (!response.ok) {
                 const errorText = await response.text();
-                console.error('Server response error:', errorText);
                 throw new Error(`Server returned ${response.status}: ${errorText}`);
             }
 
@@ -705,6 +696,102 @@ class TimesheetManager {
         } finally {
             this.hideLoading();
         }
+    }
+
+    showPreview(previewData) {
+        const previewContent = $('#previewContent');
+
+        let html = `
+        <div class="preview-content">
+            <h4 class="text-center mb-4">MERQ CONSULTANCY</h4>
+            <p class="text-center"><strong>ወርሃዊ የስራ ሰዓት መከታተያ / Monthly Timesheet Tracker</strong></p>
+            <hr>
+            
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <p><strong>ሰራተኛ/አማካሪ ስም / Employee/Consultant Name:</strong> ${window.userData && window.userData.full_name ? window.userData.full_name : 'Current User'}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>ወር / Month:</strong> ${previewData.month_name} ${previewData.year}</p>
+                </div>
+            </div>
+
+            <h5>ፕሮጀክቶች / Projects Summary:</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Total Hours</th>
+                            <th>Allocated Hours</th>
+                            <th>Equivalent Days</th>
+                            <th>% of Direct</th>
+                            <th>% of Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    `;
+
+        if (previewData.project_totals && previewData.project_totals.length > 0) {
+            previewData.project_totals.forEach(project => {
+                html += `
+                <tr>
+                    <td>${project.name || 'Unknown Project'}</td>
+                    <td>${project.total_hours ? project.total_hours.toFixed(1) : '0.0'}</td>
+                    <td>${project.allocated_hours ? project.allocated_hours.toFixed(1) : '0.0'}</td>
+                    <td>${project.equiv_days ? project.equiv_days.toFixed(1) : '0.0'}</td>
+                    <td>${project.percent_direct ? project.percent_direct.toFixed(1) : '0.0'}%</td>
+                    <td>${project.percent_total ? project.percent_total.toFixed(1) : '0.0'}%</td>
+                </tr>
+            `;
+            });
+        } else {
+            html += `
+            <tr>
+                <td colspan="6" class="text-center">No project data available</td>
+            </tr>
+        `;
+        }
+
+        html += `
+                    </tbody>
+                </table>
+            </div>
+
+            <h5 class="mt-4">ጠቅላላ ሰዓቶች ማጠቃለያ / Total Hours Summary:</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-bordered table-sm">
+                        <tr>
+                            <th>Total Work Hours:</th>
+                            <td class="fw-bold">${previewData.total_work_hours ? previewData.total_work_hours.toFixed(1) : '0.0'}</td>
+                        </tr>
+                        <tr>
+                            <th>Total Leave Hours:</th>
+                            <td class="fw-bold">${previewData.total_leave_hours ? previewData.total_leave_hours.toFixed(1) : '0.0'}</td>
+                        </tr>
+                        <tr>
+                            <th>Grand Total:</th>
+                            <td class="fw-bold text-success">${previewData.grand_total ? previewData.grand_total.toFixed(1) : '0.0'}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <h6>Declaration:</h6>
+                <p class="mb-2">
+                    እኔ፣ ከዚህ በላይ ያለው መረጃ እውነት መሆኑን፣ ከእውነታው በኋላ የሚወሰነው እና በእኔ በተከናወነው ትክክለኛ ስራ ላይ የተመሰረተ መሆኑን እገልጻለሁ።
+                </p>
+                <p class="mb-0">
+                    I, hereby declare that the foregoing information is true, is determined after the fact and is based on actual work performed by me.
+                </p>
+            </div>
+        </div>
+    `;
+
+        previewContent.html(html);
+        $('#previewModal').modal('show');
     }
 
     async testApi() {
@@ -976,11 +1063,11 @@ class TimesheetManager {
 
             const data = await response.json();
 
-            if (response.ok) {
+            if (response.ok && data.success) {
                 // Reload the timesheet to show new projects
                 await this.loadTimesheet();
                 $('#addProjectModal').modal('hide');
-                this.showAlert('Projects added successfully', 'success');
+                this.showAlert(data.message || 'Projects added successfully', 'success');
             } else {
                 this.showAlert(data.error || 'Failed to add projects', 'error');
             }

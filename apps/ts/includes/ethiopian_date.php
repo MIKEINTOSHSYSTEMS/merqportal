@@ -2,27 +2,29 @@
 require_once __DIR__ . '/../config/constants.php';
 
 class EthiopianDateConverter {
-
-
     public static function gregorianToEthiopian($gregDate) {
-        $gregYear = date('Y', strtotime($gregDate));
-        $gregMonth = date('n', strtotime($gregDate));
-        $gregDay = date('j', strtotime($gregDate));
+        if (is_string($gregDate)) {
+            $gregDate = strtotime($gregDate);
+        }
+        
+        $gregYear = date('Y', $gregDate);
+        $gregMonth = date('n', $gregDate);
+        $gregDay = date('j', $gregDate);
 
         // Ethiopian New Year in Gregorian calendar is September 11 or 12
         $ethYear = $gregYear;
 
         // Calculate days from Ethiopian New Year (Meskerem 1)
-        $newYearDay = 12;
+        $newYearDay = 11; // September 11
         
         $newYear = strtotime("$gregYear-09-$newYearDay");
-        $currentDate = strtotime($gregDate);
+        $currentDate = $gregDate;
         
         if ($currentDate >= $newYear) {
             $daysDiff = floor(($currentDate - $newYear) / (60 * 60 * 24));
         } else {
             $prevEthYear = $ethYear - 1;
-            $prevNewYearDay = 12;
+            $prevNewYearDay = 11;
             $prevNewYear = strtotime(($gregYear - 1) . "-09-$prevNewYearDay");
             $daysDiff = floor(($currentDate - $prevNewYear) / (60 * 60 * 24));
         }
@@ -57,45 +59,56 @@ class EthiopianDateConverter {
     }
     
     public static function getEthiopianWeekday($year, $month, $day) {
+        // Convert Ethiopian date to Gregorian first
         $gregDate = self::ethiopianToGregorian($year, $month, $day);
-        // date('N') returns 1=Monday, 7=Sunday
-        // We need 0=Monday, 6=Sunday for our array indexing
-        $weekdayIndex = date('N', strtotime($gregDate)) - 1;
-
-        // Debug logging
-        error_log("Ethiopian date $year-$month-$day -> Gregorian $gregDate -> weekday index $weekdayIndex");
-
+        
+        // Get weekday (0=Sunday, 6=Saturday)
+        $weekday = date('w', strtotime($gregDate));
+        
+        // Convert to our system (0=Monday, 6=Sunday)
+        $weekdayIndex = ($weekday + 6) % 7;
+        
         return $weekdayIndex;
+    }
+
+    public static function ethiopianToGregorian($ethYear, $ethMonth, $ethDay) {
+        // Calculate approximate Gregorian year
+        $gregYear = $ethYear + 7;
+        if ($ethMonth >= 1 && $ethMonth <= 5) {
+            $gregYear = $ethYear + 7;
+        } else {
+            $gregYear = $ethYear + 8;
+        }
+        
+        // Calculate days from Ethiopian New Year
+        $daysFromNewYear = ($ethMonth - 1) * 30 + ($ethDay - 1);
+        
+        // Handle Pagume adjustments
+        if ($ethMonth == 13) {
+            if ($ethYear % 4 == 3) { // Leap year
+                $daysFromNewYear = 360 + ($ethDay - 1);
+            } else {
+                $daysFromNewYear = 359 + ($ethDay - 1);
+            }
+        }
+        
+        // Ethiopian New Year in Gregorian is September 11
+        $newYearDay = 11;
+        $newYear = "$gregYear-09-$newYearDay";
+        
+        // Calculate Gregorian date
+        $gregDate = date('Y-m-d', strtotime("$newYear +$daysFromNewYear days"));
+        
+        return $gregDate;
     }
 
     public static function formatEthiopianDate($day, $month, $year) {
         return sprintf("%d/%d/%d", $day, $month, $year);
     }
     
-    public static function ethiopianToGregorian($ethYear, $ethMonth, $ethDay) {
-        $gregYear = $ethYear;
-
-        $daysFromNewYear = ($ethMonth - 1) * 30 + ($ethDay - 1);
-
-        if ($ethMonth == 13) {
-            if ($ethYear % 4 == 3) {
-                $daysFromNewYear = 360 + ($ethDay - 1);
-            } else {
-                $daysFromNewYear = 359 + ($ethDay - 1);
-            }
-        }
-
-        $newYearDay = 12;
-        
-        $newYear = "$gregYear-09-$newYearDay";
-        $gregDate = date('Y-m-d', strtotime("$newYear +$daysFromNewYear days"));
-        
-        return $gregDate;
-    }
-    
     public static function getCurrentEthiopianDate() {
         try {
-            // Try API first with proper timeout and error handling
+            // Try API first
             $context = stream_context_create([
                 'http' => [
                     'timeout' => 10,
@@ -108,9 +121,6 @@ class EthiopianDateConverter {
             if ($apiResponse !== false) {
                 $data = json_decode($apiResponse, true);
                 if ($data && isset($data['year'])) {
-                    // Log successful API call
-                    error_log("Ethiopian API Success: " . json_encode($data));
-
                     return [
                         'year' => intval($data['year']),
                         'month' => intval($data['month_number']),
@@ -128,11 +138,8 @@ class EthiopianDateConverter {
         }
 
         // Fallback to local calculation
-        error_log("Using fallback Ethiopian date calculation");
         $currentGreg = date('Y-m-d');
-        error_log("Current Gregorian date: $currentGreg");
         $ethDate = self::gregorianToEthiopian($currentGreg);
-        error_log("Calculated Ethiopian date: " . json_encode($ethDate));
         $weekdayIndex = self::getEthiopianWeekday($ethDate['year'], $ethDate['month'], $ethDate['day']);
 
         return [
@@ -148,8 +155,6 @@ class EthiopianDateConverter {
     }
 
     public static function getEthiopianDateForMonth($year, $month, $day) {
-        // For historical dates, we need to calculate rather than use current API
-        // The API only gives current date, so we use local calculation for specific dates
         $gregDate = self::ethiopianToGregorian($year, $month, $day);
         $weekdayIndex = self::getEthiopianWeekday($year, $month, $day);
 
