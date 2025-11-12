@@ -30,9 +30,11 @@ class SessionManager {
     public static function destroy() {
         session_unset();
         session_destroy();
+        session_start(); // Start fresh session
     }
     
     public static function isLoggedIn() {
+        self::start(); // Ensure session is started
         return isset($_SESSION['user_id']) && isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
     }
     
@@ -46,6 +48,10 @@ class SessionManager {
     
     public static function getUser() {
         return self::get('user_data');
+    }
+    
+    public static function getUserId() {
+        return self::get('user_id');
     }
 }
 ?>

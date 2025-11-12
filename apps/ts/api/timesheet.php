@@ -6,8 +6,12 @@ require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../models/Timesheet.php';
 require_once __DIR__ . '/../models/Project.php';
 
-SessionManager::requireLogin();
+SessionManager::start();
 header('Content-Type: application/json');
+
+if (!SessionManager::isLoggedIn()) {
+    Utils::jsonResponse(['error' => 'Unauthorized'], 401);
+}
 
 $currentUser = SessionManager::getUser();
 $userId = $currentUser['user_id'];
@@ -67,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Populate project hours from database
                 foreach ($projects as &$project) {
-                    $projectId = strval($project['project_id']);
+                    $projectId = strval($project['project_id'] ?? $project['id']);
                     $project['hours'] = $projectModel->getProjectHours($userId, $year, $month, $projectId);
 
                     // Also populate in timesheetData for consistency
@@ -92,7 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     Utils::jsonResponse(['error' => 'Year and month are required'], 400);
                 }
 
-                $timesheetData = initializeUserTimesheet($userId, $year, $month, EthiopianDateConverter::getEthiopianMonthDays($year, $month));
+                $monthDays = EthiopianDateConverter::getEthiopianMonthDays($year, $month);
+                $timesheetData = initializeUserTimesheet($userId, $year, $month, $monthDays);
 
                 // Save project hours using Project model
                 foreach ($projectHours as $projectId => $hoursData) {
@@ -103,10 +108,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     foreach ($hoursData as $day => $hours) {
                         $dayNum = intval($day);
                         $hoursFloat = floatval($hours);
-                        $timesheetData['projects'][$projectId][$dayNum] = $hoursFloat;
+                        
+                        if ($dayNum >= 1 && $dayNum <= $monthDays) {
+                            $timesheetData['projects'][$projectId][$dayNum] = $hoursFloat;
 
-                        // Save to database using Project model
-                        $projectModel->updateProjectHours($userId, $year, $month, $projectId, $dayNum, $hoursFloat);
+                            // Save to database using Project model
+                            $projectModel->updateProjectHours($userId, $year, $month, $projectId, $dayNum, $hoursFloat);
+                        }
                     }
                 }
 
@@ -115,7 +123,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if (isset($timesheetData['leave_entries'][$leaveType])) {
                         foreach ($hoursData as $day => $hours) {
                             $dayNum = intval($day);
-                            $timesheetData['leave_entries'][$leaveType][$dayNum] = floatval($hours);
+                            if ($dayNum >= 1 && $dayNum <= $monthDays) {
+                                $timesheetData['leave_entries'][$leaveType][$dayNum] = floatval($hours);
+                            }
                         }
                     }
                 }
@@ -153,7 +163,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     Utils::jsonResponse(['error' => 'No projects found'], 400);
                 }
 
-                $firstProjectId = strval($projects[0]['id']);
+                // Use project_id instead of id
+                $firstProject = $projects[0];
+                $firstProjectId = strval($firstProject['project_id'] ?? $firstProject['id']);
                 $prefilledData = [];
 
                 Utils::logToFile("Prefilling hours for project $firstProjectId, month has $monthDays days");
@@ -196,7 +208,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Get updated project data from database
                 $updatedProjects = $projectModel->getUserProjects($userId, $year, $month);
                 foreach ($updatedProjects as &$project) {
-                    $project['hours'] = $projectModel->getProjectHours($userId, $year, $month, $project['id']);
+                    $projectId = strval($project['project_id'] ?? $project['id']);
+                    $project['hours'] = $projectModel->getProjectHours($userId, $year, $month, $projectId);
                 }
 
                 // Get updated totals
@@ -238,102 +251,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
                 break;
 
-            case 'add_projects':
-                $year = intval($input['year'] ?? 0);
-                $month = intval($input['month'] ?? 0);
-                $projectIds = $input['project_ids'] ?? [];
-                $allocatedHours = floatval($input['allocated_hours'] ?? 0);
-
-                if (!$year || !$month) {
-                    Utils::jsonResponse(['error' => 'Year and month are required'], 400);
-                }
-
-                if (empty($projectIds)) {
-                    Utils::jsonResponse(['error' => 'No projects selected'], 400);
-                }
-
-                // Add projects to user's allocations
-                $addedProjects = [];
-                foreach ($projectIds as $projectId) {
-                    $result = $projectModel->addUserProject($userId, $year, $month, $projectId, $allocatedHours);
-                    if ($result) {
-                        $addedProjects[] = $result;
-                    }
-                }
-
-                if (!empty($addedProjects)) {
-                    Utils::jsonResponse([
-                        'success' => true,
-                        'message' => count($addedProjects) . ' project(s) added successfully',
-                        'added_projects' => $addedProjects
-                    ]);
-                } else {
-                    Utils::jsonResponse(['error' => 'Failed to add projects'], 500);
-                }
-                break;
-
-            case 'submit':
-                $year = intval($input['year'] ?? 0);
-                $month = intval($input['month'] ?? 0);
-
-                if (!$year || !$month) {
-                    Utils::jsonResponse(['error' => 'Year and month are required'], 400);
-                }
-
-                // Calculate totals for submission
-                $totals = calculateTimesheetTotals($userId, $year, $month);
-
-                Utils::jsonResponse([
-                    'success' => true,
-                    'message' => 'Timesheet submitted to HR successfully',
-                    'totals' => $totals
-                ]);
-                break;
-
-            case 'clear':
-                $year = intval($input['year'] ?? 0);
-                $month = intval($input['month'] ?? 0);
-
-                if (!$year || !$month) {
-                    Utils::jsonResponse(['error' => 'Year and month are required'], 400);
-                }
-
-                $monthDays = EthiopianDateConverter::getEthiopianMonthDays($year, $month);
-                $timesheetData = initializeUserTimesheet($userId, $year, $month, $monthDays);
-
-                // Get projects from database
-                $projects = $projectModel->getUserProjects($userId, $year, $month);
-
-                // Clear all project hours in database and session
-                foreach ($projects as $project) {
-                    $projectId = strval($project['id']);
-                    $timesheetData['projects'][$projectId] = array_fill(1, $monthDays, 0.0);
-
-                    // Clear hours in database for each day
-                    for ($day = 1; $day <= $monthDays; $day++) {
-                        $projectModel->updateProjectHours($userId, $year, $month, $projectId, $day, 0.0);
-                    }
-                }
-
-                // Clear all leave hours
-                foreach ($timesheetData['leave_entries'] as $leaveType => $leaveData) {
-                    $timesheetData['leave_entries'][$leaveType] = array_fill(1, $monthDays, 0.0);
-                }
-
-                // Update totals
-                updateAllTotals($userId, $year, $month);
-
-                Utils::jsonResponse([
-                    'success' => true,
-                    'message' => 'Timesheet cleared successfully',
-                    'totals' => [
-                        'daily_totals' => $timesheetData['daily_totals'],
-                        'leave_totals' => $timesheetData['leave_totals'],
-                        'grand_totals' => $timesheetData['grand_totals']
-                    ]
-                ]);
-                break;
-
             default:
                 Utils::jsonResponse(['error' => 'Invalid action'], 400);
         }
@@ -370,28 +287,6 @@ function initializeUserTimesheet($userId, $year, $month, $monthDays) {
     return $_SESSION[$timesheetKey];
 }
 
-function initializeUserProjects($userId, $year, $month) {
-    $timesheetKey = "projects_{$userId}_{$year}_{$month}";
-
-    if (!isset($_SESSION[$timesheetKey])) {
-        // Calculate dynamic hours for MERQ Internal
-        $monthDays = EthiopianDateConverter::getEthiopianMonthDays($year, $month);
-        $totalHours = calculateTotalWorkingHours($year, $month);
-
-        $_SESSION[$timesheetKey] = [
-            [
-                'id' => 1,
-                'name' => 'MERQ Internal',
-                'allocated_hours' => $totalHours,
-                'total_hours' => 0.0,
-                'hours' => []
-            ]
-        ];
-    }
-
-    return $_SESSION[$timesheetKey];
-}
-
 function calculateTotalWorkingHours($year, $month) {
     $monthDays = EthiopianDateConverter::getEthiopianMonthDays($year, $month);
     $totalHours = 0.0;
@@ -417,7 +312,6 @@ function calculateTotalWorkingHours($year, $month) {
 
 function updateAllTotals($userId, $year, $month) {
     $timesheetKey = "timesheet_{$userId}_{$year}_{$month}";
-    $projectsKey = "projects_{$userId}_{$year}_{$month}";
 
     if (!isset($_SESSION[$timesheetKey])) {
         return;
@@ -433,24 +327,11 @@ function updateAllTotals($userId, $year, $month) {
 
     // Calculate project totals
     foreach ($timesheetData['projects'] as $projectId => $projectData) {
-        $totalHours = 0;
         foreach ($projectData as $day => $hours) {
             if ($day >= 1 && $day <= $monthDays) {
                 $hours = floatval($hours);
-                $totalHours += $hours;
                 $timesheetData['daily_totals'][$day] += $hours;
                 $timesheetData['grand_totals'][$day] += $hours;
-            }
-        }
-
-        // Update project total in projects session
-        if (isset($_SESSION[$projectsKey])) {
-            foreach ($_SESSION[$projectsKey] as &$project) {
-                if (strval($project['id']) === strval($projectId)) {
-                    $project['total_hours'] = $totalHours;
-                    $project['hours'] = $projectData;
-                    break;
-                }
             }
         }
     }
@@ -469,7 +350,6 @@ function updateAllTotals($userId, $year, $month) {
 
 function calculateTimesheetTotals($userId, $year, $month) {
     $timesheetKey = "timesheet_{$userId}_{$year}_{$month}";
-    $projectsKey = "projects_{$userId}_{$year}_{$month}";
 
     if (!isset($_SESSION[$timesheetKey])) {
         return [
@@ -484,8 +364,11 @@ function calculateTimesheetTotals($userId, $year, $month) {
     }
 
     $timesheetData = $_SESSION[$timesheetKey];
-    $projects = $_SESSION[$projectsKey] ?? [];
     $monthDays = EthiopianDateConverter::getEthiopianMonthDays($year, $month);
+
+    // Get projects from database
+    $projectModel = new Project();
+    $projects = $projectModel->getUserProjects($userId, $year, $month);
 
     // Calculate project totals with percentages
     $projectTotals = [];
@@ -494,13 +377,13 @@ function calculateTimesheetTotals($userId, $year, $month) {
     $grandTotal = $totalWorkHours + $totalLeaveHours;
 
     foreach ($projects as $project) {
-        $projectId = strval($project['id']);
+        $projectId = strval($project['project_id'] ?? $project['id']);
         $projectTotal = isset($timesheetData['projects'][$projectId]) ?
             array_sum($timesheetData['projects'][$projectId]) : 0.0;
         $allocatedHours = $project['allocated_hours'] ?? 0;
 
         $projectTotals[] = [
-            'name' => $project['name'],
+            'name' => $project['project_name'] ?? $project['name'],
             'total_hours' => $projectTotal,
             'allocated_hours' => $allocatedHours,
             'equiv_days' => $projectTotal / 8,

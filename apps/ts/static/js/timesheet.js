@@ -550,7 +550,16 @@ class TimesheetManager {
                         })
                     });
 
-                    const data = await response.json();
+                    // Handle non-JSON responses
+                    const responseText = await response.text();
+                    let data;
+
+                    try {
+                        data = JSON.parse(responseText);
+                    } catch (e) {
+                        console.error('Invalid JSON response:', responseText);
+                        throw new Error('Server returned invalid response');
+                    }
 
                     if (response.ok) {
                         console.log('Prefill response:', data);
@@ -572,6 +581,11 @@ class TimesheetManager {
                             this.timesheetData.grand_totals = data.totals.grand_totals;
                         }
 
+                        // Update input fields with prefilled data
+                        if (data.prefilled_data) {
+                            this.populatePrefilledData(data.prefilled_data, data.projects);
+                        }
+
                         // Re-render the timesheet to reflect changes
                         this.renderTimesheet();
 
@@ -587,6 +601,33 @@ class TimesheetManager {
                 }
             }
         });
+    }
+
+    populatePrefilledData(prefilledData, updatedProjects) {
+        // Update projects data if provided
+        if (updatedProjects) {
+            this.projects = updatedProjects;
+            this.renderProjectsList();
+        }
+
+        // Update input fields with prefilled data
+        Object.keys(prefilledData).forEach(day => {
+            const hours = prefilledData[day];
+            // Find the first project (MERQ Internal) input for this day
+            if (this.projects.length > 0) {
+                const firstProject = this.projects[0];
+                const firstProjectId = firstProject.project_id || firstProject.id;
+                const input = $(`.hours-input[data-project-id="${firstProjectId}"][data-day="${day}"]`);
+                if (input.length > 0) {
+                    input.val(hours);
+                    // Trigger input event to update totals
+                    input.trigger('input');
+                }
+            }
+        });
+
+        // Re-render the timesheet to reflect all changes
+        this.renderTimesheet();
     }
 
     populatePrefilledData(prefilledData, updatedProjects) {

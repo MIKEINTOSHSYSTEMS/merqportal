@@ -60,34 +60,133 @@ class Project {
         }
     }
 
-    public function getUserProjects($userId) {
-        // This would get projects assigned to a user
-        // For now, return all projects
-        return $this->getAllProjects();
+    public function getUserProjects($userId, $year, $month) {
+        try {
+            // Check if user has projects for this month/year
+            $stmt = $this->db->prepare("
+                SELECT up.*, p.project_name, p.project_code 
+                FROM user_projects up 
+                JOIN projects p ON up.project_id = p.project_id 
+                WHERE up.user_id = ? AND up.year = ? AND up.month = ?
+            ");
+            $stmt->execute([$userId, $year, $month]);
+            $userProjects = $stmt->fetchAll();
+
+            // If no projects, create default MERQ Internal project
+            if (empty($userProjects)) {
+                $defaultProject = $this->addUserProject($userId, $year, $month, 'MERQ Internal', 0);
+                return [$defaultProject];
+            }
+
+            return $userProjects;
+        } catch (PDOException $e) {
+            error_log("Error getting user projects: " . $e->getMessage());
+            return [];
+        }
     }
 
     public function addUserProject($userId, $year, $month, $projectName, $allocatedHours) {
-        // This would add a project to user's timesheet
-        // For now, just return true
-        return true;
+        try {
+            // First, check if project exists
+            $stmt = $this->db->prepare("SELECT project_id FROM projects WHERE project_name = ? AND is_active = 1");
+            $stmt->execute([$projectName]);
+            $project = $stmt->fetch();
+
+            $projectId = null;
+            if ($project) {
+                $projectId = $project['project_id'];
+            } else {
+                // Create new project
+                $stmt = $this->db->prepare("INSERT INTO projects (project_name, is_active, created_at) VALUES (?, 1, NOW())");
+                $stmt->execute([$projectName]);
+                $projectId = $this->db->lastInsertId();
+            }
+
+            // Add to user projects
+            $stmt = $this->db->prepare("
+                INSERT INTO user_projects (user_id, project_id, year, month, allocated_hours, created_at) 
+                VALUES (?, ?, ?, ?, ?, NOW())
+            ");
+            $stmt->execute([$userId, $projectId, $year, $month, $allocatedHours]);
+
+            return [
+                'project_id' => $projectId,
+                'project_name' => $projectName,
+                'allocated_hours' => $allocatedHours,
+                'year' => $year,
+                'month' => $month
+            ];
+        } catch (PDOException $e) {
+            error_log("Error adding user project: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function deleteUserProject($userId, $year, $month, $projectId) {
-        // This would remove a project from user's timesheet
-        // For now, just return true
-        return true;
+        try {
+            $stmt = $this->db->prepare("
+                DELETE FROM user_projects 
+                WHERE user_id = ? AND project_id = ? AND year = ? AND month = ?
+            ");
+            return $stmt->execute([$userId, $projectId, $year, $month]);
+        } catch (PDOException $e) {
+            error_log("Error deleting user project: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function getProjectHours($userId, $year, $month, $projectId) {
-        // This would get hours for a project in user's timesheet
-        // For now, return empty array
-        return array_fill(1, 30, 0.0);
+        try {
+            $stmt = $this->db->prepare("
+                SELECT day, hours FROM project_hours 
+                WHERE user_id = ? AND project_id = ? AND year = ? AND month = ?
+            ");
+            $stmt->execute([$userId, $projectId, $year, $month]);
+            $hours = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+            
+            $monthDays = EthiopianDateConverter::getEthiopianMonthDays($year, $month);
+            $result = [];
+            for ($day = 1; $day <= $monthDays; $day++) {
+                $result[$day] = floatval($hours[$day] ?? 0.0);
+            }
+            
+            return $result;
+        } catch (PDOException $e) {
+            error_log("Error getting project hours: " . $e->getMessage());
+            $monthDays = EthiopianDateConverter::getEthiopianMonthDays($year, $month);
+            return array_fill(1, $monthDays, 0.0);
+        }
     }
 
     public function updateProjectHours($userId, $year, $month, $projectId, $day, $hours) {
-        // This would update hours for a project in user's timesheet
-        // For now, just return true
-        return true;
+        try {
+            // Check if record exists
+            $stmt = $this->db->prepare("
+                SELECT id FROM project_hours 
+                WHERE user_id = ? AND project_id = ? AND year = ? AND month = ? AND day = ?
+            ");
+            $stmt->execute([$userId, $projectId, $year, $month, $day]);
+            $existing = $stmt->fetch();
+
+            if ($existing) {
+                // Update existing
+                $stmt = $this->db->prepare("
+                    UPDATE project_hours SET hours = ?, updated_at = NOW() 
+                    WHERE user_id = ? AND project_id = ? AND year = ? AND month = ? AND day = ?
+                ");
+                return $stmt->execute([$hours, $userId, $projectId, $year, $month, $day]);
+            } else {
+                // Insert new
+                $stmt = $this->db->prepare("
+                    INSERT INTO project_hours (user_id, project_id, year, month, day, hours, created_at) 
+                    VALUES (?, ?, ?, ?, ?, ?, NOW())
+                ");
+                return $stmt->execute([$userId, $projectId, $year, $month, $day, $hours]);
+            }
+        } catch (PDOException $e) {
+            error_log("Error updating project hours: " . $e->getMessage());
+            return false;
+        }
     }
 }
 ?>

@@ -14,6 +14,11 @@ class Utils {
     }
     
     public static function jsonResponse($data, $statusCode = 200) {
+        // Clear any previous output
+        if (ob_get_length()) {
+            ob_clean();
+        }
+        
         http_response_code($statusCode);
         header('Content-Type: application/json');
         echo json_encode($data);
@@ -48,6 +53,7 @@ class Utils {
     }
     
     public static function addFlashMessage($type, $message) {
+        SessionManager::start(); // Ensure session is started
         if (!isset($_SESSION['flash_messages'])) {
             $_SESSION['flash_messages'] = [];
         }
@@ -58,6 +64,7 @@ class Utils {
     }
 
     public static function getFlashMessages() {
+        SessionManager::start(); // Ensure session is started
         $messages = $_SESSION['flash_messages'] ?? [];
         unset($_SESSION['flash_messages']);
         return $messages;
@@ -80,34 +87,5 @@ class Utils {
     public static function formatEthiopianDate($day, $month, $year) {
         return sprintf("%d/%d/%d", $day, $month, $year);
     }
-}
-
-// Define constants if not already defined
-if (!defined('ETHIOPIAN_MONTHS_AMHARIC')) {
-    define('ETHIOPIAN_MONTHS_AMHARIC', [
-        'መስከረም', 'ጥቅምት', 'ኅዳር', 'ታኅሣሥ', 
-        'ጥር', 'የካቲት', 'መጋቢት', 'ሚያዝያ', 
-        'ግንቦት', 'ሰኔ', 'ሐምሌ', 'ነሐሴ', 'ጳጉሜ'
-    ]);
-}
-
-if (!defined('ETHIOPIAN_MONTHS_ENGLISH')) {
-    define('ETHIOPIAN_MONTHS_ENGLISH', [
-        'Meskerem', 'Tikimt', 'Hidar', 'Tahsas',
-        'Tir', 'Yekatit', 'Megabit', 'Miyazya',
-        'Ginbot', 'Sene', 'Hamle', 'Nehase', 'Pagume'
-    ]);
-}
-
-if (!defined('ETHIOPIAN_WEEKDAYS_AMHARIC')) {
-    define('ETHIOPIAN_WEEKDAYS_AMHARIC', [
-        'ሰኞ', 'ማክሰኞ', 'ረቡዕ', 'ሐሙስ', 'ዓርብ', 'ቅዳሜ', 'እሁድ'
-    ]);
-}
-
-if (!defined('ETHIOPIAN_WEEKDAYS_ENGLISH')) {
-    define('ETHIOPIAN_WEEKDAYS_ENGLISH', [
-        'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
-    ]);
 }
 ?>
