@@ -1449,9 +1449,75 @@ class TimesheetManager {
     }
     */
 
+/* 
+
     exportTimesheet() {
         window.location.href = `api/export.php?year=${this.currentYear}&month=${this.currentMonth}`;
     }
+
+*/
+    async exportTimesheet() {
+        if (!this.currentYear || !this.currentMonth) {
+            this.showAlert('Please load a timesheet first', 'warning');
+            return;
+        }
+
+        // First, save any unsaved changes
+        this.showLoading('Saving changes before export...');
+
+        try {
+            // Trigger a save of all current data
+            await this.saveAllChanges();
+
+            // Then proceed with export
+            window.location.href = `api/export.php?year=${this.currentYear}&month=${this.currentMonth}&t=${Date.now()}`;
+        } catch (error) {
+            console.error('Error saving before export:', error);
+            this.showAlert('Error saving changes before export', 'error');
+        } finally {
+            this.hideLoading();
+        }
+    }
+
+    async saveAllChanges() {
+        // Collect all project hours
+        const projectHours = {};
+        this.projects.forEach(project => {
+            const projectId = strval(project.project_id || project.id);
+            projectHours[projectId] = project.hours || {};
+        });
+
+        // Collect all leave hours
+        const leaveHours = {};
+        const leaveTypes = ['vacation', 'sick_leave', 'holiday', 'personal_leave', 'bereavement', 'other'];
+        leaveTypes.forEach(leaveType => {
+            leaveHours[leaveType] = this.timesheetData.leave_entries[leaveType] || {};
+        });
+
+        // Send save request
+        const response = await fetch('api/timesheet.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'save',
+                year: this.currentYear,
+                month: this.currentMonth,
+                project_hours: projectHours,
+                leave_hours: leaveHours
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to save changes');
+        }
+
+        return await response.json();
+    }
+
+
+
 
     async submitTimesheet() {
         Swal.fire({

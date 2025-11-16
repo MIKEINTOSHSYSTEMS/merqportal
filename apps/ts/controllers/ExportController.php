@@ -9,18 +9,28 @@ class ExportController
     public function exportToExcel($userData, $timesheetData, $year, $month)
     {
         try {
-            // Get projects data from database
+            // Get projects data from database for project names
             $projectModel = new Project();
             $projects = $projectModel->getUserProjects($userData['user_id'], $year, $month);
 
-            // Debug logging
+            // Debug logging - check what we have in timesheetData
+            error_log("=== EXPORT DEBUG INFO ===");
             error_log("Exporting timesheet for user: " . $userData['user_id']);
             error_log("Year: $year, Month: $month");
-            error_log("Projects count: " . count($projects));
-            error_log("Timesheet data keys: " . implode(', ', array_keys($timesheetData)));
+            error_log("Projects count from DB: " . count($projects));
+            error_log("Timesheet data structure: " . json_encode(array_keys($timesheetData)));
 
             if (isset($timesheetData['projects'])) {
                 error_log("Projects in timesheet data: " . implode(', ', array_keys($timesheetData['projects'])));
+                foreach ($timesheetData['projects'] as $projectId => $hoursData) {
+                    $nonZeroDays = array_filter($hoursData, function ($h) {
+                        return $h > 0;
+                    });
+                    error_log("Project $projectId - Non-zero days: " . count($nonZeroDays));
+                    if (count($nonZeroDays) > 0) {
+                        error_log("Project $projectId hours sample: " . json_encode(array_slice($hoursData, 0, 5)));
+                    }
+                }
             }
 
             // Generate Excel file with proper data
@@ -247,6 +257,8 @@ class ExportController
                 }
             }
 
+ /*  Only testing           
+
             // Calculate and fill TOTALS (Rows 23-25: D23 to AG25)
 
             // Row 23: Total Direct Work (sum of projects)
@@ -299,9 +311,13 @@ class ExportController
                 $safeCellUpdate($cellRef, $grandTotal);
             }
 
+*/
+
+
             // Update signature section with Ethiopian date
             $currentDate = new DateTime();
-            $ethDate = EthiopianDateConverter::gregorianToEthiopian($currentDate->format('Y-m-d'));
+            /*
+            $ethDate = EthiopianDateConverter::gregorianToEthiopian($currentDate->format('d-m-Y'));
             $ethDateStr = sprintf("%02d/%02d/%04d", $ethDate['day'], $ethDate['month'], $ethDate['year']);
 
             $signatureUpdates = [
@@ -309,6 +325,23 @@ class ExportController
                 ['AJ29', $ethDateStr], // Supervisor date
                 ['B29', $userData['full_name']] // Employee name
             ];
+*/
+
+            // Get current Ethiopian date
+            $ethDate = EthiopianDateConverter::getCurrentEthiopianDate();
+            $ethDateStr = "{$ethDate['day']}/{$ethDate['month']}/{$ethDate['year']}";
+
+            // Update dates in signature section
+            $signatureUpdates = [
+                'K29' => $ethDateStr, // Employee date
+                'AJ29' => $ethDateStr, // Supervisor date
+            ];
+
+            foreach ($signatureUpdates as $cell => $value) {
+                if ($worksheet->cellExists($cell)) {
+                    $worksheet->setCellValue($cell, $value);
+                }
+            }
 
             // Update supervisor information if available
             if (isset($userData['supervisor_name']) && $userData['supervisor_name']) {
@@ -323,8 +356,9 @@ class ExportController
             }
 
             // Generate filename
+            $timestamp = date('Ymd_His');
             $safeName = preg_replace('/[^A-Za-z0-9\-_]/', '_', $userData['full_name']);
-            $filename = 'MERQ_Timesheet_' . $safeName . '_' . $monthName . '_' . $year . '.xlsx';
+            $filename = 'MERQ_Timesheet_' . $safeName . '_' . $monthName . '_' . $year .'_'. $timestamp.'.xlsx';
 
             // Save the modified Excel file
             $filepath = sys_get_temp_dir() . '/' . $filename;

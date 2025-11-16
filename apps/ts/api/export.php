@@ -50,13 +50,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $timesheetModel = new Timesheet();
     $dbTimesheetData = $timesheetModel->getUserTimesheet($user['user_id'], $year, $month);
 
-    // Merge database data with session data
+    // Debug: Log what we're getting from database
+    error_log("Database timesheet data projects: " . json_encode(array_keys($dbTimesheetData['projects'] ?? [])));
+    error_log("Session timesheet data projects: " . json_encode(array_keys($timesheetData['projects'] ?? [])));
+
+    // Merge database data with session data - prioritize session data (user entered hours)
     if (isset($dbTimesheetData['projects'])) {
         foreach ($dbTimesheetData['projects'] as $projectId => $projectHours) {
-            if (!empty($projectHours)) {
+            // If we have session data for this project, merge it (session data takes priority)
+            if (isset($timesheetData['projects'][$projectId]) && !empty($timesheetData['projects'][$projectId])) {
+                // Session data exists, use it (this contains user-entered hours)
+                error_log("Using session data for project $projectId");
+            } else {
+                // No session data, use database data
                 $timesheetData['projects'][$projectId] = $projectHours;
+                error_log("Using database data for project $projectId");
             }
         }
+    }
+
+    // Debug: Log final merged data
+    error_log("Final merged projects: " . json_encode(array_keys($timesheetData['projects'])));
+    foreach ($timesheetData['projects'] as $projectId => $hours) {
+        $nonZeroDays = array_filter($hours, function ($h) {
+            return $h > 0;
+        });
+        error_log("Project $projectId has " . count($nonZeroDays) . " days with hours > 0");
     }
 
     $exportController = new ExportController();
