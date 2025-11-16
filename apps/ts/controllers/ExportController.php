@@ -2,17 +2,28 @@
 require_once __DIR__ . '/../includes/ethiopian_date.php';
 require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../models/Timesheet.php';
+require_once __DIR__ . '/../models/Project.php';
 
 class ExportController
 {
     public function exportToExcel($userData, $timesheetData, $year, $month)
     {
         try {
-            // Get projects data from session (similar to Flask version)
-            $projectsKey = "projects_{$userData['user_id']}_{$year}_{$month}";
-            $projects = isset($_SESSION[$projectsKey]) ? $_SESSION[$projectsKey] : [];
+            // Get projects data from database
+            $projectModel = new Project();
+            $projects = $projectModel->getUserProjects($userData['user_id'], $year, $month);
 
-            // Generate Excel file
+            // Debug logging
+            error_log("Exporting timesheet for user: " . $userData['user_id']);
+            error_log("Year: $year, Month: $month");
+            error_log("Projects count: " . count($projects));
+            error_log("Timesheet data keys: " . implode(', ', array_keys($timesheetData)));
+
+            if (isset($timesheetData['projects'])) {
+                error_log("Projects in timesheet data: " . implode(', ', array_keys($timesheetData['projects'])));
+            }
+
+            // Generate Excel file with proper data
             $filename = $this->generateExcelFile($userData, $timesheetData, $projects, $year, $month);
 
             return [
@@ -22,6 +33,7 @@ class ExportController
                 'filepath' => sys_get_temp_dir() . '/' . $filename
             ];
         } catch (Exception $e) {
+            error_log("Export error: " . $e->getMessage());
             return [
                 'success' => false,
                 'message' => 'Failed to generate Excel file: ' . $e->getMessage()
@@ -146,7 +158,7 @@ class ExportController
                 }
             };
 
-            // Update header content - use exact cell references from Flask version
+            // Update header content
             $headerUpdates = [
                 ['AJ19', "$monthName $year"],
                 ['C25', "$monthName $year"],
@@ -160,28 +172,45 @@ class ExportController
                 $safeCellUpdate($update[0], $update[1]);
             }
 
-            // Fill project data (rows 8-14) - exact positioning from Flask
-            $projectIndex = 0;
+            // Fill DATE row (Row 6: D6 to AG6)
+            for ($day = 1; $day <= $monthDays; $day++) {
+                $ethDate = EthiopianDateConverter::formatEthiopianDate($day, $month, $year);
+                $column = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $day); // Column D = day 1
+                $cellRef = $column . '6';
+                $safeCellUpdate($cellRef, $ethDate);
+            }
 
+            // Fill WEEKDAY row (Row 7: D7 to AG7)
+            for ($day = 1; $day <= $monthDays; $day++) {
+                $weekdayIndex = EthiopianDateConverter::getEthiopianWeekday($year, $month, $day);
+                $weekdayAmharic = ETHIOPIAN_WEEKDAYS_AMHARIC[$weekdayIndex];
+                $column = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $day);
+                $cellRef = $column . '7';
+                $safeCellUpdate($cellRef, $weekdayAmharic);
+            }
+
+            // Fill PROJECT HOURS (Rows 8-14: D8 to AG14)
+            $projectIndex = 0;
             foreach ($projects as $project) {
                 if ($projectIndex >= 7) break; // Template has space for 7 projects
 
                 $row = 8 + $projectIndex; // Rows 8-14 for projects
 
                 // Update project name in column C
-                $safeCellUpdate('C' . $row, $project['name'] ?? 'Project ' . ($projectIndex + 1));
+                $safeCellUpdate('C' . $row, $project['project_name'] ?? 'Project ' . ($projectIndex + 1));
 
                 // Get project hours from timesheet data
-                $projectId = strval($project['id']);
+                $projectId = strval($project['project_id'] ?? $project['id']);
                 $projectHours = isset($timesheetData['projects'][$projectId]) ? $timesheetData['projects'][$projectId] : [];
 
                 // Fill daily hours starting from column D (day 1 = column D, day 2 = column E, etc.)
-                for ($day = 1; $day <= 31; $day++) { // Template supports up to 31 days
-                    if ($day <= $monthDays && isset($projectHours[$day])) {
+                for ($day = 1; $day <= $monthDays; $day++) {
+                    if (isset($projectHours[$day])) {
                         $hours = floatval($projectHours[$day]);
                         if ($hours > 0) {
-                            $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $day); // Column D = day 1
-                            $safeCellUpdate($columnLetter . $row, $hours);
+                            $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $day);
+                            $cellRef = $columnLetter . $row;
+                            $safeCellUpdate($cellRef, $hours);
                         }
                     }
                 }
@@ -189,7 +218,7 @@ class ExportController
                 $projectIndex++;
             }
 
-            // Fill leave data (rows 16-21) - exact positioning from Flask
+            // Fill LEAVE HOURS (Rows 16-21: D16 to AG21)
             $leaveTypes = [
                 ['vacation', 16],
                 ['sick_leave', 17],
@@ -206,15 +235,68 @@ class ExportController
                 $leaveData = isset($timesheetData['leave_entries'][$leaveKey]) ? $timesheetData['leave_entries'][$leaveKey] : [];
 
                 // Fill daily leave hours starting from column D
-                for ($day = 1; $day <= 31; $day++) {
-                    if ($day <= $monthDays && isset($leaveData[$day])) {
+                for ($day = 1; $day <= $monthDays; $day++) {
+                    if (isset($leaveData[$day])) {
                         $hours = floatval($leaveData[$day]);
                         if ($hours > 0) {
                             $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $day);
-                            $safeCellUpdate($columnLetter . $row, $hours);
+                            $cellRef = $columnLetter . $row;
+                            $safeCellUpdate($cellRef, $hours);
                         }
                     }
                 }
+            }
+
+            // Calculate and fill TOTALS (Rows 23-25: D23 to AG25)
+
+            // Row 23: Total Direct Work (sum of projects)
+            for ($day = 1; $day <= $monthDays; $day++) {
+                $totalDirect = 0;
+                foreach ($projects as $project) {
+                    $projectId = strval($project['project_id'] ?? $project['id']);
+                    $projectHours = isset($timesheetData['projects'][$projectId]) ? $timesheetData['projects'][$projectId] : [];
+                    $totalDirect += isset($projectHours[$day]) ? floatval($projectHours[$day]) : 0;
+                }
+
+                $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $day);
+                $cellRef = $columnLetter . '23';
+                $safeCellUpdate($cellRef, $totalDirect);
+            }
+
+            // Row 24: Total Leave (sum of all leave types)
+            for ($day = 1; $day <= $monthDays; $day++) {
+                $totalLeave = 0;
+                foreach ($leaveTypes as $leaveInfo) {
+                    $leaveKey = $leaveInfo[0];
+                    $leaveData = isset($timesheetData['leave_entries'][$leaveKey]) ? $timesheetData['leave_entries'][$leaveKey] : [];
+                    $totalLeave += isset($leaveData[$day]) ? floatval($leaveData[$day]) : 0;
+                }
+
+                $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $day);
+                $cellRef = $columnLetter . '24';
+                $safeCellUpdate($cellRef, $totalLeave);
+            }
+
+            // Row 25: Grand Total (Direct Work + Leave)
+            for ($day = 1; $day <= $monthDays; $day++) {
+                $totalDirect = 0;
+                foreach ($projects as $project) {
+                    $projectId = strval($project['project_id'] ?? $project['id']);
+                    $projectHours = isset($timesheetData['projects'][$projectId]) ? $timesheetData['projects'][$projectId] : [];
+                    $totalDirect += isset($projectHours[$day]) ? floatval($projectHours[$day]) : 0;
+                }
+
+                $totalLeave = 0;
+                foreach ($leaveTypes as $leaveInfo) {
+                    $leaveKey = $leaveInfo[0];
+                    $leaveData = isset($timesheetData['leave_entries'][$leaveKey]) ? $timesheetData['leave_entries'][$leaveKey] : [];
+                    $totalLeave += isset($leaveData[$day]) ? floatval($leaveData[$day]) : 0;
+                }
+
+                $grandTotal = $totalDirect + $totalLeave;
+                $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $day);
+                $cellRef = $columnLetter . '25';
+                $safeCellUpdate($cellRef, $grandTotal);
             }
 
             // Update signature section with Ethiopian date

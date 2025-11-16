@@ -20,9 +20,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $year = intval($_GET['year'] ?? date('Y'));
     $month = intval($_GET['month'] ?? date('n'));
 
-    // Get actual timesheet data from model
+    // Get actual timesheet data from session (not just model)
+    $timesheetKey = "timesheet_{$user['user_id']}_{$year}_{$month}";
+
+    // Initialize session data if not exists
+    if (!isset($_SESSION[$timesheetKey])) {
+        require_once __DIR__ . '/../includes/ethiopian_date.php';
+        $monthDays = EthiopianDateConverter::getEthiopianMonthDays($year, $month);
+
+        $_SESSION[$timesheetKey] = [
+            'projects' => [],
+            'leave_entries' => [
+                'vacation' => array_fill(1, $monthDays, 0.0),
+                'sick_leave' => array_fill(1, $monthDays, 0.0),
+                'holiday' => array_fill(1, $monthDays, 0.0),
+                'personal_leave' => array_fill(1, $monthDays, 0.0),
+                'bereavement' => array_fill(1, $monthDays, 0.0),
+                'other' => array_fill(1, $monthDays, 0.0)
+            ],
+            'daily_totals' => array_fill(1, $monthDays, 0.0),
+            'leave_totals' => array_fill(1, $monthDays, 0.0),
+            'grand_totals' => array_fill(1, $monthDays, 0.0)
+        ];
+    }
+
+    $timesheetData = $_SESSION[$timesheetKey];
+
+    // Also get data from database to ensure we have all project hours
     $timesheetModel = new Timesheet();
-    $timesheetData = $timesheetModel->getUserTimesheet($user['user_id'], $year, $month);
+    $dbTimesheetData = $timesheetModel->getUserTimesheet($user['user_id'], $year, $month);
+
+    // Merge database data with session data
+    if (isset($dbTimesheetData['projects'])) {
+        foreach ($dbTimesheetData['projects'] as $projectId => $projectHours) {
+            if (!empty($projectHours)) {
+                $timesheetData['projects'][$projectId] = $projectHours;
+            }
+        }
+    }
 
     $exportController = new ExportController();
     $result = $exportController->exportToExcel($user, $timesheetData, $year, $month);
