@@ -72,13 +72,16 @@ class TimesheetManager {
                 this.projects = data.projects;
                 this.monthDays = data.month_days;
 
+                console.log('Loaded projects:', this.projects); // Debug log
+
                 // Populate project hours from saved data
                 if (this.timesheetData && this.timesheetData.projects) {
                     this.projects.forEach(project => {
-                        const projectId = strval(project.project_id);
+                        const projectId = strval(project.project_id || project.id);
                         if (this.timesheetData.projects[projectId]) {
                             project.hours = this.timesheetData.projects[projectId];
                         } else {
+                            // Initialize empty hours object if none exists
                             project.hours = {};
                         }
                     });
@@ -87,6 +90,9 @@ class TimesheetManager {
                 this.renderProjectsList();
                 this.renderTimesheet();
                 this.enableActionButtons();
+
+                // Update live totals after loading
+                this.updateLiveTotals();
 
                 // Enable Add Project button
                 $('#addProjectBtn').prop('disabled', false);
@@ -501,7 +507,16 @@ class TimesheetManager {
 
         this.projects.forEach((project, index) => {
             const projectId = project.project_id || project.id;
-            const totalHours = Object.values(project.hours || {}).reduce((sum, hours) => sum + (parseFloat(hours) || 0), 0);
+            const projectName = project.project_name || project.name;
+
+            // Calculate total hours worked for this project
+            let totalHours = 0;
+            if (project.hours && typeof project.hours === 'object') {
+                Object.values(project.hours).forEach(hours => {
+                    totalHours += parseFloat(hours) || 0;
+                });
+            }
+
             const allocatedHours = parseFloat(project.allocated_hours) || 0;
             const progressPercent = allocatedHours > 0 ? (totalHours / allocatedHours) * 100 : 0;
 
@@ -509,32 +524,39 @@ class TimesheetManager {
                 progressPercent >= 80 ? 'text-warning' : 'text-success';
 
             const projectCard = `
-            <div class="project-item border rounded p-3 mb-2 bg-light" data-project-id="${projectId}">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="flex-grow-1">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <strong>${project.project_name || project.name}</strong>
-                            <button type="button" class="btn btn-sm btn-outline-danger remove-project-btn" 
-                                    data-project-id="${projectId}" 
-                                    ${this.projects.length <= 1 ? 'disabled' : ''}>
+        <div class="project-item border rounded p-3 mb-2 bg-light" data-project-id="${projectId}">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong>${projectName}</strong>
+                        ${this.projects.length > 1 && projectName.toLowerCase() !== 'merq internal' ?
+                    `<button type="button" class="btn btn-sm btn-outline-danger remove-project-btn" 
+                                    data-project-id="${projectId}">
                                 <i class="bi bi-trash"></i> Remove
-                            </button>
+                            </button>` :
+                    '<span class="badge bg-primary">Default</span>'
+                }
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <small class="text-muted">Allocated: <strong>${allocatedHours.toFixed(1)}h</strong></small>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <small class="text-muted">Allocated: ${allocatedHours.toFixed(1)}h</small>
-                            </div>
-                            <div class="col-md-4">
-                                <small class="text-muted">Worked: <span class="worked-hours-${projectId}">${totalHours.toFixed(1)}</span>h</small>
-                            </div>
-                            <div class="col-md-4">
-                                <small class="text-muted">Progress: <span class="progress-${projectId} ${progressColor}">${progressPercent.toFixed(1)}%</span></small>
-                            </div>
+                        <div class="col-md-4">
+                            <small class="text-muted">Worked: <strong><span class="worked-hours-${projectId}">${totalHours.toFixed(1)}</span>h</strong></small>
+                        </div>
+                        <div class="col-md-4">
+                            <small class="text-muted">Progress: <strong><span class="progress-${projectId} ${progressColor}">${progressPercent.toFixed(1)}%</span></strong></small>
                         </div>
                     </div>
+                    ${projectName.toLowerCase() === 'merq internal' ?
+                    `<div class="mt-2">
+                            <small class="text-muted"><em>Default project with calculated monthly working hours</em></small>
+                        </div>` : ''
+                }
                 </div>
             </div>
-        `;
+        </div>
+    `;
             container.append(projectCard);
         });
 
@@ -550,6 +572,14 @@ class TimesheetManager {
     }
 
     async removeProject(projectId) {
+        const project = this.projects.find(p => (p.project_id || p.id) == projectId);
+
+        // Prevent removing MERQ Internal project
+        if (project && (project.project_name || project.name).toLowerCase() === 'merq internal') {
+            this.showAlert('Cannot remove the default MERQ Internal project', 'warning');
+            return;
+        }
+
         if (this.projects.length <= 1) {
             this.showAlert('At least one project must remain', 'warning');
             return;
@@ -909,6 +939,8 @@ class TimesheetManager {
                 this.projects = data.projects;
                 this.monthDays = data.month_days;
 
+                console.log('Loaded projects:', this.projects); // Debug log
+
                 // Populate project hours from saved data
                 if (this.timesheetData && this.timesheetData.projects) {
                     this.projects.forEach(project => {
@@ -916,6 +948,7 @@ class TimesheetManager {
                         if (this.timesheetData.projects[projectId]) {
                             project.hours = this.timesheetData.projects[projectId];
                         } else {
+                            // Initialize empty hours object if none exists
                             project.hours = {};
                         }
                     });

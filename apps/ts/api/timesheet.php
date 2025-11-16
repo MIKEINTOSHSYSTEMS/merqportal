@@ -52,20 +52,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Get user projects from database
                 $projects = $projectModel->getUserProjects($userId, $year, $month);
 
-                // Ensure we always have at least the MERQ Internal project
+                // Calculate total working hours for the month
+                $totalWorkingHours = calculateTotalWorkingHours($year, $month);
+
+                // Ensure we always have at least the MERQ Internal project with calculated allocated hours
                 $hasMerqInternal = false;
-                foreach ($projects as $project) {
+                $merqInternalProject = null;
+
+                foreach ($projects as &$project) {
                     if (strtolower($project['project_name']) === 'merq internal') {
                         $hasMerqInternal = true;
+                        // Update allocated hours for MERQ Internal project
+                        $projectModel->updateProjectAllocatedHours($userId, $year, $month, $project['project_id'], $totalWorkingHours);
+                        $project['allocated_hours'] = $totalWorkingHours;
+                        $merqInternalProject = $project;
                         break;
                     }
                 }
 
                 if (!$hasMerqInternal) {
-                    $totalHours = calculateTotalWorkingHours($year, $month);
-                    $newProject = $projectModel->addUserProject($userId, $year, $month, 'MERQ Internal', $totalHours);
+                    // Create MERQ Internal project with calculated allocated hours
+                    $newProject = $projectModel->addUserProject($userId, $year, $month, 'MERQ Internal', $totalWorkingHours);
                     if ($newProject) {
                         $projects[] = $newProject;
+                        $merqInternalProject = $newProject;
                     }
                 }
 
@@ -82,7 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'calendar' => $calendarData,
                     'timesheet_data' => $timesheetData,
                     'projects' => $projects,
-                    'month_days' => $monthDays
+                    'month_days' => $monthDays,
+                    'total_working_hours' => $totalWorkingHours // For debugging
                 ]);
                 break;
 

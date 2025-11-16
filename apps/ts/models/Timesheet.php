@@ -53,14 +53,21 @@ class Timesheet {
         return $timesheet_storage[$key];
     }
 
-    public function getUserProjects($userId, $year, $month) {
+    public function getUserProjects($userId, $year, $month)
+    {
         global $user_projects;
 
         $key = "projects_{$userId}_{$year}_{$month}";
-        return $user_projects[$key] ?? $this->initializeUserProjects($userId, $year, $month);
+
+        if (!isset($user_projects[$key])) {
+            $user_projects[$key] = $this->initializeUserProjects($userId, $year, $month);
+        }
+
+        return $user_projects[$key];
     }
 
-    private function initializeUserProjects($userId, $year, $month) {
+    private function initializeUserProjects($userId, $year, $month)
+    {
         global $user_projects;
 
         $key = "projects_{$userId}_{$year}_{$month}";
@@ -71,6 +78,7 @@ class Timesheet {
             error_log("ERROR: getEthiopianMonthDays returned non-integer in initializeUserProjects: " . json_encode($monthDays));
             $monthDays = 30; // fallback
         }
+        $monthDays = (int)$monthDays;
 
         $totalHours = $this->calculateTotalWorkingHours($year, $month);
 
@@ -80,7 +88,7 @@ class Timesheet {
                 'name' => 'MERQ Internal',
                 'allocated_hours' => $totalHours,
                 'total_hours' => 0.0,
-                'hours' => []
+                'hours' => array_fill(1, $monthDays, 0.0)
             ]
         ];
 

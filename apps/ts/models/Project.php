@@ -4,6 +4,31 @@ require_once __DIR__ . '/../config/database.php';
 class Project {
     private $db;
 
+    private function calculateTotalWorkingHours($year, $month)
+    {
+        require_once __DIR__ . '/../includes/ethiopian_date.php';
+        $monthDays = EthiopianDateConverter::getEthiopianMonthDays($year, $month);
+        $totalHours = 0.0;
+
+        for ($day = 1; $day <= $monthDays; $day++) {
+            $weekdayIndex = EthiopianDateConverter::getEthiopianWeekday($year, $month, $day);
+
+            if ($weekdayIndex < 4) { // Monday-Thursday: 8 hours
+                $dayHours = 8.0;
+            } elseif ($weekdayIndex == 4) { // Friday: 8 hours
+                $dayHours = 8.0;
+            } elseif ($weekdayIndex == 5) { // Saturday: 4 hours
+                $dayHours = 4.0;
+            } else { // Sunday: 0 hours
+                $dayHours = 0.0;
+            }
+
+            $totalHours += $dayHours;
+        }
+
+        return $totalHours;
+    }
+
     public function __construct() {
         $this->db = getDBConnection();
     }
@@ -85,7 +110,8 @@ class Project {
         }
     }
 
-    public function addUserProject($userId, $year, $month, $projectName, $allocatedHours) {
+    public function addUserProject($userId, $year, $month, $projectName, $allocatedHours)
+    {
         try {
             // First, check if project exists
             $stmt = $this->db->prepare("SELECT project_id FROM projects WHERE project_name = ? AND is_active = 1");
@@ -102,11 +128,18 @@ class Project {
                 $projectId = $this->db->lastInsertId();
             }
 
+            // For MERQ Internal project, calculate proper allocated hours
+            if (strtolower($projectName) === 'merq internal') {
+                require_once __DIR__ . '/../includes/ethiopian_date.php';
+                $monthDays = EthiopianDateConverter::getEthiopianMonthDays($year, $month);
+                $allocatedHours = $this->calculateTotalWorkingHours($year, $month);
+            }
+
             // Add to user projects
             $stmt = $this->db->prepare("
-                INSERT INTO user_projects (user_id, project_id, year, month, allocated_hours, created_at) 
-                VALUES (?, ?, ?, ?, ?, NOW())
-            ");
+            INSERT INTO user_projects (user_id, project_id, year, month, allocated_hours, created_at) 
+            VALUES (?, ?, ?, ?, ?, NOW())
+        ");
             $stmt->execute([$userId, $projectId, $year, $month, $allocatedHours]);
 
             return [
@@ -188,5 +221,21 @@ class Project {
             return false;
         }
     }
+
+    public function updateProjectAllocatedHours($userId, $year, $month, $projectId, $allocatedHours)
+    {
+        try {
+            $stmt = $this->db->prepare("
+            UPDATE user_projects 
+            SET allocated_hours = ?, updated_at = NOW() 
+            WHERE user_id = ? AND project_id = ? AND year = ? AND month = ?
+        ");
+            return $stmt->execute([$allocatedHours, $userId, $projectId, $year, $month]);
+        } catch (PDOException $e) {
+            error_log("Error updating project allocated hours: " . $e->getMessage());
+            return false;
+        }
+    }
+
 }
 ?>
