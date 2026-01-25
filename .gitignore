@@ -14,7 +14,7 @@ apps/internal/XinstallX/
 apps/internal/install/
 apps/internal/application/logs/
 apps/internal/temp/
-apps/proj/app/
+#apps/proj/app/
 apps/proj/notes/
 apps/proj/sql/
 apps/proj/temp/

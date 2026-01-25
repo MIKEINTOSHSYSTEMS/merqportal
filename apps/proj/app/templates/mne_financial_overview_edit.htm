@@ -1,0 +1,626 @@
+<!doctype html>
+<html  {$html_attrs}>
+	<head>
+						<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{$pagetitle}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<base href="{$projectPath}">
+		{BEGIN styleCSSFiles}
+<link REL="stylesheet" href="{$stylepath}" type="text/css">
+{END styleCSSFiles}
+			
+	</head>
+
+	<body class="{$stylename} function-edit"   
+		>
+	{BEGIN body}
+		<style>
+		{$containerCss}
+		</style>
+		<div class="r-vbar-page">
+			<div data-width="250px" data-fixed class="r-left clearfix {$leftbar_class}" >
+								<div data-location="left" id="form_left_{$pageid}" data-makeup="leftbar" {$form_left} data-pageid="{$pageid}">
+{BEGIN left_block}
+ 
+     
+         
+
+			<div data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell class="clearfix " data-itemid="logo" {$item_logo}>
+				{BEGIN logo_block}
+	<A data-itemtype="logo" data-itemid="logo" {$item_logo} data-pageid="{$pageid}" class="navbar-brand" href="{$home_link}" data-pageid="{$pageid}" {$logo_hiddenattr}>
+		{$logo}
+	</A>
+{END logo_block}
+				<button data-pageid="1" type="button" class="navbar-toggle collapsed" data-runner-toggle="collapse" data-target="[data-mobile-controlled]">	
+					<span class="sr-only">Toggle navigation</span>	
+					<span class="icon-bar"></span>					
+				</button>				
+			</div>
+		
+ 
+
+			<div class="clearfix " data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell data-itemid="expand_button" {$item_expand_button} data-topcell-item-type="expand_button" >
+				<span data-itemtype="expand_button" data-itemid="expand_button" {$item_expand_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message EXPAND}" class="btn btn-link   
+	" href="#" >
+					<span class="glyphicon glyphicon-triangle-right"></span>
+										</a>
+</span>
+			</div>
+		
+     
+     
+         
+
+			<div data-cellId="left_c1" data-pageid="{$pageid}" class="clearfix  r-ori-vert " data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}">
+				{BEGIN menuitems_main}
+<ul data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}"	class="r-menu nav menu-treelike" 
+	data-menulevel="1"
+>
+
+{BEGIN item_children1}
+<li class="
+	{$item_current}">
+<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline data-menu-top >
+	{$item_separator}
+	<span class="r-menu-link r-menu-expanded "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+		<span class="r-menu-collapsed">{$item_collicon}{$item_firstcap}</span>
+	</a>
+{BEGIN item_showchildren2}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="2">
+	{BEGIN item_children2}
+		{BEGIN item_menulink2}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+	</a>
+			{BEGIN item_showchildren3}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="3">
+	{BEGIN item_children3}
+		{BEGIN item_menulink3}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren3}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren3}
+	</span>
+	</a>
+			{BEGIN item_showchildren4}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="4">
+	{BEGIN item_children4}
+		{BEGIN item_menulink4}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren4}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren4}
+	</span>
+	</a>
+			{BEGIN item_showchildren5}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="5">
+	{BEGIN item_children5}
+		{BEGIN item_menulink5}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren5}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren5}
+	</span>
+	</a>
+					</li>
+		{END item_menulink5}
+	{END item_children5}
+</ul>
+{END item_showchildren5}
+		</li>
+		{END item_menulink4}
+	{END item_children4}
+</ul>
+{END item_showchildren4}
+		</li>
+		{END item_menulink3}
+	{END item_children3}
+</ul>
+{END item_showchildren3}
+		</li>
+		{END item_menulink2}
+	{END item_children2}
+</ul>
+{END item_showchildren2}
+</li>
+{END item_children1}
+</ul>
+{END menuitems_main}
+			</div>
+		
+    {END left_block}
+</div>				</div>
+			<div class="r-content-col" data-resize-left="leftbar">
+				<div data-resize-left="leftbar"  data-fixed class="r-topheader" data-resize-name="topbar">
+									{BEGIN supertop_block}
+<nav class="navbar navbar-default" 
+	data-location="supertop" id="form_supertop_{$pageid}" data-makeup="leftbar" {$form_supertop} data-pageid="{$pageid}" >
+			 
+							 
+				<span class="navbar-form  navbar-header" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="expand_menu_button" {$item_expand_menu_button} data-topcell-item-type="expand_menu_button" >
+				<span data-itemtype="expand_menu_button" data-itemid="expand_menu_button" {$item_expand_menu_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message SHOW_MENU}" class="btn-link   
+	 glyphicon glyphicon-menu-hamburger" href="#" >		
+				
+								</a>
+</span>
+			</span>
+		 
+				<span class="navbar-form  navbar-collapse" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="collapse_button" {$item_collapse_button} data-topcell-item-type="collapse_button" >
+				<span data-itemtype="collapse_button" data-itemid="collapse_button" {$item_collapse_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message COLLAPSE}" class="btn-link   
+	 glyphicon glyphicon-triangle-left" href="#" >		
+				
+								</a>
+</span>
+			</span>
+							 
+													</nav>
+{END supertop_block}
+						{$locking}
+				</div>
+				<div class="r-body" data-resize-top="topbar" data-body-width="standard">
+					{$header}
+					<div class="r-top">
+									{BEGIN top_block}
+<div class="r-form" data-location="top" id="form_top_{$pageid}" data-makeup="leftbar" {$form_top} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="top_c1" data-pageid="{$pageid}"	{$cell_top_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		 
+		<h2 data-itemtype="edit_header" data-itemid="edit_header" {$item_edit_header} data-pageid="{$pageid}" >{$pagetitlelabel mne_financial_overview edit}</h2>
+		</div>					</div>
+			</div>		
+{END top_block}
+						</div>
+											<div class="r-above">
+					{BEGIN above-grid_block}
+<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="leftbar" {$form_above-grid} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="above-grid_c1" data-pageid="{$pageid}"	{$cell_above-grid_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		{BEGIN firstAboveGridCell}
+		 
+		<div data-itemtype="edit_message" data-itemid="edit_message" {$item_edit_message} data-pageid="{$pageid}" class="alert {$message_class}" role="alert">
+<h5>{$message}</h5>
+<div>
+{BEGIN message_back_button}
+			<button class="btn btn-sm btn-default" {$backbutton_attrs}>{mlang_message BACK_TO_LIST}</button>
+	{END message_back_button}
+{BEGIN message_view_page_button}
+		<a class="btn btn-sm btn-default" href="mne_financial_overview_view.php?{$editlink}" {$view_page_button_attrs}>{mlang_message VIEW}</a>
+{END message_view_page_button}
+</div>
+</div>
+			{END firstAboveGridCell}	
+	</div>					</div>
+			</div>		
+{END above-grid_block}
+	</div>
+<div class="r-grid">
+	{BEGIN grid_tabs}
+  <ul class="nav nav-tabs bsgrid_tabs">
+	{$grid_tabs_content}
+  </ul>
+{END grid_tabs}
+					{BEGIN grid_block}
+
+
+
+
+ 
+	 
+												<table 
+	data-body-align="left"
+	data-location="grid" id="form_grid_{$pageid}" data-makeup="leftbar" {$form_grid} data-pageid="{$pageid}" 
+	class="r-edit-form" cellpadding="0" cellspacing="0" 
+	{$grid_hiddenattr} 
+		data-form-width="1"
+		
+		data-v-width="4"
+	>
+	<tbody>
+										<tr {$row_grid_0} >
+										
+
+{BEGIN cellblock_grid_c3}
+<td
+	{$cell_grid_c3}
+	class=" r-ori-vert"
+	
+				data-fullwidth
+		
+			data-cellId="grid_c3" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN report_period_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_report_period}  r-vertical-field" 
+	data-signal-error-for="report_period{$id}" {$required_attr_report_period}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field" {$item_integrated_edit_field} data-pageid="{$pageid}" data-field="report_period" data-fieldname="report_period" >
+
+	<label class="r-edit-label control-label {$report_period_label_class}" for="{$labelfor_report_period}">
+		{BEGIN report_period_label}
+			{$report_period_forward_control}
+			{$label mne_financial_overview report_period }			{END report_period_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$report_period_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="report_period" {$tooltipAttr mne_financial_overview report_period } >
+		<div class="text-muted" >
+		{$tooltip mne_financial_overview report_period }		</div>
+	</div>
+	</div>
+
+
+{END report_period_fieldblock}
+											
+{BEGIN metric_name_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_metric_name}  r-vertical-field" 
+	data-signal-error-for="metric_name{$id}" {$required_attr_metric_name}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field1" {$item_integrated_edit_field1} data-pageid="{$pageid}" data-field="metric_name" data-fieldname="metric_name" >
+
+	<label class="r-edit-label control-label {$metric_name_label_class}" for="{$labelfor_metric_name}">
+		{BEGIN metric_name_label}
+			{$metric_name_forward_control}
+			{$label mne_financial_overview metric_name }			{END metric_name_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$metric_name_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="metric_name" {$tooltipAttr mne_financial_overview metric_name } >
+		<div class="text-muted" >
+		{$tooltip mne_financial_overview metric_name }		</div>
+	</div>
+	</div>
+
+
+{END metric_name_fieldblock}
+											
+{BEGIN planned_amount_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_planned_amount}  r-vertical-field" 
+	data-signal-error-for="planned_amount{$id}" {$required_attr_planned_amount}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field2" {$item_integrated_edit_field2} data-pageid="{$pageid}" data-field="planned_amount" data-fieldname="planned_amount" >
+
+	<label class="r-edit-label control-label {$planned_amount_label_class}" for="{$labelfor_planned_amount}">
+		{BEGIN planned_amount_label}
+			{$planned_amount_forward_control}
+			{$label mne_financial_overview planned_amount }			{END planned_amount_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$planned_amount_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="planned_amount" {$tooltipAttr mne_financial_overview planned_amount } >
+		<div class="text-muted" >
+		{$tooltip mne_financial_overview planned_amount }		</div>
+	</div>
+	</div>
+
+
+{END planned_amount_fieldblock}
+											
+{BEGIN actual_amount_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_actual_amount}  r-vertical-field" 
+	data-signal-error-for="actual_amount{$id}" {$required_attr_actual_amount}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field3" {$item_integrated_edit_field3} data-pageid="{$pageid}" data-field="actual_amount" data-fieldname="actual_amount" >
+
+	<label class="r-edit-label control-label {$actual_amount_label_class}" for="{$labelfor_actual_amount}">
+		{BEGIN actual_amount_label}
+			{$actual_amount_forward_control}
+			{$label mne_financial_overview actual_amount }			{END actual_amount_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$actual_amount_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="actual_amount" {$tooltipAttr mne_financial_overview actual_amount } >
+		<div class="text-muted" >
+		{$tooltip mne_financial_overview actual_amount }		</div>
+	</div>
+	</div>
+
+
+{END actual_amount_fieldblock}
+											
+{BEGIN variance_amount_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_variance_amount}  r-vertical-field" 
+	data-signal-error-for="variance_amount{$id}" {$required_attr_variance_amount}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field4" {$item_integrated_edit_field4} data-pageid="{$pageid}" data-field="variance_amount" data-fieldname="variance_amount" >
+
+	<label class="r-edit-label control-label {$variance_amount_label_class}" for="{$labelfor_variance_amount}">
+		{BEGIN variance_amount_label}
+			{$variance_amount_forward_control}
+			{$label mne_financial_overview variance_amount }			{END variance_amount_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$variance_amount_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="variance_amount" {$tooltipAttr mne_financial_overview variance_amount } >
+		<div class="text-muted" >
+		{$tooltip mne_financial_overview variance_amount }		</div>
+	</div>
+	</div>
+
+
+{END variance_amount_fieldblock}
+											
+{BEGIN variance_percentage_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_variance_percentage}  r-vertical-field" 
+	data-signal-error-for="variance_percentage{$id}" {$required_attr_variance_percentage}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field5" {$item_integrated_edit_field5} data-pageid="{$pageid}" data-field="variance_percentage" data-fieldname="variance_percentage" >
+
+	<label class="r-edit-label control-label {$variance_percentage_label_class}" for="{$labelfor_variance_percentage}">
+		{BEGIN variance_percentage_label}
+			{$variance_percentage_forward_control}
+			{$label mne_financial_overview variance_percentage }			{END variance_percentage_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$variance_percentage_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="variance_percentage" {$tooltipAttr mne_financial_overview variance_percentage } >
+		<div class="text-muted" >
+		{$tooltip mne_financial_overview variance_percentage }		</div>
+	</div>
+	</div>
+
+
+{END variance_percentage_fieldblock}
+											
+{BEGIN status_indicator_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_status_indicator}  r-vertical-field" 
+	data-signal-error-for="status_indicator{$id}" {$required_attr_status_indicator}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field6" {$item_integrated_edit_field6} data-pageid="{$pageid}" data-field="status_indicator" data-fieldname="status_indicator" >
+
+	<label class="r-edit-label control-label {$status_indicator_label_class}" for="{$labelfor_status_indicator}">
+		{BEGIN status_indicator_label}
+			{$status_indicator_forward_control}
+			{$label mne_financial_overview status_indicator }			{END status_indicator_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$status_indicator_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="status_indicator" {$tooltipAttr mne_financial_overview status_indicator } >
+		<div class="text-muted" >
+		{$tooltip mne_financial_overview status_indicator }		</div>
+	</div>
+	</div>
+
+
+{END status_indicator_fieldblock}
+											
+{BEGIN created_at_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_created_at}  r-vertical-field" 
+	data-signal-error-for="created_at{$id}" {$required_attr_created_at}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field7" {$item_integrated_edit_field7} data-pageid="{$pageid}" data-field="created_at" data-fieldname="created_at" >
+
+	<label class="r-edit-label control-label {$created_at_label_class}" for="{$labelfor_created_at}">
+		{BEGIN created_at_label}
+			{$created_at_forward_control}
+			{$label mne_financial_overview created_at }			{END created_at_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$created_at_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="created_at" {$tooltipAttr mne_financial_overview created_at } >
+		<div class="text-muted" >
+		{$tooltip mne_financial_overview created_at }		</div>
+	</div>
+	</div>
+
+
+{END created_at_fieldblock}
+											
+{BEGIN updated_at_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_updated_at}  r-vertical-field" 
+	data-signal-error-for="updated_at{$id}" {$required_attr_updated_at}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field8" {$item_integrated_edit_field8} data-pageid="{$pageid}" data-field="updated_at" data-fieldname="updated_at" >
+
+	<label class="r-edit-label control-label {$updated_at_label_class}" for="{$labelfor_updated_at}">
+		{BEGIN updated_at_label}
+			{$updated_at_forward_control}
+			{$label mne_financial_overview updated_at }			{END updated_at_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$updated_at_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="updated_at" {$tooltipAttr mne_financial_overview updated_at } >
+		<div class="text-muted" >
+		{$tooltip mne_financial_overview updated_at }		</div>
+	</div>
+	</div>
+
+
+{END updated_at_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c3}
+								</tr>
+			</tbody></table>
+{END grid_block}
+	</div>
+<div class="r-below">
+					{BEGIN below-grid_block}
+<div class="r-form" data-location="below-grid" id="form_below-grid_{$pageid}" data-makeup="leftbar" {$form_below-grid} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="below-grid_c1" data-pageid="{$pageid}"	{$cell_below-grid_c1}
+	class="			col-md-6
+	
+">
+		 
+		{BEGIN save_edit}
+<span data-itemtype="edit_save" data-itemid="edit_save" {$item_edit_save} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-primary   
+	" {$savebutton_attrs} >
+							{mlang_message SAVE}			</a>
+</span>
+{END save_edit}
+	 
+		{BEGIN back_button}
+<span data-itemtype="edit_back_list" data-itemid="edit_back_list" {$item_edit_back_list} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" {$backbutton_attrs} >
+							{mlang_message BACK_TO_LIST}			</a>
+</span>
+{END back_button}
+	 
+		{BEGIN close_button}
+<span data-itemtype="edit_close" data-itemid="edit_close" {$item_edit_close} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" {$closebutton_attrs} >
+							{mlang_message CANCEL}			</a>
+</span>
+{END close_button}
+		</div>			 
+				<div 
+	data-cellId="below-grid_c2" data-pageid="{$pageid}"	{$cell_below-grid_c2}
+	class="r-align-right r-ori-vert			col-md-6
+	
+">
+		 
+		<span data-itemtype="hamburger" data-itemid="hamburger" {$item_hamburger} data-pageid="{$pageid}" data-small data-button-item>
+	<span class="dropdown dropup">
+		<button type="button" title="" class="btn btn-default   dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		
+										<span class="glyphicon glyphicon-menu-hamburger"></span>
+												<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+							{BEGIN reset_button}
+	<li data-itemtype="edit_reset" data-itemid="edit_reset" {$item_edit_reset} data-pageid="{$pageid}" data-small >
+				<a  {$resetbutton_attrs}  title="" >
+				
+		{mlang_message RESET}		
+		</a>
+	</li>
+{END reset_button}
+							{BEGIN view_page_button}
+	<li data-itemtype="edit_view" data-itemid="edit_view" {$item_edit_view} data-pageid="{$pageid}" data-small >
+				<a  href="mne_financial_overview_view.php?{$editlink}" {$view_page_button_attrs}  title="" >
+				
+		{mlang_message VIEW}		
+		</a>
+	</li>
+{END view_page_button}
+					</ul>
+	</span>
+</span>
+		</div>					</div>
+			</div>		
+{END below-grid_block}
+	</div>
+
+
+
+
+										{$footer}
+				</div>
+			</div>
+			<div class="r-body-shadow">
+			</div>
+		</div>
+	{END body}
+	</body>
+</html>

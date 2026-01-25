@@ -1,0 +1,947 @@
+<!doctype html>
+<html  {$html_attrs}>
+	<head>
+						<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{$pagetitle}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<base href="{$projectPath}">
+		{BEGIN styleCSSFiles}
+<link REL="stylesheet" href="{$stylepath}" type="text/css">
+{END styleCSSFiles}
+			
+	</head>
+
+	<body class="{$stylename} function-menu"   
+		>
+	{BEGIN body}
+		<style>
+		{$containerCss}
+		</style>
+		<div class="r-vbar-page">
+			<div data-width="250px" data-fixed class="r-left clearfix {$leftbar_class}" >
+								<div data-location="left" id="form_left_{$pageid}" data-makeup="leftbar" {$form_left} data-pageid="{$pageid}">
+{BEGIN left_block}
+ 
+     
+         
+
+			<div data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell class="clearfix " data-itemid="logo" {$item_logo}>
+				{BEGIN logo_block}
+	<A data-itemtype="logo" data-itemid="logo" {$item_logo} data-pageid="{$pageid}" class="navbar-brand" href="{$home_link}" data-pageid="{$pageid}" {$logo_hiddenattr}>
+		{$logo}
+	</A>
+{END logo_block}
+				<button data-pageid="1" type="button" class="navbar-toggle collapsed" data-runner-toggle="collapse" data-target="[data-mobile-controlled]">	
+					<span class="sr-only">Toggle navigation</span>	
+					<span class="icon-bar"></span>					
+				</button>				
+			</div>
+		
+ 
+
+			<div class="clearfix " data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell data-itemid="expand_button" {$item_expand_button} data-topcell-item-type="expand_button" >
+				<span data-itemtype="expand_button" data-itemid="expand_button" {$item_expand_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message EXPAND}" class="btn btn-link   
+	" href="#" >
+					<span class="glyphicon glyphicon-triangle-right"></span>
+										</a>
+</span>
+			</div>
+		
+     
+     
+         
+
+			<div data-cellId="left_c1" data-pageid="{$pageid}" class="clearfix  r-ori-vert " data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}">
+				{BEGIN menuitems_main}
+<ul data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}"	class="r-menu nav menu-treelike" 
+	data-menulevel="1"
+>
+
+{BEGIN item_children1}
+<li class="
+	{$item_current}">
+<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline data-menu-top >
+	{$item_separator}
+	<span class="r-menu-link r-menu-expanded "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+		<span class="r-menu-collapsed">{$item_collicon}{$item_firstcap}</span>
+	</a>
+{BEGIN item_showchildren2}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="2">
+	{BEGIN item_children2}
+		{BEGIN item_menulink2}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+	</a>
+			{BEGIN item_showchildren3}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="3">
+	{BEGIN item_children3}
+		{BEGIN item_menulink3}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren3}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren3}
+	</span>
+	</a>
+			{BEGIN item_showchildren4}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="4">
+	{BEGIN item_children4}
+		{BEGIN item_menulink4}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren4}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren4}
+	</span>
+	</a>
+			{BEGIN item_showchildren5}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="5">
+	{BEGIN item_children5}
+		{BEGIN item_menulink5}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren5}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren5}
+	</span>
+	</a>
+					</li>
+		{END item_menulink5}
+	{END item_children5}
+</ul>
+{END item_showchildren5}
+		</li>
+		{END item_menulink4}
+	{END item_children4}
+</ul>
+{END item_showchildren4}
+		</li>
+		{END item_menulink3}
+	{END item_children3}
+</ul>
+{END item_showchildren3}
+		</li>
+		{END item_menulink2}
+	{END item_children2}
+</ul>
+{END item_showchildren2}
+</li>
+{END item_children1}
+</ul>
+{END menuitems_main}
+			</div>
+		
+    {END left_block}
+</div>				</div>
+			<div class="r-content-col" data-resize-left="leftbar">
+				<div data-resize-left="leftbar"  data-fixed class="r-topheader" data-resize-name="topbar">
+									{BEGIN supertop_block}
+<nav class="navbar navbar-default" 
+	data-location="supertop" id="form_supertop_{$pageid}" data-makeup="leftbar" {$form_supertop} data-pageid="{$pageid}" >
+			 
+							 
+				<span class="navbar-form r-align-left navbar-header" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="expand_menu_button" {$item_expand_menu_button} data-topcell-item-type="expand_menu_button" >
+				<span data-itemtype="expand_menu_button" data-itemid="expand_menu_button" {$item_expand_menu_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message SHOW_MENU}" class="btn-link   
+	 glyphicon glyphicon-menu-hamburger" href="#" >		
+				
+								</a>
+</span>
+			</span>
+		 
+				<span class="navbar-form r-align-left navbar-collapse" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="collapse_button" {$item_collapse_button} data-topcell-item-type="collapse_button" >
+				<span data-itemtype="collapse_button" data-itemid="collapse_button" {$item_collapse_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message COLLAPSE}" class="btn-link   
+	 glyphicon glyphicon-triangle-left" href="#" >		
+				
+								</a>
+</span>
+			</span>
+							 
+													</nav>
+{END supertop_block}
+						{$locking}
+				</div>
+				<div class="r-body" data-resize-top="topbar" data-body-width="standard">
+					{$header}
+					<div class="r-top">
+												</div>
+											<div class="r-above">
+					{BEGIN above-grid_block}
+<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="leftbar" {$form_above-grid} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="above-grid_c1" data-pageid="{$pageid}"	{$cell_above-grid_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		{BEGIN firstAboveGridCell}
+				{END firstAboveGridCell}	
+	</div>					</div>
+			</div>		
+{END above-grid_block}
+	</div>
+<div class="r-grid">
+	{BEGIN grid_tabs}
+  <ul class="nav nav-tabs bsgrid_tabs">
+	{$grid_tabs_content}
+  </ul>
+{END grid_tabs}
+					{BEGIN grid_block}
+<table class="r-fluid r-form" data-location="grid" id="form_grid_{$pageid}" data-makeup="leftbar" {$form_grid} data-pageid="{$pageid}" >
+						<tbody>
+			
+								<tr {$row_grid_0} >
+									<td 
+	
+			 
+	data-cellId="grid_c1" data-pageid="{$pageid}">
+<div class="r-welcome-align">
+ 
+		
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item" {$item_welcome_item} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="34">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_analysis_by_source_list.php"  > 
+							<span class="glyphicon glyphicon-hand-right"></span>{$caption mne_analysis_by_source}					</a>
+	</div>
+
+			
+	<div class="bs-welcome-content">
+		Mne Analysis By Source description	</div>
+	</div>
+
+ 
+		
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item1" {$item_welcome_item1} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="25">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_audit_log_list.php"  > 
+							<span class="glyphicon glyphicon-fire"></span>{$caption mne_audit_log}					</a>
+	</div>
+
+			
+	<div class="bs-welcome-content">
+		Mne Audit Log description	</div>
+	</div>
+
+ 
+		
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item2" {$item_welcome_item2} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="34">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_budget_performance_list.php"  > 
+							<span class="glyphicon glyphicon-flash"></span>{$caption mne_budget_performance}					</a>
+	</div>
+
+			
+	<div class="bs-welcome-content">
+		Mne Budget Performance description	</div>
+	</div>
+
+ 
+		
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item3" {$item_welcome_item3} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="38">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_business_opportunities_list.php"  > 
+							<span class="glyphicon glyphicon-briefcase"></span>{$caption mne_business_opportunities}					</a>
+	</div>
+
+			
+	<div class="bs-welcome-content">
+		Mne Business Opportunities description	</div>
+	</div>
+
+ 
+		
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item4" {$item_welcome_item4} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="32">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_business_options_list.php"  > 
+							<span class="glyphicon glyphicon-earphone"></span>{$caption mne_business_options}					</a>
+	</div>
+
+			
+	<div class="bs-welcome-content">
+		Mne Business Options description	</div>
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item5" {$item_welcome_item5} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_business_performance_list.php"  > 
+							<span class="glyphicon glyphicon-earphone"></span>{$caption mne_business_performance}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item6" {$item_welcome_item6} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_client_options_list.php"  > 
+							<span class="glyphicon glyphicon-briefcase"></span>{$caption mne_client_options}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item7" {$item_welcome_item7} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_client_satisfaction_list.php"  > 
+							<span class="glyphicon glyphicon-star"></span>{$caption mne_client_satisfaction}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item8" {$item_welcome_item8} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_currency_options_list.php"  > 
+							<span class="glyphicon glyphicon-heart-empty"></span>{$caption mne_currency_options}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item9" {$item_welcome_item9} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_data_collection_list.php"  > 
+							{$caption mne_data_collection}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item10" {$item_welcome_item10} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_data_methods_list.php"  > 
+							{$caption mne_data_methods}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item11" {$item_welcome_item11} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_deliverable_status_list.php"  > 
+							{$caption mne_deliverable_status}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item12" {$item_welcome_item12} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_delivery_metrics_list.php"  > 
+							{$caption mne_delivery_metrics}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item13" {$item_welcome_item13} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_executive_dashboard_list.php"  > 
+							{$caption mne_executive_dashboard}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item14" {$item_welcome_item14} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_extended_projects_list.php"  > 
+							{$caption mne_extended_projects}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item15" {$item_welcome_item15} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_financial_overview_list.php"  > 
+							{$caption mne_financial_overview}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item16" {$item_welcome_item16} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_indicator_matrix_list.php"  > 
+							{$caption mne_indicator_matrix}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item17" {$item_welcome_item17} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_knowledge_outputs_list.php"  > 
+							{$caption mne_knowledge_outputs}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item18" {$item_welcome_item18} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_opportunity_metrics_list.php"  > 
+							{$caption mne_opportunity_metrics}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item19" {$item_welcome_item19} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_partnership_options_list.php"  > 
+							{$caption mne_partnership_options}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item20" {$item_welcome_item20} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_partnerships_list.php"  > 
+							{$caption mne_partnerships}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item21" {$item_welcome_item21} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_performance_alerts_list.php"  > 
+							{$caption mne_performance_alerts}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item22" {$item_welcome_item22} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_performance_ratings_list.php"  > 
+							{$caption mne_performance_ratings}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item23" {$item_welcome_item23} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_portfolio_snapshot_list.php"  > 
+							{$caption mne_portfolio_snapshot}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item24" {$item_welcome_item24} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_project_data_management_list.php"  > 
+							{$caption mne_project_data_management}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item25" {$item_welcome_item25} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_project_deliverables_list.php"  > 
+							{$caption mne_project_deliverables}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item26" {$item_welcome_item26} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_project_details_list.php"  > 
+							{$caption mne_project_details}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item27" {$item_welcome_item27} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_project_financials_list.php"  > 
+							{$caption mne_project_financials}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item28" {$item_welcome_item28} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_project_issues_list.php"  > 
+							{$caption mne_project_issues}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item29" {$item_welcome_item29} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_project_leads_list.php"  > 
+							{$caption mne_project_leads}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item30" {$item_welcome_item30} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_project_risks_list.php"  > 
+							{$caption mne_project_risks}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item31" {$item_welcome_item31} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_project_timelines_list.php"  > 
+							{$caption mne_project_timelines}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item32" {$item_welcome_item32} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_project_type_options_list.php"  > 
+							{$caption mne_project_type_options}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item33" {$item_welcome_item33} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_project_updates_list.php"  > 
+							{$caption mne_project_updates}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item34" {$item_welcome_item34} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_projects_list.php"  > 
+							{$caption mne_projects}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item35" {$item_welcome_item35} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_publication_types_list.php"  > 
+							{$caption mne_publication_types}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item36" {$item_welcome_item36} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_resource_options_list.php"  > 
+							{$caption mne_resource_options}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item37" {$item_welcome_item37} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_risk_options_list.php"  > 
+							{$caption mne_risk_options}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item38" {$item_welcome_item38} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_sector_options_list.php"  > 
+							{$caption mne_sector_options}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item39" {$item_welcome_item39} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_status_options_list.php"  > 
+							{$caption mne_status_options}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item40" {$item_welcome_item40} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_system_config_list.php"  > 
+							{$caption mne_system_config}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item41" {$item_welcome_item41} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_win_loss_analysis_list.php"  > 
+							{$caption mne_win_loss_analysis}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item42" {$item_welcome_item42} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_year_projects_list.php"  > 
+							{$caption mne_year_projects}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item43" {$item_welcome_item43} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="users_list.php"  > 
+							{$caption users}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item44" {$item_welcome_item44} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_project_category_list.php"  > 
+							{$caption mne_project_category}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item45" {$item_welcome_item45} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_sector_category_list.php"  > 
+							{$caption mne_sector_category}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item46" {$item_welcome_item46} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_deliverable_options_list.php"  > 
+							{$caption mne_deliverable_options}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item47" {$item_welcome_item47} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_quality_status_list.php"  > 
+							{$caption mne_quality_status}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item48" {$item_welcome_item48} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_generic_options_list.php"  > 
+							{$caption mne_generic_options}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item49" {$item_welcome_item49} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_grantee_contracted_unit_list.php"  > 
+							{$caption mne_grantee_contracted_unit}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item50" {$item_welcome_item50} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_imp_level_options_list.php"  > 
+							{$caption mne_imp_level_options}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item51" {$item_welcome_item51} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_opportunity_sources_list.php"  > 
+							{$caption mne_opportunity_sources}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item52" {$item_welcome_item52} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_thematic_areas_list.php"  > 
+							{$caption mne_thematic_areas}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item53" {$item_welcome_item53} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_data_sources_list.php"  > 
+							{$caption mne_data_sources}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item54" {$item_welcome_item54} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_partner_types_list.php"  > 
+							{$caption mne_partner_types}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item55" {$item_welcome_item55} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_engagement_level_list.php"  > 
+							{$caption mne_engagement_level}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item56" {$item_welcome_item56} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_status_indicators_list.php"  > 
+							{$caption mne_status_indicators}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item57" {$item_welcome_item57} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_budget_category_list.php"  > 
+							{$caption mne_budget_category}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item58" {$item_welcome_item58} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="mne_indicator_groups_list.php"  > 
+							{$caption mne_indicator_groups}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item59" {$item_welcome_item59} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="tblclients_list.php"  > 
+							{$caption tblclients}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item60" {$item_welcome_item60} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="tblcountries_list.php"  > 
+							{$caption tblcountries}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item61" {$item_welcome_item61} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="tblcurrencies_list.php"  > 
+							{$caption tblcurrencies}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item62" {$item_welcome_item62} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="tblcurrency_rate_logs_list.php"  > 
+							{$caption tblcurrency_rate_logs}					</a>
+	</div>
+
+	</div>
+
+ 
+
+<div class="bs-welcome-item" data-itemtype="welcome_item" data-itemid="welcome_item63" {$item_welcome_item63} data-pageid="{$pageid}" data-page="_global_menu" data-comment-len="0">
+	<div class="bs-welcome-header">
+		<a id="itemlink" href="tblcurrency_rates_list.php"  > 
+							{$caption tblcurrency_rates}					</a>
+	</div>
+
+	</div>
+
+</div>
+</td>
+							</tr>
+					
+					</tbody>
+				</table>
+{END grid_block}
+	</div>
+<div class="r-below">
+			</div>
+
+
+
+
+										{$footer}
+				</div>
+			</div>
+			<div class="r-body-shadow">
+			</div>
+		</div>
+	{END body}
+	</body>
+</html>

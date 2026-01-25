@@ -1,0 +1,1158 @@
+<!doctype html>
+<html  {$html_attrs}>
+	<head>
+						<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{$pagetitle}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<base href="{$projectPath}">
+		{BEGIN styleCSSFiles}
+<link REL="stylesheet" href="{$stylepath}" type="text/css">
+{END styleCSSFiles}
+			
+	</head>
+
+	<body class="{$stylename} function-edit"   
+		>
+	{BEGIN body}
+		<style>
+		{$containerCss}
+		</style>
+		<div class="r-vbar-page">
+			<div data-width="250px" data-fixed class="r-left clearfix {$leftbar_class}" >
+								<div data-location="left" id="form_left_{$pageid}" data-makeup="leftbar" {$form_left} data-pageid="{$pageid}">
+{BEGIN left_block}
+ 
+     
+         
+
+			<div data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell class="clearfix " data-itemid="logo" {$item_logo}>
+				{BEGIN logo_block}
+	<A data-itemtype="logo" data-itemid="logo" {$item_logo} data-pageid="{$pageid}" class="navbar-brand" href="{$home_link}" data-pageid="{$pageid}" {$logo_hiddenattr}>
+		{$logo}
+	</A>
+{END logo_block}
+				<button data-pageid="1" type="button" class="navbar-toggle collapsed" data-runner-toggle="collapse" data-target="[data-mobile-controlled]">	
+					<span class="sr-only">Toggle navigation</span>	
+					<span class="icon-bar"></span>					
+				</button>				
+			</div>
+		
+ 
+
+			<div class="clearfix " data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell data-itemid="expand_button" {$item_expand_button} data-topcell-item-type="expand_button" >
+				<span data-itemtype="expand_button" data-itemid="expand_button" {$item_expand_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message EXPAND}" class="btn btn-link   
+	" href="#" >
+					<span class="glyphicon glyphicon-triangle-right"></span>
+										</a>
+</span>
+			</div>
+		
+     
+     
+         
+
+			<div data-cellId="left_c1" data-pageid="{$pageid}" class="clearfix  r-ori-vert " data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}">
+				{BEGIN menuitems_main}
+<ul data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}"	class="r-menu nav menu-treelike" 
+	data-menulevel="1"
+>
+
+{BEGIN item_children1}
+<li class="
+	{$item_current}">
+<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline data-menu-top >
+	{$item_separator}
+	<span class="r-menu-link r-menu-expanded "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+		<span class="r-menu-collapsed">{$item_collicon}{$item_firstcap}</span>
+	</a>
+{BEGIN item_showchildren2}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="2">
+	{BEGIN item_children2}
+		{BEGIN item_menulink2}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+	</a>
+			{BEGIN item_showchildren3}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="3">
+	{BEGIN item_children3}
+		{BEGIN item_menulink3}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren3}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren3}
+	</span>
+	</a>
+			{BEGIN item_showchildren4}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="4">
+	{BEGIN item_children4}
+		{BEGIN item_menulink4}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren4}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren4}
+	</span>
+	</a>
+			{BEGIN item_showchildren5}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="5">
+	{BEGIN item_children5}
+		{BEGIN item_menulink5}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren5}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren5}
+	</span>
+	</a>
+					</li>
+		{END item_menulink5}
+	{END item_children5}
+</ul>
+{END item_showchildren5}
+		</li>
+		{END item_menulink4}
+	{END item_children4}
+</ul>
+{END item_showchildren4}
+		</li>
+		{END item_menulink3}
+	{END item_children3}
+</ul>
+{END item_showchildren3}
+		</li>
+		{END item_menulink2}
+	{END item_children2}
+</ul>
+{END item_showchildren2}
+</li>
+{END item_children1}
+</ul>
+{END menuitems_main}
+			</div>
+		
+    {END left_block}
+</div>				</div>
+			<div class="r-content-col" data-resize-left="leftbar">
+				<div data-resize-left="leftbar"  data-fixed class="r-topheader" data-resize-name="topbar">
+									{BEGIN supertop_block}
+<nav class="navbar navbar-default" 
+	data-location="supertop" id="form_supertop_{$pageid}" data-makeup="leftbar" {$form_supertop} data-pageid="{$pageid}" >
+			 
+							 
+				<span class="navbar-form  navbar-header" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="expand_menu_button" {$item_expand_menu_button} data-topcell-item-type="expand_menu_button" >
+				<span data-itemtype="expand_menu_button" data-itemid="expand_menu_button" {$item_expand_menu_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message SHOW_MENU}" class="btn-link   
+	 glyphicon glyphicon-menu-hamburger" href="#" >		
+				
+								</a>
+</span>
+			</span>
+		 
+				<span class="navbar-form  navbar-collapse" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="collapse_button" {$item_collapse_button} data-topcell-item-type="collapse_button" >
+				<span data-itemtype="collapse_button" data-itemid="collapse_button" {$item_collapse_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message COLLAPSE}" class="btn-link   
+	 glyphicon glyphicon-triangle-left" href="#" >		
+				
+								</a>
+</span>
+			</span>
+							 
+													</nav>
+{END supertop_block}
+						{$locking}
+				</div>
+				<div class="r-body" data-resize-top="topbar" data-body-width="standard">
+					{$header}
+					<div class="r-top">
+									{BEGIN top_block}
+<div class="r-form" data-location="top" id="form_top_{$pageid}" data-makeup="leftbar" {$form_top} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="top_c1" data-pageid="{$pageid}"	{$cell_top_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		 
+		<h2 data-itemtype="edit_header" data-itemid="edit_header" {$item_edit_header} data-pageid="{$pageid}" >{$pagetitlelabel tblclients edit}</h2>
+		</div>					</div>
+			</div>		
+{END top_block}
+						</div>
+											<div class="r-above">
+					{BEGIN above-grid_block}
+<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="leftbar" {$form_above-grid} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="above-grid_c1" data-pageid="{$pageid}"	{$cell_above-grid_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		{BEGIN firstAboveGridCell}
+		 
+		<div data-itemtype="edit_message" data-itemid="edit_message" {$item_edit_message} data-pageid="{$pageid}" class="alert {$message_class}" role="alert">
+<h5>{$message}</h5>
+<div>
+{BEGIN message_back_button}
+			<button class="btn btn-sm btn-default" {$backbutton_attrs}>{mlang_message BACK_TO_LIST}</button>
+	{END message_back_button}
+{BEGIN message_view_page_button}
+		<a class="btn btn-sm btn-default" href="tblclients_view.php?{$editlink}" {$view_page_button_attrs}>{mlang_message VIEW}</a>
+{END message_view_page_button}
+</div>
+</div>
+			{END firstAboveGridCell}	
+	</div>					</div>
+			</div>		
+{END above-grid_block}
+	</div>
+<div class="r-grid">
+	{BEGIN grid_tabs}
+  <ul class="nav nav-tabs bsgrid_tabs">
+	{$grid_tabs_content}
+  </ul>
+{END grid_tabs}
+					{BEGIN grid_block}
+
+
+
+
+ 
+	 
+												<table 
+	data-body-align="left"
+	data-location="grid" id="form_grid_{$pageid}" data-makeup="leftbar" {$form_grid} data-pageid="{$pageid}" 
+	class="r-edit-form" cellpadding="0" cellspacing="0" 
+	{$grid_hiddenattr} 
+		data-form-width="1"
+		
+		data-v-width="4"
+	>
+	<tbody>
+										<tr {$row_grid_0} >
+										
+
+{BEGIN cellblock_grid_c3}
+<td
+	{$cell_grid_c3}
+	class=" r-ori-vert"
+	
+				data-fullwidth
+		
+			data-cellId="grid_c3" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN company_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_company}  r-vertical-field" 
+	data-signal-error-for="company{$id}" {$required_attr_company}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field" {$item_integrated_edit_field} data-pageid="{$pageid}" data-field="company" data-fieldname="company" >
+
+	<label class="r-edit-label control-label {$company_label_class}" for="{$labelfor_company}">
+		{BEGIN company_label}
+			{$company_forward_control}
+			{$label tblclients company }			{END company_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$company_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="company" {$tooltipAttr tblclients company } >
+		<div class="text-muted" >
+		{$tooltip tblclients company }		</div>
+	</div>
+	</div>
+
+
+{END company_fieldblock}
+											
+{BEGIN vat_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_vat}  r-vertical-field" 
+	data-signal-error-for="vat{$id}" {$required_attr_vat}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field1" {$item_integrated_edit_field1} data-pageid="{$pageid}" data-field="vat" data-fieldname="vat" >
+
+	<label class="r-edit-label control-label {$vat_label_class}" for="{$labelfor_vat}">
+		{BEGIN vat_label}
+			{$vat_forward_control}
+			{$label tblclients vat }			{END vat_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$vat_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="vat" {$tooltipAttr tblclients vat } >
+		<div class="text-muted" >
+		{$tooltip tblclients vat }		</div>
+	</div>
+	</div>
+
+
+{END vat_fieldblock}
+											
+{BEGIN phonenumber_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_phonenumber}  r-vertical-field" 
+	data-signal-error-for="phonenumber{$id}" {$required_attr_phonenumber}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field2" {$item_integrated_edit_field2} data-pageid="{$pageid}" data-field="phonenumber" data-fieldname="phonenumber" >
+
+	<label class="r-edit-label control-label {$phonenumber_label_class}" for="{$labelfor_phonenumber}">
+		{BEGIN phonenumber_label}
+			{$phonenumber_forward_control}
+			{$label tblclients phonenumber }			{END phonenumber_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$phonenumber_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="phonenumber" {$tooltipAttr tblclients phonenumber } >
+		<div class="text-muted" >
+		{$tooltip tblclients phonenumber }		</div>
+	</div>
+	</div>
+
+
+{END phonenumber_fieldblock}
+											
+{BEGIN country_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_country}  r-vertical-field" 
+	data-signal-error-for="country{$id}" {$required_attr_country}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field3" {$item_integrated_edit_field3} data-pageid="{$pageid}" data-field="country" data-fieldname="country" >
+
+	<label class="r-edit-label control-label {$country_label_class}" for="{$labelfor_country}">
+		{BEGIN country_label}
+			{$country_forward_control}
+			{$label tblclients country }			{END country_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$country_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="country" {$tooltipAttr tblclients country } >
+		<div class="text-muted" >
+		{$tooltip tblclients country }		</div>
+	</div>
+	</div>
+
+
+{END country_fieldblock}
+											
+{BEGIN city_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_city}  r-vertical-field" 
+	data-signal-error-for="city{$id}" {$required_attr_city}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field4" {$item_integrated_edit_field4} data-pageid="{$pageid}" data-field="city" data-fieldname="city" >
+
+	<label class="r-edit-label control-label {$city_label_class}" for="{$labelfor_city}">
+		{BEGIN city_label}
+			{$city_forward_control}
+			{$label tblclients city }			{END city_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$city_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="city" {$tooltipAttr tblclients city } >
+		<div class="text-muted" >
+		{$tooltip tblclients city }		</div>
+	</div>
+	</div>
+
+
+{END city_fieldblock}
+											
+{BEGIN zip_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_zip}  r-vertical-field" 
+	data-signal-error-for="zip{$id}" {$required_attr_zip}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field5" {$item_integrated_edit_field5} data-pageid="{$pageid}" data-field="zip" data-fieldname="zip" >
+
+	<label class="r-edit-label control-label {$zip_label_class}" for="{$labelfor_zip}">
+		{BEGIN zip_label}
+			{$zip_forward_control}
+			{$label tblclients zip }			{END zip_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$zip_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="zip" {$tooltipAttr tblclients zip } >
+		<div class="text-muted" >
+		{$tooltip tblclients zip }		</div>
+	</div>
+	</div>
+
+
+{END zip_fieldblock}
+											
+{BEGIN state_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_state}  r-vertical-field" 
+	data-signal-error-for="state{$id}" {$required_attr_state}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field6" {$item_integrated_edit_field6} data-pageid="{$pageid}" data-field="state" data-fieldname="state" >
+
+	<label class="r-edit-label control-label {$state_label_class}" for="{$labelfor_state}">
+		{BEGIN state_label}
+			{$state_forward_control}
+			{$label tblclients state }			{END state_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$state_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="state" {$tooltipAttr tblclients state } >
+		<div class="text-muted" >
+		{$tooltip tblclients state }		</div>
+	</div>
+	</div>
+
+
+{END state_fieldblock}
+											
+{BEGIN address_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_address}  r-vertical-field" 
+	data-signal-error-for="address{$id}" {$required_attr_address}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field7" {$item_integrated_edit_field7} data-pageid="{$pageid}" data-field="address" data-fieldname="address" >
+
+	<label class="r-edit-label control-label {$address_label_class}" for="{$labelfor_address}">
+		{BEGIN address_label}
+			{$address_forward_control}
+			{$label tblclients address }			{END address_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$address_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="address" {$tooltipAttr tblclients address } >
+		<div class="text-muted" >
+		{$tooltip tblclients address }		</div>
+	</div>
+	</div>
+
+
+{END address_fieldblock}
+											
+{BEGIN website_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_website}  r-vertical-field" 
+	data-signal-error-for="website{$id}" {$required_attr_website}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field8" {$item_integrated_edit_field8} data-pageid="{$pageid}" data-field="website" data-fieldname="website" >
+
+	<label class="r-edit-label control-label {$website_label_class}" for="{$labelfor_website}">
+		{BEGIN website_label}
+			{$website_forward_control}
+			{$label tblclients website }			{END website_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$website_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="website" {$tooltipAttr tblclients website } >
+		<div class="text-muted" >
+		{$tooltip tblclients website }		</div>
+	</div>
+	</div>
+
+
+{END website_fieldblock}
+											
+{BEGIN datecreated_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_datecreated}  r-vertical-field" 
+	data-signal-error-for="datecreated{$id}" {$required_attr_datecreated}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field9" {$item_integrated_edit_field9} data-pageid="{$pageid}" data-field="datecreated" data-fieldname="datecreated" >
+
+	<label class="r-edit-label control-label {$datecreated_label_class}" for="{$labelfor_datecreated}">
+		{BEGIN datecreated_label}
+			{$datecreated_forward_control}
+			{$label tblclients datecreated }			{END datecreated_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$datecreated_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="datecreated" {$tooltipAttr tblclients datecreated } >
+		<div class="text-muted" >
+		{$tooltip tblclients datecreated }		</div>
+	</div>
+	</div>
+
+
+{END datecreated_fieldblock}
+											
+{BEGIN active_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_active}  r-vertical-field" 
+	data-signal-error-for="active{$id}" {$required_attr_active}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field10" {$item_integrated_edit_field10} data-pageid="{$pageid}" data-field="active" data-fieldname="active" >
+
+	<label class="r-edit-label control-label {$active_label_class}" for="{$labelfor_active}">
+		{BEGIN active_label}
+			{$active_forward_control}
+			{$label tblclients active }			{END active_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$active_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="active" {$tooltipAttr tblclients active } >
+		<div class="text-muted" >
+		{$tooltip tblclients active }		</div>
+	</div>
+	</div>
+
+
+{END active_fieldblock}
+											
+{BEGIN leadid_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_leadid}  r-vertical-field" 
+	data-signal-error-for="leadid{$id}" {$required_attr_leadid}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field11" {$item_integrated_edit_field11} data-pageid="{$pageid}" data-field="leadid" data-fieldname="leadid" >
+
+	<label class="r-edit-label control-label {$leadid_label_class}" for="{$labelfor_leadid}">
+		{BEGIN leadid_label}
+			{$leadid_forward_control}
+			{$label tblclients leadid }			{END leadid_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$leadid_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="leadid" {$tooltipAttr tblclients leadid } >
+		<div class="text-muted" >
+		{$tooltip tblclients leadid }		</div>
+	</div>
+	</div>
+
+
+{END leadid_fieldblock}
+											
+{BEGIN billing_street_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_billing_street}  r-vertical-field" 
+	data-signal-error-for="billing_street{$id}" {$required_attr_billing_street}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field12" {$item_integrated_edit_field12} data-pageid="{$pageid}" data-field="billing_street" data-fieldname="billing_street" >
+
+	<label class="r-edit-label control-label {$billing_street_label_class}" for="{$labelfor_billing_street}">
+		{BEGIN billing_street_label}
+			{$billing_street_forward_control}
+			{$label tblclients billing_street }			{END billing_street_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$billing_street_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="billing_street" {$tooltipAttr tblclients billing_street } >
+		<div class="text-muted" >
+		{$tooltip tblclients billing_street }		</div>
+	</div>
+	</div>
+
+
+{END billing_street_fieldblock}
+											
+{BEGIN billing_city_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_billing_city}  r-vertical-field" 
+	data-signal-error-for="billing_city{$id}" {$required_attr_billing_city}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field13" {$item_integrated_edit_field13} data-pageid="{$pageid}" data-field="billing_city" data-fieldname="billing_city" >
+
+	<label class="r-edit-label control-label {$billing_city_label_class}" for="{$labelfor_billing_city}">
+		{BEGIN billing_city_label}
+			{$billing_city_forward_control}
+			{$label tblclients billing_city }			{END billing_city_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$billing_city_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="billing_city" {$tooltipAttr tblclients billing_city } >
+		<div class="text-muted" >
+		{$tooltip tblclients billing_city }		</div>
+	</div>
+	</div>
+
+
+{END billing_city_fieldblock}
+											
+{BEGIN billing_state_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_billing_state}  r-vertical-field" 
+	data-signal-error-for="billing_state{$id}" {$required_attr_billing_state}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field14" {$item_integrated_edit_field14} data-pageid="{$pageid}" data-field="billing_state" data-fieldname="billing_state" >
+
+	<label class="r-edit-label control-label {$billing_state_label_class}" for="{$labelfor_billing_state}">
+		{BEGIN billing_state_label}
+			{$billing_state_forward_control}
+			{$label tblclients billing_state }			{END billing_state_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$billing_state_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="billing_state" {$tooltipAttr tblclients billing_state } >
+		<div class="text-muted" >
+		{$tooltip tblclients billing_state }		</div>
+	</div>
+	</div>
+
+
+{END billing_state_fieldblock}
+											
+{BEGIN billing_zip_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_billing_zip}  r-vertical-field" 
+	data-signal-error-for="billing_zip{$id}" {$required_attr_billing_zip}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field15" {$item_integrated_edit_field15} data-pageid="{$pageid}" data-field="billing_zip" data-fieldname="billing_zip" >
+
+	<label class="r-edit-label control-label {$billing_zip_label_class}" for="{$labelfor_billing_zip}">
+		{BEGIN billing_zip_label}
+			{$billing_zip_forward_control}
+			{$label tblclients billing_zip }			{END billing_zip_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$billing_zip_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="billing_zip" {$tooltipAttr tblclients billing_zip } >
+		<div class="text-muted" >
+		{$tooltip tblclients billing_zip }		</div>
+	</div>
+	</div>
+
+
+{END billing_zip_fieldblock}
+											
+{BEGIN billing_country_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_billing_country}  r-vertical-field" 
+	data-signal-error-for="billing_country{$id}" {$required_attr_billing_country}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field16" {$item_integrated_edit_field16} data-pageid="{$pageid}" data-field="billing_country" data-fieldname="billing_country" >
+
+	<label class="r-edit-label control-label {$billing_country_label_class}" for="{$labelfor_billing_country}">
+		{BEGIN billing_country_label}
+			{$billing_country_forward_control}
+			{$label tblclients billing_country }			{END billing_country_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$billing_country_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="billing_country" {$tooltipAttr tblclients billing_country } >
+		<div class="text-muted" >
+		{$tooltip tblclients billing_country }		</div>
+	</div>
+	</div>
+
+
+{END billing_country_fieldblock}
+											
+{BEGIN shipping_street_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_shipping_street}  r-vertical-field" 
+	data-signal-error-for="shipping_street{$id}" {$required_attr_shipping_street}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field17" {$item_integrated_edit_field17} data-pageid="{$pageid}" data-field="shipping_street" data-fieldname="shipping_street" >
+
+	<label class="r-edit-label control-label {$shipping_street_label_class}" for="{$labelfor_shipping_street}">
+		{BEGIN shipping_street_label}
+			{$shipping_street_forward_control}
+			{$label tblclients shipping_street }			{END shipping_street_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$shipping_street_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="shipping_street" {$tooltipAttr tblclients shipping_street } >
+		<div class="text-muted" >
+		{$tooltip tblclients shipping_street }		</div>
+	</div>
+	</div>
+
+
+{END shipping_street_fieldblock}
+											
+{BEGIN shipping_city_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_shipping_city}  r-vertical-field" 
+	data-signal-error-for="shipping_city{$id}" {$required_attr_shipping_city}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field18" {$item_integrated_edit_field18} data-pageid="{$pageid}" data-field="shipping_city" data-fieldname="shipping_city" >
+
+	<label class="r-edit-label control-label {$shipping_city_label_class}" for="{$labelfor_shipping_city}">
+		{BEGIN shipping_city_label}
+			{$shipping_city_forward_control}
+			{$label tblclients shipping_city }			{END shipping_city_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$shipping_city_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="shipping_city" {$tooltipAttr tblclients shipping_city } >
+		<div class="text-muted" >
+		{$tooltip tblclients shipping_city }		</div>
+	</div>
+	</div>
+
+
+{END shipping_city_fieldblock}
+											
+{BEGIN shipping_state_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_shipping_state}  r-vertical-field" 
+	data-signal-error-for="shipping_state{$id}" {$required_attr_shipping_state}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field19" {$item_integrated_edit_field19} data-pageid="{$pageid}" data-field="shipping_state" data-fieldname="shipping_state" >
+
+	<label class="r-edit-label control-label {$shipping_state_label_class}" for="{$labelfor_shipping_state}">
+		{BEGIN shipping_state_label}
+			{$shipping_state_forward_control}
+			{$label tblclients shipping_state }			{END shipping_state_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$shipping_state_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="shipping_state" {$tooltipAttr tblclients shipping_state } >
+		<div class="text-muted" >
+		{$tooltip tblclients shipping_state }		</div>
+	</div>
+	</div>
+
+
+{END shipping_state_fieldblock}
+											
+{BEGIN shipping_zip_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_shipping_zip}  r-vertical-field" 
+	data-signal-error-for="shipping_zip{$id}" {$required_attr_shipping_zip}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field20" {$item_integrated_edit_field20} data-pageid="{$pageid}" data-field="shipping_zip" data-fieldname="shipping_zip" >
+
+	<label class="r-edit-label control-label {$shipping_zip_label_class}" for="{$labelfor_shipping_zip}">
+		{BEGIN shipping_zip_label}
+			{$shipping_zip_forward_control}
+			{$label tblclients shipping_zip }			{END shipping_zip_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$shipping_zip_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="shipping_zip" {$tooltipAttr tblclients shipping_zip } >
+		<div class="text-muted" >
+		{$tooltip tblclients shipping_zip }		</div>
+	</div>
+	</div>
+
+
+{END shipping_zip_fieldblock}
+											
+{BEGIN shipping_country_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_shipping_country}  r-vertical-field" 
+	data-signal-error-for="shipping_country{$id}" {$required_attr_shipping_country}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field21" {$item_integrated_edit_field21} data-pageid="{$pageid}" data-field="shipping_country" data-fieldname="shipping_country" >
+
+	<label class="r-edit-label control-label {$shipping_country_label_class}" for="{$labelfor_shipping_country}">
+		{BEGIN shipping_country_label}
+			{$shipping_country_forward_control}
+			{$label tblclients shipping_country }			{END shipping_country_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$shipping_country_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="shipping_country" {$tooltipAttr tblclients shipping_country } >
+		<div class="text-muted" >
+		{$tooltip tblclients shipping_country }		</div>
+	</div>
+	</div>
+
+
+{END shipping_country_fieldblock}
+											
+{BEGIN longitude_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_longitude}  r-vertical-field" 
+	data-signal-error-for="longitude{$id}" {$required_attr_longitude}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field22" {$item_integrated_edit_field22} data-pageid="{$pageid}" data-field="longitude" data-fieldname="longitude" >
+
+	<label class="r-edit-label control-label {$longitude_label_class}" for="{$labelfor_longitude}">
+		{BEGIN longitude_label}
+			{$longitude_forward_control}
+			{$label tblclients longitude }			{END longitude_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$longitude_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="longitude" {$tooltipAttr tblclients longitude } >
+		<div class="text-muted" >
+		{$tooltip tblclients longitude }		</div>
+	</div>
+	</div>
+
+
+{END longitude_fieldblock}
+											
+{BEGIN latitude_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_latitude}  r-vertical-field" 
+	data-signal-error-for="latitude{$id}" {$required_attr_latitude}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field23" {$item_integrated_edit_field23} data-pageid="{$pageid}" data-field="latitude" data-fieldname="latitude" >
+
+	<label class="r-edit-label control-label {$latitude_label_class}" for="{$labelfor_latitude}">
+		{BEGIN latitude_label}
+			{$latitude_forward_control}
+			{$label tblclients latitude }			{END latitude_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$latitude_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="latitude" {$tooltipAttr tblclients latitude } >
+		<div class="text-muted" >
+		{$tooltip tblclients latitude }		</div>
+	</div>
+	</div>
+
+
+{END latitude_fieldblock}
+											
+{BEGIN default_language_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_default_language}  r-vertical-field" 
+	data-signal-error-for="default_language{$id}" {$required_attr_default_language}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field24" {$item_integrated_edit_field24} data-pageid="{$pageid}" data-field="default_language" data-fieldname="default_language" >
+
+	<label class="r-edit-label control-label {$default_language_label_class}" for="{$labelfor_default_language}">
+		{BEGIN default_language_label}
+			{$default_language_forward_control}
+			{$label tblclients default_language }			{END default_language_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$default_language_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="default_language" {$tooltipAttr tblclients default_language } >
+		<div class="text-muted" >
+		{$tooltip tblclients default_language }		</div>
+	</div>
+	</div>
+
+
+{END default_language_fieldblock}
+											
+{BEGIN default_currency_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_default_currency}  r-vertical-field" 
+	data-signal-error-for="default_currency{$id}" {$required_attr_default_currency}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field25" {$item_integrated_edit_field25} data-pageid="{$pageid}" data-field="default_currency" data-fieldname="default_currency" >
+
+	<label class="r-edit-label control-label {$default_currency_label_class}" for="{$labelfor_default_currency}">
+		{BEGIN default_currency_label}
+			{$default_currency_forward_control}
+			{$label tblclients default_currency }			{END default_currency_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$default_currency_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="default_currency" {$tooltipAttr tblclients default_currency } >
+		<div class="text-muted" >
+		{$tooltip tblclients default_currency }		</div>
+	</div>
+	</div>
+
+
+{END default_currency_fieldblock}
+											
+{BEGIN show_primary_contact_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_show_primary_contact}  r-vertical-field" 
+	data-signal-error-for="show_primary_contact{$id}" {$required_attr_show_primary_contact}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field26" {$item_integrated_edit_field26} data-pageid="{$pageid}" data-field="show_primary_contact" data-fieldname="show_primary_contact" >
+
+	<label class="r-edit-label control-label {$show_primary_contact_label_class}" for="{$labelfor_show_primary_contact}">
+		{BEGIN show_primary_contact_label}
+			{$show_primary_contact_forward_control}
+			{$label tblclients show_primary_contact }			{END show_primary_contact_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$show_primary_contact_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="show_primary_contact" {$tooltipAttr tblclients show_primary_contact } >
+		<div class="text-muted" >
+		{$tooltip tblclients show_primary_contact }		</div>
+	</div>
+	</div>
+
+
+{END show_primary_contact_fieldblock}
+											
+{BEGIN stripe_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_stripe_id}  r-vertical-field" 
+	data-signal-error-for="stripe_id{$id}" {$required_attr_stripe_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field27" {$item_integrated_edit_field27} data-pageid="{$pageid}" data-field="stripe_id" data-fieldname="stripe_id" >
+
+	<label class="r-edit-label control-label {$stripe_id_label_class}" for="{$labelfor_stripe_id}">
+		{BEGIN stripe_id_label}
+			{$stripe_id_forward_control}
+			{$label tblclients stripe_id }			{END stripe_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$stripe_id_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="stripe_id" {$tooltipAttr tblclients stripe_id } >
+		<div class="text-muted" >
+		{$tooltip tblclients stripe_id }		</div>
+	</div>
+	</div>
+
+
+{END stripe_id_fieldblock}
+											
+{BEGIN registration_confirmed_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_registration_confirmed}  r-vertical-field" 
+	data-signal-error-for="registration_confirmed{$id}" {$required_attr_registration_confirmed}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field28" {$item_integrated_edit_field28} data-pageid="{$pageid}" data-field="registration_confirmed" data-fieldname="registration_confirmed" >
+
+	<label class="r-edit-label control-label {$registration_confirmed_label_class}" for="{$labelfor_registration_confirmed}">
+		{BEGIN registration_confirmed_label}
+			{$registration_confirmed_forward_control}
+			{$label tblclients registration_confirmed }			{END registration_confirmed_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$registration_confirmed_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="registration_confirmed" {$tooltipAttr tblclients registration_confirmed } >
+		<div class="text-muted" >
+		{$tooltip tblclients registration_confirmed }		</div>
+	</div>
+	</div>
+
+
+{END registration_confirmed_fieldblock}
+											
+{BEGIN addedfrom_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_addedfrom}  r-vertical-field" 
+	data-signal-error-for="addedfrom{$id}" {$required_attr_addedfrom}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field29" {$item_integrated_edit_field29} data-pageid="{$pageid}" data-field="addedfrom" data-fieldname="addedfrom" >
+
+	<label class="r-edit-label control-label {$addedfrom_label_class}" for="{$labelfor_addedfrom}">
+		{BEGIN addedfrom_label}
+			{$addedfrom_forward_control}
+			{$label tblclients addedfrom }			{END addedfrom_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$addedfrom_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="addedfrom" {$tooltipAttr tblclients addedfrom } >
+		<div class="text-muted" >
+		{$tooltip tblclients addedfrom }		</div>
+	</div>
+	</div>
+
+
+{END addedfrom_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c3}
+								</tr>
+			</tbody></table>
+{END grid_block}
+	</div>
+<div class="r-below">
+					{BEGIN below-grid_block}
+<div class="r-form" data-location="below-grid" id="form_below-grid_{$pageid}" data-makeup="leftbar" {$form_below-grid} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="below-grid_c1" data-pageid="{$pageid}"	{$cell_below-grid_c1}
+	class="			col-md-6
+	
+">
+		 
+		{BEGIN save_edit}
+<span data-itemtype="edit_save" data-itemid="edit_save" {$item_edit_save} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-primary   
+	" {$savebutton_attrs} >
+							{mlang_message SAVE}			</a>
+</span>
+{END save_edit}
+	 
+		{BEGIN save_update}
+<span data-itemtype="update_records" data-itemid="update_records" {$item_update_records} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-primary   
+	" {$savebutton_attrs} >
+				 
+			{$update_records_label}	
+			</a>
+</span>
+{END save_update}
+	 
+		{BEGIN back_button}
+<span data-itemtype="edit_back_list" data-itemid="edit_back_list" {$item_edit_back_list} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" {$backbutton_attrs} >
+							{mlang_message BACK_TO_LIST}			</a>
+</span>
+{END back_button}
+	 
+		{BEGIN close_button}
+<span data-itemtype="edit_close" data-itemid="edit_close" {$item_edit_close} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" {$closebutton_attrs} >
+							{mlang_message CANCEL}			</a>
+</span>
+{END close_button}
+		</div>			 
+				<div 
+	data-cellId="below-grid_c2" data-pageid="{$pageid}"	{$cell_below-grid_c2}
+	class="r-align-right			col-md-6
+	
+">
+		 
+		{BEGIN prev_button}
+<span data-itemtype="prev" data-itemid="prev" {$item_prev} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	{$prevbutton_class}" {$prevbutton_attrs} >
+					<span class="glyphicon glyphicon-menu-left"></span>
+										</a>
+</span>
+{END prev_button}
+	 
+		{BEGIN next_button}
+<span data-itemtype="next" data-itemid="next" {$item_next} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	{$nextbutton_class}" {$nextbutton_attrs} >
+					<span class="glyphicon glyphicon-menu-right"></span>
+										</a>
+</span>
+{END next_button}
+	 
+		<span data-itemtype="hamburger" data-itemid="hamburger" {$item_hamburger} data-pageid="{$pageid}" data-small data-button-item>
+	<span class="dropdown dropup">
+		<button type="button" title="" class="btn btn-default   dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		
+										<span class="glyphicon glyphicon-menu-hamburger"></span>
+												<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+							{BEGIN reset_button}
+	<li data-itemtype="edit_reset" data-itemid="edit_reset" {$item_edit_reset} data-pageid="{$pageid}" data-small >
+				<a  {$resetbutton_attrs}  title="" >
+				
+		{mlang_message RESET}		
+		</a>
+	</li>
+{END reset_button}
+							{BEGIN view_page_button}
+	<li data-itemtype="edit_view" data-itemid="edit_view" {$item_edit_view} data-pageid="{$pageid}" data-small >
+				<a  href="tblclients_view.php?{$editlink}" {$view_page_button_attrs}  title="" >
+				
+		{mlang_message VIEW}		
+		</a>
+	</li>
+{END view_page_button}
+					</ul>
+	</span>
+</span>
+		</div>					</div>
+			</div>		
+{END below-grid_block}
+	</div>
+
+
+
+
+										{$footer}
+				</div>
+			</div>
+			<div class="r-body-shadow">
+			</div>
+		</div>
+	{END body}
+	</body>
+</html>

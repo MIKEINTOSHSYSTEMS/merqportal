@@ -1,0 +1,551 @@
+<?php
+			$optionsArray = array(
+	'totals' => array(
+		'financial_id' => array(
+			'totalsType' => '' 
+		),
+		'project_id' => array(
+			'totalsType' => '' 
+		),
+		'total_project_budget' => array(
+			'totalsType' => '' 
+		),
+		'amount_spent_to_date' => array(
+			'totalsType' => '' 
+		),
+		'remaining_budget' => array(
+			'totalsType' => '' 
+		),
+		'burn_rate' => array(
+			'totalsType' => '' 
+		),
+		'budget_category' => array(
+			'totalsType' => '' 
+		),
+		'allocated_amount' => array(
+			'totalsType' => '' 
+		),
+		'spent_amount' => array(
+			'totalsType' => '' 
+		),
+		'remaining_amount' => array(
+			'totalsType' => '' 
+		),
+		'percent_spent' => array(
+			'totalsType' => '' 
+		),
+		'comments' => array(
+			'totalsType' => '' 
+		),
+		'target_profit_margin' => array(
+			'totalsType' => '' 
+		),
+		'current_profit_margin' => array(
+			'totalsType' => '' 
+		),
+		'reporting_period' => array(
+			'totalsType' => '' 
+		),
+		'created_at' => array(
+			'totalsType' => '' 
+		),
+		'updated_at' => array(
+			'totalsType' => '' 
+		) 
+	),
+	'fields' => array(
+		'gridFields' => array( 
+			'financial_id',
+			'project_id',
+			'total_project_budget',
+			'amount_spent_to_date',
+			'remaining_budget',
+			'burn_rate',
+			'budget_category',
+			'allocated_amount',
+			'spent_amount',
+			'remaining_amount',
+			'percent_spent',
+			'comments',
+			'target_profit_margin',
+			'current_profit_margin',
+			'reporting_period',
+			'created_at',
+			'updated_at' 
+		),
+		'exportFields' => array( 
+			'financial_id',
+			'project_id',
+			'total_project_budget',
+			'amount_spent_to_date',
+			'remaining_budget',
+			'burn_rate',
+			'budget_category',
+			'allocated_amount',
+			'spent_amount',
+			'remaining_amount',
+			'percent_spent',
+			'comments',
+			'target_profit_margin',
+			'current_profit_margin',
+			'reporting_period',
+			'created_at',
+			'updated_at' 
+		),
+		'searchRequiredFields' => array( 
+			 
+		),
+		'searchPanelFields' => array( 
+			 
+		),
+		'fieldItems' => array(
+			'financial_id' => array( 
+				'export_field' 
+			),
+			'project_id' => array( 
+				'export_field1' 
+			),
+			'total_project_budget' => array( 
+				'export_field2' 
+			),
+			'amount_spent_to_date' => array( 
+				'export_field3' 
+			),
+			'remaining_budget' => array( 
+				'export_field4' 
+			),
+			'burn_rate' => array( 
+				'export_field5' 
+			),
+			'budget_category' => array( 
+				'export_field6' 
+			),
+			'allocated_amount' => array( 
+				'export_field7' 
+			),
+			'spent_amount' => array( 
+				'export_field8' 
+			),
+			'remaining_amount' => array( 
+				'export_field9' 
+			),
+			'percent_spent' => array( 
+				'export_field10' 
+			),
+			'comments' => array( 
+				'export_field11' 
+			),
+			'target_profit_margin' => array( 
+				'export_field12' 
+			),
+			'current_profit_margin' => array( 
+				'export_field13' 
+			),
+			'reporting_period' => array( 
+				'export_field14' 
+			),
+			'created_at' => array( 
+				'export_field15' 
+			),
+			'updated_at' => array( 
+				'export_field16' 
+			) 
+		) 
+	),
+	'pageLinks' => array(
+		'edit' => false,
+		'add' => false,
+		'view' => false,
+		'print' => false 
+	),
+	'layoutHelper' => array(
+		'formItems' => array(
+			'formItems' => array(
+				'supertop' => array( 
+					 
+				),
+				'top' => array( 
+					'export_header' 
+				),
+				'grid' => array( 
+					'export_field',
+					'export_field1',
+					'export_field2',
+					'export_field3',
+					'export_field4',
+					'export_field5',
+					'export_field6',
+					'export_field7',
+					'export_field8',
+					'export_field9',
+					'export_field10',
+					'export_field11',
+					'export_field12',
+					'export_field13',
+					'export_field14',
+					'export_field15',
+					'export_field16' 
+				),
+				'footer' => array( 
+					'export_export',
+					'export_cancel' 
+				) 
+			),
+			'formXtTags' => array(
+				'supertop' => array( 
+					 
+				) 
+			),
+			'itemForms' => array(
+				'export_header' => 'top',
+				'export_field' => 'grid',
+				'export_field1' => 'grid',
+				'export_field2' => 'grid',
+				'export_field3' => 'grid',
+				'export_field4' => 'grid',
+				'export_field5' => 'grid',
+				'export_field6' => 'grid',
+				'export_field7' => 'grid',
+				'export_field8' => 'grid',
+				'export_field9' => 'grid',
+				'export_field10' => 'grid',
+				'export_field11' => 'grid',
+				'export_field12' => 'grid',
+				'export_field13' => 'grid',
+				'export_field14' => 'grid',
+				'export_field15' => 'grid',
+				'export_field16' => 'grid',
+				'export_export' => 'footer',
+				'export_cancel' => 'footer' 
+			),
+			'itemLocations' => array(
+				 
+			),
+			'itemVisiblity' => array(
+				 
+			) 
+		),
+		'itemsByType' => array(
+			'export_header' => array( 
+				'export_header' 
+			),
+			'export_export' => array( 
+				'export_export' 
+			),
+			'export_cancel' => array( 
+				'export_cancel' 
+			),
+			'export_field' => array( 
+				'export_field',
+				'export_field1',
+				'export_field2',
+				'export_field3',
+				'export_field4',
+				'export_field5',
+				'export_field6',
+				'export_field7',
+				'export_field8',
+				'export_field9',
+				'export_field10',
+				'export_field11',
+				'export_field12',
+				'export_field13',
+				'export_field14',
+				'export_field15',
+				'export_field16' 
+			) 
+		),
+		'cellMaps' => array(
+			 
+		) 
+	),
+	'page' => array(
+		'verticalBar' => false,
+		'labeledButtons' => array(
+			'update_records' => array(
+				 
+			),
+			'print_pages' => array(
+				 
+			),
+			'register_activate_message' => array(
+				 
+			),
+			'details_found' => array(
+				 
+			) 
+		),
+		'hasCustomButtons' => false,
+		'customButtons' => array( 
+			 
+		),
+		'codeSnippets' => array( 
+			 
+		),
+		'clickHandlerSnippets' => array( 
+			 
+		),
+		'hasNotifications' => false,
+		'menus' => array( 
+			 
+		),
+		'calcTotalsFor' => 1,
+		'hasCharts' => false 
+	),
+	'events' => array(
+		'maps' => array( 
+			 
+		),
+		'mapsData' => array(
+			 
+		),
+		'buttons' => array( 
+			 
+		) 
+	),
+	'export' => array(
+		'format' => 2,
+		'selectFields' => false,
+		'delimiter' => ',',
+		'selectDelimiter' => false,
+		'exportFileTypes' => array(
+			'excel' => true,
+			'word' => true,
+			'csv' => true,
+			'xml' => false 
+		) 
+	) 
+);
+			$pageArray = array(
+	'id' => 'export',
+	'type' => 'export',
+	'layoutId' => 'first',
+	'disabled' => false,
+	'default' => 0,
+	'forms' => array(
+		'supertop' => array(
+			'modelId' => 'panel-top',
+			'grid' => array( 
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c1' 
+						) 
+					),
+					'section' => '' 
+				) 
+			),
+			'cells' => array(
+				'c1' => array(
+					'model' => 'c1',
+					'items' => array( 
+						 
+					) 
+				) 
+			),
+			'deferredItems' => array( 
+				 
+			),
+			'recsPerRow' => 1 
+		),
+		'top' => array(
+			'modelId' => 'export-header',
+			'grid' => array( 
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c1' 
+						) 
+					),
+					'section' => '' 
+				) 
+			),
+			'cells' => array(
+				'c1' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'export_header' 
+					) 
+				) 
+			),
+			'deferredItems' => array( 
+				 
+			),
+			'recsPerRow' => 1 
+		),
+		'grid' => array(
+			'modelId' => 'export-grid',
+			'grid' => array( 
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c1' 
+						) 
+					),
+					'section' => '' 
+				) 
+			),
+			'cells' => array(
+				'c1' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'export_field',
+						'export_field1',
+						'export_field2',
+						'export_field3',
+						'export_field4',
+						'export_field5',
+						'export_field6',
+						'export_field7',
+						'export_field8',
+						'export_field9',
+						'export_field10',
+						'export_field11',
+						'export_field12',
+						'export_field13',
+						'export_field14',
+						'export_field15',
+						'export_field16' 
+					) 
+				) 
+			),
+			'deferredItems' => array( 
+				 
+			),
+			'recsPerRow' => 1 
+		),
+		'footer' => array(
+			'modelId' => 'export-footer',
+			'grid' => array( 
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c1' 
+						),
+						array(
+							'cell' => 'c2' 
+						) 
+					),
+					'section' => '' 
+				) 
+			),
+			'cells' => array(
+				'c1' => array(
+					'model' => 'c1',
+					'items' => array( 
+						 
+					) 
+				),
+				'c2' => array(
+					'model' => 'c2',
+					'items' => array( 
+						'export_export',
+						'export_cancel' 
+					) 
+				) 
+			),
+			'deferredItems' => array( 
+				 
+			),
+			'recsPerRow' => 1 
+		) 
+	),
+	'items' => array(
+		'export_header' => array(
+			'type' => 'export_header' 
+		),
+		'export_export' => array(
+			'type' => 'export_export' 
+		),
+		'export_cancel' => array(
+			'type' => 'export_cancel' 
+		),
+		'export_field' => array(
+			'field' => 'financial_id',
+			'type' => 'export_field' 
+		),
+		'export_field1' => array(
+			'field' => 'project_id',
+			'type' => 'export_field' 
+		),
+		'export_field2' => array(
+			'field' => 'total_project_budget',
+			'type' => 'export_field' 
+		),
+		'export_field3' => array(
+			'field' => 'amount_spent_to_date',
+			'type' => 'export_field' 
+		),
+		'export_field4' => array(
+			'field' => 'remaining_budget',
+			'type' => 'export_field' 
+		),
+		'export_field5' => array(
+			'field' => 'burn_rate',
+			'type' => 'export_field' 
+		),
+		'export_field6' => array(
+			'field' => 'budget_category',
+			'type' => 'export_field' 
+		),
+		'export_field7' => array(
+			'field' => 'allocated_amount',
+			'type' => 'export_field' 
+		),
+		'export_field8' => array(
+			'field' => 'spent_amount',
+			'type' => 'export_field' 
+		),
+		'export_field9' => array(
+			'field' => 'remaining_amount',
+			'type' => 'export_field' 
+		),
+		'export_field10' => array(
+			'field' => 'percent_spent',
+			'type' => 'export_field' 
+		),
+		'export_field11' => array(
+			'field' => 'comments',
+			'type' => 'export_field' 
+		),
+		'export_field12' => array(
+			'field' => 'target_profit_margin',
+			'type' => 'export_field' 
+		),
+		'export_field13' => array(
+			'field' => 'current_profit_margin',
+			'type' => 'export_field' 
+		),
+		'export_field14' => array(
+			'field' => 'reporting_period',
+			'type' => 'export_field' 
+		),
+		'export_field15' => array(
+			'field' => 'created_at',
+			'type' => 'export_field' 
+		),
+		'export_field16' => array(
+			'field' => 'updated_at',
+			'type' => 'export_field' 
+		) 
+	),
+	'dbProps' => array(
+		 
+	),
+	'version' => 13,
+	'imageItem' => array(
+		'type' => 'page_image' 
+	),
+	'imageBgColor' => '#f2f2f2',
+	'controlsBgColor' => 'white',
+	'imagePosition' => 'right',
+	'listTotals' => 1,
+	'title' => array(
+		 
+	),
+	'exportFormat' => 2,
+	'exportDelimiter' => ',',
+	'exportSelectDelimiter' => false,
+	'exportSelectFields' => false 
+);
+		?>

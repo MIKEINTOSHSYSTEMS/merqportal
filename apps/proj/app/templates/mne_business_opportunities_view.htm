@@ -1,0 +1,2616 @@
+<!doctype html>
+<html  {$html_attrs}>
+	<head>
+						<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{$pagetitle}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<base href="{$projectPath}">
+		{BEGIN styleCSSFiles}
+<link REL="stylesheet" href="{$stylepath}" type="text/css">
+{END styleCSSFiles}
+			
+	</head>
+
+	<body class="{$stylename} function-view"   
+		>
+	{BEGIN body}
+		<style>
+		{$containerCss}
+		</style>
+		<div class="r-vbar-page">
+			<div data-width="250px" data-fixed class="r-left clearfix {$leftbar_class}" >
+								<div data-location="left" id="form_left_{$pageid}" data-makeup="leftbar" {$form_left} data-pageid="{$pageid}">
+{BEGIN left_block}
+ 
+     
+         
+
+			<div data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell class="clearfix " data-itemid="logo" {$item_logo}>
+				{BEGIN logo_block}
+	<A data-itemtype="logo" data-itemid="logo" {$item_logo} data-pageid="{$pageid}" class="navbar-brand" href="{$home_link}" data-pageid="{$pageid}" {$logo_hiddenattr}>
+		{$logo}
+	</A>
+{END logo_block}
+				<button data-pageid="1" type="button" class="navbar-toggle collapsed" data-runner-toggle="collapse" data-target="[data-mobile-controlled]">	
+					<span class="sr-only">Toggle navigation</span>	
+					<span class="icon-bar"></span>					
+				</button>				
+			</div>
+		
+ 
+
+			<div class="clearfix " data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell data-itemid="expand_button" {$item_expand_button} data-topcell-item-type="expand_button" >
+				<span data-itemtype="expand_button" data-itemid="expand_button" {$item_expand_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message EXPAND}" class="btn btn-link   
+	" href="#" >
+					<span class="glyphicon glyphicon-triangle-right"></span>
+										</a>
+</span>
+			</div>
+		
+     
+     
+         
+
+			<div data-cellId="left_c1" data-pageid="{$pageid}" class="clearfix  r-ori-vert " data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}">
+				{BEGIN menuitems_main}
+<ul data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}"	class="r-menu nav menu-treelike" 
+	data-menulevel="1"
+>
+
+{BEGIN item_children1}
+<li class="
+	{$item_current}">
+<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline data-menu-top >
+	{$item_separator}
+	<span class="r-menu-link r-menu-expanded "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+		<span class="r-menu-collapsed">{$item_collicon}{$item_firstcap}</span>
+	</a>
+{BEGIN item_showchildren2}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="2">
+	{BEGIN item_children2}
+		{BEGIN item_menulink2}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+	</a>
+			{BEGIN item_showchildren3}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="3">
+	{BEGIN item_children3}
+		{BEGIN item_menulink3}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren3}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren3}
+	</span>
+	</a>
+			{BEGIN item_showchildren4}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="4">
+	{BEGIN item_children4}
+		{BEGIN item_menulink4}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren4}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren4}
+	</span>
+	</a>
+			{BEGIN item_showchildren5}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="5">
+	{BEGIN item_children5}
+		{BEGIN item_menulink5}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren5}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren5}
+	</span>
+	</a>
+					</li>
+		{END item_menulink5}
+	{END item_children5}
+</ul>
+{END item_showchildren5}
+		</li>
+		{END item_menulink4}
+	{END item_children4}
+</ul>
+{END item_showchildren4}
+		</li>
+		{END item_menulink3}
+	{END item_children3}
+</ul>
+{END item_showchildren3}
+		</li>
+		{END item_menulink2}
+	{END item_children2}
+</ul>
+{END item_showchildren2}
+</li>
+{END item_children1}
+</ul>
+{END menuitems_main}
+			</div>
+		
+    {END left_block}
+</div>				</div>
+			<div class="r-content-col" data-resize-left="leftbar">
+				<div data-resize-left="leftbar"  data-fixed class="r-topheader" data-resize-name="topbar">
+									{BEGIN supertop_block}
+<nav class="navbar navbar-default" 
+	data-location="supertop" id="form_supertop_{$pageid}" data-makeup="leftbar" {$form_supertop} data-pageid="{$pageid}" >
+			 
+							 
+				<span class="navbar-form  navbar-header" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="expand_menu_button" {$item_expand_menu_button} data-topcell-item-type="expand_menu_button" >
+				<span data-itemtype="expand_menu_button" data-itemid="expand_menu_button" {$item_expand_menu_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message SHOW_MENU}" class="btn-link   
+	 glyphicon glyphicon-menu-hamburger" href="#" >		
+				
+								</a>
+</span>
+			</span>
+		 
+				<span class="navbar-form  navbar-collapse" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="collapse_button" {$item_collapse_button} data-topcell-item-type="collapse_button" >
+				<span data-itemtype="collapse_button" data-itemid="collapse_button" {$item_collapse_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message COLLAPSE}" class="btn-link   
+	 glyphicon glyphicon-triangle-left" href="#" >		
+				
+								</a>
+</span>
+			</span>
+							 
+													</nav>
+{END supertop_block}
+						{$locking}
+				</div>
+				<div class="r-body" data-resize-top="topbar" data-body-width="standard">
+					{$header}
+					<div class="r-top">
+									{BEGIN top_block}
+<div class="r-form" data-location="top" id="form_top_{$pageid}" data-makeup="leftbar" {$form_top} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="top_c1" data-pageid="{$pageid}"	{$cell_top_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		 
+		<h2 data-itemtype="view_header" data-itemid="view_header" {$item_view_header} data-pageid="{$pageid}" >{$pagetitlelabel mne_business_opportunities view}</h2>
+		</div>					</div>
+			</div>		
+{END top_block}
+						</div>
+											<div class="r-above">
+					{BEGIN above-grid_block}
+<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="leftbar" {$form_above-grid} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="above-grid_c1" data-pageid="{$pageid}"	{$cell_above-grid_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		{BEGIN firstAboveGridCell}
+				{END firstAboveGridCell}	
+	</div>					</div>
+			</div>		
+{END above-grid_block}
+	</div>
+<div class="r-grid">
+	{BEGIN grid_tabs}
+  <ul class="nav nav-tabs bsgrid_tabs">
+	{$grid_tabs_content}
+  </ul>
+{END grid_tabs}
+					{BEGIN grid_block}
+
+
+
+
+ 
+	 
+												<table 
+	data-body-align="left"
+	data-location="grid" id="form_grid_{$pageid}" data-makeup="leftbar" {$form_grid} data-pageid="{$pageid}" 
+	class="r-edit-form" cellpadding="0" cellspacing="0" 
+	{$grid_hiddenattr} 
+		data-form-width="4"
+		
+		data-v-width="8"
+	>
+	<tbody>
+										<tr {$row_grid_0} >
+										
+
+{BEGIN cellblock_grid_c3}
+<td
+	{$cell_grid_c3}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c3" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN opportunity_code_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_opportunity_code}  r-vertical-field" 
+	data-signal-error-for="opportunity_code{$id}" {$required_attr_opportunity_code}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field" {$item_integrated_edit_field} data-pageid="{$pageid}" data-field="opportunity_code" data-fieldname="opportunity_code" >
+
+	<label class="r-edit-label control-label {$opportunity_code_label_class}" for="{$labelfor_opportunity_code}">
+		{BEGIN opportunity_code_label}
+			{$opportunity_code_forward_control}
+			{$label mne_business_opportunities opportunity_code }			{END opportunity_code_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$opportunity_code_value}	</div>
+	</div>
+
+
+{END opportunity_code_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c3}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c5}
+<td
+	{$cell_grid_c5}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c5" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c5}
+			 
+																
+
+{BEGIN cellblock_grid_c4}
+<td
+	{$cell_grid_c4}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c4" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN date_identified_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_date_identified}  r-vertical-field" 
+	data-signal-error-for="date_identified{$id}" {$required_attr_date_identified}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field1" {$item_integrated_edit_field1} data-pageid="{$pageid}" data-field="date_identified" data-fieldname="date_identified" >
+
+	<label class="r-edit-label control-label {$date_identified_label_class}" for="{$labelfor_date_identified}">
+		{BEGIN date_identified_label}
+			{$date_identified_forward_control}
+			{$label mne_business_opportunities date_identified }			{END date_identified_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$date_identified_value}	</div>
+	</div>
+
+
+{END date_identified_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c4}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c}
+<td
+	{$cell_grid_c}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c}
+								</tr>
+	 
+	 
+		
+						<tr>
+						
+
+{BEGIN cellblock_grid_c30}
+<td
+	{$cell_grid_c30}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c30" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c30}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c31}
+<td
+	{$cell_grid_c31}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c31" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c31}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c32}
+<td
+	{$cell_grid_c32}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c32" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c32}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c33}
+<td
+	{$cell_grid_c33}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c33" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c33}
+								</tr>
+	 
+	 
+														<tr {$row_grid_2} >
+										
+
+{BEGIN cellblock_grid_c34}
+<td
+	{$cell_grid_c34}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c34" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN opportunity_name_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_opportunity_name}  r-vertical-field" 
+	data-signal-error-for="opportunity_name{$id}" {$required_attr_opportunity_name}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field2" {$item_integrated_edit_field2} data-pageid="{$pageid}" data-field="opportunity_name" data-fieldname="opportunity_name" >
+
+	<label class="r-edit-label control-label {$opportunity_name_label_class}" for="{$labelfor_opportunity_name}">
+		{BEGIN opportunity_name_label}
+			{$opportunity_name_forward_control}
+			{$label mne_business_opportunities opportunity_name }			{END opportunity_name_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$opportunity_name_value}	</div>
+	</div>
+
+
+{END opportunity_name_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c34}
+			 
+																
+
+{BEGIN cellblock_grid_c35}
+<td
+	{$cell_grid_c35}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c35" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN source_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_source_id}  r-vertical-field" 
+	data-signal-error-for="source_id{$id}" {$required_attr_source_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field3" {$item_integrated_edit_field3} data-pageid="{$pageid}" data-field="source_id" data-fieldname="source_id" >
+
+	<label class="r-edit-label control-label {$source_id_label_class}" for="{$labelfor_source_id}">
+		{BEGIN source_id_label}
+			{$source_id_forward_control}
+			{$label mne_business_opportunities source_id }			{END source_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$source_id_value}	</div>
+	</div>
+
+
+{END source_id_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c35}
+			 
+																
+
+{BEGIN cellblock_grid_c36}
+<td
+	{$cell_grid_c36}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c36" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN type_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_type_id}  r-vertical-field" 
+	data-signal-error-for="type_id{$id}" {$required_attr_type_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field4" {$item_integrated_edit_field4} data-pageid="{$pageid}" data-field="type_id" data-fieldname="type_id" >
+
+	<label class="r-edit-label control-label {$type_id_label_class}" for="{$labelfor_type_id}">
+		{BEGIN type_id_label}
+			{$type_id_forward_control}
+			{$label mne_business_opportunities type_id }			{END type_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$type_id_value}	</div>
+	</div>
+
+
+{END type_id_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c36}
+			 
+																
+
+{BEGIN cellblock_grid_c37}
+<td
+	{$cell_grid_c37}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c37" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN deadline_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_deadline}  r-vertical-field" 
+	data-signal-error-for="deadline{$id}" {$required_attr_deadline}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field5" {$item_integrated_edit_field5} data-pageid="{$pageid}" data-field="deadline" data-fieldname="deadline" >
+
+	<label class="r-edit-label control-label {$deadline_label_class}" for="{$labelfor_deadline}">
+		{BEGIN deadline_label}
+			{$deadline_forward_control}
+			{$label mne_business_opportunities deadline }			{END deadline_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$deadline_value}	</div>
+	</div>
+
+
+{END deadline_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c37}
+								</tr>
+	 
+	 
+														<tr {$row_grid_3} >
+										
+
+{BEGIN cellblock_grid_c76}
+<td
+	{$cell_grid_c76}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+	ocolspan="4"		data-cellId="grid_c76" data-pageid="{$pageid}"
+		data-v-cell="8"
+		
+>
+	<div edit-form-cell class="clearfix">
+				<span data-itemtype="text" data-itemid="text" {$item_text} data-pageid="{$pageid}" data-page="mne_business_opportunities_view" > 
+	Link/Files for Source of Opportunities Identified (If Applicable)</span>
+	
+								</td>
+			{END cellblock_grid_c76}
+								</tr>
+	 
+	 
+														<tr {$row_grid_4} >
+										
+
+{BEGIN cellblock_grid_c72}
+<td
+	{$cell_grid_c72}
+	class=" r-ori-vert"
+	
+			data-single
+			
+	ocolspan="2"		data-cellId="grid_c72" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN link_of_source_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_link_of_source}  r-vertical-field" 
+	data-signal-error-for="link_of_source{$id}" {$required_attr_link_of_source}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field40" {$item_integrated_edit_field40} data-pageid="{$pageid}" data-field="link_of_source" data-fieldname="link_of_source" >
+
+	<label class="r-edit-label control-label {$link_of_source_label_class}" for="{$labelfor_link_of_source}">
+		{BEGIN link_of_source_label}
+			{$link_of_source_forward_control}
+			{$label mne_business_opportunities link_of_source }			{END link_of_source_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$link_of_source_value}	</div>
+	</div>
+
+
+{END link_of_source_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c72}
+			 
+																
+
+{BEGIN cellblock_grid_c74}
+<td
+	{$cell_grid_c74}
+	class=" r-ori-vert"
+	
+			data-single
+			
+	ocolspan="2"		data-cellId="grid_c74" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN file_of_source_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_file_of_source}  r-vertical-field" 
+	data-signal-error-for="file_of_source{$id}" {$required_attr_file_of_source}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field41" {$item_integrated_edit_field41} data-pageid="{$pageid}" data-field="file_of_source" data-fieldname="file_of_source" >
+
+	<label class="r-edit-label control-label {$file_of_source_label_class}" for="{$labelfor_file_of_source}">
+		{BEGIN file_of_source_label}
+			{$file_of_source_forward_control}
+			{$label mne_business_opportunities file_of_source }			{END file_of_source_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$file_of_source_value}	</div>
+	</div>
+
+
+{END file_of_source_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c74}
+								</tr>
+	 
+	 
+		
+						<tr>
+						
+
+{BEGIN cellblock_grid_c68}
+<td
+	{$cell_grid_c68}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c68" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c68}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c69}
+<td
+	{$cell_grid_c69}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c69" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c69}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c70}
+<td
+	{$cell_grid_c70}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c70" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c70}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c71}
+<td
+	{$cell_grid_c71}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c71" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c71}
+								</tr>
+	 
+	 
+														<tr {$row_grid_6} >
+										
+
+{BEGIN cellblock_grid_c38}
+<td
+	{$cell_grid_c38}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c38" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN estimated_value_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_estimated_value}  r-vertical-field" 
+	data-signal-error-for="estimated_value{$id}" {$required_attr_estimated_value}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field6" {$item_integrated_edit_field6} data-pageid="{$pageid}" data-field="estimated_value" data-fieldname="estimated_value" >
+
+	<label class="r-edit-label control-label {$estimated_value_label_class}" for="{$labelfor_estimated_value}">
+		{BEGIN estimated_value_label}
+			{$estimated_value_forward_control}
+			{$label mne_business_opportunities estimated_value }			{END estimated_value_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$estimated_value_value}	</div>
+	</div>
+
+
+{END estimated_value_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c38}
+			 
+																
+
+{BEGIN cellblock_grid_c39}
+<td
+	{$cell_grid_c39}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c39" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN currency_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_currency_id}  r-vertical-field" 
+	data-signal-error-for="currency_id{$id}" {$required_attr_currency_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field7" {$item_integrated_edit_field7} data-pageid="{$pageid}" data-field="currency_id" data-fieldname="currency_id" >
+
+	<label class="r-edit-label control-label {$currency_id_label_class}" for="{$labelfor_currency_id}">
+		{BEGIN currency_id_label}
+			{$currency_id_forward_control}
+			{$label mne_business_opportunities currency_id }			{END currency_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$currency_id_value}	</div>
+	</div>
+
+
+{END currency_id_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c39}
+			 
+																
+
+{BEGIN cellblock_grid_c40}
+<td
+	{$cell_grid_c40}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c40" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN client_organization_name_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_client_organization_name}  r-vertical-field" 
+	data-signal-error-for="client_organization_name{$id}" {$required_attr_client_organization_name}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field39" {$item_integrated_edit_field39} data-pageid="{$pageid}" data-field="client_organization_name" data-fieldname="client_organization_name" >
+
+	<label class="r-edit-label control-label {$client_organization_name_label_class}" for="{$labelfor_client_organization_name}">
+		{BEGIN client_organization_name_label}
+			{$client_organization_name_forward_control}
+			{$label mne_business_opportunities client_organization_name }			{END client_organization_name_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$client_organization_name_value}	</div>
+	</div>
+
+
+{END client_organization_name_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c40}
+			 
+																
+
+{BEGIN cellblock_grid_c41}
+<td
+	{$cell_grid_c41}
+	class=" r-ori-vert"
+	
+			
+			data-cellId="grid_c41" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN sector_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_sector_id}  r-vertical-field" 
+	data-signal-error-for="sector_id{$id}" {$required_attr_sector_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field8" {$item_integrated_edit_field8} data-pageid="{$pageid}" data-field="sector_id" data-fieldname="sector_id" >
+
+	<label class="r-edit-label control-label {$sector_id_label_class}" for="{$labelfor_sector_id}">
+		{BEGIN sector_id_label}
+			{$sector_id_forward_control}
+			{$label mne_business_opportunities sector_id }			{END sector_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$sector_id_value}	</div>
+	</div>
+
+
+{END sector_id_fieldblock}
+											
+{BEGIN client_type_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_client_type_id}  r-vertical-field" 
+	data-signal-error-for="client_type_id{$id}" {$required_attr_client_type_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field9" {$item_integrated_edit_field9} data-pageid="{$pageid}" data-field="client_type_id" data-fieldname="client_type_id" >
+
+	<label class="r-edit-label control-label {$client_type_id_label_class}" for="{$labelfor_client_type_id}">
+		{BEGIN client_type_id_label}
+			{$client_type_id_forward_control}
+			{$label mne_business_opportunities client_type_id }			{END client_type_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$client_type_id_value}	</div>
+	</div>
+
+
+{END client_type_id_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c41}
+								</tr>
+	 
+	 
+														<tr {$row_grid_7} >
+										
+
+{BEGIN cellblock_grid_c42}
+<td
+	{$cell_grid_c42}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c42" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN go_nogo_decision_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_go_nogo_decision}  r-vertical-field" 
+	data-signal-error-for="go_nogo_decision{$id}" {$required_attr_go_nogo_decision}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field10" {$item_integrated_edit_field10} data-pageid="{$pageid}" data-field="go_nogo_decision" data-fieldname="go_nogo_decision" >
+
+	<label class="r-edit-label control-label {$go_nogo_decision_label_class}" for="{$labelfor_go_nogo_decision}">
+		{BEGIN go_nogo_decision_label}
+			{$go_nogo_decision_forward_control}
+			{$label mne_business_opportunities go_nogo_decision }			{END go_nogo_decision_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$go_nogo_decision_value}	</div>
+	</div>
+
+
+{END go_nogo_decision_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c42}
+			 
+																
+
+{BEGIN cellblock_grid_c43}
+<td
+	{$cell_grid_c43}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c43" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN decision_reason_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_decision_reason_id}  r-vertical-field" 
+	data-signal-error-for="decision_reason_id{$id}" {$required_attr_decision_reason_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field12" {$item_integrated_edit_field12} data-pageid="{$pageid}" data-field="decision_reason_id" data-fieldname="decision_reason_id" >
+
+	<label class="r-edit-label control-label {$decision_reason_id_label_class}" for="{$labelfor_decision_reason_id}">
+		{BEGIN decision_reason_id_label}
+			{$decision_reason_id_forward_control}
+			{$label mne_business_opportunities decision_reason_id }			{END decision_reason_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$decision_reason_id_value}	</div>
+	</div>
+
+
+{END decision_reason_id_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c43}
+			 
+																
+
+{BEGIN cellblock_grid_c44}
+<td
+	{$cell_grid_c44}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c44" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN decision_date_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_decision_date}  r-vertical-field" 
+	data-signal-error-for="decision_date{$id}" {$required_attr_decision_date}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field11" {$item_integrated_edit_field11} data-pageid="{$pageid}" data-field="decision_date" data-fieldname="decision_date" >
+
+	<label class="r-edit-label control-label {$decision_date_label_class}" for="{$labelfor_decision_date}">
+		{BEGIN decision_date_label}
+			{$decision_date_forward_control}
+			{$label mne_business_opportunities decision_date }			{END decision_date_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$decision_date_value}	</div>
+	</div>
+
+
+{END decision_date_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c44}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c45}
+<td
+	{$cell_grid_c45}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c45" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c45}
+								</tr>
+	 
+	 
+														<tr {$row_grid_8} >
+										
+
+{BEGIN cellblock_grid_c50}
+<td
+	{$cell_grid_c50}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c50" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN proposal_lead_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_proposal_lead_id}  r-vertical-field" 
+	data-signal-error-for="proposal_lead_id{$id}" {$required_attr_proposal_lead_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field13" {$item_integrated_edit_field13} data-pageid="{$pageid}" data-field="proposal_lead_id" data-fieldname="proposal_lead_id" >
+
+	<label class="r-edit-label control-label {$proposal_lead_id_label_class}" for="{$labelfor_proposal_lead_id}">
+		{BEGIN proposal_lead_id_label}
+			{$proposal_lead_id_forward_control}
+			{$label mne_business_opportunities proposal_lead_id }			{END proposal_lead_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$proposal_lead_id_value}	</div>
+	</div>
+
+
+{END proposal_lead_id_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c50}
+			 
+																
+
+{BEGIN cellblock_grid_c51}
+<td
+	{$cell_grid_c51}
+	class=" r-ori-vert"
+	
+			data-single
+			
+	ocolspan="3"		data-cellId="grid_c51" data-pageid="{$pageid}"
+		data-v-cell="6"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN team_members_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_team_members}  r-vertical-field" 
+	data-signal-error-for="team_members{$id}" {$required_attr_team_members}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field14" {$item_integrated_edit_field14} data-pageid="{$pageid}" data-field="team_members" data-fieldname="team_members" >
+
+	<label class="r-edit-label control-label {$team_members_label_class}" for="{$labelfor_team_members}">
+		{BEGIN team_members_label}
+			{$team_members_forward_control}
+			{$label mne_business_opportunities team_members }			{END team_members_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$team_members_value}	</div>
+	</div>
+
+
+{END team_members_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c51}
+								</tr>
+	 
+	 
+		
+						<tr>
+						
+
+{BEGIN cellblock_grid_c46}
+<td
+	{$cell_grid_c46}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c46" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c46}
+			 
+																
+
+{BEGIN cellblock_grid_c47}
+<td
+	{$cell_grid_c47}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c47" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN proposal_start_date_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_proposal_start_date}  r-vertical-field" 
+	data-signal-error-for="proposal_start_date{$id}" {$required_attr_proposal_start_date}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field15" {$item_integrated_edit_field15} data-pageid="{$pageid}" data-field="proposal_start_date" data-fieldname="proposal_start_date" >
+
+	<label class="r-edit-label control-label {$proposal_start_date_label_class}" for="{$labelfor_proposal_start_date}">
+		{BEGIN proposal_start_date_label}
+			{$proposal_start_date_forward_control}
+			{$label mne_business_opportunities proposal_start_date }			{END proposal_start_date_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$proposal_start_date_value}	</div>
+	</div>
+
+
+{END proposal_start_date_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c47}
+			 
+																
+
+{BEGIN cellblock_grid_c48}
+<td
+	{$cell_grid_c48}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c48" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN proposal_completed_date_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_proposal_completed_date}  r-vertical-field" 
+	data-signal-error-for="proposal_completed_date{$id}" {$required_attr_proposal_completed_date}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field16" {$item_integrated_edit_field16} data-pageid="{$pageid}" data-field="proposal_completed_date" data-fieldname="proposal_completed_date" >
+
+	<label class="r-edit-label control-label {$proposal_completed_date_label_class}" for="{$labelfor_proposal_completed_date}">
+		{BEGIN proposal_completed_date_label}
+			{$proposal_completed_date_forward_control}
+			{$label mne_business_opportunities proposal_completed_date }			{END proposal_completed_date_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$proposal_completed_date_value}	</div>
+	</div>
+
+
+{END proposal_completed_date_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c48}
+			 
+																
+
+{BEGIN cellblock_grid_c49}
+<td
+	{$cell_grid_c49}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c49" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN days_to_develop_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_days_to_develop}  r-vertical-field" 
+	data-signal-error-for="days_to_develop{$id}" {$required_attr_days_to_develop}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field17" {$item_integrated_edit_field17} data-pageid="{$pageid}" data-field="days_to_develop" data-fieldname="days_to_develop" >
+
+	<label class="r-edit-label control-label {$days_to_develop_label_class}" for="{$labelfor_days_to_develop}">
+		{BEGIN days_to_develop_label}
+			{$days_to_develop_forward_control}
+			{$label mne_business_opportunities days_to_develop }			{END days_to_develop_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$days_to_develop_value}	</div>
+	</div>
+
+
+{END days_to_develop_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c49}
+								</tr>
+	 
+	 
+														<tr {$row_grid_10} >
+										
+
+{BEGIN cellblock_grid_c26}
+<td
+	{$cell_grid_c26}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c26" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN proposal_type_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_proposal_type}  r-vertical-field" 
+	data-signal-error-for="proposal_type{$id}" {$required_attr_proposal_type}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field18" {$item_integrated_edit_field18} data-pageid="{$pageid}" data-field="proposal_type" data-fieldname="proposal_type" >
+
+	<label class="r-edit-label control-label {$proposal_type_label_class}" for="{$labelfor_proposal_type}">
+		{BEGIN proposal_type_label}
+			{$proposal_type_forward_control}
+			{$label mne_business_opportunities proposal_type }			{END proposal_type_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$proposal_type_value}	</div>
+	</div>
+
+
+{END proposal_type_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c26}
+			 
+																
+
+{BEGIN cellblock_grid_c27}
+<td
+	{$cell_grid_c27}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c27" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN proposal_pages_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_proposal_pages}  r-vertical-field" 
+	data-signal-error-for="proposal_pages{$id}" {$required_attr_proposal_pages}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field19" {$item_integrated_edit_field19} data-pageid="{$pageid}" data-field="proposal_pages" data-fieldname="proposal_pages" >
+
+	<label class="r-edit-label control-label {$proposal_pages_label_class}" for="{$labelfor_proposal_pages}">
+		{BEGIN proposal_pages_label}
+			{$proposal_pages_forward_control}
+			{$label mne_business_opportunities proposal_pages }			{END proposal_pages_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$proposal_pages_value}	</div>
+	</div>
+
+
+{END proposal_pages_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c27}
+			 
+																
+
+{BEGIN cellblock_grid_c28}
+<td
+	{$cell_grid_c28}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c28" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN partners_involved_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_partners_involved}  r-vertical-field" 
+	data-signal-error-for="partners_involved{$id}" {$required_attr_partners_involved}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field20" {$item_integrated_edit_field20} data-pageid="{$pageid}" data-field="partners_involved" data-fieldname="partners_involved" >
+
+	<label class="r-edit-label control-label {$partners_involved_label_class}" for="{$labelfor_partners_involved}">
+		{BEGIN partners_involved_label}
+			{$partners_involved_forward_control}
+			{$label mne_business_opportunities partners_involved }			{END partners_involved_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$partners_involved_value}	</div>
+	</div>
+
+
+{END partners_involved_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c28}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c29}
+<td
+	{$cell_grid_c29}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c29" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c29}
+								</tr>
+	 
+	 
+														<tr {$row_grid_11} >
+										
+
+{BEGIN cellblock_grid_c52}
+<td
+	{$cell_grid_c52}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c52" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN proposal_status_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_proposal_status}  r-vertical-field" 
+	data-signal-error-for="proposal_status{$id}" {$required_attr_proposal_status}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field21" {$item_integrated_edit_field21} data-pageid="{$pageid}" data-field="proposal_status" data-fieldname="proposal_status" >
+
+	<label class="r-edit-label control-label {$proposal_status_label_class}" for="{$labelfor_proposal_status}">
+		{BEGIN proposal_status_label}
+			{$proposal_status_forward_control}
+			{$label mne_business_opportunities proposal_status }			{END proposal_status_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$proposal_status_value}	</div>
+	</div>
+
+
+{END proposal_status_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c52}
+			 
+																
+
+{BEGIN cellblock_grid_c53}
+<td
+	{$cell_grid_c53}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c53" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN submitted_date_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_submitted_date}  r-vertical-field" 
+	data-signal-error-for="submitted_date{$id}" {$required_attr_submitted_date}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field22" {$item_integrated_edit_field22} data-pageid="{$pageid}" data-field="submitted_date" data-fieldname="submitted_date" >
+
+	<label class="r-edit-label control-label {$submitted_date_label_class}" for="{$labelfor_submitted_date}">
+		{BEGIN submitted_date_label}
+			{$submitted_date_forward_control}
+			{$label mne_business_opportunities submitted_date }			{END submitted_date_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$submitted_date_value}	</div>
+	</div>
+
+
+{END submitted_date_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c53}
+			 
+																
+
+{BEGIN cellblock_grid_c54}
+<td
+	{$cell_grid_c54}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c54" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN submitted_to_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_submitted_to}  r-vertical-field" 
+	data-signal-error-for="submitted_to{$id}" {$required_attr_submitted_to}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field23" {$item_integrated_edit_field23} data-pageid="{$pageid}" data-field="submitted_to" data-fieldname="submitted_to" >
+
+	<label class="r-edit-label control-label {$submitted_to_label_class}" for="{$labelfor_submitted_to}">
+		{BEGIN submitted_to_label}
+			{$submitted_to_forward_control}
+			{$label mne_business_opportunities submitted_to }			{END submitted_to_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$submitted_to_value}	</div>
+	</div>
+
+
+{END submitted_to_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c54}
+			 
+																
+
+{BEGIN cellblock_grid_c55}
+<td
+	{$cell_grid_c55}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c55" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN reference_no_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_reference_no}  r-vertical-field" 
+	data-signal-error-for="reference_no{$id}" {$required_attr_reference_no}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field24" {$item_integrated_edit_field24} data-pageid="{$pageid}" data-field="reference_no" data-fieldname="reference_no" >
+
+	<label class="r-edit-label control-label {$reference_no_label_class}" for="{$labelfor_reference_no}">
+		{BEGIN reference_no_label}
+			{$reference_no_forward_control}
+			{$label mne_business_opportunities reference_no }			{END reference_no_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$reference_no_value}	</div>
+	</div>
+
+
+{END reference_no_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c55}
+								</tr>
+	 
+	 
+		
+						<tr>
+						
+
+{BEGIN cellblock_grid_c60}
+<td
+	{$cell_grid_c60}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c60" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c60}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c61}
+<td
+	{$cell_grid_c61}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c61" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c61}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c62}
+<td
+	{$cell_grid_c62}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c62" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c62}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c63}
+<td
+	{$cell_grid_c63}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c63" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c63}
+								</tr>
+	 
+	 
+		
+						<tr>
+						
+
+{BEGIN cellblock_grid_c22}
+<td
+	{$cell_grid_c22}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c22" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c22}
+			 
+																
+
+{BEGIN cellblock_grid_c23}
+<td
+	{$cell_grid_c23}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c23" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN outcome_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_outcome}  r-vertical-field" 
+	data-signal-error-for="outcome{$id}" {$required_attr_outcome}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field25" {$item_integrated_edit_field25} data-pageid="{$pageid}" data-field="outcome" data-fieldname="outcome" >
+
+	<label class="r-edit-label control-label {$outcome_label_class}" for="{$labelfor_outcome}">
+		{BEGIN outcome_label}
+			{$outcome_forward_control}
+			{$label mne_business_opportunities outcome }			{END outcome_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$outcome_value}	</div>
+	</div>
+
+
+{END outcome_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c23}
+			 
+																
+
+{BEGIN cellblock_grid_c24}
+<td
+	{$cell_grid_c24}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c24" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN win_loss_reason_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_win_loss_reason_id}  r-vertical-field" 
+	data-signal-error-for="win_loss_reason_id{$id}" {$required_attr_win_loss_reason_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field28" {$item_integrated_edit_field28} data-pageid="{$pageid}" data-field="win_loss_reason_id" data-fieldname="win_loss_reason_id" >
+
+	<label class="r-edit-label control-label {$win_loss_reason_id_label_class}" for="{$labelfor_win_loss_reason_id}">
+		{BEGIN win_loss_reason_id_label}
+			{$win_loss_reason_id_forward_control}
+			{$label mne_business_opportunities win_loss_reason_id }			{END win_loss_reason_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$win_loss_reason_id_value}	</div>
+	</div>
+
+
+{END win_loss_reason_id_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c24}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c25}
+<td
+	{$cell_grid_c25}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c25" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c25}
+								</tr>
+	 
+	 
+		
+						<tr>
+						
+
+{BEGIN cellblock_grid_c64}
+<td
+	{$cell_grid_c64}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c64" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c64}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c65}
+<td
+	{$cell_grid_c65}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c65" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c65}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c66}
+<td
+	{$cell_grid_c66}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c66" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c66}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c67}
+<td
+	{$cell_grid_c67}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c67" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c67}
+								</tr>
+	 
+	 
+														<tr {$row_grid_15} >
+										
+
+{BEGIN cellblock_grid_c18}
+<td
+	{$cell_grid_c18}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c18" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN follow_up_actions_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_follow_up_actions}  r-vertical-field" 
+	data-signal-error-for="follow_up_actions{$id}" {$required_attr_follow_up_actions}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field29" {$item_integrated_edit_field29} data-pageid="{$pageid}" data-field="follow_up_actions" data-fieldname="follow_up_actions" >
+
+	<label class="r-edit-label control-label {$follow_up_actions_label_class}" for="{$labelfor_follow_up_actions}">
+		{BEGIN follow_up_actions_label}
+			{$follow_up_actions_forward_control}
+			{$label mne_business_opportunities follow_up_actions }			{END follow_up_actions_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$follow_up_actions_value}	</div>
+	</div>
+
+
+{END follow_up_actions_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c18}
+			 
+																
+
+{BEGIN cellblock_grid_c19}
+<td
+	{$cell_grid_c19}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c19" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN notification_date_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_notification_date}  r-vertical-field" 
+	data-signal-error-for="notification_date{$id}" {$required_attr_notification_date}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field26" {$item_integrated_edit_field26} data-pageid="{$pageid}" data-field="notification_date" data-fieldname="notification_date" >
+
+	<label class="r-edit-label control-label {$notification_date_label_class}" for="{$labelfor_notification_date}">
+		{BEGIN notification_date_label}
+			{$notification_date_forward_control}
+			{$label mne_business_opportunities notification_date }			{END notification_date_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$notification_date_value}	</div>
+	</div>
+
+
+{END notification_date_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c19}
+			 
+																
+
+{BEGIN cellblock_grid_c20}
+<td
+	{$cell_grid_c20}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c20" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN contract_value_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_contract_value}  r-vertical-field" 
+	data-signal-error-for="contract_value{$id}" {$required_attr_contract_value}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field27" {$item_integrated_edit_field27} data-pageid="{$pageid}" data-field="contract_value" data-fieldname="contract_value" >
+
+	<label class="r-edit-label control-label {$contract_value_label_class}" for="{$labelfor_contract_value}">
+		{BEGIN contract_value_label}
+			{$contract_value_forward_control}
+			{$label mne_business_opportunities contract_value }			{END contract_value_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$contract_value_value}	</div>
+	</div>
+
+
+{END contract_value_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c20}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c21}
+<td
+	{$cell_grid_c21}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c21" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c21}
+								</tr>
+	 
+	 
+		
+						<tr>
+						
+
+{BEGIN cellblock_grid_c56}
+<td
+	{$cell_grid_c56}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c56" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c56}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c57}
+<td
+	{$cell_grid_c57}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c57" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c57}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c58}
+<td
+	{$cell_grid_c58}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c58" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c58}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c59}
+<td
+	{$cell_grid_c59}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c59" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c59}
+								</tr>
+	 
+	 
+														<tr {$row_grid_17} >
+										
+
+{BEGIN cellblock_grid_c14}
+<td
+	{$cell_grid_c14}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c14" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN notes_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_notes}  r-vertical-field" 
+	data-signal-error-for="notes{$id}" {$required_attr_notes}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field34" {$item_integrated_edit_field34} data-pageid="{$pageid}" data-field="notes" data-fieldname="notes" >
+
+	<label class="r-edit-label control-label {$notes_label_class}" for="{$labelfor_notes}">
+		{BEGIN notes_label}
+			{$notes_forward_control}
+			{$label mne_business_opportunities notes }			{END notes_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$notes_value}	</div>
+	</div>
+
+
+{END notes_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c14}
+			 
+																
+
+{BEGIN cellblock_grid_c15}
+<td
+	{$cell_grid_c15}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c15" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN action_required_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_action_required}  r-vertical-field" 
+	data-signal-error-for="action_required{$id}" {$required_attr_action_required}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field30" {$item_integrated_edit_field30} data-pageid="{$pageid}" data-field="action_required" data-fieldname="action_required" >
+
+	<label class="r-edit-label control-label {$action_required_label_class}" for="{$labelfor_action_required}">
+		{BEGIN action_required_label}
+			{$action_required_forward_control}
+			{$label mne_business_opportunities action_required }			{END action_required_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$action_required_value}	</div>
+	</div>
+
+
+{END action_required_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c15}
+			 
+																
+
+{BEGIN cellblock_grid_c16}
+<td
+	{$cell_grid_c16}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c16" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN responsible_user_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_responsible_user_id}  r-vertical-field" 
+	data-signal-error-for="responsible_user_id{$id}" {$required_attr_responsible_user_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field31" {$item_integrated_edit_field31} data-pageid="{$pageid}" data-field="responsible_user_id" data-fieldname="responsible_user_id" >
+
+	<label class="r-edit-label control-label {$responsible_user_id_label_class}" for="{$labelfor_responsible_user_id}">
+		{BEGIN responsible_user_id_label}
+			{$responsible_user_id_forward_control}
+			{$label mne_business_opportunities responsible_user_id }			{END responsible_user_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$responsible_user_id_value}	</div>
+	</div>
+
+
+{END responsible_user_id_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c16}
+			 
+																
+
+{BEGIN cellblock_grid_c17}
+<td
+	{$cell_grid_c17}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c17" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN due_date_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_due_date}  r-vertical-field" 
+	data-signal-error-for="due_date{$id}" {$required_attr_due_date}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field32" {$item_integrated_edit_field32} data-pageid="{$pageid}" data-field="due_date" data-fieldname="due_date" >
+
+	<label class="r-edit-label control-label {$due_date_label_class}" for="{$labelfor_due_date}">
+		{BEGIN due_date_label}
+			{$due_date_forward_control}
+			{$label mne_business_opportunities due_date }			{END due_date_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$due_date_value}	</div>
+	</div>
+
+
+{END due_date_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c17}
+								</tr>
+	 
+	 
+														<tr {$row_grid_18} >
+										
+
+{BEGIN cellblock_grid_c10}
+<td
+	{$cell_grid_c10}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c10" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN status_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_status_id}  r-vertical-field" 
+	data-signal-error-for="status_id{$id}" {$required_attr_status_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field33" {$item_integrated_edit_field33} data-pageid="{$pageid}" data-field="status_id" data-fieldname="status_id" >
+
+	<label class="r-edit-label control-label {$status_id_label_class}" for="{$labelfor_status_id}">
+		{BEGIN status_id_label}
+			{$status_id_forward_control}
+			{$label mne_business_opportunities status_id }			{END status_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$status_id_value}	</div>
+	</div>
+
+
+{END status_id_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c10}
+			 
+																
+
+{BEGIN cellblock_grid_c11}
+<td
+	{$cell_grid_c11}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c11" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN created_by_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_created_by}  r-vertical-field" 
+	data-signal-error-for="created_by{$id}" {$required_attr_created_by}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field35" {$item_integrated_edit_field35} data-pageid="{$pageid}" data-field="created_by" data-fieldname="created_by" >
+
+	<label class="r-edit-label control-label {$created_by_label_class}" for="{$labelfor_created_by}">
+		{BEGIN created_by_label}
+			{$created_by_forward_control}
+			{$label mne_business_opportunities created_by }			{END created_by_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$created_by_value}	</div>
+	</div>
+
+
+{END created_by_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c11}
+			 
+																
+
+{BEGIN cellblock_grid_c12}
+<td
+	{$cell_grid_c12}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c12" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN created_at_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_created_at}  r-vertical-field" 
+	data-signal-error-for="created_at{$id}" {$required_attr_created_at}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field36" {$item_integrated_edit_field36} data-pageid="{$pageid}" data-field="created_at" data-fieldname="created_at" >
+
+	<label class="r-edit-label control-label {$created_at_label_class}" for="{$labelfor_created_at}">
+		{BEGIN created_at_label}
+			{$created_at_forward_control}
+			{$label mne_business_opportunities created_at }			{END created_at_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$created_at_value}	</div>
+	</div>
+
+
+{END created_at_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c12}
+			 
+																
+
+{BEGIN cellblock_grid_c13}
+<td
+	{$cell_grid_c13}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c13" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN updated_at_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_updated_at}  r-vertical-field" 
+	data-signal-error-for="updated_at{$id}" {$required_attr_updated_at}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field37" {$item_integrated_edit_field37} data-pageid="{$pageid}" data-field="updated_at" data-fieldname="updated_at" >
+
+	<label class="r-edit-label control-label {$updated_at_label_class}" for="{$labelfor_updated_at}">
+		{BEGIN updated_at_label}
+			{$updated_at_forward_control}
+			{$label mne_business_opportunities updated_at }			{END updated_at_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$updated_at_value}	</div>
+	</div>
+
+
+{END updated_at_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c13}
+								</tr>
+	 
+	 
+														<tr {$row_grid_19} >
+										
+
+{BEGIN cellblock_grid_c6}
+<td
+	{$cell_grid_c6}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c6" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN is_active_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_is_active}  r-vertical-field" 
+	data-signal-error-for="is_active{$id}" {$required_attr_is_active}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field38" {$item_integrated_edit_field38} data-pageid="{$pageid}" data-field="is_active" data-fieldname="is_active" >
+
+	<label class="r-edit-label control-label {$is_active_label_class}" for="{$labelfor_is_active}">
+		{BEGIN is_active_label}
+			{$is_active_forward_control}
+			{$label mne_business_opportunities is_active }			{END is_active_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$is_active_value}	</div>
+	</div>
+
+
+{END is_active_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c6}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c7}
+<td
+	{$cell_grid_c7}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c7" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c7}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c8}
+<td
+	{$cell_grid_c8}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c8" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c8}
+			 
+		
+							
+
+{BEGIN cellblock_grid_c9}
+<td
+	{$cell_grid_c9}
+	class=" r-ori-vert"
+	
+			data-single
+			
+			data-cellId="grid_c9" data-pageid="{$pageid}"
+		data-v-cell="2"
+		
+>
+	<div edit-form-cell class="clearfix">
+									</td>
+			{END cellblock_grid_c9}
+								</tr>
+	 
+	 
+																</tbody></table>
+				
+{BEGIN details_mne_projects}
+<div data-itemtype="details_preview" data-itemid="details_preview" {$item_details_preview} data-pageid="{$pageid}" class="bs-details"> 
+	<div class="panel panel-info details-grid">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+							{$details_pagetitle_mne_projects}			
+							<span>
+					{$detailslButtons_mne_projects}
+																				</span>
+			</h4>
+		</div>
+		<div class="panel-body">
+			{$displayDetailTable_mne_projects}
+		</div>
+	</div>
+</div>
+{END details_mne_projects}
+	
+				{END grid_block}
+	</div>
+<div class="r-below">
+					{BEGIN below-grid_block}
+<div class="r-form" data-location="below-grid" id="form_below-grid_{$pageid}" data-makeup="leftbar" {$form_below-grid} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="below-grid_c1" data-pageid="{$pageid}"	{$cell_below-grid_c1}
+	class="			col-md-6
+	
+">
+		 
+		{BEGIN back_button}
+<span data-itemtype="view_back_list" data-itemid="view_back_list" {$item_view_back_list} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" {$backbutton_attrs} >
+							{mlang_message BACK_TO_LIST}			</a>
+</span>
+{END back_button}
+	 
+		{BEGIN close_button}
+<span data-itemtype="view_close" data-itemid="view_close" {$item_view_close} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" href="#" {$closebutton_attrs} >
+							{mlang_message CLOSE_WINDOW}			</a>
+</span>
+{END close_button}
+		</div>			 
+				<div 
+	data-cellId="below-grid_c2" data-pageid="{$pageid}"	{$cell_below-grid_c2}
+	class="r-align-right			col-md-6
+	
+">
+		 
+		{BEGIN prev_button}
+<span data-itemtype="prev" data-itemid="prev" {$item_prev} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	{$prevbutton_class}" {$prevbutton_attrs} >
+					<span class="glyphicon glyphicon-menu-left"></span>
+										</a>
+</span>
+{END prev_button}
+	 
+		{BEGIN next_button}
+<span data-itemtype="next" data-itemid="next" {$item_next} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	{$nextbutton_class}" {$nextbutton_attrs} >
+					<span class="glyphicon glyphicon-menu-right"></span>
+										</a>
+</span>
+{END next_button}
+	 
+		<span data-itemtype="hamburger" data-itemid="hamburger" {$item_hamburger} data-pageid="{$pageid}" data-small data-button-item>
+	<span class="dropdown dropup">
+		<button type="button" title="" class="btn btn-default   dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		
+										<span class="glyphicon glyphicon-menu-hamburger"></span>
+												<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+							{BEGIN edit_page_button}
+	<li data-itemtype="view_edit" data-itemid="view_edit" {$item_view_edit} data-pageid="{$pageid}" data-small >
+				<a  href="mne_business_opportunities_edit.php?{$editlink}" {$edit_page_button_attrs}  title="" >
+				
+		{mlang_message EDIT}		
+		</a>
+	</li>
+{END edit_page_button}
+					</ul>
+	</span>
+</span>
+		</div>					</div>
+			</div>		
+{END below-grid_block}
+	</div>
+
+
+
+
+										{$footer}
+				</div>
+			</div>
+			<div class="r-body-shadow">
+			</div>
+		</div>
+	{END body}
+	</body>
+</html>

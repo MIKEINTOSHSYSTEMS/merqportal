@@ -1,0 +1,53 @@
+Userid,Company,VAT,Phone number,Country,City,Zip,State,Address,Website,Datecreated,Active,Leadid,Billing Street,Billing City,Billing State,Billing Zip,Billing Country,Shipping Street,Shipping City,Shipping State,Shipping Zip,Shipping Country,Longitude,Latitude,Default Language,Default Currency,Show Primary Contact,Stripe Id,Registration Confirmed,Addedfrom
+
+1,Action Against Hunger (ACF),,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+2,Addis Economic Research (AER),,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+3,African Population and Health Research Center (APHRC),,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+4,American International Health Alliance (AIHA) – Twinning Center,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+5,Amref Health Africa in Ethiopia,,,,Ethiopia,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+6,CIRHT,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+7,CordAid,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+8,Creative Associates,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+9,Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ),,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+10,EngenderHealth,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+11,Ethiopia – Canada MNCH Project,,,,Ethiopia,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+12,Ethiopian Midwife Association (EMwA),,,,Ethiopia,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+13,Ethiopian Public Health Association (EPHA),,,,Ethiopia,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+14,Ethiopian Public Health Institute (EPHI),,,,Ethiopia,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+15,FHI360,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+16,Global Alliance for Vaccines and Immunizations (GAVI),,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+17,HAQI Foundation,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+18,Infomind Solutions,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+19,Information Network and Security Agency (INSA),,,,Ethiopia,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+20,International Labour Organization (ILO),,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+21,International Livestock Research Institute (ILRI),,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+22,Johns Hopkins University (JHU),,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+23,Jhpiego – Ethiopia,,,,Ethiopia,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+24,Joshua Consultancy and NEP+,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+25,JSI/DUP,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+26,JSI/L10K,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+27,Lebeza Psychiatry PLC,,,,Ethiopia,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+28,Lifebox,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+29,Mathematica,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+30,MERQ – Internal,,,,Ethiopia,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+31,Ministry of Health – Ethiopia,,,,Ethiopia,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+32,Monash University,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+33,Oxford Policy Management (OPM),,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+34,Population Council,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+35,Project HOPE,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+36,PSI,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+37,Saint Paul’s Millennium Medical College (SPMMC),,,,Ethiopia,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+38,Save the Children,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+39,SCOPE IMPACT,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+40,The Fred Hollows Foundation,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+41,The Gates Foundation,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+42,The Mitchell Group,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+43,The Palladium Group,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+44,The World Bank Group,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+45,Tulane University,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+46,UNICEF – Ethiopia,,,,Ethiopia,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+47,UNICEF – ESARO,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+48,Women in Global Health (WGH),,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+49,World Health Organization (WHO),,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+50,World Health Organization (WHO) and Options,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1
+51,ZOA,,,,,,,,,,Yes,,,,,,,,,,,,,,,0,,Yes,1

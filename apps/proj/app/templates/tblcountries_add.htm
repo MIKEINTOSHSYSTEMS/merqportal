@@ -1,0 +1,357 @@
+<!doctype html>
+<html  {$html_attrs}>
+	<head>
+						<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{$pagetitle}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<base href="{$projectPath}">
+		{BEGIN styleCSSFiles}
+<link REL="stylesheet" href="{$stylepath}" type="text/css">
+{END styleCSSFiles}
+			
+	</head>
+
+	<body class="{$stylename} function-add" >
+	{BEGIN body}
+		{$header}
+		<style>
+			{$containerCss}
+		</style>
+		{$locking}
+		<div class="r-small-page" 
+			data-body-align="center"
+			data-body-width="standard"
+		>
+							{BEGIN top_block}
+<div class="r-form" data-location="top" id="form_top_{$pageid}" data-makeup="small" {$form_top} data-pageid="{$pageid}"
+		data-v-width="4"
+	data-v-margin="1"
+	
+>		
+	 
+		<div class="row">
+			 
+				<div 
+	data-cellId="top_c1" data-pageid="{$pageid}"	{$cell_top_c1}
+	class=" r-ori-vert			col-md-12
+	">
+	 
+		<h2 data-itemtype="add_header" data-itemid="add_header" {$item_add_header} data-pageid="{$pageid}" >{$pagetitlelabel tblcountries add}</h2>
+	</div>					</div>
+	</div>		
+{END top_block}
+									{BEGIN above-grid_block}
+<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="small" {$form_above-grid} data-pageid="{$pageid}"
+		data-v-width="4"
+	data-v-margin="1"
+	
+>		
+	 
+		<div class="row">
+			 
+				<div 
+	data-cellId="above-grid_c1" data-pageid="{$pageid}"	{$cell_above-grid_c1}
+	class=" r-ori-vert			col-md-12
+	">
+	 
+		{BEGIN message_block}
+<div data-itemtype="add_message" data-itemid="add_message" {$item_add_message} data-pageid="{$pageid}" class="alert {$message_class}" role="alert">
+<h5>{$message}</h5>
+<div>
+{BEGIN message_back_button}
+		
+	<button class="btn btn-sm btn-default" {$backbutton_attrs}>{mlang_message BACK_TO_LIST}</button>
+	{END message_back_button}
+{BEGIN view_page_button}
+	<button class="btn btn-sm btn-default" {$view_page_button_attrs}>{mlang_message VIEW}</button>
+{END view_page_button}
+{BEGIN edit_page_button}
+	<button class="btn btn-sm btn-default" {$edit_page_button_attrs}>{mlang_message EDIT}</button>
+{END edit_page_button}
+</div>
+</div>
+{END message_block}	</div>					</div>
+	</div>		
+{END above-grid_block}
+									{BEGIN grid_block}
+
+
+
+
+ 
+	 
+												<table 
+	data-body-align="center"
+	data-location="grid" id="form_grid_{$pageid}" data-makeup="small" {$form_grid} data-pageid="{$pageid}" 
+	class="r-edit-form" cellpadding="0" cellspacing="0" 
+	{$grid_hiddenattr} 
+		data-form-width="1"
+		
+		data-v-width="4"
+	>
+	<tbody>
+										<tr {$row_grid_0} >
+										
+
+{BEGIN cellblock_grid_c3}
+<td
+	{$cell_grid_c3}
+	class=" r-ori-vert"
+	
+				data-fullwidth
+		
+			data-cellId="grid_c3" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN iso2_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_iso2}  r-vertical-field" 
+	data-signal-error-for="iso2{$id}" {$required_attr_iso2}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field" {$item_integrated_edit_field} data-pageid="{$pageid}" data-field="iso2" data-fieldname="iso2" >
+
+	<label class="r-edit-label control-label {$iso2_label_class}" for="{$labelfor_iso2}">
+		{BEGIN iso2_label}
+			{$iso2_forward_control}
+			{$label tblcountries iso2 }			{END iso2_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$iso2_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="iso2" {$tooltipAttr tblcountries iso2 } >
+		<div class="text-muted" >
+		{$tooltip tblcountries iso2 }		</div>
+	</div>
+	</div>
+
+
+{END iso2_fieldblock}
+											
+{BEGIN short_name_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_short_name}  r-vertical-field" 
+	data-signal-error-for="short_name{$id}" {$required_attr_short_name}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field1" {$item_integrated_edit_field1} data-pageid="{$pageid}" data-field="short_name" data-fieldname="short_name" >
+
+	<label class="r-edit-label control-label {$short_name_label_class}" for="{$labelfor_short_name}">
+		{BEGIN short_name_label}
+			{$short_name_forward_control}
+			{$label tblcountries short_name }			{END short_name_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$short_name_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="short_name" {$tooltipAttr tblcountries short_name } >
+		<div class="text-muted" >
+		{$tooltip tblcountries short_name }		</div>
+	</div>
+	</div>
+
+
+{END short_name_fieldblock}
+											
+{BEGIN long_name_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_long_name}  r-vertical-field" 
+	data-signal-error-for="long_name{$id}" {$required_attr_long_name}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field2" {$item_integrated_edit_field2} data-pageid="{$pageid}" data-field="long_name" data-fieldname="long_name" >
+
+	<label class="r-edit-label control-label {$long_name_label_class}" for="{$labelfor_long_name}">
+		{BEGIN long_name_label}
+			{$long_name_forward_control}
+			{$label tblcountries long_name }			{END long_name_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$long_name_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="long_name" {$tooltipAttr tblcountries long_name } >
+		<div class="text-muted" >
+		{$tooltip tblcountries long_name }		</div>
+	</div>
+	</div>
+
+
+{END long_name_fieldblock}
+											
+{BEGIN iso3_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_iso3}  r-vertical-field" 
+	data-signal-error-for="iso3{$id}" {$required_attr_iso3}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field3" {$item_integrated_edit_field3} data-pageid="{$pageid}" data-field="iso3" data-fieldname="iso3" >
+
+	<label class="r-edit-label control-label {$iso3_label_class}" for="{$labelfor_iso3}">
+		{BEGIN iso3_label}
+			{$iso3_forward_control}
+			{$label tblcountries iso3 }			{END iso3_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$iso3_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="iso3" {$tooltipAttr tblcountries iso3 } >
+		<div class="text-muted" >
+		{$tooltip tblcountries iso3 }		</div>
+	</div>
+	</div>
+
+
+{END iso3_fieldblock}
+											
+{BEGIN numcode_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_numcode}  r-vertical-field" 
+	data-signal-error-for="numcode{$id}" {$required_attr_numcode}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field4" {$item_integrated_edit_field4} data-pageid="{$pageid}" data-field="numcode" data-fieldname="numcode" >
+
+	<label class="r-edit-label control-label {$numcode_label_class}" for="{$labelfor_numcode}">
+		{BEGIN numcode_label}
+			{$numcode_forward_control}
+			{$label tblcountries numcode }			{END numcode_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$numcode_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="numcode" {$tooltipAttr tblcountries numcode } >
+		<div class="text-muted" >
+		{$tooltip tblcountries numcode }		</div>
+	</div>
+	</div>
+
+
+{END numcode_fieldblock}
+											
+{BEGIN un_member_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_un_member}  r-vertical-field" 
+	data-signal-error-for="un_member{$id}" {$required_attr_un_member}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field5" {$item_integrated_edit_field5} data-pageid="{$pageid}" data-field="un_member" data-fieldname="un_member" >
+
+	<label class="r-edit-label control-label {$un_member_label_class}" for="{$labelfor_un_member}">
+		{BEGIN un_member_label}
+			{$un_member_forward_control}
+			{$label tblcountries un_member }			{END un_member_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$un_member_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="un_member" {$tooltipAttr tblcountries un_member } >
+		<div class="text-muted" >
+		{$tooltip tblcountries un_member }		</div>
+	</div>
+	</div>
+
+
+{END un_member_fieldblock}
+											
+{BEGIN calling_code_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_calling_code}  r-vertical-field" 
+	data-signal-error-for="calling_code{$id}" {$required_attr_calling_code}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field6" {$item_integrated_edit_field6} data-pageid="{$pageid}" data-field="calling_code" data-fieldname="calling_code" >
+
+	<label class="r-edit-label control-label {$calling_code_label_class}" for="{$labelfor_calling_code}">
+		{BEGIN calling_code_label}
+			{$calling_code_forward_control}
+			{$label tblcountries calling_code }			{END calling_code_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$calling_code_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="calling_code" {$tooltipAttr tblcountries calling_code } >
+		<div class="text-muted" >
+		{$tooltip tblcountries calling_code }		</div>
+	</div>
+	</div>
+
+
+{END calling_code_fieldblock}
+											
+{BEGIN cctld_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_cctld}  r-vertical-field" 
+	data-signal-error-for="cctld{$id}" {$required_attr_cctld}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field7" {$item_integrated_edit_field7} data-pageid="{$pageid}" data-field="cctld" data-fieldname="cctld" >
+
+	<label class="r-edit-label control-label {$cctld_label_class}" for="{$labelfor_cctld}">
+		{BEGIN cctld_label}
+			{$cctld_forward_control}
+			{$label tblcountries cctld }			{END cctld_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$cctld_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="cctld" {$tooltipAttr tblcountries cctld } >
+		<div class="text-muted" >
+		{$tooltip tblcountries cctld }		</div>
+	</div>
+	</div>
+
+
+{END cctld_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c3}
+								</tr>
+			</tbody></table>
+{END grid_block}
+									{BEGIN below-grid_block}
+<div class="r-form" data-location="below-grid" id="form_below-grid_{$pageid}" data-makeup="small" {$form_below-grid} data-pageid="{$pageid}"
+		data-v-width="4"
+	data-v-margin="1"
+	
+>		
+	 
+		<div class="row">
+			 
+				<div 
+	data-cellId="below-grid_c1" data-pageid="{$pageid}"	{$cell_below-grid_c1}
+	class="			col-md-12
+	">
+	 
+		<span data-itemtype="add_save" data-itemid="add_save" {$item_add_save} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-primary   
+	" {$savebutton_attrs} >
+							{mlang_message SAVE}			</a>
+</span>
+	 
+		{BEGIN reset_button}
+<span data-itemtype="add_reset" data-itemid="add_reset" {$item_add_reset} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" id="resetButton{$id}" >
+							{mlang_message RESET}			</a>
+</span>
+{END reset_button}
+	 
+		{BEGIN back_button}
+<span data-itemtype="add_back_list" data-itemid="add_back_list" {$item_add_back_list} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" id="backButton{$id}" >
+							{mlang_message BACK_TO_LIST}			</a>
+</span>
+{END back_button}
+	 
+		{BEGIN cancel_button}
+<span data-itemtype="add_cancel" data-itemid="add_cancel" {$item_add_cancel} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" id="cancelButton{$id}" >
+							{mlang_message CANCEL}			</a>
+</span>
+{END cancel_button}
+	</div>					</div>
+	</div>		
+{END below-grid_block}
+			</div>
+		{$footer}
+	{END body}
+	</body>
+</html>

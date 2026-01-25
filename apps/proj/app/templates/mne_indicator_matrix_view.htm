@@ -1,0 +1,722 @@
+<!doctype html>
+<html  {$html_attrs}>
+	<head>
+						<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{$pagetitle}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<base href="{$projectPath}">
+		{BEGIN styleCSSFiles}
+<link REL="stylesheet" href="{$stylepath}" type="text/css">
+{END styleCSSFiles}
+			
+	</head>
+
+	<body class="{$stylename} function-view"   
+		>
+	{BEGIN body}
+		<style>
+		{$containerCss}
+		</style>
+		<div class="r-vbar-page">
+			<div data-width="250px" data-fixed class="r-left clearfix {$leftbar_class}" >
+								<div data-location="left" id="form_left_{$pageid}" data-makeup="leftbar" {$form_left} data-pageid="{$pageid}">
+{BEGIN left_block}
+ 
+     
+         
+
+			<div data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell class="clearfix " data-itemid="logo" {$item_logo}>
+				{BEGIN logo_block}
+	<A data-itemtype="logo" data-itemid="logo" {$item_logo} data-pageid="{$pageid}" class="navbar-brand" href="{$home_link}" data-pageid="{$pageid}" {$logo_hiddenattr}>
+		{$logo}
+	</A>
+{END logo_block}
+				<button data-pageid="1" type="button" class="navbar-toggle collapsed" data-runner-toggle="collapse" data-target="[data-mobile-controlled]">	
+					<span class="sr-only">Toggle navigation</span>	
+					<span class="icon-bar"></span>					
+				</button>				
+			</div>
+		
+ 
+
+			<div class="clearfix " data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell data-itemid="expand_button" {$item_expand_button} data-topcell-item-type="expand_button" >
+				<span data-itemtype="expand_button" data-itemid="expand_button" {$item_expand_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message EXPAND}" class="btn btn-link   
+	" href="#" >
+					<span class="glyphicon glyphicon-triangle-right"></span>
+										</a>
+</span>
+			</div>
+		
+     
+     
+         
+
+			<div data-cellId="left_c1" data-pageid="{$pageid}" class="clearfix  r-ori-vert " data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}">
+				{BEGIN menuitems_main}
+<ul data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}"	class="r-menu nav menu-treelike" 
+	data-menulevel="1"
+>
+
+{BEGIN item_children1}
+<li class="
+	{$item_current}">
+<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline data-menu-top >
+	{$item_separator}
+	<span class="r-menu-link r-menu-expanded "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+		<span class="r-menu-collapsed">{$item_collicon}{$item_firstcap}</span>
+	</a>
+{BEGIN item_showchildren2}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="2">
+	{BEGIN item_children2}
+		{BEGIN item_menulink2}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+	</a>
+			{BEGIN item_showchildren3}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="3">
+	{BEGIN item_children3}
+		{BEGIN item_menulink3}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren3}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren3}
+	</span>
+	</a>
+			{BEGIN item_showchildren4}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="4">
+	{BEGIN item_children4}
+		{BEGIN item_menulink4}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren4}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren4}
+	</span>
+	</a>
+			{BEGIN item_showchildren5}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="5">
+	{BEGIN item_children5}
+		{BEGIN item_menulink5}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren5}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren5}
+	</span>
+	</a>
+					</li>
+		{END item_menulink5}
+	{END item_children5}
+</ul>
+{END item_showchildren5}
+		</li>
+		{END item_menulink4}
+	{END item_children4}
+</ul>
+{END item_showchildren4}
+		</li>
+		{END item_menulink3}
+	{END item_children3}
+</ul>
+{END item_showchildren3}
+		</li>
+		{END item_menulink2}
+	{END item_children2}
+</ul>
+{END item_showchildren2}
+</li>
+{END item_children1}
+</ul>
+{END menuitems_main}
+			</div>
+		
+    {END left_block}
+</div>				</div>
+			<div class="r-content-col" data-resize-left="leftbar">
+				<div data-resize-left="leftbar"  data-fixed class="r-topheader" data-resize-name="topbar">
+									{BEGIN supertop_block}
+<nav class="navbar navbar-default" 
+	data-location="supertop" id="form_supertop_{$pageid}" data-makeup="leftbar" {$form_supertop} data-pageid="{$pageid}" >
+			 
+							 
+				<span class="navbar-form  navbar-header" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="expand_menu_button" {$item_expand_menu_button} data-topcell-item-type="expand_menu_button" >
+				<span data-itemtype="expand_menu_button" data-itemid="expand_menu_button" {$item_expand_menu_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message SHOW_MENU}" class="btn-link   
+	 glyphicon glyphicon-menu-hamburger" href="#" >		
+				
+								</a>
+</span>
+			</span>
+		 
+				<span class="navbar-form  navbar-collapse" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="collapse_button" {$item_collapse_button} data-topcell-item-type="collapse_button" >
+				<span data-itemtype="collapse_button" data-itemid="collapse_button" {$item_collapse_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message COLLAPSE}" class="btn-link   
+	 glyphicon glyphicon-triangle-left" href="#" >		
+				
+								</a>
+</span>
+			</span>
+							 
+													</nav>
+{END supertop_block}
+						{$locking}
+				</div>
+				<div class="r-body" data-resize-top="topbar" data-body-width="standard">
+					{$header}
+					<div class="r-top">
+									{BEGIN top_block}
+<div class="r-form" data-location="top" id="form_top_{$pageid}" data-makeup="leftbar" {$form_top} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="top_c1" data-pageid="{$pageid}"	{$cell_top_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		 
+		<h2 data-itemtype="view_header" data-itemid="view_header" {$item_view_header} data-pageid="{$pageid}" >{$pagetitlelabel mne_indicator_matrix view}</h2>
+		</div>					</div>
+			</div>		
+{END top_block}
+						</div>
+											<div class="r-above">
+					{BEGIN above-grid_block}
+<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="leftbar" {$form_above-grid} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="above-grid_c1" data-pageid="{$pageid}"	{$cell_above-grid_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		{BEGIN firstAboveGridCell}
+				{END firstAboveGridCell}	
+	</div>					</div>
+			</div>		
+{END above-grid_block}
+	</div>
+<div class="r-grid">
+	{BEGIN grid_tabs}
+  <ul class="nav nav-tabs bsgrid_tabs">
+	{$grid_tabs_content}
+  </ul>
+{END grid_tabs}
+					{BEGIN grid_block}
+
+
+
+
+ 
+	 
+												<table 
+	data-body-align="left"
+	data-location="grid" id="form_grid_{$pageid}" data-makeup="leftbar" {$form_grid} data-pageid="{$pageid}" 
+	class="r-edit-form" cellpadding="0" cellspacing="0" 
+	{$grid_hiddenattr} 
+		data-form-width="1"
+		
+		data-v-width="4"
+	>
+	<tbody>
+										<tr {$row_grid_0} >
+										
+
+{BEGIN cellblock_grid_c3}
+<td
+	{$cell_grid_c3}
+	class=" r-ori-vert"
+	
+				data-fullwidth
+		
+			data-cellId="grid_c3" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN indicator_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_indicator_id}  r-vertical-field" 
+	data-signal-error-for="indicator_id{$id}" {$required_attr_indicator_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field" {$item_integrated_edit_field} data-pageid="{$pageid}" data-field="indicator_id" data-fieldname="indicator_id" >
+
+	<label class="r-edit-label control-label {$indicator_id_label_class}" for="{$labelfor_indicator_id}">
+		{BEGIN indicator_id_label}
+			{$indicator_id_forward_control}
+			{$label mne_indicator_matrix indicator_id }			{END indicator_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$indicator_id_value}	</div>
+	</div>
+
+
+{END indicator_id_fieldblock}
+											
+{BEGIN thematic_area_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_thematic_area}  r-vertical-field" 
+	data-signal-error-for="thematic_area{$id}" {$required_attr_thematic_area}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field1" {$item_integrated_edit_field1} data-pageid="{$pageid}" data-field="thematic_area" data-fieldname="thematic_area" >
+
+	<label class="r-edit-label control-label {$thematic_area_label_class}" for="{$labelfor_thematic_area}">
+		{BEGIN thematic_area_label}
+			{$thematic_area_forward_control}
+			{$label mne_indicator_matrix thematic_area }			{END thematic_area_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$thematic_area_value}	</div>
+	</div>
+
+
+{END thematic_area_fieldblock}
+											
+{BEGIN importance_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_importance}  r-vertical-field" 
+	data-signal-error-for="importance{$id}" {$required_attr_importance}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field2" {$item_integrated_edit_field2} data-pageid="{$pageid}" data-field="importance" data-fieldname="importance" >
+
+	<label class="r-edit-label control-label {$importance_label_class}" for="{$labelfor_importance}">
+		{BEGIN importance_label}
+			{$importance_forward_control}
+			{$label mne_indicator_matrix importance }			{END importance_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$importance_value}	</div>
+	</div>
+
+
+{END importance_fieldblock}
+											
+{BEGIN indicator_name_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_indicator_name}  r-vertical-field" 
+	data-signal-error-for="indicator_name{$id}" {$required_attr_indicator_name}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field3" {$item_integrated_edit_field3} data-pageid="{$pageid}" data-field="indicator_name" data-fieldname="indicator_name" >
+
+	<label class="r-edit-label control-label {$indicator_name_label_class}" for="{$labelfor_indicator_name}">
+		{BEGIN indicator_name_label}
+			{$indicator_name_forward_control}
+			{$label mne_indicator_matrix indicator_name }			{END indicator_name_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$indicator_name_value}	</div>
+	</div>
+
+
+{END indicator_name_fieldblock}
+											
+{BEGIN indicator_description_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_indicator_description}  r-vertical-field" 
+	data-signal-error-for="indicator_description{$id}" {$required_attr_indicator_description}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field4" {$item_integrated_edit_field4} data-pageid="{$pageid}" data-field="indicator_description" data-fieldname="indicator_description" >
+
+	<label class="r-edit-label control-label {$indicator_description_label_class}" for="{$labelfor_indicator_description}">
+		{BEGIN indicator_description_label}
+			{$indicator_description_forward_control}
+			{$label mne_indicator_matrix indicator_description }			{END indicator_description_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$indicator_description_value}	</div>
+	</div>
+
+
+{END indicator_description_fieldblock}
+											
+{BEGIN indicator_type_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_indicator_type}  r-vertical-field" 
+	data-signal-error-for="indicator_type{$id}" {$required_attr_indicator_type}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field5" {$item_integrated_edit_field5} data-pageid="{$pageid}" data-field="indicator_type" data-fieldname="indicator_type" >
+
+	<label class="r-edit-label control-label {$indicator_type_label_class}" for="{$labelfor_indicator_type}">
+		{BEGIN indicator_type_label}
+			{$indicator_type_forward_control}
+			{$label mne_indicator_matrix indicator_type }			{END indicator_type_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$indicator_type_value}	</div>
+	</div>
+
+
+{END indicator_type_fieldblock}
+											
+{BEGIN disaggregated_by_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_disaggregated_by}  r-vertical-field" 
+	data-signal-error-for="disaggregated_by{$id}" {$required_attr_disaggregated_by}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field6" {$item_integrated_edit_field6} data-pageid="{$pageid}" data-field="disaggregated_by" data-fieldname="disaggregated_by" >
+
+	<label class="r-edit-label control-label {$disaggregated_by_label_class}" for="{$labelfor_disaggregated_by}">
+		{BEGIN disaggregated_by_label}
+			{$disaggregated_by_forward_control}
+			{$label mne_indicator_matrix disaggregated_by }			{END disaggregated_by_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$disaggregated_by_value}	</div>
+	</div>
+
+
+{END disaggregated_by_fieldblock}
+											
+{BEGIN data_type_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_data_type}  r-vertical-field" 
+	data-signal-error-for="data_type{$id}" {$required_attr_data_type}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field7" {$item_integrated_edit_field7} data-pageid="{$pageid}" data-field="data_type" data-fieldname="data_type" >
+
+	<label class="r-edit-label control-label {$data_type_label_class}" for="{$labelfor_data_type}">
+		{BEGIN data_type_label}
+			{$data_type_forward_control}
+			{$label mne_indicator_matrix data_type }			{END data_type_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$data_type_value}	</div>
+	</div>
+
+
+{END data_type_fieldblock}
+											
+{BEGIN data_source_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_data_source}  r-vertical-field" 
+	data-signal-error-for="data_source{$id}" {$required_attr_data_source}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field8" {$item_integrated_edit_field8} data-pageid="{$pageid}" data-field="data_source" data-fieldname="data_source" >
+
+	<label class="r-edit-label control-label {$data_source_label_class}" for="{$labelfor_data_source}">
+		{BEGIN data_source_label}
+			{$data_source_forward_control}
+			{$label mne_indicator_matrix data_source }			{END data_source_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$data_source_value}	</div>
+	</div>
+
+
+{END data_source_fieldblock}
+											
+{BEGIN reporting_frequency_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_reporting_frequency}  r-vertical-field" 
+	data-signal-error-for="reporting_frequency{$id}" {$required_attr_reporting_frequency}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field9" {$item_integrated_edit_field9} data-pageid="{$pageid}" data-field="reporting_frequency" data-fieldname="reporting_frequency" >
+
+	<label class="r-edit-label control-label {$reporting_frequency_label_class}" for="{$labelfor_reporting_frequency}">
+		{BEGIN reporting_frequency_label}
+			{$reporting_frequency_forward_control}
+			{$label mne_indicator_matrix reporting_frequency }			{END reporting_frequency_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$reporting_frequency_value}	</div>
+	</div>
+
+
+{END reporting_frequency_fieldblock}
+											
+{BEGIN responsible_body_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_responsible_body}  r-vertical-field" 
+	data-signal-error-for="responsible_body{$id}" {$required_attr_responsible_body}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field10" {$item_integrated_edit_field10} data-pageid="{$pageid}" data-field="responsible_body" data-fieldname="responsible_body" >
+
+	<label class="r-edit-label control-label {$responsible_body_label_class}" for="{$labelfor_responsible_body}">
+		{BEGIN responsible_body_label}
+			{$responsible_body_forward_control}
+			{$label mne_indicator_matrix responsible_body }			{END responsible_body_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$responsible_body_value}	</div>
+	</div>
+
+
+{END responsible_body_fieldblock}
+											
+{BEGIN known_data_limitation_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_known_data_limitation}  r-vertical-field" 
+	data-signal-error-for="known_data_limitation{$id}" {$required_attr_known_data_limitation}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field11" {$item_integrated_edit_field11} data-pageid="{$pageid}" data-field="known_data_limitation" data-fieldname="known_data_limitation" >
+
+	<label class="r-edit-label control-label {$known_data_limitation_label_class}" for="{$labelfor_known_data_limitation}">
+		{BEGIN known_data_limitation_label}
+			{$known_data_limitation_forward_control}
+			{$label mne_indicator_matrix known_data_limitation }			{END known_data_limitation_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$known_data_limitation_value}	</div>
+	</div>
+
+
+{END known_data_limitation_fieldblock}
+											
+{BEGIN current_status_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_current_status}  r-vertical-field" 
+	data-signal-error-for="current_status{$id}" {$required_attr_current_status}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field12" {$item_integrated_edit_field12} data-pageid="{$pageid}" data-field="current_status" data-fieldname="current_status" >
+
+	<label class="r-edit-label control-label {$current_status_label_class}" for="{$labelfor_current_status}">
+		{BEGIN current_status_label}
+			{$current_status_forward_control}
+			{$label mne_indicator_matrix current_status }			{END current_status_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$current_status_value}	</div>
+	</div>
+
+
+{END current_status_fieldblock}
+											
+{BEGIN target_value_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_target_value}  r-vertical-field" 
+	data-signal-error-for="target_value{$id}" {$required_attr_target_value}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field13" {$item_integrated_edit_field13} data-pageid="{$pageid}" data-field="target_value" data-fieldname="target_value" >
+
+	<label class="r-edit-label control-label {$target_value_label_class}" for="{$labelfor_target_value}">
+		{BEGIN target_value_label}
+			{$target_value_forward_control}
+			{$label mne_indicator_matrix target_value }			{END target_value_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$target_value_value}	</div>
+	</div>
+
+
+{END target_value_fieldblock}
+											
+{BEGIN created_at_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_created_at}  r-vertical-field" 
+	data-signal-error-for="created_at{$id}" {$required_attr_created_at}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field14" {$item_integrated_edit_field14} data-pageid="{$pageid}" data-field="created_at" data-fieldname="created_at" >
+
+	<label class="r-edit-label control-label {$created_at_label_class}" for="{$labelfor_created_at}">
+		{BEGIN created_at_label}
+			{$created_at_forward_control}
+			{$label mne_indicator_matrix created_at }			{END created_at_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$created_at_value}	</div>
+	</div>
+
+
+{END created_at_fieldblock}
+											
+{BEGIN updated_at_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_updated_at}  r-vertical-field" 
+	data-signal-error-for="updated_at{$id}" {$required_attr_updated_at}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field15" {$item_integrated_edit_field15} data-pageid="{$pageid}" data-field="updated_at" data-fieldname="updated_at" >
+
+	<label class="r-edit-label control-label {$updated_at_label_class}" for="{$labelfor_updated_at}">
+		{BEGIN updated_at_label}
+			{$updated_at_forward_control}
+			{$label mne_indicator_matrix updated_at }			{END updated_at_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$updated_at_value}	</div>
+	</div>
+
+
+{END updated_at_fieldblock}
+											
+{BEGIN is_active_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_is_active}  r-vertical-field" 
+	data-signal-error-for="is_active{$id}" {$required_attr_is_active}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field16" {$item_integrated_edit_field16} data-pageid="{$pageid}" data-field="is_active" data-fieldname="is_active" >
+
+	<label class="r-edit-label control-label {$is_active_label_class}" for="{$labelfor_is_active}">
+		{BEGIN is_active_label}
+			{$is_active_forward_control}
+			{$label mne_indicator_matrix is_active }			{END is_active_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$is_active_value}	</div>
+	</div>
+
+
+{END is_active_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c3}
+								</tr>
+			</tbody></table>
+{END grid_block}
+	</div>
+<div class="r-below">
+					{BEGIN below-grid_block}
+<div class="r-form" data-location="below-grid" id="form_below-grid_{$pageid}" data-makeup="leftbar" {$form_below-grid} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="below-grid_c1" data-pageid="{$pageid}"	{$cell_below-grid_c1}
+	class="			col-md-6
+	
+">
+		 
+		{BEGIN back_button}
+<span data-itemtype="view_back_list" data-itemid="view_back_list" {$item_view_back_list} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" {$backbutton_attrs} >
+							{mlang_message BACK_TO_LIST}			</a>
+</span>
+{END back_button}
+	 
+		{BEGIN close_button}
+<span data-itemtype="view_close" data-itemid="view_close" {$item_view_close} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" href="#" {$closebutton_attrs} >
+							{mlang_message CLOSE_WINDOW}			</a>
+</span>
+{END close_button}
+		</div>			 
+				<div 
+	data-cellId="below-grid_c2" data-pageid="{$pageid}"	{$cell_below-grid_c2}
+	class="r-align-right r-ori-vert			col-md-6
+	
+">
+		 
+		<span data-itemtype="hamburger" data-itemid="hamburger" {$item_hamburger} data-pageid="{$pageid}" data-small data-button-item>
+	<span class="dropdown dropup">
+		<button type="button" title="" class="btn btn-default   dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		
+										<span class="glyphicon glyphicon-menu-hamburger"></span>
+												<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+							{BEGIN edit_page_button}
+	<li data-itemtype="view_edit" data-itemid="view_edit" {$item_view_edit} data-pageid="{$pageid}" data-small >
+				<a  href="mne_indicator_matrix_edit.php?{$editlink}" {$edit_page_button_attrs}  title="" >
+				
+		{mlang_message EDIT}		
+		</a>
+	</li>
+{END edit_page_button}
+					</ul>
+	</span>
+</span>
+		</div>					</div>
+			</div>		
+{END below-grid_block}
+	</div>
+
+
+
+
+										{$footer}
+				</div>
+			</div>
+			<div class="r-body-shadow">
+			</div>
+		</div>
+	{END body}
+	</body>
+</html>
