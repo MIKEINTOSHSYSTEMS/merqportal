@@ -49,6 +49,7 @@ $runnerTableSettings['mne_quality_status'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_quality_status',
 	'afterAddDetail' => 'mne_quality_status',
 	'detailsBadgeColor' => '6493ea',

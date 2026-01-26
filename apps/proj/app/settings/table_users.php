@@ -59,6 +59,7 @@ $runnerTableSettings['users'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'users',
 	'afterAddDetail' => 'users',
 	'detailsBadgeColor' => '5f9ea0',
@@ -153,12 +154,13 @@ FROM
 			'sqlExpression' => 'email',
 			'viewFormats' => array(
 				'view' => array(
-					 
+					'format' => 'Email Hyperlink' 
 				) 
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'validateAs' => 'Email',
+					'textHTML5Input' => 'Email' 
 				) 
 			),
 			'tableName' => 'users' 
@@ -279,12 +281,18 @@ FROM
 			'sqlExpression' => 'phone',
 			'viewFormats' => array(
 				'view' => array(
-					 
+					'format' => 'Phone Number' 
 				) 
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'format' => 'Telephone',
+					'textHTML5Input' => 'Tel number',
+					'pluginInitString' => '$this->settings["required"] = false;                    // Wether is mandatory
+$this->settings["tooltip"] = "Click here to enter telephone"; // Information tooltip
+$this->settings["initialCountry"] = "et";               // Country default
+$this->settings["preferredCountries"] = "et";           // Preferred Country
+' 
 				) 
 			),
 			'tableName' => 'users' 
@@ -297,12 +305,17 @@ FROM
 			'sqlExpression' => 'alternate_phone',
 			'viewFormats' => array(
 				'view' => array(
-					 
+					'format' => 'Phone Number' 
 				) 
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'format' => 'Telephone',
+					'pluginInitString' => '$this->settings["required"] = false;                    // Wether is mandatory
+$this->settings["tooltip"] = "Click here to enter telephone"; // Information tooltip
+$this->settings["initialCountry"] = "et";               // Country default
+$this->settings["preferredCountries"] = "et";           // Preferred Country
+' 
 				) 
 			),
 			'tableName' => 'users' 
@@ -447,7 +460,7 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'format' => 'Checkbox' 
 				) 
 			),
 			'tableName' => 'users' 
@@ -467,6 +480,7 @@ FROM
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Date',
+					'defaultValue' => 'date("Y-m-d H:i:s")',
 					'dateEditType' => 11 
 				) 
 			),
@@ -487,6 +501,7 @@ FROM
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Date',
+					'autoUpdateValue' => 'date("Y-m-d H:i:s")',
 					'dateEditType' => 11 
 				) 
 			),
@@ -545,6 +560,7 @@ FROM
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Lookup wizard',
+					'lookupType' => 2,
 					'lookupTable' => 'positions',
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'position_id',
@@ -568,6 +584,7 @@ FROM
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Lookup wizard',
+					'lookupType' => 2,
 					'lookupTable' => 'departments',
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'department_id',
@@ -610,7 +627,7 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'format' => 'Checkbox' 
 				) 
 			),
 			'tableName' => 'users' 
@@ -668,7 +685,7 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'format' => 'Checkbox' 
 				) 
 			),
 			'tableName' => 'users' 
@@ -696,6 +713,26 @@ FROM
 				) 
 			),
 			'tableName' => 'users' 
+		) 
+	),
+	'masterTables' => array( 
+		array(
+			'table' => 'positions',
+			'detailsKeys' => array( 
+				'position_id' 
+			),
+			'masterKeys' => array( 
+				'position_id' 
+			) 
+		),
+		array(
+			'table' => 'departments',
+			'detailsKeys' => array( 
+				'department_id' 
+			),
+			'masterKeys' => array( 
+				'department_id' 
+			) 
 		) 
 	),
 	'detailsTables' => array( 

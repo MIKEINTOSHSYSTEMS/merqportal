@@ -49,6 +49,7 @@ $runnerTableSettings['mne_engagement_level'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_engagement_level',
 	'afterAddDetail' => 'mne_engagement_level',
 	'detailsBadgeColor' => '778899',

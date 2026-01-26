@@ -59,6 +59,7 @@ $runnerTableSettings['mne_data_methods'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_data_methods',
 	'afterAddDetail' => 'mne_data_methods',
 	'detailsBadgeColor' => 'cfae83',

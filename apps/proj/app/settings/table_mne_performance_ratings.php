@@ -49,6 +49,7 @@ $runnerTableSettings['mne_performance_ratings'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_performance_ratings',
 	'afterAddDetail' => 'mne_performance_ratings',
 	'detailsBadgeColor' => '8fbc8b',

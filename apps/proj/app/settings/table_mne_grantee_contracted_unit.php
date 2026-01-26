@@ -49,6 +49,7 @@ $runnerTableSettings['mne_grantee_contracted_unit'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_grantee_contracted_unit',
 	'afterAddDetail' => 'mne_grantee_contracted_unit',
 	'detailsBadgeColor' => 'daa520',

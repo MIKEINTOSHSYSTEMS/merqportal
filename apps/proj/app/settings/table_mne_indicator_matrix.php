@@ -49,6 +49,7 @@ $runnerTableSettings['mne_indicator_matrix'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_indicator_matrix',
 	'afterAddDetail' => 'mne_indicator_matrix',
 	'detailsBadgeColor' => '9e36ff',

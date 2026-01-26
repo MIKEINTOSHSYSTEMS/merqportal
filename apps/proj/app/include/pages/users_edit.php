@@ -30,6 +30,14 @@
 			'previewPageId' => '' 
 		) 
 	),
+	'master' => array(
+		'positions' => array(
+			'preview' => false 
+		),
+		'departments' => array(
+			'preview' => false 
+		) 
+	),
 	'captcha' => array(
 		'captcha' => false 
 	),
@@ -483,6 +491,9 @@
 			'changepassword_link' => array( 
 				'changepassword_link' 
 			),
+			'adminarea_link' => array( 
+				'adminarea_link' 
+			),
 			'expand_button' => array( 
 				'expand_button' 
 			) 
@@ -856,147 +867,176 @@
 		'integrated_edit_field' => array(
 			'field' => 'username',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field1' => array(
 			'field' => 'email',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field2' => array(
 			'field' => 'password_hash',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field3' => array(
 			'field' => 'full_name',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field4' => array(
 			'field' => 'google_id',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field5' => array(
 			'field' => 'first_name',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field6' => array(
 			'field' => 'last_name',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field7' => array(
 			'field' => 'middle_name',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field8' => array(
 			'field' => 'phone',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field9' => array(
 			'field' => 'alternate_phone',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field10' => array(
 			'field' => 'role',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field11' => array(
 			'field' => 'job_position',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field12' => array(
 			'field' => 'join_date',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field13' => array(
 			'field' => 'leave_balance',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field14' => array(
 			'field' => 'last_leave_increment',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field15' => array(
 			'field' => 'role_id',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field16' => array(
 			'field' => 'is_active',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field17' => array(
 			'field' => 'created_at',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field18' => array(
 			'field' => 'updated_at',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field19' => array(
 			'field' => 'last_login',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field20' => array(
 			'field' => 'employee_id',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field21' => array(
 			'field' => 'position_id',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field22' => array(
 			'field' => 'department_id',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field23' => array(
 			'field' => 'hire_date',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field24' => array(
 			'field' => 'is_admin',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field25' => array(
 			'field' => 'reset_token',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field26' => array(
 			'field' => 'reset_date',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field27' => array(
 			'field' => 'is_doctor',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'integrated_edit_field28' => array(
 			'field' => 'supervisor_id',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => false 
 		),
 		'logo' => array(
 			'type' => 'logo' 
@@ -1009,6 +1049,7 @@
 			'items' => array( 
 				'userinfo_link',
 				'logout_link',
+				'adminarea_link',
 				'changepassword_link' 
 			) 
 		),
@@ -1030,6 +1071,9 @@
 		),
 		'changepassword_link' => array(
 			'type' => 'changepassword_link' 
+		),
+		'adminarea_link' => array(
+			'type' => 'adminarea_link' 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

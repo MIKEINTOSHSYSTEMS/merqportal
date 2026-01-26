@@ -59,6 +59,7 @@ $runnerTableSettings['mne_deliverable_options'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_deliverable_options',
 	'afterAddDetail' => 'mne_deliverable_options',
 	'detailsBadgeColor' => '6493ea',

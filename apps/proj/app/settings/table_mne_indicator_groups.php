@@ -59,6 +59,7 @@ $runnerTableSettings['mne_indicator_groups'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_indicator_groups',
 	'afterAddDetail' => 'mne_indicator_groups',
 	'detailsBadgeColor' => 'edca00',

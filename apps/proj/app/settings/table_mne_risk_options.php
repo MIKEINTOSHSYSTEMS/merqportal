@@ -59,6 +59,7 @@ $runnerTableSettings['mne_risk_options'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_risk_options',
 	'afterAddDetail' => 'mne_risk_options',
 	'detailsBadgeColor' => 'dc143c',

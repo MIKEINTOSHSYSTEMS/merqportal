@@ -59,6 +59,7 @@ $runnerTableSettings['mne_data_sources'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_data_sources',
 	'afterAddDetail' => 'mne_data_sources',
 	'detailsBadgeColor' => 'edca00',

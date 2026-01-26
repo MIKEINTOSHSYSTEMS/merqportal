@@ -49,6 +49,7 @@ $runnerTableSettings['mne_performance_alerts'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_performance_alerts',
 	'afterAddDetail' => 'mne_performance_alerts',
 	'detailsBadgeColor' => '4682b4',

@@ -49,6 +49,7 @@ $runnerTableSettings['mne_win_loss_analysis'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_win_loss_analysis',
 	'afterAddDetail' => 'mne_win_loss_analysis',
 	'detailsBadgeColor' => '6493ea',

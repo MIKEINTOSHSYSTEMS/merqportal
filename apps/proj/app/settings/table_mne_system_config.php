@@ -49,6 +49,7 @@ $runnerTableSettings['mne_system_config'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_system_config',
 	'afterAddDetail' => 'mne_system_config',
 	'detailsBadgeColor' => 'cd5c5c',

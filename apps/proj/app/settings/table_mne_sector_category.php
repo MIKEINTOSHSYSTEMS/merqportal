@@ -59,6 +59,7 @@ $runnerTableSettings['mne_sector_category'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_sector_category',
 	'afterAddDetail' => 'mne_sector_category',
 	'detailsBadgeColor' => '2f4f4f',

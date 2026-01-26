@@ -60,6 +60,17 @@
 					'view_close',
 					'hamburger' 
 				),
+				'supertop' => array( 
+					'expand_menu_button',
+					'collapse_button',
+					'loginform_login',
+					'username_button' 
+				),
+				'left' => array( 
+					'logo',
+					'expand_button',
+					'menu' 
+				),
 				'top' => array( 
 					'view_header' 
 				),
@@ -82,6 +93,13 @@
 				'view_back_list' => 'below-grid',
 				'view_close' => 'below-grid',
 				'hamburger' => 'below-grid',
+				'expand_menu_button' => 'supertop',
+				'collapse_button' => 'supertop',
+				'loginform_login' => 'supertop',
+				'username_button' => 'supertop',
+				'logo' => 'left',
+				'expand_button' => 'left',
+				'menu' => 'left',
 				'view_header' => 'top',
 				'integrated_edit_field' => 'grid',
 				'integrated_edit_field1' => 'grid',
@@ -122,7 +140,8 @@
 				) 
 			),
 			'itemVisiblity' => array(
-				 
+				'expand_menu_button' => 2,
+				'expand_button' => 5 
 			) 
 		),
 		'itemsByType' => array(
@@ -135,6 +154,12 @@
 			'view_close' => array( 
 				'view_close' 
 			),
+			'hamburger' => array( 
+				'hamburger' 
+			),
+			'view_edit' => array( 
+				'view_edit' 
+			),
 			'integrated_edit_field' => array( 
 				'integrated_edit_field',
 				'integrated_edit_field1',
@@ -144,11 +169,32 @@
 				'integrated_edit_field5',
 				'integrated_edit_field6' 
 			),
-			'hamburger' => array( 
-				'hamburger' 
+			'logo' => array( 
+				'logo' 
 			),
-			'view_edit' => array( 
-				'view_edit' 
+			'menu' => array( 
+				'menu' 
+			),
+			'username_button' => array( 
+				'username_button' 
+			),
+			'loginform_login' => array( 
+				'loginform_login' 
+			),
+			'userinfo_link' => array( 
+				'userinfo_link' 
+			),
+			'logout_link' => array( 
+				'logout_link' 
+			),
+			'expand_menu_button' => array( 
+				'expand_menu_button' 
+			),
+			'collapse_button' => array( 
+				'collapse_button' 
+			),
+			'expand_button' => array( 
+				'expand_button' 
 			) 
 		),
 		'cellMaps' => array(
@@ -183,10 +229,10 @@
 		) 
 	),
 	'loginForm' => array(
-		'loginForm' => 3 
+		'loginForm' => 0 
 	),
 	'page' => array(
-		'verticalBar' => false,
+		'verticalBar' => true,
 		'labeledButtons' => array(
 			'update_records' => array(
 				 
@@ -213,7 +259,10 @@
 		),
 		'hasNotifications' => false,
 		'menus' => array( 
-			 
+			array(
+				'id' => 'main',
+				'horizontal' => false 
+			) 
 		),
 		'calcTotalsFor' => 1,
 		'hasCharts' => false 
@@ -238,7 +287,7 @@
 			$pageArray = array(
 	'id' => 'view',
 	'type' => 'view',
-	'layoutId' => 'nomenu',
+	'layoutId' => 'leftbar',
 	'disabled' => false,
 	'default' => 0,
 	'forms' => array(
@@ -295,6 +344,82 @@
 					'model' => 'c2',
 					'items' => array( 
 						'hamburger' 
+					) 
+				) 
+			),
+			'deferredItems' => array( 
+				 
+			),
+			'recsPerRow' => 1 
+		),
+		'supertop' => array(
+			'modelId' => 'leftbar-top-edit',
+			'grid' => array( 
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c1' 
+						),
+						array(
+							'cell' => 'c2' 
+						) 
+					),
+					'section' => '' 
+				) 
+			),
+			'cells' => array(
+				'c1' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'expand_menu_button',
+						'collapse_button' 
+					) 
+				),
+				'c2' => array(
+					'model' => 'c2',
+					'items' => array( 
+						'loginform_login',
+						'username_button' 
+					) 
+				) 
+			),
+			'deferredItems' => array( 
+				 
+			),
+			'recsPerRow' => 1 
+		),
+		'left' => array(
+			'modelId' => 'leftbar-menu',
+			'grid' => array( 
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c0' 
+						) 
+					),
+					'section' => '' 
+				),
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c1' 
+						) 
+					),
+					'section' => '' 
+				) 
+			),
+			'cells' => array(
+				'c0' => array(
+					'model' => 'c0',
+					'items' => array( 
+						'logo',
+						'expand_button' 
+					) 
+				),
+				'c1' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'menu' 
 					) 
 				) 
 			),
@@ -372,6 +497,15 @@
 		'view_close' => array(
 			'type' => 'view_close' 
 		),
+		'hamburger' => array(
+			'type' => 'hamburger',
+			'items' => array( 
+				'view_edit' 
+			) 
+		),
+		'view_edit' => array(
+			'type' => 'view_edit' 
+		),
 		'integrated_edit_field' => array(
 			'field' => 'id',
 			'type' => 'integrated_edit_field',
@@ -407,14 +541,36 @@
 			'type' => 'integrated_edit_field',
 			'orientation' => 0 
 		),
-		'hamburger' => array(
-			'type' => 'hamburger',
+		'logo' => array(
+			'type' => 'logo' 
+		),
+		'menu' => array(
+			'type' => 'menu' 
+		),
+		'username_button' => array(
+			'type' => 'username_button',
 			'items' => array( 
-				'view_edit' 
+				'userinfo_link',
+				'logout_link' 
 			) 
 		),
-		'view_edit' => array(
-			'type' => 'view_edit' 
+		'loginform_login' => array(
+			'type' => 'loginform_login' 
+		),
+		'userinfo_link' => array(
+			'type' => 'userinfo_link' 
+		),
+		'logout_link' => array(
+			'type' => 'logout_link' 
+		),
+		'expand_menu_button' => array(
+			'type' => 'expand_menu_button' 
+		),
+		'collapse_button' => array(
+			'type' => 'collapse_button' 
+		),
+		'expand_button' => array(
+			'type' => 'expand_button' 
 		) 
 	),
 	'dbProps' => array(

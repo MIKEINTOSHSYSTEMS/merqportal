@@ -35,6 +35,12 @@ $runnerTableSettings[ GLOBAL_PAGES ] = array(
 		),
 		'session_expired' => array( 
 			'session_expired' 
+		),
+		'admin_rights_list' => array( 
+			'admin_rights_list' 
+		),
+		'admin_members_list' => array( 
+			'admin_members_list' 
 		) 
 	),
 	'pageTypes' => array(
@@ -47,7 +53,9 @@ $runnerTableSettings[ GLOBAL_PAGES ] = array(
 		'remind_success' => 'remind_success',
 		'changepwd' => 'changepwd',
 		'changepwd_success' => 'changepwd_success',
-		'session_expired' => 'session_expired' 
+		'session_expired' => 'session_expired',
+		'admin_rights_list' => 'admin_rights_list',
+		'admin_members_list' => 'admin_members_list' 
 	),
 	'defaultPages' => array(
 		'menu' => 'menu',
@@ -59,7 +67,9 @@ $runnerTableSettings[ GLOBAL_PAGES ] = array(
 		'remind_success' => 'remind_success',
 		'changepwd' => 'changepwd',
 		'changepwd_success' => 'changepwd_success',
-		'session_expired' => 'session_expired' 
+		'session_expired' => 'session_expired',
+		'admin_rights_list' => 'admin_rights_list',
+		'admin_members_list' => 'admin_members_list' 
 	),
 	'originalPagesByType' => array(
 		'menu' => array( 
@@ -91,6 +101,12 @@ $runnerTableSettings[ GLOBAL_PAGES ] = array(
 		),
 		'session_expired' => array( 
 			'session_expired' 
+		),
+		'admin_rights_list' => array( 
+			'admin_rights_list' 
+		),
+		'admin_members_list' => array( 
+			'admin_members_list' 
 		) 
 	),
 	'originalPageTypes' => array(
@@ -103,7 +119,9 @@ $runnerTableSettings[ GLOBAL_PAGES ] = array(
 		'remind_success' => 'remind_success',
 		'changepwd' => 'changepwd',
 		'changepwd_success' => 'changepwd_success',
-		'session_expired' => 'session_expired' 
+		'session_expired' => 'session_expired',
+		'admin_rights_list' => 'admin_rights_list',
+		'admin_members_list' => 'admin_members_list' 
 	),
 	'originalDefaultPages' => array(
 		'menu' => 'menu',
@@ -115,7 +133,9 @@ $runnerTableSettings[ GLOBAL_PAGES ] = array(
 		'remind_success' => 'remind_success',
 		'changepwd' => 'changepwd',
 		'changepwd_success' => 'changepwd_success',
-		'session_expired' => 'session_expired' 
+		'session_expired' => 'session_expired',
+		'admin_rights_list' => 'admin_rights_list',
+		'admin_members_list' => 'admin_members_list' 
 	),
 	'hasJsEvents' => false 
 );

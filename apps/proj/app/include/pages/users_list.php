@@ -2,7 +2,7 @@
 			$optionsArray = array(
 	'list' => array(
 		'inlineAdd' => false,
-		'detailsAdd' => false,
+		'detailsAdd' => true,
 		'inlineEdit' => false,
 		'addToBottom' => false,
 		'delete' => true,
@@ -20,6 +20,7 @@
 	'details' => array(
 		'mne_audit_log' => array(
 			'displayPreview' => 1,
+			'previewPageId' => 'list',
 			'showCount' => true,
 			'hideEmptyChild' => false,
 			'showProceedLink' => true,
@@ -27,6 +28,7 @@
 		),
 		'mne_business_opportunities' => array(
 			'displayPreview' => 1,
+			'previewPageId' => 'list',
 			'showCount' => true,
 			'hideEmptyChild' => false,
 			'hideEmptyPreview' => false,
@@ -35,6 +37,7 @@
 		),
 		'mne_partnerships' => array(
 			'displayPreview' => 1,
+			'previewPageId' => 'list',
 			'showCount' => true,
 			'hideEmptyChild' => false,
 			'showProceedLink' => true,
@@ -42,6 +45,7 @@
 		),
 		'mne_performance_alerts' => array(
 			'displayPreview' => 1,
+			'previewPageId' => 'list',
 			'showCount' => true,
 			'hideEmptyChild' => false,
 			'showProceedLink' => true,
@@ -49,6 +53,7 @@
 		),
 		'mne_project_leads' => array(
 			'displayPreview' => 1,
+			'previewPageId' => 'list',
 			'showCount' => true,
 			'hideEmptyChild' => false,
 			'showProceedLink' => true,
@@ -56,6 +61,7 @@
 		),
 		'mne_project_updates' => array(
 			'displayPreview' => 1,
+			'previewPageId' => 'list',
 			'showCount' => true,
 			'hideEmptyChild' => false,
 			'showProceedLink' => true,
@@ -63,10 +69,19 @@
 		),
 		'mne_projects' => array(
 			'displayPreview' => 1,
+			'previewPageId' => 'list',
 			'showCount' => true,
 			'hideEmptyChild' => false,
 			'showProceedLink' => true,
 			'printDetails' => true 
+		) 
+	),
+	'master' => array(
+		'positions' => array(
+			'preview' => true 
+		),
+		'departments' => array(
+			'preview' => true 
 		) 
 	),
 	'listSearch' => array(
@@ -387,6 +402,7 @@
 			'formItems' => array(
 				'above-grid' => array( 
 					'add',
+					'inline_add',
 					'delete',
 					'details_found',
 					'page_size',
@@ -411,7 +427,7 @@
 					'username_button' 
 				),
 				'top' => array( 
-					 
+					'master_info' 
 				),
 				'grid' => array( 
 					'simple_grid_field30',
@@ -484,6 +500,7 @@
 					'grid_checkbox_head',
 					'grid_checkbox',
 					'grid_edit',
+					'grid_inline_cancel',
 					'grid_view',
 					'grid_alldetails_link',
 					'grid_details_link',
@@ -498,6 +515,7 @@
 			'formXtTags' => array(
 				'above-grid' => array( 
 					'add_link',
+					'inlineadd_link',
 					'deleteselected_link',
 					'details_found',
 					'recsPerPage',
@@ -507,11 +525,12 @@
 					'pagination' 
 				),
 				'top' => array( 
-					 
+					'mastertable_block' 
 				) 
 			),
 			'itemForms' => array(
 				'add' => 'above-grid',
+				'inline_add' => 'above-grid',
 				'delete' => 'above-grid',
 				'details_found' => 'above-grid',
 				'page_size' => 'above-grid',
@@ -528,6 +547,7 @@
 				'list_options' => 'supertop',
 				'loginform_login' => 'supertop',
 				'username_button' => 'supertop',
+				'master_info' => 'top',
 				'simple_grid_field30' => 'grid',
 				'simple_grid_field' => 'grid',
 				'simple_grid_field31' => 'grid',
@@ -598,6 +618,7 @@
 				'grid_checkbox_head' => 'grid',
 				'grid_checkbox' => 'grid',
 				'grid_edit' => 'grid',
+				'grid_inline_cancel' => 'grid',
 				'grid_view' => 'grid',
 				'grid_alldetails_link' => 'grid',
 				'grid_details_link' => 'grid',
@@ -889,6 +910,10 @@
 					'location' => 'grid',
 					'cellId' => 'cell_icons' 
 				),
+				'grid_inline_cancel' => array(
+					'location' => 'grid',
+					'cellId' => 'cell_icons' 
+				),
 				'grid_view' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_icons' 
@@ -1059,6 +1084,12 @@
 			'changepassword_link' => array( 
 				'changepassword_link' 
 			),
+			'adminarea_link' => array( 
+				'adminarea_link' 
+			),
+			'master_info' => array( 
+				'master_info' 
+			),
 			'grid_field' => array( 
 				'simple_grid_field',
 				'simple_grid_field1',
@@ -1158,6 +1189,12 @@
 			),
 			'expand_button' => array( 
 				'expand_button' 
+			),
+			'inline_add' => array( 
+				'inline_add' 
+			),
+			'grid_inline_cancel' => array( 
+				'grid_inline_cancel' 
 			) 
 		),
 		'cellMaps' => array(
@@ -1700,10 +1737,12 @@
 						),
 						'tags' => array( 
 							'edit_column',
+							'inline_cancel',
 							'view_column' 
 						),
 						'items' => array( 
 							'grid_edit',
+							'grid_inline_cancel',
 							'grid_view' 
 						),
 						'fixedAtServer' => false,
@@ -2908,6 +2947,7 @@
 					'model' => 'c1',
 					'items' => array( 
 						'add',
+						'inline_add',
 						'delete' 
 					) 
 				),
@@ -3033,10 +3073,22 @@
 		'top' => array(
 			'modelId' => 'list-sidebar-top',
 			'grid' => array( 
-				 
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c2' 
+						) 
+					),
+					'section' => '' 
+				) 
 			),
 			'cells' => array(
-				 
+				'c2' => array(
+					'model' => 'c2',
+					'items' => array( 
+						'master_info' 
+					) 
+				) 
 			),
 			'deferredItems' => array( 
 				 
@@ -4069,6 +4121,7 @@
 					'model' => 'cell_icons',
 					'items' => array( 
 						'grid_edit',
+						'grid_inline_cancel',
 						'grid_view' 
 					) 
 				),
@@ -4376,6 +4429,7 @@
 			'items' => array( 
 				'userinfo_link',
 				'logout_link',
+				'adminarea_link',
 				'changepassword_link' 
 			) 
 		),
@@ -4392,12 +4446,24 @@
 		'changepassword_link' => array(
 			'type' => 'changepassword_link' 
 		),
+		'adminarea_link' => array(
+			'type' => 'adminarea_link' 
+		),
+		'master_info' => array(
+			'type' => 'master_info',
+			'tables' => array(
+				'17765' => 'true',
+				'17807' => 'true' 
+			) 
+		),
 		'-3' => array(
 			'type' => '-' 
 		),
 		'simple_grid_field' => array(
 			'field' => 'user_id',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field30' => array(
 			'type' => 'grid_field_label',
@@ -4405,7 +4471,9 @@
 		),
 		'simple_grid_field1' => array(
 			'field' => 'username',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field31' => array(
 			'type' => 'grid_field_label',
@@ -4413,7 +4481,9 @@
 		),
 		'simple_grid_field2' => array(
 			'field' => 'email',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field32' => array(
 			'type' => 'grid_field_label',
@@ -4421,7 +4491,9 @@
 		),
 		'simple_grid_field3' => array(
 			'field' => 'password_hash',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field33' => array(
 			'type' => 'grid_field_label',
@@ -4429,7 +4501,9 @@
 		),
 		'simple_grid_field4' => array(
 			'field' => 'full_name',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field34' => array(
 			'type' => 'grid_field_label',
@@ -4437,7 +4511,9 @@
 		),
 		'simple_grid_field5' => array(
 			'field' => 'google_id',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field35' => array(
 			'type' => 'grid_field_label',
@@ -4445,7 +4521,9 @@
 		),
 		'simple_grid_field6' => array(
 			'field' => 'first_name',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field36' => array(
 			'type' => 'grid_field_label',
@@ -4453,7 +4531,9 @@
 		),
 		'simple_grid_field7' => array(
 			'field' => 'last_name',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field37' => array(
 			'type' => 'grid_field_label',
@@ -4461,7 +4541,9 @@
 		),
 		'simple_grid_field8' => array(
 			'field' => 'middle_name',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field38' => array(
 			'type' => 'grid_field_label',
@@ -4469,7 +4551,9 @@
 		),
 		'simple_grid_field9' => array(
 			'field' => 'phone',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field39' => array(
 			'type' => 'grid_field_label',
@@ -4477,7 +4561,9 @@
 		),
 		'simple_grid_field10' => array(
 			'field' => 'alternate_phone',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field40' => array(
 			'type' => 'grid_field_label',
@@ -4485,7 +4571,9 @@
 		),
 		'simple_grid_field11' => array(
 			'field' => 'role',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field41' => array(
 			'type' => 'grid_field_label',
@@ -4493,7 +4581,9 @@
 		),
 		'simple_grid_field12' => array(
 			'field' => 'job_position',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field42' => array(
 			'type' => 'grid_field_label',
@@ -4501,7 +4591,9 @@
 		),
 		'simple_grid_field13' => array(
 			'field' => 'join_date',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field43' => array(
 			'type' => 'grid_field_label',
@@ -4509,7 +4601,9 @@
 		),
 		'simple_grid_field14' => array(
 			'field' => 'leave_balance',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field44' => array(
 			'type' => 'grid_field_label',
@@ -4517,7 +4611,9 @@
 		),
 		'simple_grid_field15' => array(
 			'field' => 'last_leave_increment',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field45' => array(
 			'type' => 'grid_field_label',
@@ -4525,7 +4621,9 @@
 		),
 		'simple_grid_field16' => array(
 			'field' => 'role_id',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field46' => array(
 			'type' => 'grid_field_label',
@@ -4533,7 +4631,9 @@
 		),
 		'simple_grid_field17' => array(
 			'field' => 'is_active',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field47' => array(
 			'type' => 'grid_field_label',
@@ -4541,7 +4641,9 @@
 		),
 		'simple_grid_field18' => array(
 			'field' => 'created_at',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field48' => array(
 			'type' => 'grid_field_label',
@@ -4549,7 +4651,9 @@
 		),
 		'simple_grid_field19' => array(
 			'field' => 'updated_at',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field49' => array(
 			'type' => 'grid_field_label',
@@ -4557,7 +4661,9 @@
 		),
 		'simple_grid_field20' => array(
 			'field' => 'last_login',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field50' => array(
 			'type' => 'grid_field_label',
@@ -4565,7 +4671,9 @@
 		),
 		'simple_grid_field21' => array(
 			'field' => 'employee_id',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field51' => array(
 			'type' => 'grid_field_label',
@@ -4573,7 +4681,9 @@
 		),
 		'simple_grid_field22' => array(
 			'field' => 'position_id',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field52' => array(
 			'type' => 'grid_field_label',
@@ -4581,7 +4691,9 @@
 		),
 		'simple_grid_field23' => array(
 			'field' => 'department_id',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field53' => array(
 			'type' => 'grid_field_label',
@@ -4589,7 +4701,9 @@
 		),
 		'simple_grid_field24' => array(
 			'field' => 'hire_date',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field54' => array(
 			'type' => 'grid_field_label',
@@ -4597,7 +4711,9 @@
 		),
 		'simple_grid_field25' => array(
 			'field' => 'is_admin',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field55' => array(
 			'type' => 'grid_field_label',
@@ -4605,7 +4721,9 @@
 		),
 		'simple_grid_field26' => array(
 			'field' => 'reset_token',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field56' => array(
 			'type' => 'grid_field_label',
@@ -4613,7 +4731,9 @@
 		),
 		'simple_grid_field27' => array(
 			'field' => 'reset_date',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field57' => array(
 			'type' => 'grid_field_label',
@@ -4621,7 +4741,9 @@
 		),
 		'simple_grid_field28' => array(
 			'field' => 'is_doctor',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field58' => array(
 			'type' => 'grid_field_label',
@@ -4629,7 +4751,9 @@
 		),
 		'simple_grid_field29' => array(
 			'field' => 'supervisor_id',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field59' => array(
 			'type' => 'grid_field_label',
@@ -4642,7 +4766,8 @@
 				 
 			),
 			'proceedLink' => true,
-			'popup' => false 
+			'popup' => false,
+			'pageId' => 'list' 
 		),
 		'details_preview1' => array(
 			'type' => 'details_preview',
@@ -4652,7 +4777,8 @@
 			),
 			'proceedLink' => true,
 			'popup' => false,
-			'hideEmptyPreview' => false 
+			'hideEmptyPreview' => false,
+			'pageId' => 'list' 
 		),
 		'details_preview2' => array(
 			'type' => 'details_preview',
@@ -4661,7 +4787,8 @@
 				 
 			),
 			'proceedLink' => true,
-			'popup' => false 
+			'popup' => false,
+			'pageId' => 'list' 
 		),
 		'details_preview3' => array(
 			'type' => 'details_preview',
@@ -4670,7 +4797,8 @@
 				 
 			),
 			'proceedLink' => true,
-			'popup' => false 
+			'popup' => false,
+			'pageId' => 'list' 
 		),
 		'details_preview4' => array(
 			'type' => 'details_preview',
@@ -4679,7 +4807,8 @@
 				 
 			),
 			'proceedLink' => true,
-			'popup' => false 
+			'popup' => false,
+			'pageId' => 'list' 
 		),
 		'details_preview5' => array(
 			'type' => 'details_preview',
@@ -4688,7 +4817,8 @@
 				 
 			),
 			'proceedLink' => true,
-			'popup' => false 
+			'popup' => false,
+			'pageId' => 'list' 
 		),
 		'details_preview6' => array(
 			'type' => 'details_preview',
@@ -4697,7 +4827,8 @@
 				 
 			),
 			'proceedLink' => true,
-			'popup' => false 
+			'popup' => false,
+			'pageId' => 'list' 
 		),
 		'grid_checkbox' => array(
 			'type' => 'grid_checkbox' 
@@ -4765,6 +4896,13 @@
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 
+		),
+		'inline_add' => array(
+			'type' => 'inline_add',
+			'detailsOnly' => true 
+		),
+		'grid_inline_cancel' => array(
+			'type' => 'grid_inline_cancel' 
 		) 
 	),
 	'dbProps' => array(

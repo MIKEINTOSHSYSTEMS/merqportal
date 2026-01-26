@@ -49,6 +49,7 @@ $runnerTableSettings['mne_portfolio_snapshot'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_portfolio_snapshot',
 	'afterAddDetail' => 'mne_portfolio_snapshot',
 	'detailsBadgeColor' => 'daa520',

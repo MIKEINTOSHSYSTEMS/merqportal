@@ -2150,15 +2150,198 @@ $runnerMenus['main'] = array(
 				'parent' => '',
 				'children' => array( 
 					array(
-						'id' => '44',
+						'id' => '86',
 						'parent' => '65',
 						'children' => array( 
-							 
+							array(
+								'id' => '81',
+								'parent' => '86',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'table' => 'positions',
+										'type' => 6 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-spray-can',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 17765,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '82',
+								'parent' => '86',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'table' => 'departments',
+										'type' => 6 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-sitemap',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 17807,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '87',
+								'parent' => '86',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => '---------',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 1,
+									'linkType' => 2,
+									'openType' => 0,
+									'iconType' => 0,
+									'iconName' => '',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false 
+								) 
+							),
+							array(
+								'id' => '85',
+								'parent' => '86',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => 'HR Job Position',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-portrait',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 17936,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '83',
+								'parent' => '86',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'table' => 'tbldepartments',
+										'type' => 6 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-university',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 17855,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '84',
+								'parent' => '86',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'table' => 'tblstaff_departments',
+										'type' => 6 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-hospital-user',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 17912,
+									'pageType' => 'list' 
+								) 
+							) 
 						),
 						'data' => array(
 							'name' => array(
-								'table' => 'users',
-								'type' => 6 
+								'text' => 'HR Settings',
+								'type' => 0 
 							),
 							'comments' => array(
 								'text' => '',
@@ -2168,27 +2351,25 @@ $runnerMenus['main'] = array(
 							'href' => '',
 							'params' => '',
 							'pageId' => '',
-							'itemType' => 2,
-							'linkType' => 0,
+							'itemType' => 0,
+							'linkType' => 2,
 							'openType' => 0,
 							'iconType' => 3,
-							'iconName' => 'fa-user-shield',
+							'iconName' => 'fa-tools',
 							'iconStyle' => 0,
 							'showIconType' => 1,
-							'linkToAnotherApp' => false,
-							'table' => 15553,
-							'pageType' => 'list' 
+							'linkToAnotherApp' => false 
 						) 
 					),
 					array(
-						'id' => '73',
+						'id' => '88',
 						'parent' => '65',
 						'children' => array( 
 							 
 						),
 						'data' => array(
 							'name' => array(
-								'text' => 'Countries',
+								'text' => '---------',
 								'type' => 0 
 							),
 							'comments' => array(
@@ -2199,27 +2380,303 @@ $runnerMenus['main'] = array(
 							'href' => '',
 							'params' => '',
 							'pageId' => '',
-							'itemType' => 2,
-							'linkType' => 0,
+							'itemType' => 1,
+							'linkType' => 2,
 							'openType' => 0,
-							'iconType' => 3,
-							'iconName' => 'fa-map-marked-alt',
+							'iconType' => 0,
+							'iconName' => '',
 							'iconStyle' => 0,
 							'showIconType' => 1,
-							'linkToAnotherApp' => false,
-							'table' => 16917,
-							'pageType' => 'list' 
+							'linkToAnotherApp' => false 
 						) 
 					),
 					array(
-						'id' => '74',
+						'id' => '89',
 						'parent' => '65',
 						'children' => array( 
-							 
+							array(
+								'id' => '44',
+								'parent' => '89',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'table' => 'users',
+										'type' => 6 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-user-shield',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 15553,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '73',
+								'parent' => '89',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => 'Countries',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-map-marked-alt',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 16917,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '74',
+								'parent' => '89',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => 'Currencies',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-bank',
+									'iconStyle' => 3,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 16969,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '76',
+								'parent' => '89',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => 'Currency Rates',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-money-bill-wave',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 17044,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '75',
+								'parent' => '89',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => 'Currency Rate Logs',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-coins',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 17005,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '41',
+								'parent' => '89',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => 'MERQ System Config',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-laptop-code',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 15421,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '2',
+								'parent' => '89',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => 'Project Audit Log',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-audio-description',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 13228,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '79',
+								'parent' => '89',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => 'All Activity Audit',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-list-ol',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 17677,
+									'pageType' => 'list' 
+								) 
+							),
+							array(
+								'id' => '80',
+								'parent' => '89',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => 'Table Lockings',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-lock',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 17714,
+									'pageType' => 'list' 
+								) 
+							) 
 						),
 						'data' => array(
 							'name' => array(
-								'text' => 'Currencies',
+								'text' => 'Administrations',
 								'type' => 0 
 							),
 							'comments' => array(
@@ -2230,140 +2687,14 @@ $runnerMenus['main'] = array(
 							'href' => '',
 							'params' => '',
 							'pageId' => '',
-							'itemType' => 2,
-							'linkType' => 0,
+							'itemType' => 0,
+							'linkType' => 2,
 							'openType' => 0,
 							'iconType' => 3,
-							'iconName' => 'fa-bank',
+							'iconName' => 'fa-shield',
 							'iconStyle' => 3,
 							'showIconType' => 1,
-							'linkToAnotherApp' => false,
-							'table' => 16969,
-							'pageType' => 'list' 
-						) 
-					),
-					array(
-						'id' => '76',
-						'parent' => '65',
-						'children' => array( 
-							 
-						),
-						'data' => array(
-							'name' => array(
-								'text' => 'Currency Rates',
-								'type' => 0 
-							),
-							'comments' => array(
-								'text' => '',
-								'type' => 0 
-							),
-							'style' => '',
-							'href' => '',
-							'params' => '',
-							'pageId' => '',
-							'itemType' => 2,
-							'linkType' => 0,
-							'openType' => 0,
-							'iconType' => 3,
-							'iconName' => 'fa-money-bill-wave',
-							'iconStyle' => 0,
-							'showIconType' => 1,
-							'linkToAnotherApp' => false,
-							'table' => 17044,
-							'pageType' => 'list' 
-						) 
-					),
-					array(
-						'id' => '75',
-						'parent' => '65',
-						'children' => array( 
-							 
-						),
-						'data' => array(
-							'name' => array(
-								'text' => 'Currency Rate Logs',
-								'type' => 0 
-							),
-							'comments' => array(
-								'text' => '',
-								'type' => 0 
-							),
-							'style' => '',
-							'href' => '',
-							'params' => '',
-							'pageId' => '',
-							'itemType' => 2,
-							'linkType' => 0,
-							'openType' => 0,
-							'iconType' => 3,
-							'iconName' => 'fa-coins',
-							'iconStyle' => 0,
-							'showIconType' => 1,
-							'linkToAnotherApp' => false,
-							'table' => 17005,
-							'pageType' => 'list' 
-						) 
-					),
-					array(
-						'id' => '41',
-						'parent' => '65',
-						'children' => array( 
-							 
-						),
-						'data' => array(
-							'name' => array(
-								'text' => 'MERQ System Config',
-								'type' => 0 
-							),
-							'comments' => array(
-								'text' => '',
-								'type' => 0 
-							),
-							'style' => '',
-							'href' => '',
-							'params' => '',
-							'pageId' => '',
-							'itemType' => 2,
-							'linkType' => 0,
-							'openType' => 0,
-							'iconType' => 3,
-							'iconName' => 'fa-laptop-code',
-							'iconStyle' => 0,
-							'showIconType' => 1,
-							'linkToAnotherApp' => false,
-							'table' => 15421,
-							'pageType' => 'list' 
-						) 
-					),
-					array(
-						'id' => '2',
-						'parent' => '65',
-						'children' => array( 
-							 
-						),
-						'data' => array(
-							'name' => array(
-								'text' => 'MERQ Audit Log',
-								'type' => 0 
-							),
-							'comments' => array(
-								'text' => '',
-								'type' => 0 
-							),
-							'style' => '',
-							'href' => '',
-							'params' => '',
-							'pageId' => '',
-							'itemType' => 2,
-							'linkType' => 0,
-							'openType' => 0,
-							'iconType' => 3,
-							'iconName' => 'fa-audio-description',
-							'iconStyle' => 0,
-							'showIconType' => 1,
-							'linkToAnotherApp' => false,
-							'table' => 13228,
-							'pageType' => 'list' 
+							'linkToAnotherApp' => false 
 						) 
 					) 
 				),

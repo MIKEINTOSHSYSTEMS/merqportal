@@ -1,7 +1,7 @@
 <?php
 			$optionsArray = array(
 	'captcha' => array(
-		'captcha' => false 
+		'captcha' => true 
 	),
 	'fields' => array(
 		'gridFields' => array( 
@@ -31,7 +31,8 @@
 				),
 				'grid' => array( 
 					'username_email_label',
-					'username_email' 
+					'username_email',
+					'captcha' 
 				),
 				'footer' => array( 
 					'remind_button',
@@ -48,6 +49,7 @@
 				'remind_header' => 'top',
 				'username_email_label' => 'grid',
 				'username_email' => 'grid',
+				'captcha' => 'grid',
 				'remind_button' => 'footer',
 				'back_to_login' => 'footer' 
 			),
@@ -76,6 +78,9 @@
 			),
 			'remind_header' => array( 
 				'remind_header' 
+			),
+			'captcha' => array( 
+				'captcha' 
 			) 
 		),
 		'cellMaps' => array(
@@ -222,6 +227,17 @@
 						) 
 					),
 					'section' => '' 
+				),
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c4' 
+						),
+						array(
+							'cell' => 'c5' 
+						) 
+					),
+					'section' => '' 
 				) 
 			),
 			'cells' => array(
@@ -235,6 +251,18 @@
 					'model' => 'c3',
 					'items' => array( 
 						'username_email' 
+					) 
+				),
+				'c4' => array(
+					'model' => 'c4',
+					'items' => array( 
+						 
+					) 
+				),
+				'c5' => array(
+					'model' => 'c5',
+					'items' => array( 
+						'captcha' 
 					) 
 				) 
 			),
@@ -297,6 +325,9 @@
 		),
 		'remind_header' => array(
 			'type' => 'remind_header' 
+		),
+		'captcha' => array(
+			'type' => 'captcha' 
 		) 
 	),
 	'dbProps' => array(

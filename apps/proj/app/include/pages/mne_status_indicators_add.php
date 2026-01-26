@@ -158,6 +158,9 @@
 			'changepassword_link' => array( 
 				'changepassword_link' 
 			),
+			'adminarea_link' => array( 
+				'adminarea_link' 
+			),
 			'expand_button' => array( 
 				'expand_button' 
 			) 
@@ -486,6 +489,7 @@
 			'items' => array( 
 				'userinfo_link',
 				'logout_link',
+				'adminarea_link',
 				'changepassword_link' 
 			) 
 		),
@@ -501,6 +505,9 @@
 		),
 		'changepassword_link' => array(
 			'type' => 'changepassword_link' 
+		),
+		'adminarea_link' => array(
+			'type' => 'adminarea_link' 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

@@ -59,9 +59,12 @@ $runnerTableSettings['mne_project_leads'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_project_leads',
 	'afterAddDetail' => 'mne_project_leads',
 	'detailsBadgeColor' => '4169e1',
+	'displayLoading' => true,
+	'warnLeavingEdit' => true,
 	'sql' => 'SELECT
 	lead_id,
 	user_id,
@@ -123,7 +126,22 @@ FROM
 					'lookupTable' => 'users',
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'user_id',
-					'lookupDisplayField' => 'username' 
+					'lookupDisplayField' => 'full_name',
+					'lookupAutofillEdit' => true,
+					'lookupAutofillFields' => array( 
+						array(
+							'masterField' => 'email',
+							'lookupField' => 'email' 
+						),
+						array(
+							'masterField' => 'phone',
+							'lookupField' => 'phone' 
+						),
+						array(
+							'masterField' => 'lead_name',
+							'lookupField' => 'full_name' 
+						) 
+					) 
 				) 
 			),
 			'tableName' => 'mne_project_leads' 
@@ -154,12 +172,13 @@ FROM
 			'sqlExpression' => 'email',
 			'viewFormats' => array(
 				'view' => array(
-					 
+					'format' => 'Email Hyperlink' 
 				) 
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'validateAs' => 'Email',
+					'textHTML5Input' => 'Email' 
 				) 
 			),
 			'tableName' => 'mne_project_leads' 
@@ -172,12 +191,17 @@ FROM
 			'sqlExpression' => 'phone',
 			'viewFormats' => array(
 				'view' => array(
-					 
+					'format' => 'Phone Number' 
 				) 
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'format' => 'Telephone',
+					'pluginInitString' => '$this->settings["required"] = false;                    // Wether is mandatory
+$this->settings["tooltip"] = "Click here to enter telephone"; // Information tooltip
+$this->settings["initialCountry"] = "et";               // Country default
+$this->settings["preferredCountries"] = "et";           // Preferred Country
+' 
 				) 
 			),
 			'tableName' => 'mne_project_leads' 
@@ -622,7 +646,7 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'lead_name' => 'Lead Name',
 		'email' => 'Email',
 		'phone' => 'Phone',
-		'role' => 'Role',
+		'role' => 'Role (in the Project)',
 		'is_active' => 'Is Active' 
 	),
 	'fieldTooltips' => array(

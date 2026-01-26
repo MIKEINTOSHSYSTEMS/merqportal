@@ -49,6 +49,7 @@ $runnerTableSettings['tblcountries'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'tblcountries',
 	'afterAddDetail' => 'tblcountries',
 	'detailsBadgeColor' => '5f9ea0',

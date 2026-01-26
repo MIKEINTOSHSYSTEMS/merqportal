@@ -49,6 +49,7 @@ $runnerTableSettings['tblcurrency_rates'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'tblcurrency_rates',
 	'afterAddDetail' => 'tblcurrency_rates',
 	'detailsBadgeColor' => '1e90ff',

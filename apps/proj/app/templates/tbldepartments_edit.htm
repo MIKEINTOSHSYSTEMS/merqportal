@@ -1,0 +1,763 @@
+<!doctype html>
+<html  {$html_attrs}>
+	<head>
+						<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{$pagetitle}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<base href="{$projectPath}">
+		{BEGIN styleCSSFiles}
+<link REL="stylesheet" href="{$stylepath}" type="text/css">
+{END styleCSSFiles}
+			
+	</head>
+
+	<body class="{$stylename} function-edit"   
+		>
+	{BEGIN body}
+		<style>
+		{$containerCss}
+		</style>
+		<div class="r-vbar-page">
+			<div data-width="250px" data-fixed class="r-left clearfix {$leftbar_class}" >
+								<div data-location="left" id="form_left_{$pageid}" data-makeup="leftbar" {$form_left} data-pageid="{$pageid}">
+{BEGIN left_block}
+ 
+     
+         
+
+			<div data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell class="clearfix " data-itemid="logo" {$item_logo}>
+				{BEGIN logo_block}
+	<A data-itemtype="logo" data-itemid="logo" {$item_logo} data-pageid="{$pageid}" class="navbar-brand" href="{$home_link}" data-pageid="{$pageid}" {$logo_hiddenattr}>
+		{$logo}
+	</A>
+{END logo_block}
+				<button data-pageid="1" type="button" class="navbar-toggle collapsed" data-runner-toggle="collapse" data-target="[data-mobile-controlled]">	
+					<span class="sr-only">Toggle navigation</span>	
+					<span class="icon-bar"></span>					
+				</button>				
+			</div>
+		
+ 
+
+			<div class="clearfix " data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell data-itemid="expand_button" {$item_expand_button} data-topcell-item-type="expand_button" >
+				<span data-itemtype="expand_button" data-itemid="expand_button" {$item_expand_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message EXPAND}" class="btn btn-link   
+	" href="#" >
+					<span class="glyphicon glyphicon-triangle-right"></span>
+										</a>
+</span>
+			</div>
+		
+     
+     
+         
+
+			<div data-cellId="left_c1" data-pageid="{$pageid}" class="clearfix  r-ori-vert " data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}">
+				{BEGIN menuitems_main}
+<ul data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}"	class="r-menu nav menu-treelike" 
+	data-menulevel="1"
+>
+
+{BEGIN item_children1}
+<li class="
+	{$item_current}">
+<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline data-menu-top >
+	{$item_separator}
+	<span class="r-menu-link r-menu-expanded "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+		<span class="r-menu-collapsed">{$item_collicon}{$item_firstcap}</span>
+	</a>
+{BEGIN item_showchildren2}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="2">
+	{BEGIN item_children2}
+		{BEGIN item_menulink2}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren2}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren2}
+	</span>
+	</a>
+			{BEGIN item_showchildren3}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="3">
+	{BEGIN item_children3}
+		{BEGIN item_menulink3}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren3}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren3}
+	</span>
+	</a>
+			{BEGIN item_showchildren4}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="4">
+	{BEGIN item_children4}
+		{BEGIN item_menulink4}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren4}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren4}
+	</span>
+	</a>
+			{BEGIN item_showchildren5}
+<ul class="
+			nav collapse 
+			{$submenu_class}" 
+		id="submenu{$item_id}" data-menulevel="5">
+	{BEGIN item_children5}
+		{BEGIN item_menulink5}
+		<li class="
+						{$item_current}"
+		>
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
+	{$item_separator}
+	<span class="r-menu-link  "> 
+		<span class="r-menu-title">
+		{$item_icon} {$item_title}
+		</span>
+		{BEGIN item_haschildren5}
+		{BEGIN item_expand_icon}
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
+		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
+		{END item_expand_icon}
+		{END item_haschildren5}
+	</span>
+	</a>
+					</li>
+		{END item_menulink5}
+	{END item_children5}
+</ul>
+{END item_showchildren5}
+		</li>
+		{END item_menulink4}
+	{END item_children4}
+</ul>
+{END item_showchildren4}
+		</li>
+		{END item_menulink3}
+	{END item_children3}
+</ul>
+{END item_showchildren3}
+		</li>
+		{END item_menulink2}
+	{END item_children2}
+</ul>
+{END item_showchildren2}
+</li>
+{END item_children1}
+</ul>
+{END menuitems_main}
+			</div>
+		
+    {END left_block}
+</div>				</div>
+			<div class="r-content-col" data-resize-left="leftbar">
+				<div data-resize-left="leftbar"  data-fixed class="r-topheader" data-resize-name="topbar">
+									{BEGIN supertop_block}
+<nav class="navbar navbar-default" 
+	data-location="supertop" id="form_supertop_{$pageid}" data-makeup="leftbar" {$form_supertop} data-pageid="{$pageid}" >
+			 
+							 
+				<span class="navbar-form  navbar-header" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="expand_menu_button" {$item_expand_menu_button} data-topcell-item-type="expand_menu_button" >
+				<span data-itemtype="expand_menu_button" data-itemid="expand_menu_button" {$item_expand_menu_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message SHOW_MENU}" class="btn-link   
+	 glyphicon glyphicon-menu-hamburger" href="#" >		
+				
+								</a>
+</span>
+			</span>
+		 
+				<span class="navbar-form  navbar-collapse" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="collapse_button" {$item_collapse_button} data-topcell-item-type="collapse_button" >
+				<span data-itemtype="collapse_button" data-itemid="collapse_button" {$item_collapse_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message COLLAPSE}" class="btn-link   
+	 glyphicon glyphicon-triangle-left" href="#" >		
+				
+								</a>
+</span>
+			</span>
+							 
+							 
+				<span class="navbar-form r-align-right navbar-collapse" data-cellId="supertop_c2" data-pageid="{$pageid}" data-itemid="loginform_login" {$item_loginform_login} data-topcell-item-type="loginform_login" >
+				{BEGIN guestloginbutton}
+<span data-itemtype="loginform_login" data-itemid="loginform_login" {$item_loginform_login} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-primary   
+	" href="#" {$guestloginlink_attrs} >
+							{mlang_message LOGIN}			</a>
+</span>
+{END guestloginbutton}
+			</span>
+		 
+				<span class="navbar-form r-align-right navbar-collapse" data-cellId="supertop_c2" data-pageid="{$pageid}" data-itemid="username_button" {$item_username_button} data-topcell-item-type="username_button" >
+				{BEGIN loggedas_message}
+<span data-itemtype="username_button" data-itemid="username_button" {$item_username_button} data-pageid="{$pageid}" data-small data-button-item>
+	<span class="dropdown ">
+		<button type="button" title="" class="btn btn-default   dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		
+			{BEGIN userbutton_icon}							<span class="glyphicon glyphicon-user"></span>
+						{END userbutton_icon}{$userbutton_image}			{$mlp_push}{$mlparam username var username}{$mltext %username%}{$mlp_pop}			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+							{BEGIN userinfo_link}
+	<li data-itemtype="userinfo_link" data-itemid="userinfo_link" {$item_userinfo_link} data-pageid="{$pageid}" data-small >
+				<a  href="userinfo.php"  title="" >
+				
+		{mlang_message USERINFO}		
+		</a>
+	</li>
+{END userinfo_link}
+							{BEGIN logoutbutton}
+	<li data-itemtype="logout_link" data-itemid="logout_link" {$item_logout_link} data-pageid="{$pageid}" data-small >
+				<a  href="#" {$logoutlink_attrs}  title="" >
+				
+		{mlang_message LOG_OUT}		
+		</a>
+	</li>
+{END logoutbutton}
+					</ul>
+	</span>
+</span>
+{END loggedas_message}
+			</span>
+								</nav>
+{END supertop_block}
+						{$locking}
+				</div>
+				<div class="r-body" data-resize-top="topbar" data-body-width="standard">
+					{$header}
+					<div class="r-top">
+									{BEGIN top_block}
+<div class="r-form" data-location="top" id="form_top_{$pageid}" data-makeup="leftbar" {$form_top} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="top_c1" data-pageid="{$pageid}"	{$cell_top_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		 
+		<h2 data-itemtype="edit_header" data-itemid="edit_header" {$item_edit_header} data-pageid="{$pageid}" >{$pagetitlelabel tbldepartments edit}</h2>
+		</div>					</div>
+			</div>		
+{END top_block}
+						</div>
+											<div class="r-above">
+					{BEGIN above-grid_block}
+<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="leftbar" {$form_above-grid} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="above-grid_c1" data-pageid="{$pageid}"	{$cell_above-grid_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		{BEGIN firstAboveGridCell}
+		 
+		<div data-itemtype="edit_message" data-itemid="edit_message" {$item_edit_message} data-pageid="{$pageid}" class="alert {$message_class}" role="alert">
+<h5>{$message}</h5>
+<div>
+{BEGIN message_back_button}
+			<button class="btn btn-sm btn-default" {$backbutton_attrs}>{mlang_message BACK_TO_LIST}</button>
+	{END message_back_button}
+{BEGIN message_view_page_button}
+		<a class="btn btn-sm btn-default" href="tbldepartments_view.php?{$editlink}" {$view_page_button_attrs}>{mlang_message VIEW}</a>
+{END message_view_page_button}
+</div>
+</div>
+			{END firstAboveGridCell}	
+	</div>					</div>
+			</div>		
+{END above-grid_block}
+	</div>
+<div class="r-grid">
+	{BEGIN grid_tabs}
+  <ul class="nav nav-tabs bsgrid_tabs">
+	{$grid_tabs_content}
+  </ul>
+{END grid_tabs}
+					{BEGIN grid_block}
+
+
+
+
+ 
+	 
+												<table 
+	data-body-align="left"
+	data-location="grid" id="form_grid_{$pageid}" data-makeup="leftbar" {$form_grid} data-pageid="{$pageid}" 
+	class="r-edit-form" cellpadding="0" cellspacing="0" 
+	{$grid_hiddenattr} 
+		data-form-width="1"
+		
+		data-v-width="4"
+	>
+	<tbody>
+										<tr {$row_grid_0} >
+										
+
+{BEGIN cellblock_grid_c3}
+<td
+	{$cell_grid_c3}
+	class=" r-ori-vert"
+	
+				data-fullwidth
+		
+			data-cellId="grid_c3" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN name_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_name}  r-vertical-field" 
+	data-signal-error-for="name{$id}" {$required_attr_name}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field" {$item_integrated_edit_field} data-pageid="{$pageid}" data-field="name" data-fieldname="name" >
+
+	<label class="r-edit-label control-label {$name_label_class}" for="{$labelfor_name}">
+		{BEGIN name_label}
+			{$name_forward_control}
+			{$label tbldepartments name }			{END name_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$name_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="name" {$tooltipAttr tbldepartments name } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments name }		</div>
+	</div>
+	</div>
+
+
+{END name_fieldblock}
+											
+{BEGIN imap_username_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_imap_username}  r-vertical-field" 
+	data-signal-error-for="imap_username{$id}" {$required_attr_imap_username}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field1" {$item_integrated_edit_field1} data-pageid="{$pageid}" data-field="imap_username" data-fieldname="imap_username" >
+
+	<label class="r-edit-label control-label {$imap_username_label_class}" for="{$labelfor_imap_username}">
+		{BEGIN imap_username_label}
+			{$imap_username_forward_control}
+			{$label tbldepartments imap_username }			{END imap_username_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$imap_username_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="imap_username" {$tooltipAttr tbldepartments imap_username } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments imap_username }		</div>
+	</div>
+	</div>
+
+
+{END imap_username_fieldblock}
+											
+{BEGIN email_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_email}  r-vertical-field" 
+	data-signal-error-for="email{$id}" {$required_attr_email}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field2" {$item_integrated_edit_field2} data-pageid="{$pageid}" data-field="email" data-fieldname="email" >
+
+	<label class="r-edit-label control-label {$email_label_class}" for="{$labelfor_email}">
+		{BEGIN email_label}
+			{$email_forward_control}
+			{$label tbldepartments email }			{END email_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$email_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="email" {$tooltipAttr tbldepartments email } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments email }		</div>
+	</div>
+	</div>
+
+
+{END email_fieldblock}
+											
+{BEGIN email_from_header_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_email_from_header}  r-vertical-field" 
+	data-signal-error-for="email_from_header{$id}" {$required_attr_email_from_header}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field3" {$item_integrated_edit_field3} data-pageid="{$pageid}" data-field="email_from_header" data-fieldname="email_from_header" >
+
+	<label class="r-edit-label control-label {$email_from_header_label_class}" for="{$labelfor_email_from_header}">
+		{BEGIN email_from_header_label}
+			{$email_from_header_forward_control}
+			{$label tbldepartments email_from_header }			{END email_from_header_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$email_from_header_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="email_from_header" {$tooltipAttr tbldepartments email_from_header } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments email_from_header }		</div>
+	</div>
+	</div>
+
+
+{END email_from_header_fieldblock}
+											
+{BEGIN host_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_host}  r-vertical-field" 
+	data-signal-error-for="host{$id}" {$required_attr_host}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field4" {$item_integrated_edit_field4} data-pageid="{$pageid}" data-field="host" data-fieldname="host" >
+
+	<label class="r-edit-label control-label {$host_label_class}" for="{$labelfor_host}">
+		{BEGIN host_label}
+			{$host_forward_control}
+			{$label tbldepartments host }			{END host_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$host_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="host" {$tooltipAttr tbldepartments host } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments host }		</div>
+	</div>
+	</div>
+
+
+{END host_fieldblock}
+											
+{BEGIN password_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_password}  r-vertical-field" 
+	data-signal-error-for="password{$id}" {$required_attr_password}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field5" {$item_integrated_edit_field5} data-pageid="{$pageid}" data-field="password" data-fieldname="password" >
+
+	<label class="r-edit-label control-label {$password_label_class}" for="{$labelfor_password}">
+		{BEGIN password_label}
+			{$password_forward_control}
+			{$label tbldepartments password }			{END password_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$password_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="password" {$tooltipAttr tbldepartments password } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments password }		</div>
+	</div>
+	</div>
+
+
+{END password_fieldblock}
+											
+{BEGIN encryption_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_encryption}  r-vertical-field" 
+	data-signal-error-for="encryption{$id}" {$required_attr_encryption}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field6" {$item_integrated_edit_field6} data-pageid="{$pageid}" data-field="encryption" data-fieldname="encryption" >
+
+	<label class="r-edit-label control-label {$encryption_label_class}" for="{$labelfor_encryption}">
+		{BEGIN encryption_label}
+			{$encryption_forward_control}
+			{$label tbldepartments encryption }			{END encryption_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$encryption_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="encryption" {$tooltipAttr tbldepartments encryption } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments encryption }		</div>
+	</div>
+	</div>
+
+
+{END encryption_fieldblock}
+											
+{BEGIN folder_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_folder}  r-vertical-field" 
+	data-signal-error-for="folder{$id}" {$required_attr_folder}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field7" {$item_integrated_edit_field7} data-pageid="{$pageid}" data-field="folder" data-fieldname="folder" >
+
+	<label class="r-edit-label control-label {$folder_label_class}" for="{$labelfor_folder}">
+		{BEGIN folder_label}
+			{$folder_forward_control}
+			{$label tbldepartments folder }			{END folder_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$folder_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="folder" {$tooltipAttr tbldepartments folder } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments folder }		</div>
+	</div>
+	</div>
+
+
+{END folder_fieldblock}
+											
+{BEGIN delete_after_import_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_delete_after_import}  r-vertical-field" 
+	data-signal-error-for="delete_after_import{$id}" {$required_attr_delete_after_import}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field8" {$item_integrated_edit_field8} data-pageid="{$pageid}" data-field="delete_after_import" data-fieldname="delete_after_import" >
+
+	<label class="r-edit-label control-label {$delete_after_import_label_class}" for="{$labelfor_delete_after_import}">
+		{BEGIN delete_after_import_label}
+			{$delete_after_import_forward_control}
+			{$label tbldepartments delete_after_import }			{END delete_after_import_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$delete_after_import_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="delete_after_import" {$tooltipAttr tbldepartments delete_after_import } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments delete_after_import }		</div>
+	</div>
+	</div>
+
+
+{END delete_after_import_fieldblock}
+											
+{BEGIN calendar_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_calendar_id}  r-vertical-field" 
+	data-signal-error-for="calendar_id{$id}" {$required_attr_calendar_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field9" {$item_integrated_edit_field9} data-pageid="{$pageid}" data-field="calendar_id" data-fieldname="calendar_id" >
+
+	<label class="r-edit-label control-label {$calendar_id_label_class}" for="{$labelfor_calendar_id}">
+		{BEGIN calendar_id_label}
+			{$calendar_id_forward_control}
+			{$label tbldepartments calendar_id }			{END calendar_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$calendar_id_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="calendar_id" {$tooltipAttr tbldepartments calendar_id } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments calendar_id }		</div>
+	</div>
+	</div>
+
+
+{END calendar_id_fieldblock}
+											
+{BEGIN hidefromclient_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_hidefromclient}  r-vertical-field" 
+	data-signal-error-for="hidefromclient{$id}" {$required_attr_hidefromclient}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field10" {$item_integrated_edit_field10} data-pageid="{$pageid}" data-field="hidefromclient" data-fieldname="hidefromclient" >
+
+	<label class="r-edit-label control-label {$hidefromclient_label_class}" for="{$labelfor_hidefromclient}">
+		{BEGIN hidefromclient_label}
+			{$hidefromclient_forward_control}
+			{$label tbldepartments hidefromclient }			{END hidefromclient_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$hidefromclient_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="hidefromclient" {$tooltipAttr tbldepartments hidefromclient } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments hidefromclient }		</div>
+	</div>
+	</div>
+
+
+{END hidefromclient_fieldblock}
+											
+{BEGIN manager_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_manager_id}  r-vertical-field" 
+	data-signal-error-for="manager_id{$id}" {$required_attr_manager_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field11" {$item_integrated_edit_field11} data-pageid="{$pageid}" data-field="manager_id" data-fieldname="manager_id" >
+
+	<label class="r-edit-label control-label {$manager_id_label_class}" for="{$labelfor_manager_id}">
+		{BEGIN manager_id_label}
+			{$manager_id_forward_control}
+			{$label tbldepartments manager_id }			{END manager_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$manager_id_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="manager_id" {$tooltipAttr tbldepartments manager_id } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments manager_id }		</div>
+	</div>
+	</div>
+
+
+{END manager_id_fieldblock}
+											
+{BEGIN parent_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_parent_id}  r-vertical-field" 
+	data-signal-error-for="parent_id{$id}" {$required_attr_parent_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field12" {$item_integrated_edit_field12} data-pageid="{$pageid}" data-field="parent_id" data-fieldname="parent_id" >
+
+	<label class="r-edit-label control-label {$parent_id_label_class}" for="{$labelfor_parent_id}">
+		{BEGIN parent_id_label}
+			{$parent_id_forward_control}
+			{$label tbldepartments parent_id }			{END parent_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$parent_id_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="parent_id" {$tooltipAttr tbldepartments parent_id } >
+		<div class="text-muted" >
+		{$tooltip tbldepartments parent_id }		</div>
+	</div>
+	</div>
+
+
+{END parent_id_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c3}
+								</tr>
+			</tbody></table>
+{END grid_block}
+	</div>
+<div class="r-below">
+					{BEGIN below-grid_block}
+<div class="r-form" data-location="below-grid" id="form_below-grid_{$pageid}" data-makeup="leftbar" {$form_below-grid} data-pageid="{$pageid}" >		
+	 
+				<div class="row">
+			 
+				<div 
+	data-cellId="below-grid_c1" data-pageid="{$pageid}"	{$cell_below-grid_c1}
+	class="			col-md-6
+	
+">
+		 
+		{BEGIN save_edit}
+<span data-itemtype="edit_save" data-itemid="edit_save" {$item_edit_save} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-primary   
+	" {$savebutton_attrs} >
+							{mlang_message SAVE}			</a>
+</span>
+{END save_edit}
+	 
+		{BEGIN back_button}
+<span data-itemtype="edit_back_list" data-itemid="edit_back_list" {$item_edit_back_list} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" {$backbutton_attrs} >
+							{mlang_message BACK_TO_LIST}			</a>
+</span>
+{END back_button}
+	 
+		{BEGIN close_button}
+<span data-itemtype="edit_close" data-itemid="edit_close" {$item_edit_close} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" {$closebutton_attrs} >
+							{mlang_message CANCEL}			</a>
+</span>
+{END close_button}
+		</div>			 
+				<div 
+	data-cellId="below-grid_c2" data-pageid="{$pageid}"	{$cell_below-grid_c2}
+	class="r-align-right r-ori-vert			col-md-6
+	
+">
+		 
+		<span data-itemtype="hamburger" data-itemid="hamburger" {$item_hamburger} data-pageid="{$pageid}" data-small data-button-item>
+	<span class="dropdown dropup">
+		<button type="button" title="" class="btn btn-default   dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		
+										<span class="glyphicon glyphicon-menu-hamburger"></span>
+												<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+							{BEGIN reset_button}
+	<li data-itemtype="edit_reset" data-itemid="edit_reset" {$item_edit_reset} data-pageid="{$pageid}" data-small >
+				<a  {$resetbutton_attrs}  title="" >
+				
+		{mlang_message RESET}		
+		</a>
+	</li>
+{END reset_button}
+							{BEGIN view_page_button}
+	<li data-itemtype="edit_view" data-itemid="edit_view" {$item_edit_view} data-pageid="{$pageid}" data-small >
+				<a  href="tbldepartments_view.php?{$editlink}" {$view_page_button_attrs}  title="" >
+				
+		{mlang_message VIEW}		
+		</a>
+	</li>
+{END view_page_button}
+					</ul>
+	</span>
+</span>
+		</div>					</div>
+			</div>		
+{END below-grid_block}
+	</div>
+
+
+
+
+										{$footer}
+				</div>
+			</div>
+			<div class="r-body-shadow">
+			</div>
+		</div>
+	{END body}
+	</body>
+</html>

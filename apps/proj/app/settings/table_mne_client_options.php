@@ -59,6 +59,7 @@ $runnerTableSettings['mne_client_options'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_client_options',
 	'afterAddDetail' => 'mne_client_options',
 	'detailsBadgeColor' => 'b22222',

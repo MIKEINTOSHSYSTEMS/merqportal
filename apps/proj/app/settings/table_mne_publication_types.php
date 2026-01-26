@@ -49,6 +49,7 @@ $runnerTableSettings['mne_publication_types'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_publication_types',
 	'afterAddDetail' => 'mne_publication_types',
 	'detailsBadgeColor' => '3cb371',

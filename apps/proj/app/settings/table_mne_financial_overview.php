@@ -49,6 +49,7 @@ $runnerTableSettings['mne_financial_overview'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_financial_overview',
 	'afterAddDetail' => 'mne_financial_overview',
 	'detailsBadgeColor' => '00c2c5',

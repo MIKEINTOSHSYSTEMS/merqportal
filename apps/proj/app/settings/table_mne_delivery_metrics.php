@@ -49,6 +49,7 @@ $runnerTableSettings['mne_delivery_metrics'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_delivery_metrics',
 	'afterAddDetail' => 'mne_delivery_metrics',
 	'detailsBadgeColor' => '00c2c5',

@@ -54,6 +54,7 @@ $runnerTableSettings['mne_project_deliverables'] = array(
 		'gantt' => 'gantt',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_project_deliverables',
 	'afterAddDetail' => 'mne_project_deliverables',
 	'detailsBadgeColor' => 'ff9c00',

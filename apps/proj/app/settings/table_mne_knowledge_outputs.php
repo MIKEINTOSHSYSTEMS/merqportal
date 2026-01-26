@@ -49,6 +49,7 @@ $runnerTableSettings['mne_knowledge_outputs'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_knowledge_outputs',
 	'afterAddDetail' => 'mne_knowledge_outputs',
 	'detailsBadgeColor' => 'b22222',

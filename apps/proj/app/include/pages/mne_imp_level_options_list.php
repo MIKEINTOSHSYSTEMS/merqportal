@@ -339,6 +339,9 @@
 			'changepassword_link' => array( 
 				'changepassword_link' 
 			),
+			'adminarea_link' => array( 
+				'adminarea_link' 
+			),
 			'grid_field' => array( 
 				'simple_grid_field',
 				'simple_grid_field1',
@@ -1222,6 +1225,7 @@
 			'items' => array( 
 				'userinfo_link',
 				'logout_link',
+				'adminarea_link',
 				'changepassword_link' 
 			) 
 		),
@@ -1237,6 +1241,9 @@
 		),
 		'changepassword_link' => array(
 			'type' => 'changepassword_link' 
+		),
+		'adminarea_link' => array(
+			'type' => 'adminarea_link' 
 		),
 		'-3' => array(
 			'type' => '-' 

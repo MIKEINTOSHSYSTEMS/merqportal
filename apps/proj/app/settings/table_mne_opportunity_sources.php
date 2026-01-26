@@ -49,6 +49,7 @@ $runnerTableSettings['mne_opportunity_sources'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_opportunity_sources',
 	'afterAddDetail' => 'mne_opportunity_sources',
 	'detailsBadgeColor' => 'd2691e',

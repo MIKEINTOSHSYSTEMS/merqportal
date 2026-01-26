@@ -535,6 +535,62 @@
 				'items' => null,
 				'table' => 'tblcurrency_rates',
 				'page' => 'list' 
+			),
+			'welcome_item64' => array(
+				'menutItem' => true,
+				'group' => false,
+				'linkType' => 0,
+				'items' => null,
+				'table' => 'merq__audit',
+				'page' => 'list' 
+			),
+			'welcome_item65' => array(
+				'menutItem' => true,
+				'group' => false,
+				'linkType' => 0,
+				'items' => null,
+				'table' => 'merq__locking',
+				'page' => 'list' 
+			),
+			'welcome_item66' => array(
+				'menutItem' => true,
+				'group' => false,
+				'linkType' => 0,
+				'items' => null,
+				'table' => 'positions',
+				'page' => 'list' 
+			),
+			'welcome_item67' => array(
+				'menutItem' => true,
+				'group' => false,
+				'linkType' => 0,
+				'items' => null,
+				'table' => 'departments',
+				'page' => 'list' 
+			),
+			'welcome_item68' => array(
+				'menutItem' => true,
+				'group' => false,
+				'linkType' => 0,
+				'items' => null,
+				'table' => 'tbldepartments',
+				'page' => 'list' 
+			),
+			'welcome_item69' => array(
+				'menutItem' => true,
+				'group' => false,
+				'linkType' => 0,
+				'items' => null,
+				'table' => 'tblstaff_departments',
+				'page' => 'list' 
+			),
+			'welcome_item70' => array(
+				'menutItem' => true,
+				'group' => false,
+				'linkType' => 0,
+				'items' => null,
+				'table' => 'tblhr_job_position',
+				'page' => 'list' 
 			) 
 		) 
 	),
@@ -633,7 +689,14 @@
 					'welcome_item60',
 					'welcome_item61',
 					'welcome_item62',
-					'welcome_item63' 
+					'welcome_item63',
+					'welcome_item64',
+					'welcome_item65',
+					'welcome_item66',
+					'welcome_item67',
+					'welcome_item68',
+					'welcome_item69',
+					'welcome_item70' 
 				) 
 			),
 			'formXtTags' => array(
@@ -712,7 +775,14 @@
 				'welcome_item60' => 'grid',
 				'welcome_item61' => 'grid',
 				'welcome_item62' => 'grid',
-				'welcome_item63' => 'grid' 
+				'welcome_item63' => 'grid',
+				'welcome_item64' => 'grid',
+				'welcome_item65' => 'grid',
+				'welcome_item66' => 'grid',
+				'welcome_item67' => 'grid',
+				'welcome_item68' => 'grid',
+				'welcome_item69' => 'grid',
+				'welcome_item70' => 'grid' 
 			),
 			'itemLocations' => array(
 				 
@@ -787,7 +857,14 @@
 				'welcome_item60',
 				'welcome_item61',
 				'welcome_item62',
-				'welcome_item63' 
+				'welcome_item63',
+				'welcome_item64',
+				'welcome_item65',
+				'welcome_item66',
+				'welcome_item67',
+				'welcome_item68',
+				'welcome_item69',
+				'welcome_item70' 
 			),
 			'logo' => array( 
 				'logo' 
@@ -815,6 +892,9 @@
 			),
 			'changepassword_link' => array( 
 				'changepassword_link' 
+			),
+			'adminarea_link' => array( 
+				'adminarea_link' 
 			),
 			'expand_button' => array( 
 				'expand_button' 
@@ -1062,7 +1142,14 @@
 						'welcome_item60',
 						'welcome_item61',
 						'welcome_item62',
-						'welcome_item63' 
+						'welcome_item63',
+						'welcome_item64',
+						'welcome_item65',
+						'welcome_item66',
+						'welcome_item67',
+						'welcome_item68',
+						'welcome_item69',
+						'welcome_item70' 
 					) 
 				) 
 			),
@@ -1905,6 +1992,7 @@
 			'items' => array( 
 				'userinfo_link',
 				'logout_link',
+				'adminarea_link',
 				'changepassword_link' 
 			) 
 		),
@@ -1920,6 +2008,93 @@
 		),
 		'changepassword_link' => array(
 			'type' => 'changepassword_link' 
+		),
+		'adminarea_link' => array(
+			'type' => 'adminarea_link' 
+		),
+		'welcome_item64' => array(
+			'type' => 'welcome_item',
+			'linkUrl' => '',
+			'linkTable' => 'merq__audit',
+			'linkPage' => 'list',
+			'linkText' => array(
+				'table' => 'merq__audit',
+				'type' => 6 
+			),
+			'background' => '#bc8f8f',
+			'linkType' => 0 
+		),
+		'welcome_item65' => array(
+			'type' => 'welcome_item',
+			'linkUrl' => '',
+			'linkTable' => 'merq__locking',
+			'linkPage' => 'list',
+			'linkText' => array(
+				'table' => 'merq__locking',
+				'type' => 6 
+			),
+			'background' => '#dc143c',
+			'linkType' => 0 
+		),
+		'welcome_item66' => array(
+			'type' => 'welcome_item',
+			'linkUrl' => '',
+			'linkTable' => 'positions',
+			'linkPage' => 'list',
+			'linkText' => array(
+				'table' => 'positions',
+				'type' => 6 
+			),
+			'background' => '#cd853f',
+			'linkType' => 0 
+		),
+		'welcome_item67' => array(
+			'type' => 'welcome_item',
+			'linkUrl' => '',
+			'linkTable' => 'departments',
+			'linkPage' => 'list',
+			'linkText' => array(
+				'table' => 'departments',
+				'type' => 6 
+			),
+			'background' => '#9acd32',
+			'linkType' => 0 
+		),
+		'welcome_item68' => array(
+			'type' => 'welcome_item',
+			'linkUrl' => '',
+			'linkTable' => 'tbldepartments',
+			'linkPage' => 'list',
+			'linkText' => array(
+				'table' => 'tbldepartments',
+				'type' => 6 
+			),
+			'background' => '#e67349',
+			'linkType' => 0 
+		),
+		'welcome_item69' => array(
+			'type' => 'welcome_item',
+			'linkUrl' => '',
+			'linkTable' => 'tblstaff_departments',
+			'linkPage' => 'list',
+			'linkText' => array(
+				'table' => 'tblstaff_departments',
+				'type' => 6 
+			),
+			'background' => '#cd853f',
+			'linkType' => 0 
+		),
+		'welcome_item70' => array(
+			'type' => 'welcome_item',
+			'linkUrl' => '',
+			'linkTable' => 'tblhr_job_position',
+			'linkPage' => 'list',
+			'linkText' => array(
+				'table' => 'tblhr_job_position',
+				'type' => 6 
+			),
+			'background' => '#dc143c',
+			'linkType' => 0 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

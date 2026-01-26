@@ -51,6 +51,7 @@ $runnerTableSettings['mne_data_collection'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_data_collection',
 	'afterAddDetail' => 'mne_data_collection',
 	'detailsBadgeColor' => 'bc8f8f',

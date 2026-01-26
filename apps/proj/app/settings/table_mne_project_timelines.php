@@ -54,6 +54,7 @@ $runnerTableSettings['mne_project_timelines'] = array(
 		'gantt' => 'gantt',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_project_timelines',
 	'afterAddDetail' => 'mne_project_timelines',
 	'detailsBadgeColor' => '6b8e23',

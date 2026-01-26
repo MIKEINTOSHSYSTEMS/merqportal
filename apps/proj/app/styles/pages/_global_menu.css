@@ -190,6 +190,27 @@
 [data-page="_global_menu"][data-itemid="welcome_item63"] > .bs-welcome-header {
   background-color: #1e90ff;
 }
+[data-page="_global_menu"][data-itemid="welcome_item64"] > .bs-welcome-header {
+  background-color: #bc8f8f;
+}
+[data-page="_global_menu"][data-itemid="welcome_item65"] > .bs-welcome-header {
+  background-color: #dc143c;
+}
+[data-page="_global_menu"][data-itemid="welcome_item66"] > .bs-welcome-header {
+  background-color: #cd853f;
+}
+[data-page="_global_menu"][data-itemid="welcome_item67"] > .bs-welcome-header {
+  background-color: #9acd32;
+}
+[data-page="_global_menu"][data-itemid="welcome_item68"] > .bs-welcome-header {
+  background-color: #e67349;
+}
+[data-page="_global_menu"][data-itemid="welcome_item69"] > .bs-welcome-header {
+  background-color: #cd853f;
+}
+[data-page="_global_menu"][data-itemid="welcome_item70"] > .bs-welcome-header {
+  background-color: #dc143c;
+}
 [data-page="_global_menu"][data-itemid="page_image_ash8f23hr"] {
   width: 400px;
 }

@@ -59,6 +59,7 @@ $runnerTableSettings['mne_status_options'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_status_options',
 	'afterAddDetail' => 'mne_status_options',
 	'detailsBadgeColor' => 'cd5c5c',

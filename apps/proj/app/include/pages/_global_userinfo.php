@@ -4,7 +4,12 @@
 		'gridFields' => array( 
 			'username',
 			'email',
-			'full_name' 
+			'full_name',
+			'phone',
+			'alternate_phone',
+			'first_name',
+			'middle_name',
+			'last_name' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -21,6 +26,21 @@
 			),
 			'full_name' => array( 
 				'integrated_edit_field2' 
+			),
+			'phone' => array( 
+				'integrated_edit_field3' 
+			),
+			'alternate_phone' => array( 
+				'integrated_edit_field4' 
+			),
+			'first_name' => array( 
+				'integrated_edit_field5' 
+			),
+			'middle_name' => array( 
+				'integrated_edit_field6' 
+			),
+			'last_name' => array( 
+				'integrated_edit_field7' 
 			) 
 		) 
 	),
@@ -50,13 +70,18 @@
 				),
 				'grid' => array( 
 					'user_fields_title',
+					'integrated_edit_field2',
 					'fields_message',
 					'user_fields_reset',
 					'user_fields_save',
 					'changepassword_link',
 					'integrated_edit_field',
 					'integrated_edit_field1',
-					'integrated_edit_field2' 
+					'integrated_edit_field7',
+					'integrated_edit_field3',
+					'integrated_edit_field4',
+					'integrated_edit_field5',
+					'integrated_edit_field6' 
 				) 
 			),
 			'formXtTags' => array(
@@ -80,16 +105,25 @@
 				'expand_button' => 'left',
 				'menu' => 'left',
 				'user_fields_title' => 'grid',
+				'integrated_edit_field2' => 'grid',
 				'fields_message' => 'grid',
 				'user_fields_reset' => 'grid',
 				'user_fields_save' => 'grid',
 				'changepassword_link' => 'grid',
 				'integrated_edit_field' => 'grid',
 				'integrated_edit_field1' => 'grid',
-				'integrated_edit_field2' => 'grid' 
+				'integrated_edit_field7' => 'grid',
+				'integrated_edit_field3' => 'grid',
+				'integrated_edit_field4' => 'grid',
+				'integrated_edit_field5' => 'grid',
+				'integrated_edit_field6' => 'grid' 
 			),
 			'itemLocations' => array(
 				'user_fields_title' => array(
+					'location' => 'grid',
+					'cellId' => 'fields_message' 
+				),
+				'integrated_edit_field2' => array(
 					'location' => 'grid',
 					'cellId' => 'fields_message' 
 				),
@@ -111,15 +145,31 @@
 				),
 				'integrated_edit_field' => array(
 					'location' => 'grid',
-					'cellId' => 'fields' 
+					'cellId' => 'fields1' 
 				),
 				'integrated_edit_field1' => array(
 					'location' => 'grid',
-					'cellId' => 'fields' 
+					'cellId' => 'fields1' 
 				),
-				'integrated_edit_field2' => array(
+				'integrated_edit_field7' => array(
 					'location' => 'grid',
-					'cellId' => 'fields' 
+					'cellId' => 'fields5' 
+				),
+				'integrated_edit_field3' => array(
+					'location' => 'grid',
+					'cellId' => 'fields6' 
+				),
+				'integrated_edit_field4' => array(
+					'location' => 'grid',
+					'cellId' => 'fields7' 
+				),
+				'integrated_edit_field5' => array(
+					'location' => 'grid',
+					'cellId' => 'fields8' 
+				),
+				'integrated_edit_field6' => array(
+					'location' => 'grid',
+					'cellId' => 'fields9' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -171,10 +221,18 @@
 			'integrated_edit_field' => array( 
 				'integrated_edit_field',
 				'integrated_edit_field1',
-				'integrated_edit_field2' 
+				'integrated_edit_field2',
+				'integrated_edit_field3',
+				'integrated_edit_field4',
+				'integrated_edit_field5',
+				'integrated_edit_field6',
+				'integrated_edit_field7' 
 			),
 			'changepassword_link' => array( 
 				'changepassword_link' 
+			),
+			'adminarea_link' => array( 
+				'adminarea_link' 
 			),
 			'expand_button' => array( 
 				'expand_button' 
@@ -195,12 +253,30 @@
 						),
 						'items' => array( 
 							'user_fields_title',
+							'integrated_edit_field2',
 							'fields_message' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
-					'fields' => array(
+					'fields1' => array(
+						'cols' => array( 
+							1 
+						),
+						'rows' => array( 
+							0 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'integrated_edit_field',
+							'integrated_edit_field1' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'fields8' => array(
 						'cols' => array( 
 							0 
 						),
@@ -211,15 +287,28 @@
 							 
 						),
 						'items' => array( 
-							'changepassword_link',
-							'integrated_edit_field',
-							'integrated_edit_field1',
-							'integrated_edit_field2' 
+							'integrated_edit_field5' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
-					'buttons' => array(
+					'fields9' => array(
+						'cols' => array( 
+							1 
+						),
+						'rows' => array( 
+							1 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'integrated_edit_field6' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'fields4' => array(
 						'cols' => array( 
 							0 
 						),
@@ -230,15 +319,127 @@
 							 
 						),
 						'items' => array( 
+							 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
+					),
+					'fields5' => array(
+						'cols' => array( 
+							1 
+						),
+						'rows' => array( 
+							2 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'integrated_edit_field7' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'fields6' => array(
+						'cols' => array( 
+							0 
+						),
+						'rows' => array( 
+							3 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'integrated_edit_field3' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'fields7' => array(
+						'cols' => array( 
+							1 
+						),
+						'rows' => array( 
+							3 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'integrated_edit_field4' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'fields' => array(
+						'cols' => array( 
+							0 
+						),
+						'rows' => array( 
+							4 
+						),
+						'tags' => array( 
+							'changepwd_link' 
+						),
+						'items' => array( 
+							'changepassword_link' 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
+					),
+					'fields2' => array(
+						'cols' => array( 
+							1 
+						),
+						'rows' => array( 
+							4 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
+					),
+					'buttons' => array(
+						'cols' => array( 
+							0 
+						),
+						'rows' => array( 
+							5 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
 							'user_fields_reset',
 							'user_fields_save' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
+					),
+					'fields3' => array(
+						'cols' => array( 
+							1 
+						),
+						'rows' => array( 
+							5 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
 					) 
 				),
-				'width' => 1,
-				'height' => 3 
+				'width' => 2,
+				'height' => 6 
 			) 
 		) 
 	),
@@ -444,14 +645,53 @@
 					'cells' => array( 
 						array(
 							'cell' => 'fields_message' 
+						),
+						array(
+							'cell' => 'fields1' 
 						) 
 					),
 					'section' => '' 
 				),
 				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'fields8' 
+						),
+						array(
+							'cell' => 'fields9' 
+						) 
+					) 
+				),
+				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'fields4' 
+						),
+						array(
+							'cell' => 'fields5' 
+						) 
+					) 
+				),
+				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'fields6' 
+						),
+						array(
+							'cell' => 'fields7' 
+						) 
+					) 
+				),
+				array(
 					'cells' => array( 
 						array(
 							'cell' => 'fields' 
+						),
+						array(
+							'cell' => 'fields2' 
 						) 
 					),
 					'section' => '' 
@@ -460,6 +700,9 @@
 					'cells' => array( 
 						array(
 							'cell' => 'buttons' 
+						),
+						array(
+							'cell' => 'fields3' 
 						) 
 					),
 					'section' => '' 
@@ -470,6 +713,7 @@
 					'model' => 'fields_message',
 					'items' => array( 
 						'user_fields_title',
+						'integrated_edit_field2',
 						'fields_message' 
 					) 
 				),
@@ -483,10 +727,62 @@
 				'fields' => array(
 					'model' => 'fields',
 					'items' => array( 
-						'changepassword_link',
+						'changepassword_link' 
+					) 
+				),
+				'fields1' => array(
+					'model' => 'fields_message',
+					'items' => array( 
 						'integrated_edit_field',
-						'integrated_edit_field1',
-						'integrated_edit_field2' 
+						'integrated_edit_field1' 
+					) 
+				),
+				'fields2' => array(
+					'model' => 'fields',
+					'items' => array( 
+						 
+					) 
+				),
+				'fields3' => array(
+					'model' => 'buttons',
+					'items' => array( 
+						 
+					) 
+				),
+				'fields4' => array(
+					'model' => 'fields',
+					'items' => array( 
+						 
+					) 
+				),
+				'fields5' => array(
+					'model' => 'fields',
+					'items' => array( 
+						'integrated_edit_field7' 
+					) 
+				),
+				'fields6' => array(
+					'model' => 'fields',
+					'items' => array( 
+						'integrated_edit_field3' 
+					) 
+				),
+				'fields7' => array(
+					'model' => 'fields',
+					'items' => array( 
+						'integrated_edit_field4' 
+					) 
+				),
+				'fields8' => array(
+					'model' => 'fields',
+					'items' => array( 
+						'integrated_edit_field5' 
+					) 
+				),
+				'fields9' => array(
+					'model' => 'fields',
+					'items' => array( 
+						'integrated_edit_field6' 
 					) 
 				) 
 			),
@@ -525,7 +821,8 @@
 			'type' => 'username_button',
 			'items' => array( 
 				'userinfo_link',
-				'logout_link' 
+				'logout_link',
+				'adminarea_link' 
 			) 
 		),
 		'loginform_login' => array(
@@ -561,6 +858,34 @@
 		),
 		'changepassword_link' => array(
 			'type' => 'changepassword_link' 
+		),
+		'adminarea_link' => array(
+			'type' => 'adminarea_link' 
+		),
+		'integrated_edit_field3' => array(
+			'field' => 'phone',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field4' => array(
+			'field' => 'alternate_phone',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field5' => array(
+			'field' => 'first_name',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field6' => array(
+			'field' => 'middle_name',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field7' => array(
+			'field' => 'last_name',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

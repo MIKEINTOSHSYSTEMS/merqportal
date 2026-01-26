@@ -49,6 +49,7 @@ $runnerTableSettings['mne_client_satisfaction'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_client_satisfaction',
 	'afterAddDetail' => 'mne_client_satisfaction',
 	'detailsBadgeColor' => '6b8e23',

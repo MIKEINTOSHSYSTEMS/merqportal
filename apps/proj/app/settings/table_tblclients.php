@@ -49,6 +49,7 @@ $runnerTableSettings['tblclients'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'tblclients',
 	'afterAddDetail' => 'tblclients',
 	'detailsBadgeColor' => '2f4f4f',
@@ -283,12 +284,13 @@ $this->settings["preferredCountries"] = "us";           // Preferred Country
 			'sqlExpression' => 'website',
 			'viewFormats' => array(
 				'view' => array(
-					 
+					'format' => 'Hyperlink',
+					'linkNewWindow' => true 
 				) 
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'textHTML5Input' => 'URL' 
 				) 
 			),
 			'tableName' => 'tblclients' 

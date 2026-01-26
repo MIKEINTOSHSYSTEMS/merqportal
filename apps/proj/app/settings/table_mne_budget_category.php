@@ -49,6 +49,7 @@ $runnerTableSettings['mne_budget_category'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_budget_category',
 	'afterAddDetail' => 'mne_budget_category',
 	'detailsBadgeColor' => 'daa520',

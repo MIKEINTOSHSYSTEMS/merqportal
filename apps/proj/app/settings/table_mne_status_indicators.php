@@ -49,6 +49,7 @@ $runnerTableSettings['mne_status_indicators'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_status_indicators',
 	'afterAddDetail' => 'mne_status_indicators',
 	'detailsBadgeColor' => '008b8b',

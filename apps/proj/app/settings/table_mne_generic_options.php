@@ -49,6 +49,7 @@ $runnerTableSettings['mne_generic_options'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_generic_options',
 	'afterAddDetail' => 'mne_generic_options',
 	'detailsBadgeColor' => '4682b4',

@@ -1,7 +1,7 @@
 <?php
 			$optionsArray = array(
 	'captcha' => array(
-		'captcha' => false 
+		'captcha' => true 
 	),
 	'fields' => array(
 		'gridFields' => array( 
@@ -33,7 +33,8 @@
 					'username_label',
 					'username',
 					'password_label',
-					'password' 
+					'password',
+					'captcha' 
 				),
 				'footer' => array( 
 					'login_button',
@@ -56,6 +57,7 @@
 				'username' => 'grid',
 				'password_label' => 'grid',
 				'password' => 'grid',
+				'captcha' => 'grid',
 				'login_button' => 'footer',
 				'login_remind' => 'footer',
 				'loginform_register_link' => 'superbottom' 
@@ -103,6 +105,9 @@
 			),
 			'login_remind' => array( 
 				'login_remind' 
+			),
+			'captcha' => array( 
+				'captcha' 
 			) 
 		),
 		'cellMaps' => array(
@@ -273,6 +278,15 @@
 				array(
 					'cells' => array( 
 						array(
+							'cell' => 'c3',
+							'colspan' => 2 
+						) 
+					),
+					'section' => '' 
+				),
+				array(
+					'cells' => array( 
+						array(
 							'cell' => 'c4' 
 						),
 						array(
@@ -307,6 +321,12 @@
 					'items' => array( 
 						'password_label',
 						'password' 
+					) 
+				),
+				'c3' => array(
+					'model' => 'c3',
+					'items' => array( 
+						'captcha' 
 					) 
 				) 
 			),
@@ -412,6 +432,9 @@
 		),
 		'login_remind' => array(
 			'type' => 'login_remind' 
+		),
+		'captcha' => array(
+			'type' => 'captcha' 
 		) 
 	),
 	'dbProps' => array(

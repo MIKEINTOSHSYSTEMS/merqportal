@@ -49,6 +49,7 @@ $runnerTableSettings['mne_thematic_areas'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_thematic_areas',
 	'afterAddDetail' => 'mne_thematic_areas',
 	'detailsBadgeColor' => 'edca00',

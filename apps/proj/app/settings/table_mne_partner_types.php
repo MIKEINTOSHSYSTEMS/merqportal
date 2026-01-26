@@ -49,6 +49,7 @@ $runnerTableSettings['mne_partner_types'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_partner_types',
 	'afterAddDetail' => 'mne_partner_types',
 	'detailsBadgeColor' => '6493ea',

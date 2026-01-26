@@ -59,6 +59,7 @@ $runnerTableSettings['mne_currency_options'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_currency_options',
 	'afterAddDetail' => 'mne_currency_options',
 	'detailsBadgeColor' => 'd2af80',

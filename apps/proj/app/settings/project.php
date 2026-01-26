@@ -3,7 +3,8 @@ $runnerProjectSettings = array(
 	'restAPIReturnEncodedBinary' => true,
 	'restAPIAuthType' => 'basic',
 	'menuIds' => array( 
-		'main' 
+		'main',
+		'adminarea' 
 	),
 	'tablesAdvSecurity' => array(
 		'mne_analysis_by_source' => array(
@@ -197,6 +198,30 @@ $runnerProjectSettings = array(
 		),
 		'tblcurrency_rates' => array(
 			'table' => 17044 
+		),
+		'admin_users' => array(
+			'table' => 17563 
+		),
+		'merq__audit' => array(
+			'table' => 17677 
+		),
+		'merq__locking' => array(
+			'table' => 17714 
+		),
+		'positions' => array(
+			'table' => 17765 
+		),
+		'departments' => array(
+			'table' => 17807 
+		),
+		'tbldepartments' => array(
+			'table' => 17855 
+		),
+		'tblstaff_departments' => array(
+			'table' => 17912 
+		),
+		'tblhr_job_position' => array(
+			'table' => 17936 
 		) 
 	),
 	'userTableKeys' => array( 
@@ -208,9 +233,9 @@ $runnerProjectSettings = array(
 		'projectName' => '',
 		'loginDataSource' => 'users',
 		'loginForm' => 0,
-		'dynamicPermissions' => false,
-		'dpTablePrefix' => '',
-		'dpTableConnId' => '',
+		'dynamicPermissions' => true,
+		'dpTablePrefix' => 'merq_',
+		'dpTableConnId' => 'conn',
 		'providers' => array( 
 			array(
 				'type' => '%db',
@@ -233,7 +258,8 @@ $runnerProjectSettings = array(
 				'userpicField' => '',
 				'activationField' => 'is_active',
 				'resetTokenField' => 'reset_token',
-				'resetDateField' => 'reset_date' 
+				'resetDateField' => 'reset_date',
+				'userGroupField' => 'username' 
 			) 
 		),
 		'enabled' => true,
@@ -254,8 +280,8 @@ $runnerProjectSettings = array(
 			'remindMethod' => 1,
 			'hashAlgorithm' => 0,
 			'registerPage' => true,
-			'remindPage' => false,
-			'changePwdPage' => false,
+			'remindPage' => true,
+			'changePwdPage' => true,
 			'notifyUser' => true,
 			'sendActivationLink' => true,
 			'notifyAdmin' => true,
@@ -272,9 +298,9 @@ $runnerProjectSettings = array(
 			) 
 		),
 		'captchaSettings' => array(
-			'captchaType' => 0,
-			'siteKey' => '',
-			'secretKey' => '',
+			'captchaType' => 1,
+			'siteKey' => '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+			'secretKey' => '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe',
 			'passesCount' => 5 
 		),
 		'emailSettings' => array(
@@ -291,21 +317,280 @@ $runnerProjectSettings = array(
 			'allowGuestLogin' => false 
 		),
 		'auditAndLocking' => array(
-			'loggingMode' => 0,
+			'loggingMode' => 1,
 			'loggingTable' => array(
-				'connId' => '',
-				'table' => '' 
+				'connId' => 'conn',
+				'table' => 'merq__audit' 
 			),
 			'loggingFile' => 'audit.log',
-			'logSecurityActions' => false,
-			'lockAfterUnsuccessfulLogin' => false,
-			'enableLocking' => false,
+			'logSecurityActions' => true,
+			'lockAfterUnsuccessfulLogin' => true,
+			'enableLocking' => true,
 			'lockingTable' => array(
-				'connId' => '',
-				'table' => '' 
+				'connId' => 'conn',
+				'table' => 'merq__locking' 
 			),
 			'tables' => array(
-				 
+				'mne_analysis_by_source' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_audit_log' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_budget_performance' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_business_opportunities' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_business_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_business_performance' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_client_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_client_satisfaction' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_currency_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_data_collection' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_data_methods' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_deliverable_status' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_delivery_metrics' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_executive_dashboard' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_extended_projects' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_financial_overview' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_indicator_matrix' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_knowledge_outputs' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_opportunity_metrics' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_partnership_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_partnerships' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_performance_alerts' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_performance_ratings' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_portfolio_snapshot' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_project_data_management' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_project_deliverables' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_project_details' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_project_financials' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_project_issues' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_project_leads' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_project_risks' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_project_timelines' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_project_type_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_project_updates' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_projects' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_publication_types' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_resource_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_risk_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_sector_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_status_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_system_config' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_win_loss_analysis' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_year_projects' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'users' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_project_category' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_sector_category' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_deliverable_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_quality_status' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_generic_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_grantee_contracted_unit' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_imp_level_options' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_opportunity_sources' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_thematic_areas' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_data_sources' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_partner_types' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_engagement_level' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_status_indicators' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_budget_category' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'mne_indicator_groups' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'tblclients' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'tblcountries' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'tblcurrencies' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'tblcurrency_rate_logs' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'tblcurrency_rates' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				),
+				'admin_users' => array(
+					'logModifications' => true,
+					'logFieldValues' => true 
+				) 
 			) 
 		),
 		'twoFactorSettings' => array(
@@ -808,7 +1093,8 @@ $runnerProjectSettings = array(
 			'userpicField' => '',
 			'activationField' => 'is_active',
 			'resetTokenField' => 'reset_token',
-			'resetDateField' => 'reset_date' 
+			'resetDateField' => 'reset_date',
+			'userGroupField' => 'username' 
 		),
 		'adAdminGroups' => array( 
 			 
@@ -1593,6 +1879,102 @@ $runnerProjectSettings = array(
 			'connId' => 'conn',
 			'color' => '1e90ff',
 			'originalTable' => 'tblcurrency_rates' 
+		),
+		'admin_users' => array(
+			'gid' => 17563,
+			'name' => 'admin_users',
+			'shortName' => 'admin_users',
+			'type' => 1,
+			'caption' => array(
+				'English' => 'Admin Users' 
+			),
+			'connId' => 'conn',
+			'color' => '3cb371',
+			'originalTable' => 'users' 
+		),
+		'merq__audit' => array(
+			'gid' => 17677,
+			'name' => 'merq__audit',
+			'shortName' => 'merq__audit',
+			'type' => 0,
+			'caption' => array(
+				'English' => 'Merq Audit' 
+			),
+			'connId' => 'conn',
+			'color' => 'bc8f8f',
+			'originalTable' => 'merq__audit' 
+		),
+		'merq__locking' => array(
+			'gid' => 17714,
+			'name' => 'merq__locking',
+			'shortName' => 'merq__locking',
+			'type' => 0,
+			'caption' => array(
+				'English' => 'Merq Locking' 
+			),
+			'connId' => 'conn',
+			'color' => 'dc143c',
+			'originalTable' => 'merq__locking' 
+		),
+		'positions' => array(
+			'gid' => 17765,
+			'name' => 'positions',
+			'shortName' => 'positions',
+			'type' => 0,
+			'caption' => array(
+				'English' => 'Positions' 
+			),
+			'connId' => 'conn',
+			'color' => 'cd853f',
+			'originalTable' => 'positions' 
+		),
+		'departments' => array(
+			'gid' => 17807,
+			'name' => 'departments',
+			'shortName' => 'departments',
+			'type' => 0,
+			'caption' => array(
+				'English' => 'Departments' 
+			),
+			'connId' => 'conn',
+			'color' => '9acd32',
+			'originalTable' => 'departments' 
+		),
+		'tbldepartments' => array(
+			'gid' => 17855,
+			'name' => 'tbldepartments',
+			'shortName' => 'tbldepartments',
+			'type' => 0,
+			'caption' => array(
+				'English' => 'Tbldepartments' 
+			),
+			'connId' => 'conn',
+			'color' => 'e67349',
+			'originalTable' => 'tbldepartments' 
+		),
+		'tblstaff_departments' => array(
+			'gid' => 17912,
+			'name' => 'tblstaff_departments',
+			'shortName' => 'tblstaff_departments',
+			'type' => 0,
+			'caption' => array(
+				'English' => 'Tblstaff Departments' 
+			),
+			'connId' => 'conn',
+			'color' => 'cd853f',
+			'originalTable' => 'tblstaff_departments' 
+		),
+		'tblhr_job_position' => array(
+			'gid' => 17936,
+			'name' => 'tblhr_job_position',
+			'shortName' => 'tblhr_job_position',
+			'type' => 0,
+			'caption' => array(
+				'English' => 'Tblhr Job Position' 
+			),
+			'connId' => 'conn',
+			'color' => 'dc143c',
+			'originalTable' => 'tblhr_job_position' 
 		) 
 	),
 	'tablesByShort' => array(
@@ -1659,7 +2041,15 @@ $runnerProjectSettings = array(
 		'tblcountries' => 'tblcountries',
 		'tblcurrencies' => 'tblcurrencies',
 		'tblcurrency_rate_logs' => 'tblcurrency_rate_logs',
-		'tblcurrency_rates' => 'tblcurrency_rates' 
+		'tblcurrency_rates' => 'tblcurrency_rates',
+		'admin_users' => 'admin_users',
+		'merq__audit' => 'merq__audit',
+		'merq__locking' => 'merq__locking',
+		'positions' => 'positions',
+		'departments' => 'departments',
+		'tbldepartments' => 'tbldepartments',
+		'tblstaff_departments' => 'tblstaff_departments',
+		'tblhr_job_position' => 'tblhr_job_position' 
 	),
 	'tablesByGood' => array(
 		'mne_analysis_by_source' => 'mne_analysis_by_source',
@@ -1725,7 +2115,15 @@ $runnerProjectSettings = array(
 		'tblcountries' => 'tblcountries',
 		'tblcurrencies' => 'tblcurrencies',
 		'tblcurrency_rate_logs' => 'tblcurrency_rate_logs',
-		'tblcurrency_rates' => 'tblcurrency_rates' 
+		'tblcurrency_rates' => 'tblcurrency_rates',
+		'admin_users' => 'admin_users',
+		'merq__audit' => 'merq__audit',
+		'merq__locking' => 'merq__locking',
+		'positions' => 'positions',
+		'departments' => 'departments',
+		'tbldepartments' => 'tbldepartments',
+		'tblstaff_departments' => 'tblstaff_departments',
+		'tblhr_job_position' => 'tblhr_job_position' 
 	),
 	'events' => array( 
 		 
@@ -1752,7 +2150,7 @@ $runnerProjectSettings = array(
 		'table' => '' 
 	),
 	'wizardBuild' => '43785',
-	'projectBuild' => '5qBHdljEb1x5',
+	'projectBuild' => 'HD0m8yWpajIY',
 	'projectTheme' => 'flatly',
 	'projectSize' => 'normal',
 	'customErrorMsg' => array(

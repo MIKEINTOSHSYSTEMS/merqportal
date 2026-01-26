@@ -49,6 +49,7 @@ $runnerTableSettings['mne_project_financials'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_project_financials',
 	'afterAddDetail' => 'mne_project_financials',
 	'detailsBadgeColor' => 'd2691e',

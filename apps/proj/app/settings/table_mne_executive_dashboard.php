@@ -49,6 +49,7 @@ $runnerTableSettings['mne_executive_dashboard'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_executive_dashboard',
 	'afterAddDetail' => 'mne_executive_dashboard',
 	'detailsBadgeColor' => '8fbc8b',

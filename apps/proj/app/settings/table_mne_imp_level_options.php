@@ -49,6 +49,7 @@ $runnerTableSettings['mne_imp_level_options'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_imp_level_options',
 	'afterAddDetail' => 'mne_imp_level_options',
 	'detailsBadgeColor' => 'e67349',

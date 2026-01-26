@@ -172,7 +172,7 @@
 		'formItems' => array(
 			'formItems' => array(
 				'above-grid' => array( 
-					 
+					'inline_add' 
 				),
 				'below-grid' => array( 
 					 
@@ -240,18 +240,20 @@
 					'simple_grid_field58',
 					'simple_grid_field28',
 					'simple_grid_field59',
-					'simple_grid_field29' 
+					'simple_grid_field29',
+					'grid_inline_cancel' 
 				) 
 			),
 			'formXtTags' => array(
 				'above-grid' => array( 
-					 
+					'inlineadd_link' 
 				),
 				'below-grid' => array( 
 					 
 				) 
 			),
 			'itemForms' => array(
+				'inline_add' => 'above-grid',
 				'masterprint_header' => 'top',
 				'simple_grid_field30' => 'grid',
 				'simple_grid_field' => 'grid',
@@ -312,7 +314,8 @@
 				'simple_grid_field58' => 'grid',
 				'simple_grid_field28' => 'grid',
 				'simple_grid_field59' => 'grid',
-				'simple_grid_field29' => 'grid' 
+				'simple_grid_field29' => 'grid',
+				'grid_inline_cancel' => 'grid' 
 			),
 			'itemLocations' => array(
 				'simple_grid_field30' => array(
@@ -554,6 +557,10 @@
 				'simple_grid_field29' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field29' 
+				),
+				'grid_inline_cancel' => array(
+					'location' => 'grid',
+					'cellId' => 'cell_icons' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -627,14 +634,36 @@
 				'simple_grid_field57',
 				'simple_grid_field58',
 				'simple_grid_field59' 
+			),
+			'inline_add' => array( 
+				'inline_add' 
+			),
+			'grid_inline_cancel' => array( 
+				'grid_inline_cancel' 
 			) 
 		),
 		'cellMaps' => array(
 			'grid' => array(
 				'cells' => array(
-					'headcell_field' => array(
+					'headcell_icons' => array(
 						'cols' => array( 
 							0 
+						),
+						'rows' => array( 
+							0 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
+					),
+					'headcell_field' => array(
+						'cols' => array( 
+							1 
 						),
 						'rows' => array( 
 							0 
@@ -650,7 +679,7 @@
 					),
 					'headcell_field1' => array(
 						'cols' => array( 
-							1 
+							2 
 						),
 						'rows' => array( 
 							0 
@@ -666,7 +695,7 @@
 					),
 					'headcell_field2' => array(
 						'cols' => array( 
-							2 
+							3 
 						),
 						'rows' => array( 
 							0 
@@ -682,7 +711,7 @@
 					),
 					'headcell_field3' => array(
 						'cols' => array( 
-							3 
+							4 
 						),
 						'rows' => array( 
 							0 
@@ -698,7 +727,7 @@
 					),
 					'headcell_field4' => array(
 						'cols' => array( 
-							4 
+							5 
 						),
 						'rows' => array( 
 							0 
@@ -714,7 +743,7 @@
 					),
 					'headcell_field5' => array(
 						'cols' => array( 
-							5 
+							6 
 						),
 						'rows' => array( 
 							0 
@@ -730,7 +759,7 @@
 					),
 					'headcell_field6' => array(
 						'cols' => array( 
-							6 
+							7 
 						),
 						'rows' => array( 
 							0 
@@ -746,7 +775,7 @@
 					),
 					'headcell_field7' => array(
 						'cols' => array( 
-							7 
+							8 
 						),
 						'rows' => array( 
 							0 
@@ -762,7 +791,7 @@
 					),
 					'headcell_field8' => array(
 						'cols' => array( 
-							8 
+							9 
 						),
 						'rows' => array( 
 							0 
@@ -778,7 +807,7 @@
 					),
 					'headcell_field9' => array(
 						'cols' => array( 
-							9 
+							10 
 						),
 						'rows' => array( 
 							0 
@@ -794,7 +823,7 @@
 					),
 					'headcell_field10' => array(
 						'cols' => array( 
-							10 
+							11 
 						),
 						'rows' => array( 
 							0 
@@ -810,7 +839,7 @@
 					),
 					'headcell_field11' => array(
 						'cols' => array( 
-							11 
+							12 
 						),
 						'rows' => array( 
 							0 
@@ -826,7 +855,7 @@
 					),
 					'headcell_field12' => array(
 						'cols' => array( 
-							12 
+							13 
 						),
 						'rows' => array( 
 							0 
@@ -842,7 +871,7 @@
 					),
 					'headcell_field13' => array(
 						'cols' => array( 
-							13 
+							14 
 						),
 						'rows' => array( 
 							0 
@@ -858,7 +887,7 @@
 					),
 					'headcell_field14' => array(
 						'cols' => array( 
-							14 
+							15 
 						),
 						'rows' => array( 
 							0 
@@ -874,7 +903,7 @@
 					),
 					'headcell_field15' => array(
 						'cols' => array( 
-							15 
+							16 
 						),
 						'rows' => array( 
 							0 
@@ -890,7 +919,7 @@
 					),
 					'headcell_field16' => array(
 						'cols' => array( 
-							16 
+							17 
 						),
 						'rows' => array( 
 							0 
@@ -906,7 +935,7 @@
 					),
 					'headcell_field17' => array(
 						'cols' => array( 
-							17 
+							18 
 						),
 						'rows' => array( 
 							0 
@@ -922,7 +951,7 @@
 					),
 					'headcell_field18' => array(
 						'cols' => array( 
-							18 
+							19 
 						),
 						'rows' => array( 
 							0 
@@ -938,7 +967,7 @@
 					),
 					'headcell_field19' => array(
 						'cols' => array( 
-							19 
+							20 
 						),
 						'rows' => array( 
 							0 
@@ -954,7 +983,7 @@
 					),
 					'headcell_field20' => array(
 						'cols' => array( 
-							20 
+							21 
 						),
 						'rows' => array( 
 							0 
@@ -970,7 +999,7 @@
 					),
 					'headcell_field21' => array(
 						'cols' => array( 
-							21 
+							22 
 						),
 						'rows' => array( 
 							0 
@@ -986,7 +1015,7 @@
 					),
 					'headcell_field22' => array(
 						'cols' => array( 
-							22 
+							23 
 						),
 						'rows' => array( 
 							0 
@@ -1002,7 +1031,7 @@
 					),
 					'headcell_field23' => array(
 						'cols' => array( 
-							23 
+							24 
 						),
 						'rows' => array( 
 							0 
@@ -1018,7 +1047,7 @@
 					),
 					'headcell_field24' => array(
 						'cols' => array( 
-							24 
+							25 
 						),
 						'rows' => array( 
 							0 
@@ -1034,7 +1063,7 @@
 					),
 					'headcell_field25' => array(
 						'cols' => array( 
-							25 
+							26 
 						),
 						'rows' => array( 
 							0 
@@ -1050,7 +1079,7 @@
 					),
 					'headcell_field26' => array(
 						'cols' => array( 
-							26 
+							27 
 						),
 						'rows' => array( 
 							0 
@@ -1066,7 +1095,7 @@
 					),
 					'headcell_field27' => array(
 						'cols' => array( 
-							27 
+							28 
 						),
 						'rows' => array( 
 							0 
@@ -1082,7 +1111,7 @@
 					),
 					'headcell_field28' => array(
 						'cols' => array( 
-							28 
+							29 
 						),
 						'rows' => array( 
 							0 
@@ -1098,7 +1127,7 @@
 					),
 					'headcell_field29' => array(
 						'cols' => array( 
-							29 
+							30 
 						),
 						'rows' => array( 
 							0 
@@ -1112,9 +1141,25 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'cell_field' => array(
+					'cell_icons' => array(
 						'cols' => array( 
 							0 
+						),
+						'rows' => array( 
+							1 
+						),
+						'tags' => array( 
+							'inline_cancel' 
+						),
+						'items' => array( 
+							'grid_inline_cancel' 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
+					),
+					'cell_field' => array(
+						'cols' => array( 
+							1 
 						),
 						'rows' => array( 
 							1 
@@ -1130,7 +1175,7 @@
 					),
 					'cell_field1' => array(
 						'cols' => array( 
-							1 
+							2 
 						),
 						'rows' => array( 
 							1 
@@ -1146,7 +1191,7 @@
 					),
 					'cell_field2' => array(
 						'cols' => array( 
-							2 
+							3 
 						),
 						'rows' => array( 
 							1 
@@ -1162,7 +1207,7 @@
 					),
 					'cell_field3' => array(
 						'cols' => array( 
-							3 
+							4 
 						),
 						'rows' => array( 
 							1 
@@ -1178,7 +1223,7 @@
 					),
 					'cell_field4' => array(
 						'cols' => array( 
-							4 
+							5 
 						),
 						'rows' => array( 
 							1 
@@ -1194,7 +1239,7 @@
 					),
 					'cell_field5' => array(
 						'cols' => array( 
-							5 
+							6 
 						),
 						'rows' => array( 
 							1 
@@ -1210,7 +1255,7 @@
 					),
 					'cell_field6' => array(
 						'cols' => array( 
-							6 
+							7 
 						),
 						'rows' => array( 
 							1 
@@ -1226,7 +1271,7 @@
 					),
 					'cell_field7' => array(
 						'cols' => array( 
-							7 
+							8 
 						),
 						'rows' => array( 
 							1 
@@ -1242,7 +1287,7 @@
 					),
 					'cell_field8' => array(
 						'cols' => array( 
-							8 
+							9 
 						),
 						'rows' => array( 
 							1 
@@ -1258,7 +1303,7 @@
 					),
 					'cell_field9' => array(
 						'cols' => array( 
-							9 
+							10 
 						),
 						'rows' => array( 
 							1 
@@ -1274,7 +1319,7 @@
 					),
 					'cell_field10' => array(
 						'cols' => array( 
-							10 
+							11 
 						),
 						'rows' => array( 
 							1 
@@ -1290,7 +1335,7 @@
 					),
 					'cell_field11' => array(
 						'cols' => array( 
-							11 
+							12 
 						),
 						'rows' => array( 
 							1 
@@ -1306,7 +1351,7 @@
 					),
 					'cell_field12' => array(
 						'cols' => array( 
-							12 
+							13 
 						),
 						'rows' => array( 
 							1 
@@ -1322,7 +1367,7 @@
 					),
 					'cell_field13' => array(
 						'cols' => array( 
-							13 
+							14 
 						),
 						'rows' => array( 
 							1 
@@ -1338,7 +1383,7 @@
 					),
 					'cell_field14' => array(
 						'cols' => array( 
-							14 
+							15 
 						),
 						'rows' => array( 
 							1 
@@ -1354,7 +1399,7 @@
 					),
 					'cell_field15' => array(
 						'cols' => array( 
-							15 
+							16 
 						),
 						'rows' => array( 
 							1 
@@ -1370,7 +1415,7 @@
 					),
 					'cell_field16' => array(
 						'cols' => array( 
-							16 
+							17 
 						),
 						'rows' => array( 
 							1 
@@ -1386,7 +1431,7 @@
 					),
 					'cell_field17' => array(
 						'cols' => array( 
-							17 
+							18 
 						),
 						'rows' => array( 
 							1 
@@ -1402,7 +1447,7 @@
 					),
 					'cell_field18' => array(
 						'cols' => array( 
-							18 
+							19 
 						),
 						'rows' => array( 
 							1 
@@ -1418,7 +1463,7 @@
 					),
 					'cell_field19' => array(
 						'cols' => array( 
-							19 
+							20 
 						),
 						'rows' => array( 
 							1 
@@ -1434,7 +1479,7 @@
 					),
 					'cell_field20' => array(
 						'cols' => array( 
-							20 
+							21 
 						),
 						'rows' => array( 
 							1 
@@ -1450,7 +1495,7 @@
 					),
 					'cell_field21' => array(
 						'cols' => array( 
-							21 
+							22 
 						),
 						'rows' => array( 
 							1 
@@ -1466,7 +1511,7 @@
 					),
 					'cell_field22' => array(
 						'cols' => array( 
-							22 
+							23 
 						),
 						'rows' => array( 
 							1 
@@ -1482,7 +1527,7 @@
 					),
 					'cell_field23' => array(
 						'cols' => array( 
-							23 
+							24 
 						),
 						'rows' => array( 
 							1 
@@ -1498,7 +1543,7 @@
 					),
 					'cell_field24' => array(
 						'cols' => array( 
-							24 
+							25 
 						),
 						'rows' => array( 
 							1 
@@ -1514,7 +1559,7 @@
 					),
 					'cell_field25' => array(
 						'cols' => array( 
-							25 
+							26 
 						),
 						'rows' => array( 
 							1 
@@ -1530,7 +1575,7 @@
 					),
 					'cell_field26' => array(
 						'cols' => array( 
-							26 
+							27 
 						),
 						'rows' => array( 
 							1 
@@ -1546,7 +1591,7 @@
 					),
 					'cell_field27' => array(
 						'cols' => array( 
-							27 
+							28 
 						),
 						'rows' => array( 
 							1 
@@ -1562,7 +1607,7 @@
 					),
 					'cell_field28' => array(
 						'cols' => array( 
-							28 
+							29 
 						),
 						'rows' => array( 
 							1 
@@ -1578,7 +1623,7 @@
 					),
 					'cell_field29' => array(
 						'cols' => array( 
-							29 
+							30 
 						),
 						'rows' => array( 
 							1 
@@ -1592,7 +1637,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field' => array(
+					'footcell_icons' => array(
 						'cols' => array( 
 							0 
 						),
@@ -1608,7 +1653,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field1' => array(
+					'footcell_field' => array(
 						'cols' => array( 
 							1 
 						),
@@ -1624,7 +1669,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field2' => array(
+					'footcell_field1' => array(
 						'cols' => array( 
 							2 
 						),
@@ -1640,7 +1685,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field3' => array(
+					'footcell_field2' => array(
 						'cols' => array( 
 							3 
 						),
@@ -1656,7 +1701,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field4' => array(
+					'footcell_field3' => array(
 						'cols' => array( 
 							4 
 						),
@@ -1672,7 +1717,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field5' => array(
+					'footcell_field4' => array(
 						'cols' => array( 
 							5 
 						),
@@ -1688,7 +1733,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field6' => array(
+					'footcell_field5' => array(
 						'cols' => array( 
 							6 
 						),
@@ -1704,7 +1749,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field7' => array(
+					'footcell_field6' => array(
 						'cols' => array( 
 							7 
 						),
@@ -1720,7 +1765,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field8' => array(
+					'footcell_field7' => array(
 						'cols' => array( 
 							8 
 						),
@@ -1736,7 +1781,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field9' => array(
+					'footcell_field8' => array(
 						'cols' => array( 
 							9 
 						),
@@ -1752,7 +1797,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field10' => array(
+					'footcell_field9' => array(
 						'cols' => array( 
 							10 
 						),
@@ -1768,7 +1813,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field11' => array(
+					'footcell_field10' => array(
 						'cols' => array( 
 							11 
 						),
@@ -1784,7 +1829,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field12' => array(
+					'footcell_field11' => array(
 						'cols' => array( 
 							12 
 						),
@@ -1800,7 +1845,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field13' => array(
+					'footcell_field12' => array(
 						'cols' => array( 
 							13 
 						),
@@ -1816,7 +1861,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field14' => array(
+					'footcell_field13' => array(
 						'cols' => array( 
 							14 
 						),
@@ -1832,7 +1877,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field15' => array(
+					'footcell_field14' => array(
 						'cols' => array( 
 							15 
 						),
@@ -1848,7 +1893,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field16' => array(
+					'footcell_field15' => array(
 						'cols' => array( 
 							16 
 						),
@@ -1864,7 +1909,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field17' => array(
+					'footcell_field16' => array(
 						'cols' => array( 
 							17 
 						),
@@ -1880,7 +1925,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field18' => array(
+					'footcell_field17' => array(
 						'cols' => array( 
 							18 
 						),
@@ -1896,7 +1941,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field19' => array(
+					'footcell_field18' => array(
 						'cols' => array( 
 							19 
 						),
@@ -1912,7 +1957,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field20' => array(
+					'footcell_field19' => array(
 						'cols' => array( 
 							20 
 						),
@@ -1928,7 +1973,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field21' => array(
+					'footcell_field20' => array(
 						'cols' => array( 
 							21 
 						),
@@ -1944,7 +1989,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field22' => array(
+					'footcell_field21' => array(
 						'cols' => array( 
 							22 
 						),
@@ -1960,7 +2005,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field23' => array(
+					'footcell_field22' => array(
 						'cols' => array( 
 							23 
 						),
@@ -1976,7 +2021,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field24' => array(
+					'footcell_field23' => array(
 						'cols' => array( 
 							24 
 						),
@@ -1992,7 +2037,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field25' => array(
+					'footcell_field24' => array(
 						'cols' => array( 
 							25 
 						),
@@ -2008,7 +2053,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field26' => array(
+					'footcell_field25' => array(
 						'cols' => array( 
 							26 
 						),
@@ -2024,7 +2069,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field27' => array(
+					'footcell_field26' => array(
 						'cols' => array( 
 							27 
 						),
@@ -2040,7 +2085,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field28' => array(
+					'footcell_field27' => array(
 						'cols' => array( 
 							28 
 						),
@@ -2056,7 +2101,7 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'footcell_field29' => array(
+					'footcell_field28' => array(
 						'cols' => array( 
 							29 
 						),
@@ -2071,9 +2116,25 @@
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
+					),
+					'footcell_field29' => array(
+						'cols' => array( 
+							30 
+						),
+						'rows' => array( 
+							2 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
 					) 
 				),
-				'width' => 30,
+				'width' => 31,
 				'height' => 3 
 			) 
 		) 
@@ -2154,7 +2215,7 @@
 				'c1' => array(
 					'model' => 'c1',
 					'items' => array( 
-						 
+						'inline_add' 
 					) 
 				) 
 			),
@@ -2219,6 +2280,9 @@
 				array(
 					'section' => 'head',
 					'cells' => array( 
+						array(
+							'cell' => 'headcell_icons' 
+						),
 						array(
 							'cell' => 'headcell_field' 
 						),
@@ -2315,6 +2379,9 @@
 					'section' => 'body',
 					'cells' => array( 
 						array(
+							'cell' => 'cell_icons' 
+						),
+						array(
 							'cell' => 'cell_field' 
 						),
 						array(
@@ -2409,6 +2476,9 @@
 				array(
 					'section' => 'foot',
 					'cells' => array( 
+						array(
+							'cell' => 'footcell_icons' 
+						),
 						array(
 							'cell' => 'footcell_field' 
 						),
@@ -3162,6 +3232,24 @@
 					'items' => array( 
 						 
 					) 
+				),
+				'headcell_icons' => array(
+					'model' => 'headcell_icons',
+					'items' => array( 
+						 
+					) 
+				),
+				'cell_icons' => array(
+					'model' => 'cell_icons',
+					'items' => array( 
+						'grid_inline_cancel' 
+					) 
+				),
+				'footcell_icons' => array(
+					'model' => 'footcell_icons',
+					'items' => array( 
+						 
+					) 
 				) 
 			),
 			'deferredItems' => array( 
@@ -3413,6 +3501,13 @@
 		'simple_grid_field59' => array(
 			'type' => 'grid_field_label',
 			'field' => 'supervisor_id' 
+		),
+		'inline_add' => array(
+			'type' => 'inline_add',
+			'detailsOnly' => true 
+		),
+		'grid_inline_cancel' => array(
+			'type' => 'grid_inline_cancel' 
 		) 
 	),
 	'dbProps' => array(

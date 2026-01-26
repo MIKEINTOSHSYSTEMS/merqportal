@@ -427,6 +427,9 @@
 			'changepassword_link' => array( 
 				'changepassword_link' 
 			),
+			'adminarea_link' => array( 
+				'adminarea_link' 
+			),
 			'grid_field' => array( 
 				'simple_grid_field',
 				'simple_grid_field1',
@@ -1654,6 +1657,7 @@
 			'items' => array( 
 				'userinfo_link',
 				'logout_link',
+				'adminarea_link',
 				'changepassword_link' 
 			) 
 		),
@@ -1670,12 +1674,17 @@
 		'changepassword_link' => array(
 			'type' => 'changepassword_link' 
 		),
+		'adminarea_link' => array(
+			'type' => 'adminarea_link' 
+		),
 		'-3' => array(
 			'type' => '-' 
 		),
 		'simple_grid_field' => array(
 			'field' => 'id',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field8' => array(
 			'type' => 'grid_field_label',
@@ -1683,7 +1692,9 @@
 		),
 		'simple_grid_field1' => array(
 			'field' => 'from_currency_id',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field9' => array(
 			'type' => 'grid_field_label',
@@ -1691,7 +1702,9 @@
 		),
 		'simple_grid_field2' => array(
 			'field' => 'from_currency_name',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field10' => array(
 			'type' => 'grid_field_label',
@@ -1699,7 +1712,9 @@
 		),
 		'simple_grid_field3' => array(
 			'field' => 'from_currency_rate',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field11' => array(
 			'type' => 'grid_field_label',
@@ -1707,7 +1722,9 @@
 		),
 		'simple_grid_field4' => array(
 			'field' => 'to_currency_id',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field12' => array(
 			'type' => 'grid_field_label',
@@ -1715,7 +1732,9 @@
 		),
 		'simple_grid_field5' => array(
 			'field' => 'to_currency_name',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field13' => array(
 			'type' => 'grid_field_label',
@@ -1723,7 +1742,9 @@
 		),
 		'simple_grid_field6' => array(
 			'field' => 'to_currency_rate',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field14' => array(
 			'type' => 'grid_field_label',
@@ -1731,7 +1752,9 @@
 		),
 		'simple_grid_field7' => array(
 			'field' => 'date',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field15' => array(
 			'type' => 'grid_field_label',

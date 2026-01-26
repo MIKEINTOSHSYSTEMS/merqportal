@@ -59,6 +59,7 @@ $runnerTableSettings['mne_business_options'] = array(
 		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_business_options',
 	'afterAddDetail' => 'mne_business_options',
 	'detailsBadgeColor' => 'cd853f',

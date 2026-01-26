@@ -73,6 +73,8 @@
 					'edit_save',
 					'edit_back_list',
 					'edit_close',
+					'prev',
+					'next',
 					'hamburger' 
 				),
 				'supertop' => array( 
@@ -108,6 +110,8 @@
 				'edit_save' => 'below-grid',
 				'edit_back_list' => 'below-grid',
 				'edit_close' => 'below-grid',
+				'prev' => 'below-grid',
+				'next' => 'below-grid',
 				'hamburger' => 'below-grid',
 				'expand_menu_button' => 'supertop',
 				'collapse_button' => 'supertop',
@@ -215,6 +219,15 @@
 			'changepassword_link' => array( 
 				'changepassword_link' 
 			),
+			'adminarea_link' => array( 
+				'adminarea_link' 
+			),
+			'next' => array( 
+				'next' 
+			),
+			'prev' => array( 
+				'prev' 
+			),
 			'expand_button' => array( 
 				'expand_button' 
 			) 
@@ -291,7 +304,7 @@
 	'misc' => array(
 		'type' => 'edit',
 		'breadcrumb' => false,
-		'nextPrev' => false 
+		'nextPrev' => true 
 	),
 	'events' => array(
 		'maps' => array( 
@@ -367,6 +380,8 @@
 				'c2' => array(
 					'model' => 'c2',
 					'items' => array( 
+						'prev',
+						'next',
 						'hamburger' 
 					) 
 				) 
@@ -592,6 +607,7 @@
 			'items' => array( 
 				'userinfo_link',
 				'logout_link',
+				'adminarea_link',
 				'changepassword_link' 
 			) 
 		),
@@ -607,6 +623,15 @@
 		),
 		'changepassword_link' => array(
 			'type' => 'changepassword_link' 
+		),
+		'adminarea_link' => array(
+			'type' => 'adminarea_link' 
+		),
+		'next' => array(
+			'type' => 'next' 
+		),
+		'prev' => array(
+			'type' => 'prev' 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

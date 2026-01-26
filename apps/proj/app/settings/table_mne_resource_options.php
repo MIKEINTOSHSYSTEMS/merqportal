@@ -49,6 +49,7 @@ $runnerTableSettings['mne_resource_options'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_resource_options',
 	'afterAddDetail' => 'mne_resource_options',
 	'detailsBadgeColor' => 'b22222',

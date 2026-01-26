@@ -49,6 +49,7 @@ $runnerTableSettings['mne_analysis_by_source'] = array(
 		'print' => 'print',
 		'search' => 'search' 
 	),
+	'audit' => true,
 	'afterEditDetails' => 'mne_analysis_by_source',
 	'afterAddDetail' => 'mne_analysis_by_source',
 	'detailsBadgeColor' => 'e67349',
