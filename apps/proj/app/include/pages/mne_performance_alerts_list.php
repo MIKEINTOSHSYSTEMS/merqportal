@@ -189,7 +189,9 @@
 					'collapse_button',
 					'breadcrumb',
 					'simple_search',
-					'list_options' 
+					'list_options',
+					'loginform_login',
+					'username_button' 
 				),
 				'top' => array( 
 					'master_info' 
@@ -257,6 +259,8 @@
 				'breadcrumb' => 'supertop',
 				'simple_search' => 'supertop',
 				'list_options' => 'supertop',
+				'loginform_login' => 'supertop',
+				'username_button' => 'supertop',
 				'master_info' => 'top',
 				'simple_grid_field11' => 'grid',
 				'simple_grid_field' => 'grid',
@@ -494,6 +498,21 @@
 			),
 			'master_info' => array( 
 				'master_info' 
+			),
+			'username_button' => array( 
+				'username_button' 
+			),
+			'loginform_login' => array( 
+				'loginform_login' 
+			),
+			'userinfo_link' => array( 
+				'userinfo_link' 
+			),
+			'logout_link' => array( 
+				'logout_link' 
+			),
+			'changepassword_link' => array( 
+				'changepassword_link' 
 			),
 			'grid_field' => array( 
 				'simple_grid_field',
@@ -1180,6 +1199,9 @@
 			) 
 		) 
 	),
+	'loginForm' => array(
+		'loginForm' => 0 
+	),
 	'page' => array(
 		'verticalBar' => true,
 		'labeledButtons' => array(
@@ -1381,7 +1403,9 @@
 					'model' => 'c2',
 					'items' => array( 
 						'simple_search',
-						'list_options' 
+						'list_options',
+						'loginform_login',
+						'username_button' 
 					) 
 				) 
 			),
@@ -1998,6 +2022,27 @@
 				'15086' => 'true',
 				'15553' => 'true' 
 			) 
+		),
+		'username_button' => array(
+			'type' => 'username_button',
+			'items' => array( 
+				'userinfo_link',
+				'logout_link',
+				'changepassword_link' 
+			) 
+		),
+		'loginform_login' => array(
+			'type' => 'loginform_login',
+			'popup' => false 
+		),
+		'userinfo_link' => array(
+			'type' => 'userinfo_link' 
+		),
+		'logout_link' => array(
+			'type' => 'logout_link' 
+		),
+		'changepassword_link' => array(
+			'type' => 'changepassword_link' 
 		),
 		'-3' => array(
 			'type' => '-' 

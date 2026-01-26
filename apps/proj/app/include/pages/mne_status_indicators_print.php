@@ -365,6 +365,9 @@
 			) 
 		) 
 	),
+	'loginForm' => array(
+		'loginForm' => 3 
+	),
 	'page' => array(
 		'verticalBar' => false,
 		'labeledButtons' => array(

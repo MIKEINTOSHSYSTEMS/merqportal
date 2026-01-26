@@ -63,7 +63,9 @@
 					'collapse_button',
 					'breadcrumb',
 					'simple_search',
-					'list_options' 
+					'list_options',
+					'loginform_login',
+					'username_button' 
 				),
 				'grid' => array( 
 					'gantt' 
@@ -92,6 +94,8 @@
 				'breadcrumb' => 'supertop',
 				'simple_search' => 'supertop',
 				'list_options' => 'supertop',
+				'loginform_login' => 'supertop',
+				'username_button' => 'supertop',
 				'gantt' => 'grid' 
 			),
 			'itemLocations' => array(
@@ -168,6 +172,21 @@
 			),
 			'text' => array( 
 				'text' 
+			),
+			'username_button' => array( 
+				'username_button' 
+			),
+			'loginform_login' => array( 
+				'loginform_login' 
+			),
+			'userinfo_link' => array( 
+				'userinfo_link' 
+			),
+			'logout_link' => array( 
+				'logout_link' 
+			),
+			'changepassword_link' => array( 
+				'changepassword_link' 
 			),
 			'expand_button' => array( 
 				'expand_button' 
@@ -421,7 +440,9 @@
 					'model' => 'c2',
 					'items' => array( 
 						'simple_search',
-						'list_options' 
+						'list_options',
+						'loginform_login',
+						'username_button' 
 					) 
 				) 
 			),
@@ -643,6 +664,27 @@
 				'type' => 0 
 			),
 			'editedByRte' => false 
+		),
+		'username_button' => array(
+			'type' => 'username_button',
+			'items' => array( 
+				'userinfo_link',
+				'logout_link',
+				'changepassword_link' 
+			) 
+		),
+		'loginform_login' => array(
+			'type' => 'loginform_login',
+			'popup' => false 
+		),
+		'userinfo_link' => array(
+			'type' => 'userinfo_link' 
+		),
+		'logout_link' => array(
+			'type' => 'logout_link' 
+		),
+		'changepassword_link' => array(
+			'type' => 'changepassword_link' 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

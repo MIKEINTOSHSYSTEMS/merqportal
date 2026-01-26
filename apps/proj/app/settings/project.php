@@ -199,40 +199,77 @@ $runnerProjectSettings = array(
 			'table' => 17044 
 		) 
 	),
+	'userTableKeys' => array( 
+		'user_id' 
+	),
 	'phpSpreadsheet' => false,
 	'ext' => 'php',
 	'security' => array(
 		'projectName' => '',
-		'loginDataSource' => '',
-		'loginForm' => 3,
+		'loginDataSource' => 'users',
+		'loginForm' => 0,
 		'dynamicPermissions' => false,
 		'dpTablePrefix' => '',
 		'dpTableConnId' => '',
 		'providers' => array( 
-			 
+			array(
+				'type' => '%db',
+				'name' => 'db',
+				'active' => true,
+				'label' => array(
+					'text' => 'Database',
+					'type' => 0 
+				),
+				'code' => '00',
+				'table' => array(
+					'connId' => 'conn',
+					'table' => 'users' 
+				),
+				'usernameField' => 'username',
+				'passwordField' => 'password_hash',
+				'emailField' => 'email',
+				'extUserIdField' => null,
+				'fullnameField' => 'full_name',
+				'userpicField' => '',
+				'activationField' => 'is_active',
+				'resetTokenField' => 'reset_token',
+				'resetDateField' => 'reset_date' 
+			) 
 		),
-		'enabled' => false,
-		'advancedSecurityAvailable' => false,
-		'userGroupsAvailable' => false,
+		'enabled' => true,
+		'advancedSecurityAvailable' => true,
+		'userGroupsAvailable' => true,
 		'hardcodedLogin' => false,
-		'defaultProviderCode' => '',
+		'defaultProviderCode' => '00',
 		'adOnlyLogin' => false,
 		'sessionControl' => array(
 			'lifeTime' => 15,
-			'sessionName' => '43ab6rh8hHMZCosQS0xv',
-			'JWTSecret' => 'vjprsOqlAPsYvrdjHrIT' 
+			'sessionName' => '47ab6rh8hHMZCosQS0xv',
+			'JWTSecret' => 'vjprsOqlAPsYvrdjHrIT',
+			'forceExpire' => true,
+			'keepAlive' => false,
+			'warnExpire' => true 
 		),
 		'registration' => array(
-			'remindMethod' => 0,
+			'remindMethod' => 1,
 			'hashAlgorithm' => 0,
+			'registerPage' => true,
+			'remindPage' => false,
+			'changePwdPage' => false,
+			'notifyUser' => true,
+			'sendActivationLink' => true,
+			'notifyAdmin' => true,
+			'adminEmail' => 'admin@merqconsultancy.org',
+			'remindPasswordPage' => true,
+			'changePasswordPage' => true,
+			'hashPassword' => true,
 			'passwordValidation' => array(
 				'strong' => false,
 				'minimumLength' => 8,
 				'uniqueCharacters' => 4,
 				'digitsAndSymbols' => 2,
 				'upperAndLowerCase' => false 
-			),
-			'registerPage' => false 
+			) 
 		),
 		'captchaSettings' => array(
 			'captchaType' => 0,
@@ -241,13 +278,13 @@ $runnerProjectSettings = array(
 			'passesCount' => 5 
 		),
 		'emailSettings' => array(
-			'fromEmail' => '',
+			'fromEmail' => 'internal@cloud.merqconsultancy.org',
 			'usePHPDefinedSMTP' => false,
 			'useBuiltInMailer' => false,
-			'SMTPServer' => 'localhost',
-			'SMTPPort' => 25,
-			'SMTPUser' => '',
-			'SMTPPassword' => '',
+			'SMTPServer' => 'cloud.merqconsultancy.org',
+			'SMTPPort' => 587,
+			'SMTPUser' => 'internal@cloud.merqconsultancy.org',
+			'SMTPPassword' => 'internal@merq',
 			'securityProtocol' => 0 
 		),
 		'advancedSecurity' => array(
@@ -287,15 +324,498 @@ $runnerProjectSettings = array(
 		),
 		'staticPermissions' => array(
 			'groups' => array(
-				 
+				'<Default>' => array(
+					'permissions' => array(
+						'mne_analysis_by_source' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_analysis_by_source',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_audit_log' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_audit_log',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_budget_performance' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_budget_performance',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_business_opportunities' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_business_opportunities',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_business_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_business_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_business_performance' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_business_performance',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_client_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_client_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_client_satisfaction' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_client_satisfaction',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_currency_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_currency_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_data_collection' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_data_collection',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_data_methods' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_data_methods',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_deliverable_status' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_deliverable_status',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_delivery_metrics' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_delivery_metrics',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_executive_dashboard' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_executive_dashboard',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_extended_projects' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_extended_projects',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_financial_overview' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_financial_overview',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_indicator_matrix' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_indicator_matrix',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_knowledge_outputs' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_knowledge_outputs',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_opportunity_metrics' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_opportunity_metrics',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_partnership_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_partnership_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_partnerships' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_partnerships',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_performance_alerts' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_performance_alerts',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_performance_ratings' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_performance_ratings',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_portfolio_snapshot' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_portfolio_snapshot',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_project_data_management' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_project_data_management',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_project_deliverables' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_project_deliverables',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_project_details' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_project_details',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_project_financials' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_project_financials',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_project_issues' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_project_issues',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_project_leads' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_project_leads',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_project_risks' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_project_risks',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_project_timelines' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_project_timelines',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_project_type_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_project_type_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_project_updates' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_project_updates',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_projects' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_projects',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_publication_types' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_publication_types',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_resource_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_resource_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_risk_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_risk_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_sector_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_sector_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_status_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_status_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_system_config' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_system_config',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_win_loss_analysis' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_win_loss_analysis',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_year_projects' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_year_projects',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'users' => array(
+							'mask' => 'ADESPI',
+							'table' => 'users',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_project_category' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_project_category',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_sector_category' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_sector_category',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_deliverable_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_deliverable_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_quality_status' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_quality_status',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_generic_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_generic_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_grantee_contracted_unit' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_grantee_contracted_unit',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_imp_level_options' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_imp_level_options',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_opportunity_sources' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_opportunity_sources',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_thematic_areas' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_thematic_areas',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_data_sources' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_data_sources',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_partner_types' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_partner_types',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_engagement_level' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_engagement_level',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_status_indicators' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_status_indicators',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_budget_category' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_budget_category',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'mne_indicator_groups' => array(
+							'mask' => 'ADESPI',
+							'table' => 'mne_indicator_groups',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'tblclients' => array(
+							'mask' => 'ADESPI',
+							'table' => 'tblclients',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'tblcountries' => array(
+							'mask' => 'ADESPI',
+							'table' => 'tblcountries',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'tblcurrencies' => array(
+							'mask' => 'ADESPI',
+							'table' => 'tblcurrencies',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'tblcurrency_rate_logs' => array(
+							'mask' => 'ADESPI',
+							'table' => 'tblcurrency_rate_logs',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'tblcurrency_rates' => array(
+							'mask' => 'ADESPI',
+							'table' => 'tblcurrency_rates',
+							'restrictedPages' => array(
+								 
+							) 
+						),
+						'<global>' => array(
+							'mask' => 'ADESPI',
+							'table' => '<global>',
+							'restrictedPages' => array(
+								 
+							) 
+						) 
+					),
+					'admin' => false,
+					'username' => '<Default>' 
+				) 
 			) 
+		),
+		'dbProvider' => array(
+			'type' => '%db',
+			'name' => 'db',
+			'active' => true,
+			'label' => array(
+				'text' => 'Database',
+				'type' => 0 
+			),
+			'code' => '00',
+			'table' => array(
+				'connId' => 'conn',
+				'table' => 'users' 
+			),
+			'usernameField' => 'username',
+			'passwordField' => 'password_hash',
+			'emailField' => 'email',
+			'extUserIdField' => null,
+			'fullnameField' => 'full_name',
+			'userpicField' => '',
+			'activationField' => 'is_active',
+			'resetTokenField' => 'reset_token',
+			'resetDateField' => 'reset_date' 
 		),
 		'adAdminGroups' => array( 
 			 
 		),
 		'showUserSource' => false,
 		'dbProviderCodes' => array( 
-			 
+			'00' 
 		) 
 	),
 	'notifications' => array(
@@ -1232,7 +1752,7 @@ $runnerProjectSettings = array(
 		'table' => '' 
 	),
 	'wizardBuild' => '43785',
-	'projectBuild' => 'wALfvyqNVnDP',
+	'projectBuild' => '5qBHdljEb1x5',
 	'projectTheme' => 'flatly',
 	'projectSize' => 'normal',
 	'customErrorMsg' => array(

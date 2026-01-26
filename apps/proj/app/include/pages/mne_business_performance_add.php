@@ -71,7 +71,9 @@
 				),
 				'supertop' => array( 
 					'expand_menu_button',
-					'collapse_button' 
+					'collapse_button',
+					'loginform_login',
+					'username_button' 
 				),
 				'left' => array( 
 					'logo',
@@ -106,6 +108,8 @@
 				'add_cancel' => 'below-grid',
 				'expand_menu_button' => 'supertop',
 				'collapse_button' => 'supertop',
+				'loginform_login' => 'supertop',
+				'username_button' => 'supertop',
 				'logo' => 'left',
 				'expand_button' => 'left',
 				'menu' => 'left',
@@ -199,11 +203,26 @@
 			'menu' => array( 
 				'menu' 
 			),
+			'username_button' => array( 
+				'username_button' 
+			),
+			'loginform_login' => array( 
+				'loginform_login' 
+			),
+			'userinfo_link' => array( 
+				'userinfo_link' 
+			),
+			'logout_link' => array( 
+				'logout_link' 
+			),
 			'expand_menu_button' => array( 
 				'expand_menu_button' 
 			),
 			'collapse_button' => array( 
 				'collapse_button' 
+			),
+			'changepassword_link' => array( 
+				'changepassword_link' 
 			),
 			'expand_button' => array( 
 				'expand_button' 
@@ -241,6 +260,9 @@
 				'height' => 1 
 			) 
 		) 
+	),
+	'loginForm' => array(
+		'loginForm' => 0 
 	),
 	'page' => array(
 		'verticalBar' => true,
@@ -380,7 +402,8 @@
 				'c2' => array(
 					'model' => 'c2',
 					'items' => array( 
-						 
+						'loginform_login',
+						'username_button' 
 					) 
 				) 
 			),
@@ -560,11 +583,32 @@
 		'menu' => array(
 			'type' => 'menu' 
 		),
+		'username_button' => array(
+			'type' => 'username_button',
+			'items' => array( 
+				'userinfo_link',
+				'logout_link',
+				'changepassword_link' 
+			) 
+		),
+		'loginform_login' => array(
+			'type' => 'loginform_login',
+			'popup' => false 
+		),
+		'userinfo_link' => array(
+			'type' => 'userinfo_link' 
+		),
+		'logout_link' => array(
+			'type' => 'logout_link' 
+		),
 		'expand_menu_button' => array(
 			'type' => 'expand_menu_button' 
 		),
 		'collapse_button' => array(
 			'type' => 'collapse_button' 
+		),
+		'changepassword_link' => array(
+			'type' => 'changepassword_link' 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 
