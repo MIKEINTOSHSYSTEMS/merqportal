@@ -13,16 +13,16 @@
 	),
 	'fields' => array(
 		'gridFields' => array( 
+			'remark',
+			'updated_at',
+			'created_at',
 			'project_id',
+			'year',
 			'project_name',
 			'client',
 			'start_date',
 			'end_date',
-			'current_status_id',
-			'remark',
-			'year',
-			'created_at',
-			'updated_at' 
+			'current_status_id' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -31,8 +31,20 @@
 			 
 		),
 		'fieldItems' => array(
+			'remark' => array( 
+				'integrated_edit_field6' 
+			),
+			'updated_at' => array( 
+				'integrated_edit_field9' 
+			),
+			'created_at' => array( 
+				'integrated_edit_field8' 
+			),
 			'project_id' => array( 
 				'integrated_edit_field' 
+			),
+			'year' => array( 
+				'integrated_edit_field7' 
 			),
 			'project_name' => array( 
 				'integrated_edit_field1' 
@@ -48,18 +60,6 @@
 			),
 			'current_status_id' => array( 
 				'integrated_edit_field5' 
-			),
-			'remark' => array( 
-				'integrated_edit_field6' 
-			),
-			'year' => array( 
-				'integrated_edit_field7' 
-			),
-			'created_at' => array( 
-				'integrated_edit_field8' 
-			),
-			'updated_at' => array( 
-				'integrated_edit_field9' 
 			) 
 		) 
 	),
@@ -96,16 +96,16 @@
 					'add_header' 
 				),
 				'grid' => array( 
-					'integrated_edit_field7',
-					'integrated_edit_field8',
+					'integrated_edit_field6',
 					'integrated_edit_field9',
+					'integrated_edit_field8',
 					'integrated_edit_field',
-					'integrated_edit_field2',
+					'integrated_edit_field7',
 					'integrated_edit_field1',
+					'integrated_edit_field2',
 					'integrated_edit_field3',
 					'integrated_edit_field4',
-					'integrated_edit_field5',
-					'integrated_edit_field6' 
+					'integrated_edit_field5' 
 				) 
 			),
 			'formXtTags' => array(
@@ -127,41 +127,45 @@
 				'expand_button' => 'left',
 				'menu' => 'left',
 				'add_header' => 'top',
-				'integrated_edit_field7' => 'grid',
-				'integrated_edit_field8' => 'grid',
+				'integrated_edit_field6' => 'grid',
 				'integrated_edit_field9' => 'grid',
+				'integrated_edit_field8' => 'grid',
 				'integrated_edit_field' => 'grid',
-				'integrated_edit_field2' => 'grid',
+				'integrated_edit_field7' => 'grid',
 				'integrated_edit_field1' => 'grid',
+				'integrated_edit_field2' => 'grid',
 				'integrated_edit_field3' => 'grid',
 				'integrated_edit_field4' => 'grid',
-				'integrated_edit_field5' => 'grid',
-				'integrated_edit_field6' => 'grid' 
+				'integrated_edit_field5' => 'grid' 
 			),
 			'itemLocations' => array(
-				'integrated_edit_field7' => array(
+				'integrated_edit_field6' => array(
 					'location' => 'grid',
 					'cellId' => 'c3' 
 				),
-				'integrated_edit_field8' => array(
-					'location' => 'grid',
-					'cellId' => 'c6' 
-				),
 				'integrated_edit_field9' => array(
 					'location' => 'grid',
-					'cellId' => 'c7' 
+					'cellId' => 'c' 
+				),
+				'integrated_edit_field8' => array(
+					'location' => 'grid',
+					'cellId' => 'c4' 
 				),
 				'integrated_edit_field' => array(
 					'location' => 'grid',
 					'cellId' => 'c8' 
 				),
-				'integrated_edit_field2' => array(
+				'integrated_edit_field7' => array(
 					'location' => 'grid',
 					'cellId' => 'c10' 
 				),
 				'integrated_edit_field1' => array(
 					'location' => 'grid',
 					'cellId' => 'c11' 
+				),
+				'integrated_edit_field2' => array(
+					'location' => 'grid',
+					'cellId' => 'c12' 
 				),
 				'integrated_edit_field3' => array(
 					'location' => 'grid',
@@ -173,11 +177,7 @@
 				),
 				'integrated_edit_field5' => array(
 					'location' => 'grid',
-					'cellId' => 'c17' 
-				),
-				'integrated_edit_field6' => array(
-					'location' => 'grid',
-					'cellId' => 'c18' 
+					'cellId' => 'c16' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -203,18 +203,6 @@
 			),
 			'add_cancel' => array( 
 				'add_cancel' 
-			),
-			'integrated_edit_field' => array( 
-				'integrated_edit_field',
-				'integrated_edit_field1',
-				'integrated_edit_field2',
-				'integrated_edit_field3',
-				'integrated_edit_field4',
-				'integrated_edit_field5',
-				'integrated_edit_field6',
-				'integrated_edit_field7',
-				'integrated_edit_field8',
-				'integrated_edit_field9' 
 			),
 			'logo' => array( 
 				'logo' 
@@ -245,6 +233,18 @@
 			),
 			'adminarea_link' => array( 
 				'adminarea_link' 
+			),
+			'integrated_edit_field' => array( 
+				'integrated_edit_field6',
+				'integrated_edit_field9',
+				'integrated_edit_field8',
+				'integrated_edit_field',
+				'integrated_edit_field7',
+				'integrated_edit_field1',
+				'integrated_edit_field2',
+				'integrated_edit_field3',
+				'integrated_edit_field4',
+				'integrated_edit_field5' 
 			),
 			'expand_button' => array( 
 				'expand_button' 
@@ -296,7 +296,7 @@
 							 
 						),
 						'items' => array( 
-							'integrated_edit_field2' 
+							'integrated_edit_field7' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
@@ -328,9 +328,9 @@
 							 
 						),
 						'items' => array( 
-							 
+							'integrated_edit_field2' 
 						),
-						'fixedAtServer' => false,
+						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
 					'c13' => array(
@@ -392,9 +392,9 @@
 							 
 						),
 						'items' => array( 
-							 
+							'integrated_edit_field5' 
 						),
-						'fixedAtServer' => false,
+						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
 					'c17' => array(
@@ -408,9 +408,9 @@
 							 
 						),
 						'items' => array( 
-							'integrated_edit_field5' 
+							 
 						),
-						'fixedAtServer' => true,
+						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
 					'c18' => array(
@@ -424,9 +424,9 @@
 							 
 						),
 						'items' => array( 
-							'integrated_edit_field6' 
+							 
 						),
-						'fixedAtServer' => true,
+						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
 					'c19' => array(
@@ -456,7 +456,7 @@
 							 
 						),
 						'items' => array( 
-							'integrated_edit_field7' 
+							'integrated_edit_field6' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
@@ -472,9 +472,9 @@
 							 
 						),
 						'items' => array( 
-							 
+							'integrated_edit_field8' 
 						),
-						'fixedAtServer' => false,
+						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
 					'c' => array(
@@ -488,9 +488,9 @@
 							 
 						),
 						'items' => array( 
-							 
+							'integrated_edit_field9' 
 						),
-						'fixedAtServer' => false,
+						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
 					'c5' => array(
@@ -520,9 +520,9 @@
 							 
 						),
 						'items' => array( 
-							'integrated_edit_field8' 
+							 
 						),
-						'fixedAtServer' => true,
+						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
 					'c7' => array(
@@ -536,9 +536,9 @@
 							 
 						),
 						'items' => array( 
-							'integrated_edit_field9' 
+							 
 						),
-						'fixedAtServer' => true,
+						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					) 
 				),
@@ -855,19 +855,19 @@
 				'c3' => array(
 					'model' => 'c3',
 					'items' => array( 
-						'integrated_edit_field7' 
+						'integrated_edit_field6' 
 					) 
 				),
 				'c' => array(
 					'model' => 'c3',
 					'items' => array( 
-						 
+						'integrated_edit_field9' 
 					) 
 				),
 				'c4' => array(
 					'model' => 'c3',
 					'items' => array( 
-						 
+						'integrated_edit_field8' 
 					) 
 				),
 				'c5' => array(
@@ -879,13 +879,13 @@
 				'c6' => array(
 					'model' => 'c3',
 					'items' => array( 
-						'integrated_edit_field8' 
+						 
 					) 
 				),
 				'c7' => array(
 					'model' => 'c3',
 					'items' => array( 
-						'integrated_edit_field9' 
+						 
 					) 
 				),
 				'c8' => array(
@@ -903,7 +903,7 @@
 				'c10' => array(
 					'model' => 'c3',
 					'items' => array( 
-						'integrated_edit_field2' 
+						'integrated_edit_field7' 
 					) 
 				),
 				'c11' => array(
@@ -915,7 +915,7 @@
 				'c12' => array(
 					'model' => 'c3',
 					'items' => array( 
-						 
+						'integrated_edit_field2' 
 					) 
 				),
 				'c13' => array(
@@ -939,19 +939,19 @@
 				'c16' => array(
 					'model' => 'c3',
 					'items' => array( 
-						 
+						'integrated_edit_field5' 
 					) 
 				),
 				'c17' => array(
 					'model' => 'c3',
 					'items' => array( 
-						'integrated_edit_field5' 
+						 
 					) 
 				),
 				'c18' => array(
 					'model' => 'c3',
 					'items' => array( 
-						'integrated_edit_field6' 
+						 
 					) 
 				),
 				'c19' => array(
@@ -987,56 +987,6 @@
 		),
 		'add_cancel' => array(
 			'type' => 'add_cancel' 
-		),
-		'integrated_edit_field' => array(
-			'field' => 'project_id',
-			'type' => 'integrated_edit_field',
-			'orientation' => 0 
-		),
-		'integrated_edit_field1' => array(
-			'field' => 'project_name',
-			'type' => 'integrated_edit_field',
-			'orientation' => 0 
-		),
-		'integrated_edit_field2' => array(
-			'field' => 'client',
-			'type' => 'integrated_edit_field',
-			'orientation' => 0 
-		),
-		'integrated_edit_field3' => array(
-			'field' => 'start_date',
-			'type' => 'integrated_edit_field',
-			'orientation' => 0 
-		),
-		'integrated_edit_field4' => array(
-			'field' => 'end_date',
-			'type' => 'integrated_edit_field',
-			'orientation' => 0 
-		),
-		'integrated_edit_field5' => array(
-			'field' => 'current_status_id',
-			'type' => 'integrated_edit_field',
-			'orientation' => 0 
-		),
-		'integrated_edit_field6' => array(
-			'field' => 'remark',
-			'type' => 'integrated_edit_field',
-			'orientation' => 0 
-		),
-		'integrated_edit_field7' => array(
-			'field' => 'year',
-			'type' => 'integrated_edit_field',
-			'orientation' => 0 
-		),
-		'integrated_edit_field8' => array(
-			'field' => 'created_at',
-			'type' => 'integrated_edit_field',
-			'orientation' => 0 
-		),
-		'integrated_edit_field9' => array(
-			'field' => 'updated_at',
-			'type' => 'integrated_edit_field',
-			'orientation' => 0 
 		),
 		'logo' => array(
 			'type' => 'logo' 
@@ -1074,6 +1024,56 @@
 		),
 		'adminarea_link' => array(
 			'type' => 'adminarea_link' 
+		),
+		'integrated_edit_field6' => array(
+			'field' => 'remark',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field9' => array(
+			'field' => 'updated_at',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field8' => array(
+			'field' => 'created_at',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field' => array(
+			'field' => 'project_id',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field7' => array(
+			'field' => 'year',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field1' => array(
+			'field' => 'project_name',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field2' => array(
+			'field' => 'client',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field3' => array(
+			'field' => 'start_date',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field4' => array(
+			'field' => 'end_date',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field5' => array(
+			'field' => 'current_status_id',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

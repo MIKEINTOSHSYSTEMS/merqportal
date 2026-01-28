@@ -22,6 +22,9 @@ class eventclass_mne_year_projects  extends TableEventsBase {
 		 
 	),
 	'defaultValue' => array(
+		'year' => array(
+			'edit' => true 
+		),
 		'created_at' => array(
 			'edit' => true 
 		) 
@@ -43,7 +46,12 @@ class eventclass_mne_year_projects  extends TableEventsBase {
 );
 			}
 	
-	public function default_created_at_efedit(  ) {
+	public function default_year_efedit(  ) {
+	$defaultValue = date("Y");
+return $defaultValue;
+}
+
+public function default_created_at_efedit(  ) {
 	$defaultValue = date("Y-m-d H:i:s");
 return $defaultValue;
 }

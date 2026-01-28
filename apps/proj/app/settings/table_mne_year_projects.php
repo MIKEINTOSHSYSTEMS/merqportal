@@ -115,11 +115,12 @@ FROM
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Lookup wizard',
+					'required' => true,
 					'lookupType' => 2,
 					'lookupTable' => 'mne_projects',
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'project_id',
-					'lookupDisplayField' => 'project_name',
+					'lookupDisplayField' => 'project_code',
 					'lookupAutofillEdit' => true,
 					'lookupAutofillFields' => array( 
 						array(
@@ -160,19 +161,7 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					'format' => 'Lookup wizard',
-					'lookupType' => 2,
-					'lookupTable' => 'mne_projects',
-					'lookupTableConnection' => 'conn',
-					'lookupLinkField' => 'project_code',
-					'lookupDisplayField' => 'project_name',
-					'lookupDependent' => true,
-					'lookupDependentFields' => array( 
-						array(
-							'masterField' => 'project_id',
-							'lookupField' => 'project_id' 
-						) 
-					) 
+					'format' => 'Readonly' 
 				) 
 			),
 			'tableName' => 'mne_year_projects' 
@@ -190,19 +179,7 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					'format' => 'Lookup wizard',
-					'lookupType' => 2,
-					'lookupTable' => 'mne_projects',
-					'lookupTableConnection' => 'conn',
-					'lookupLinkField' => 'client_name',
-					'lookupDisplayField' => 'client_name',
-					'lookupDependent' => true,
-					'lookupDependentFields' => array( 
-						array(
-							'masterField' => 'project_name',
-							'lookupField' => 'project_code' 
-						) 
-					) 
+					'format' => 'Readonly' 
 				) 
 			),
 			'tableName' => 'mne_year_projects' 
@@ -221,19 +198,7 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					'format' => 'Lookup wizard',
-					'lookupType' => 2,
-					'lookupTable' => 'mne_projects',
-					'lookupTableConnection' => 'conn',
-					'lookupLinkField' => 'start_date',
-					'lookupDisplayField' => 'start_date',
-					'lookupDependent' => true,
-					'lookupDependentFields' => array( 
-						array(
-							'masterField' => 'project_id',
-							'lookupField' => 'project_id' 
-						) 
-					),
+					'format' => 'Readonly',
 					'dateEditType' => 11 
 				) 
 			),
@@ -253,19 +218,7 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					'format' => 'Lookup wizard',
-					'lookupType' => 2,
-					'lookupTable' => 'mne_projects',
-					'lookupTableConnection' => 'conn',
-					'lookupLinkField' => 'end_date_original',
-					'lookupDisplayField' => 'end_date_original',
-					'lookupDependent' => true,
-					'lookupDependentFields' => array( 
-						array(
-							'masterField' => 'project_id',
-							'lookupField' => 'project_id' 
-						) 
-					),
+					'format' => 'Readonly',
 					'dateEditType' => 11 
 				) 
 			),
@@ -280,7 +233,7 @@ FROM
 			'sqlExpression' => 'current_status_id',
 			'viewFormats' => array(
 				'view' => array(
-					 
+					'format' => 'Checkbox' 
 				) 
 			),
 			'editFormats' => array(
@@ -328,8 +281,15 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					'validateAs' => 'Number',
-					'textboxMaxLenth' => 4 
+					'defaultValue' => 'date("Y")',
+					'validateAs' => 'Regular expression',
+					'validateRegex' => '^20(1\\d|[2-9]\\d)$',
+					'validateRegexMessage' => array(
+						'text' => 'Please enter a valid Project Year',
+						'type' => 0 
+					),
+					'textboxMaxLenth' => 4,
+					'textHTML5Input' => 'Number' 
 				) 
 			),
 			'tableName' => 'mne_year_projects' 

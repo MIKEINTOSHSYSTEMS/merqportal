@@ -1898,7 +1898,9 @@
 		),
 		'simple_grid_field' => array(
 			'field' => 'performance_id',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field10' => array(
 			'type' => 'grid_field_label',
@@ -1906,7 +1908,9 @@
 		),
 		'simple_grid_field1' => array(
 			'field' => 'report_period',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field11' => array(
 			'type' => 'grid_field_label',
@@ -1914,7 +1918,9 @@
 		),
 		'simple_grid_field2' => array(
 			'field' => 'metric_name',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field12' => array(
 			'type' => 'grid_field_label',
@@ -1922,7 +1928,9 @@
 		),
 		'simple_grid_field3' => array(
 			'field' => 'quarter_value',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field13' => array(
 			'type' => 'grid_field_label',
@@ -1930,7 +1938,9 @@
 		),
 		'simple_grid_field4' => array(
 			'field' => 'ytd_value',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field14' => array(
 			'type' => 'grid_field_label',
@@ -1938,7 +1948,9 @@
 		),
 		'simple_grid_field5' => array(
 			'field' => 'target_value',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field15' => array(
 			'type' => 'grid_field_label',
@@ -1946,7 +1958,9 @@
 		),
 		'simple_grid_field6' => array(
 			'field' => 'achievement',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field16' => array(
 			'type' => 'grid_field_label',
@@ -1954,7 +1968,9 @@
 		),
 		'simple_grid_field7' => array(
 			'field' => 'status_indicator',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field17' => array(
 			'type' => 'grid_field_label',
@@ -1962,7 +1978,9 @@
 		),
 		'simple_grid_field8' => array(
 			'field' => 'created_at',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field18' => array(
 			'type' => 'grid_field_label',
@@ -1970,7 +1988,9 @@
 		),
 		'simple_grid_field9' => array(
 			'field' => 'updated_at',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field19' => array(
 			'type' => 'grid_field_label',
