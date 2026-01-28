@@ -90,6 +90,18 @@
 		),
 		'supervisor_id' => array(
 			'totalsType' => '' 
+		),
+		'ext_security_id' => array(
+			'totalsType' => '' 
+		),
+		'userpic' => array(
+			'totalsType' => '' 
+		),
+		'two_factor' => array(
+			'totalsType' => '' 
+		),
+		'totp' => array(
+			'totalsType' => '' 
 		) 
 	),
 	'fields' => array(
@@ -123,7 +135,10 @@
 			'reset_token',
 			'reset_date',
 			'is_doctor',
-			'supervisor_id' 
+			'supervisor_id',
+			'ext_security_id',
+			'two_factor',
+			'totp' 
 		),
 		'exportFields' => array( 
 			'user_id',
@@ -155,7 +170,10 @@
 			'reset_token',
 			'reset_date',
 			'is_doctor',
-			'supervisor_id' 
+			'supervisor_id',
+			'ext_security_id',
+			'two_factor',
+			'totp' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -253,6 +271,15 @@
 			),
 			'supervisor_id' => array( 
 				'export_field29' 
+			),
+			'ext_security_id' => array( 
+				'export_field30' 
+			),
+			'two_factor' => array( 
+				'export_field31' 
+			),
+			'totp' => array( 
+				'export_field32' 
 			) 
 		) 
 	),
@@ -301,7 +328,10 @@
 					'export_field26',
 					'export_field27',
 					'export_field28',
-					'export_field29' 
+					'export_field29',
+					'export_field30',
+					'export_field31',
+					'export_field32' 
 				),
 				'footer' => array( 
 					'export_export',
@@ -345,6 +375,9 @@
 				'export_field27' => 'grid',
 				'export_field28' => 'grid',
 				'export_field29' => 'grid',
+				'export_field30' => 'grid',
+				'export_field31' => 'grid',
+				'export_field32' => 'grid',
 				'export_export' => 'footer',
 				'export_cancel' => 'footer' 
 			),
@@ -395,7 +428,10 @@
 				'export_field26',
 				'export_field27',
 				'export_field28',
-				'export_field29' 
+				'export_field29',
+				'export_field30',
+				'export_field31',
+				'export_field32' 
 			) 
 		),
 		'cellMaps' => array(
@@ -564,7 +600,10 @@
 						'export_field26',
 						'export_field27',
 						'export_field28',
-						'export_field29' 
+						'export_field29',
+						'export_field30',
+						'export_field31',
+						'export_field32' 
 					) 
 				) 
 			),
@@ -737,6 +776,18 @@
 		),
 		'export_field29' => array(
 			'field' => 'supervisor_id',
+			'type' => 'export_field' 
+		),
+		'export_field30' => array(
+			'field' => 'ext_security_id',
+			'type' => 'export_field' 
+		),
+		'export_field31' => array(
+			'field' => 'two_factor',
+			'type' => 'export_field' 
+		),
+		'export_field32' => array(
+			'field' => 'totp',
 			'type' => 'export_field' 
 		) 
 	),

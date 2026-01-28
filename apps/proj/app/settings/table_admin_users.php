@@ -1252,7 +1252,11 @@ FROM
 						'reset_token',
 						'reset_date',
 						'is_doctor',
-						'supervisor_id' 
+						'supervisor_id',
+						'userpic',
+						'ext_security_id',
+						'two_factor',
+						'totp' 
 					),
 					'name' => 'users' 
 				),

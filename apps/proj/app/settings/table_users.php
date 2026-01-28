@@ -93,9 +93,14 @@ $runnerTableSettings['users'] = array(
 	reset_token,
 	reset_date,
 	is_doctor,
-	supervisor_id
+	supervisor_id,
+	ext_security_id,
+	userpic,
+	two_factor,
+	totp
 FROM
-	users',
+	users
+',
 	'keyFields' => array( 
 		'user_id' 
 	),
@@ -713,6 +718,80 @@ $this->settings["preferredCountries"] = "et";           // Preferred Country
 				) 
 			),
 			'tableName' => 'users' 
+		),
+		'ext_security_id' => array(
+			'name' => 'ext_security_id',
+			'goodName' => 'ext_security_id',
+			'strField' => 'ext_security_id',
+			'index' => 31,
+			'sqlExpression' => 'ext_security_id',
+			'viewFormats' => array(
+				'view' => array(
+					 
+				) 
+			),
+			'editFormats' => array(
+				'edit' => array(
+					 
+				) 
+			),
+			'tableName' => 'users' 
+		),
+		'userpic' => array(
+			'name' => 'userpic',
+			'goodName' => 'userpic',
+			'strField' => 'userpic',
+			'index' => 32,
+			'type' => 128,
+			'sqlExpression' => 'userpic',
+			'viewFormats' => array(
+				'view' => array(
+					'format' => 'Database Image' 
+				) 
+			),
+			'editFormats' => array(
+				'edit' => array(
+					'format' => 'Database image' 
+				) 
+			),
+			'tableName' => 'users' 
+		),
+		'two_factor' => array(
+			'name' => 'two_factor',
+			'goodName' => 'two_factor',
+			'strField' => 'two_factor',
+			'index' => 33,
+			'type' => 3,
+			'sqlExpression' => 'two_factor',
+			'viewFormats' => array(
+				'view' => array(
+					 
+				) 
+			),
+			'editFormats' => array(
+				'edit' => array(
+					 
+				) 
+			),
+			'tableName' => 'users' 
+		),
+		'totp' => array(
+			'name' => 'totp',
+			'goodName' => 'totp',
+			'strField' => 'totp',
+			'index' => 34,
+			'sqlExpression' => 'totp',
+			'viewFormats' => array(
+				'view' => array(
+					 
+				) 
+			),
+			'editFormats' => array(
+				'edit' => array(
+					 
+				) 
+			),
+			'tableName' => 'users' 
 		) 
 	),
 	'masterTables' => array( 
@@ -775,9 +854,14 @@ $this->settings["preferredCountries"] = "et";           // Preferred Country
 	reset_token,
 	reset_date,
 	is_doctor,
-	supervisor_id
+	supervisor_id,
+	ext_security_id,
+	userpic,
+	two_factor,
+	totp
 FROM
-	users',
+	users
+',
 		'parsed' => true,
 		'type' => 'SQLQuery',
 		'fieldList' => array( 
@@ -1230,6 +1314,66 @@ FROM
 				),
 				'encrypted' => false,
 				'columnName' => 'supervisor_id' 
+			),
+			array(
+				'sql' => 'ext_security_id',
+				'parsed' => true,
+				'type' => 'FieldListItem',
+				'alias' => '',
+				'expression' => array(
+					'sql' => '',
+					'parsed' => true,
+					'type' => 'SQLField',
+					'table' => 'users',
+					'name' => 'ext_security_id' 
+				),
+				'encrypted' => false,
+				'columnName' => 'ext_security_id' 
+			),
+			array(
+				'sql' => 'userpic',
+				'parsed' => true,
+				'type' => 'FieldListItem',
+				'alias' => '',
+				'expression' => array(
+					'sql' => '',
+					'parsed' => true,
+					'type' => 'SQLField',
+					'table' => 'users',
+					'name' => 'userpic' 
+				),
+				'encrypted' => false,
+				'columnName' => 'userpic' 
+			),
+			array(
+				'sql' => 'two_factor',
+				'parsed' => true,
+				'type' => 'FieldListItem',
+				'alias' => '',
+				'expression' => array(
+					'sql' => '',
+					'parsed' => true,
+					'type' => 'SQLField',
+					'table' => 'users',
+					'name' => 'two_factor' 
+				),
+				'encrypted' => false,
+				'columnName' => 'two_factor' 
+			),
+			array(
+				'sql' => 'totp',
+				'parsed' => true,
+				'type' => 'FieldListItem',
+				'alias' => '',
+				'expression' => array(
+					'sql' => '',
+					'parsed' => true,
+					'type' => 'SQLField',
+					'table' => 'users',
+					'name' => 'totp' 
+				),
+				'encrypted' => false,
+				'columnName' => 'totp' 
 			) 
 		),
 		'fromList' => array( 
@@ -1271,7 +1415,11 @@ FROM
 						'reset_token',
 						'reset_date',
 						'is_doctor',
-						'supervisor_id' 
+						'supervisor_id',
+						'userpic',
+						'ext_security_id',
+						'two_factor',
+						'totp' 
 					),
 					'name' => 'users' 
 				),
@@ -1535,6 +1683,34 @@ FROM
 				'groupByIndex' => -1,
 				'whereIndex' => -1,
 				'havingIndex' => -1 
+			),
+			array(
+				'fieldIndex' => 30,
+				'orderByIndex' => -1,
+				'groupByIndex' => -1,
+				'whereIndex' => -1,
+				'havingIndex' => -1 
+			),
+			array(
+				'fieldIndex' => 31,
+				'orderByIndex' => -1,
+				'groupByIndex' => -1,
+				'whereIndex' => -1,
+				'havingIndex' => -1 
+			),
+			array(
+				'fieldIndex' => 32,
+				'orderByIndex' => -1,
+				'groupByIndex' => -1,
+				'whereIndex' => -1,
+				'havingIndex' => -1 
+			),
+			array(
+				'fieldIndex' => 33,
+				'orderByIndex' => -1,
+				'groupByIndex' => -1,
+				'whereIndex' => -1,
+				'havingIndex' => -1 
 			) 
 		),
 		'headSql' => 'SELECT',
@@ -1567,7 +1743,11 @@ FROM
 	reset_token,
 	reset_date,
 	is_doctor,
-	supervisor_id',
+	supervisor_id,
+	ext_security_id,
+	userpic,
+	two_factor,
+	totp',
 		'fromListSql' => 'FROM
 	users',
 		'orderBySql' => '',
@@ -1662,7 +1842,10 @@ FROM
 			'reset_token',
 			'reset_date',
 			'is_doctor',
-			'supervisor_id' 
+			'supervisor_id',
+			'ext_security_id',
+			'two_factor',
+			'totp' 
 		),
 		'searchSuggest' => true,
 		'highlightSearchResults' => true,
@@ -1698,7 +1881,10 @@ FROM
 			'reset_token',
 			'reset_date',
 			'is_doctor',
-			'supervisor_id' 
+			'supervisor_id',
+			'ext_security_id',
+			'two_factor',
+			'totp' 
 		) 
 	),
 	'connId' => 'conn',
@@ -1776,7 +1962,11 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'reset_token' => 'Reset Token',
 		'reset_date' => 'Reset Date',
 		'is_doctor' => 'Is Doctor',
-		'supervisor_id' => 'Supervisor Id' 
+		'supervisor_id' => 'Supervisor Id',
+		'ext_security_id' => 'Ext Security Id',
+		'userpic' => 'Userpic',
+		'two_factor' => 'Two Factor',
+		'totp' => 'Totp' 
 	),
 	'fieldTooltips' => array(
 		'user_id' => '',
@@ -1808,7 +1998,11 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'reset_token' => '',
 		'reset_date' => '',
 		'is_doctor' => '',
-		'supervisor_id' => '' 
+		'supervisor_id' => '',
+		'ext_security_id' => '',
+		'userpic' => '',
+		'two_factor' => '',
+		'totp' => '' 
 	),
 	'fieldPlaceholders' => array(
 		'user_id' => '',
@@ -1840,7 +2034,11 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'reset_token' => '',
 		'reset_date' => '',
 		'is_doctor' => '',
-		'supervisor_id' => '' 
+		'supervisor_id' => '',
+		'ext_security_id' => '',
+		'userpic' => '',
+		'two_factor' => '',
+		'totp' => '' 
 	),
 	'pageTitles' => array(
 		 

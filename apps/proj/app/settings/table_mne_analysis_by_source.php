@@ -53,6 +53,7 @@ $runnerTableSettings['mne_analysis_by_source'] = array(
 	'afterEditDetails' => 'mne_analysis_by_source',
 	'afterAddDetail' => 'mne_analysis_by_source',
 	'detailsBadgeColor' => 'e67349',
+	'displayLoading' => true,
 	'sql' => 'SELECT
 	analysis_id,
 	source_type,

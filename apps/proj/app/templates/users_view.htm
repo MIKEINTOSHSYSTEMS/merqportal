@@ -961,6 +961,86 @@
 
 
 {END supervisor_id_fieldblock}
+											
+{BEGIN ext_security_id_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_ext_security_id}  r-vertical-field" 
+	data-signal-error-for="ext_security_id{$id}" {$required_attr_ext_security_id}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field30" {$item_integrated_edit_field30} data-pageid="{$pageid}" data-field="ext_security_id" data-fieldname="ext_security_id" >
+
+	<label class="r-edit-label control-label {$ext_security_id_label_class}" for="{$labelfor_ext_security_id}">
+		{BEGIN ext_security_id_label}
+			{$ext_security_id_forward_control}
+			{$label users ext_security_id }			{END ext_security_id_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$ext_security_id_value}	</div>
+	</div>
+
+
+{END ext_security_id_fieldblock}
+											
+{BEGIN userpic_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_userpic}  r-vertical-field" 
+	data-signal-error-for="userpic{$id}" {$required_attr_userpic}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field31" {$item_integrated_edit_field31} data-pageid="{$pageid}" data-field="userpic" data-fieldname="userpic" >
+
+	<label class="r-edit-label control-label {$userpic_label_class}" for="{$labelfor_userpic}">
+		{BEGIN userpic_label}
+			{$userpic_forward_control}
+			{$label users userpic }			{END userpic_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$userpic_value}	</div>
+	</div>
+
+
+{END userpic_fieldblock}
+											
+{BEGIN two_factor_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_two_factor}  r-vertical-field" 
+	data-signal-error-for="two_factor{$id}" {$required_attr_two_factor}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field32" {$item_integrated_edit_field32} data-pageid="{$pageid}" data-field="two_factor" data-fieldname="two_factor" >
+
+	<label class="r-edit-label control-label {$two_factor_label_class}" for="{$labelfor_two_factor}">
+		{BEGIN two_factor_label}
+			{$two_factor_forward_control}
+			{$label users two_factor }			{END two_factor_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$two_factor_value}	</div>
+	</div>
+
+
+{END two_factor_fieldblock}
+											
+{BEGIN totp_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_totp}  r-vertical-field" 
+	data-signal-error-for="totp{$id}" {$required_attr_totp}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field33" {$item_integrated_edit_field33} data-pageid="{$pageid}" data-field="totp" data-fieldname="totp" >
+
+	<label class="r-edit-label control-label {$totp_label_class}" for="{$labelfor_totp}">
+		{BEGIN totp_label}
+			{$totp_forward_control}
+			{$label users totp }			{END totp_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$totp_value}	</div>
+	</div>
+
+
+{END totp_fieldblock}
 	
 								</td>
 			{END cellblock_grid_c3}

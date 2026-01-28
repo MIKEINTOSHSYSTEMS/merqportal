@@ -9,7 +9,8 @@
 			'alternate_phone',
 			'first_name',
 			'middle_name',
-			'last_name' 
+			'last_name',
+			'userpic' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -41,6 +42,9 @@
 			),
 			'last_name' => array( 
 				'integrated_edit_field7' 
+			),
+			'userpic' => array( 
+				'user_picture' 
 			) 
 		) 
 	),
@@ -75,13 +79,20 @@
 					'user_fields_reset',
 					'user_fields_save',
 					'changepassword_link',
+					'user_picture',
 					'integrated_edit_field',
 					'integrated_edit_field1',
 					'integrated_edit_field7',
 					'integrated_edit_field3',
 					'integrated_edit_field4',
 					'integrated_edit_field5',
-					'integrated_edit_field6' 
+					'integrated_edit_field6',
+					'twofactor_settings',
+					'twofactor_label',
+					'twofactor_comment',
+					'twofactor_setup_comment',
+					'twofactor_continue',
+					'twofactor_skip' 
 				) 
 			),
 			'formXtTags' => array(
@@ -110,13 +121,20 @@
 				'user_fields_reset' => 'grid',
 				'user_fields_save' => 'grid',
 				'changepassword_link' => 'grid',
+				'user_picture' => 'grid',
 				'integrated_edit_field' => 'grid',
 				'integrated_edit_field1' => 'grid',
 				'integrated_edit_field7' => 'grid',
 				'integrated_edit_field3' => 'grid',
 				'integrated_edit_field4' => 'grid',
 				'integrated_edit_field5' => 'grid',
-				'integrated_edit_field6' => 'grid' 
+				'integrated_edit_field6' => 'grid',
+				'twofactor_settings' => 'grid',
+				'twofactor_label' => 'grid',
+				'twofactor_comment' => 'grid',
+				'twofactor_setup_comment' => 'grid',
+				'twofactor_continue' => 'grid',
+				'twofactor_skip' => 'grid' 
 			),
 			'itemLocations' => array(
 				'user_fields_title' => array(
@@ -140,6 +158,10 @@
 					'cellId' => 'buttons' 
 				),
 				'changepassword_link' => array(
+					'location' => 'grid',
+					'cellId' => 'fields' 
+				),
+				'user_picture' => array(
 					'location' => 'grid',
 					'cellId' => 'fields' 
 				),
@@ -170,6 +192,30 @@
 				'integrated_edit_field6' => array(
 					'location' => 'grid',
 					'cellId' => 'fields9' 
+				),
+				'twofactor_settings' => array(
+					'location' => 'grid',
+					'cellId' => '2factor' 
+				),
+				'twofactor_label' => array(
+					'location' => 'grid',
+					'cellId' => '2factor_label' 
+				),
+				'twofactor_comment' => array(
+					'location' => 'grid',
+					'cellId' => '2factor_label' 
+				),
+				'twofactor_setup_comment' => array(
+					'location' => 'grid',
+					'cellId' => '2factor_label' 
+				),
+				'twofactor_continue' => array(
+					'location' => 'grid',
+					'cellId' => '2factor_buttons' 
+				),
+				'twofactor_skip' => array(
+					'location' => 'grid',
+					'cellId' => '2factor_buttons' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -234,6 +280,27 @@
 			'adminarea_link' => array( 
 				'adminarea_link' 
 			),
+			'user_picture' => array( 
+				'user_picture' 
+			),
+			'twofactor_settings' => array( 
+				'twofactor_settings' 
+			),
+			'twofactor_comment' => array( 
+				'twofactor_comment' 
+			),
+			'twofactor_setup_comment' => array( 
+				'twofactor_setup_comment' 
+			),
+			'twofactor_label' => array( 
+				'twofactor_label' 
+			),
+			'twofactor_continue' => array( 
+				'twofactor_continue' 
+			),
+			'twofactor_skip' => array( 
+				'twofactor_skip' 
+			),
 			'expand_button' => array( 
 				'expand_button' 
 			) 
@@ -241,12 +308,67 @@
 		'cellMaps' => array(
 			'grid' => array(
 				'cells' => array(
+					'2factor_label' => array(
+						'cols' => array( 
+							0,
+							1 
+						),
+						'rows' => array( 
+							0 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'twofactor_label',
+							'twofactor_comment',
+							'twofactor_setup_comment' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'2factor' => array(
+						'cols' => array( 
+							0,
+							1 
+						),
+						'rows' => array( 
+							1 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'twofactor_settings' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'2factor_buttons' => array(
+						'cols' => array( 
+							0,
+							1 
+						),
+						'rows' => array( 
+							2 
+						),
+						'tags' => array( 
+							'twofactor_continue',
+							'twofactor_skip' 
+						),
+						'items' => array( 
+							'twofactor_continue',
+							'twofactor_skip' 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
+					),
 					'fields_message' => array(
 						'cols' => array( 
 							0 
 						),
 						'rows' => array( 
-							0 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -264,7 +386,7 @@
 							1 
 						),
 						'rows' => array( 
-							0 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -281,7 +403,7 @@
 							0 
 						),
 						'rows' => array( 
-							1 
+							4 
 						),
 						'tags' => array( 
 							 
@@ -297,7 +419,7 @@
 							1 
 						),
 						'rows' => array( 
-							1 
+							4 
 						),
 						'tags' => array( 
 							 
@@ -313,7 +435,7 @@
 							0 
 						),
 						'rows' => array( 
-							2 
+							5 
 						),
 						'tags' => array( 
 							 
@@ -329,7 +451,7 @@
 							1 
 						),
 						'rows' => array( 
-							2 
+							5 
 						),
 						'tags' => array( 
 							 
@@ -345,7 +467,7 @@
 							0 
 						),
 						'rows' => array( 
-							3 
+							6 
 						),
 						'tags' => array( 
 							 
@@ -361,7 +483,7 @@
 							1 
 						),
 						'rows' => array( 
-							3 
+							6 
 						),
 						'tags' => array( 
 							 
@@ -377,15 +499,16 @@
 							0 
 						),
 						'rows' => array( 
-							4 
+							7 
 						),
 						'tags' => array( 
-							'changepwd_link' 
+							 
 						),
 						'items' => array( 
-							'changepassword_link' 
+							'changepassword_link',
+							'user_picture' 
 						),
-						'fixedAtServer' => false,
+						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
 					'fields2' => array(
@@ -393,7 +516,7 @@
 							1 
 						),
 						'rows' => array( 
-							4 
+							7 
 						),
 						'tags' => array( 
 							 
@@ -409,7 +532,7 @@
 							0 
 						),
 						'rows' => array( 
-							5 
+							8 
 						),
 						'tags' => array( 
 							 
@@ -426,7 +549,7 @@
 							1 
 						),
 						'rows' => array( 
-							5 
+							8 
 						),
 						'tags' => array( 
 							 
@@ -439,7 +562,7 @@
 					) 
 				),
 				'width' => 2,
-				'height' => 6 
+				'height' => 9 
 			) 
 		) 
 	),
@@ -644,6 +767,33 @@
 				array(
 					'cells' => array( 
 						array(
+							'cell' => '2factor_label',
+							'colspan' => 2 
+						) 
+					),
+					'section' => '' 
+				),
+				array(
+					'cells' => array( 
+						array(
+							'cell' => '2factor',
+							'colspan' => 2 
+						) 
+					),
+					'section' => '' 
+				),
+				array(
+					'cells' => array( 
+						array(
+							'cell' => '2factor_buttons',
+							'colspan' => 2 
+						) 
+					),
+					'section' => '' 
+				),
+				array(
+					'cells' => array( 
+						array(
 							'cell' => 'fields_message' 
 						),
 						array(
@@ -727,7 +877,8 @@
 				'fields' => array(
 					'model' => 'fields',
 					'items' => array( 
-						'changepassword_link' 
+						'changepassword_link',
+						'user_picture' 
 					) 
 				),
 				'fields1' => array(
@@ -783,6 +934,27 @@
 					'model' => 'fields',
 					'items' => array( 
 						'integrated_edit_field6' 
+					) 
+				),
+				'2factor' => array(
+					'model' => '2factor',
+					'items' => array( 
+						'twofactor_settings' 
+					) 
+				),
+				'2factor_label' => array(
+					'model' => '2factor_label',
+					'items' => array( 
+						'twofactor_label',
+						'twofactor_comment',
+						'twofactor_setup_comment' 
+					) 
+				),
+				'2factor_buttons' => array(
+					'model' => '2factor_buttons',
+					'items' => array( 
+						'twofactor_continue',
+						'twofactor_skip' 
 					) 
 				) 
 			),
@@ -886,6 +1058,30 @@
 			'field' => 'last_name',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0 
+		),
+		'user_picture' => array(
+			'type' => 'user_picture',
+			'field' => 'userpic',
+			'orientation' => 0 
+		),
+		'twofactor_settings' => array(
+			'type' => 'twofactor_settings' 
+		),
+		'twofactor_comment' => array(
+			'type' => 'twofactor_comment' 
+		),
+		'twofactor_setup_comment' => array(
+			'type' => 'twofactor_setup_comment' 
+		),
+		'twofactor_label' => array(
+			'type' => 'twofactor_label',
+			'font-size' => '24px' 
+		),
+		'twofactor_continue' => array(
+			'type' => 'twofactor_continue' 
+		),
+		'twofactor_skip' => array(
+			'type' => 'twofactor_skip' 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

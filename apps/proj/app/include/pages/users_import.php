@@ -31,7 +31,10 @@
 			'reset_token',
 			'reset_date',
 			'is_doctor',
-			'supervisor_id' 
+			'supervisor_id',
+			'ext_security_id',
+			'two_factor',
+			'totp' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -129,6 +132,15 @@
 			),
 			'supervisor_id' => array( 
 				'import_field29' 
+			),
+			'ext_security_id' => array( 
+				'import_field30' 
+			),
+			'two_factor' => array( 
+				'import_field31' 
+			),
+			'totp' => array( 
+				'import_field32' 
 			) 
 		) 
 	),
@@ -177,7 +189,10 @@
 					'import_field26',
 					'import_field27',
 					'import_field28',
-					'import_field29' 
+					'import_field29',
+					'import_field30',
+					'import_field31',
+					'import_field32' 
 				) 
 			),
 			'formXtTags' => array(
@@ -216,7 +231,10 @@
 				'import_field26' => 'grid',
 				'import_field27' => 'grid',
 				'import_field28' => 'grid',
-				'import_field29' => 'grid' 
+				'import_field29' => 'grid',
+				'import_field30' => 'grid',
+				'import_field31' => 'grid',
+				'import_field32' => 'grid' 
 			),
 			'itemLocations' => array(
 				 
@@ -259,7 +277,10 @@
 				'import_field26',
 				'import_field27',
 				'import_field28',
-				'import_field29' 
+				'import_field29',
+				'import_field30',
+				'import_field31',
+				'import_field32' 
 			) 
 		),
 		'cellMaps' => array(
@@ -416,7 +437,10 @@
 						'import_field26',
 						'import_field27',
 						'import_field28',
-						'import_field29' 
+						'import_field29',
+						'import_field30',
+						'import_field31',
+						'import_field32' 
 					) 
 				) 
 			),
@@ -548,6 +572,18 @@
 		),
 		'import_field29' => array(
 			'field' => 'supervisor_id',
+			'type' => 'import_field' 
+		),
+		'import_field30' => array(
+			'field' => 'ext_security_id',
+			'type' => 'import_field' 
+		),
+		'import_field31' => array(
+			'field' => 'two_factor',
+			'type' => 'import_field' 
+		),
+		'import_field32' => array(
+			'field' => 'totp',
 			'type' => 'import_field' 
 		) 
 	),

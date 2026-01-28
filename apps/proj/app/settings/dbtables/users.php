@@ -387,6 +387,50 @@ $runnerDbTableInfo['users'] = array(
 			'autoinc' => false,
 			'defaultValueSQL' => null,
 			'defaultValue' => '' 
+		),
+		array(
+			'name' => 'userpic',
+			'type' => 205,
+			'size' => 0,
+			'scale' => 0,
+			'typeName' => 'longblob',
+			'nullable' => true,
+			'autoinc' => false,
+			'defaultValueSQL' => null,
+			'defaultValue' => '' 
+		),
+		array(
+			'name' => 'ext_security_id',
+			'type' => 200,
+			'size' => 100,
+			'scale' => 0,
+			'typeName' => 'varchar(100)',
+			'nullable' => true,
+			'autoinc' => false,
+			'defaultValueSQL' => null,
+			'defaultValue' => '' 
+		),
+		array(
+			'name' => 'two_factor',
+			'type' => 3,
+			'size' => 100,
+			'scale' => 0,
+			'typeName' => 'int(100)',
+			'nullable' => true,
+			'autoinc' => false,
+			'defaultValueSQL' => null,
+			'defaultValue' => '' 
+		),
+		array(
+			'name' => 'totp',
+			'type' => 200,
+			'size' => 100,
+			'scale' => 0,
+			'typeName' => 'varchar(100)',
+			'nullable' => true,
+			'autoinc' => false,
+			'defaultValueSQL' => null,
+			'defaultValue' => '' 
 		) 
 	),
 	'primaryKeys' => array( 

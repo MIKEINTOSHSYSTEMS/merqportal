@@ -253,13 +253,33 @@ $runnerProjectSettings = array(
 				'usernameField' => 'username',
 				'passwordField' => 'password_hash',
 				'emailField' => 'email',
-				'extUserIdField' => null,
+				'extUserIdField' => 'ext_security_id',
 				'fullnameField' => 'full_name',
-				'userpicField' => '',
+				'userpicField' => 'userpic',
 				'activationField' => 'is_active',
 				'resetTokenField' => 'reset_token',
 				'resetDateField' => 'reset_date',
-				'userGroupField' => 'username' 
+				'userGroupField' => 'username',
+				'twoFactorField' => 'two_factor',
+				'codeField' => 'totp',
+				'phoneField' => 'phone' 
+			),
+			array(
+				'scope' => 'openid profile email ',
+				'nameClaim' => 'name',
+				'emailClaim' => 'email',
+				'logOut' => false,
+				'type' => '%google',
+				'name' => 'google',
+				'active' => true,
+				'label' => array(
+					'text' => 'Google',
+					'type' => 0 
+				),
+				'code' => 'go',
+				'clientId' => '275218258195-ehd0ofm0b2kkvs1m1if95ag36i9q6hp2.apps.googleusercontent.com',
+				'clientSecret' => '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',
+				'domain' => 'merqconsultancy.org' 
 			) 
 		),
 		'enabled' => true,
@@ -594,18 +614,19 @@ $runnerProjectSettings = array(
 			) 
 		),
 		'twoFactorSettings' => array(
-			'available' => false,
+			'available' => true,
 			'required' => false,
 			'enable' => true,
 			'remember' => true,
 			'types' => array(
-				 
+				'totp' => true,
+				'email' => true 
 			),
-			'twoFactorField' => '',
-			'emailField' => '',
-			'phoneField' => '',
-			'codeField' => '',
-			'projectName' => '' 
+			'twoFactorField' => 'two_factor',
+			'emailField' => 'email',
+			'phoneField' => 'phone',
+			'codeField' => 'totp',
+			'projectName' => 'MERQ Portal' 
 		),
 		'staticPermissions' => array(
 			'groups' => array(
@@ -1088,20 +1109,24 @@ $runnerProjectSettings = array(
 			'usernameField' => 'username',
 			'passwordField' => 'password_hash',
 			'emailField' => 'email',
-			'extUserIdField' => null,
+			'extUserIdField' => 'ext_security_id',
 			'fullnameField' => 'full_name',
-			'userpicField' => '',
+			'userpicField' => 'userpic',
 			'activationField' => 'is_active',
 			'resetTokenField' => 'reset_token',
 			'resetDateField' => 'reset_date',
-			'userGroupField' => 'username' 
+			'userGroupField' => 'username',
+			'twoFactorField' => 'two_factor',
+			'codeField' => 'totp',
+			'phoneField' => 'phone' 
 		),
 		'adAdminGroups' => array( 
 			 
 		),
-		'showUserSource' => false,
+		'showUserSource' => true,
 		'dbProviderCodes' => array( 
-			'00' 
+			'00',
+			'go' 
 		) 
 	),
 	'notifications' => array(
@@ -2150,7 +2175,7 @@ $runnerProjectSettings = array(
 		'table' => '' 
 	),
 	'wizardBuild' => '43785',
-	'projectBuild' => 'HvlyW6FF6QpE',
+	'projectBuild' => 'ALeD9CZYc8Bq',
 	'projectTheme' => 'flatly',
 	'projectSize' => 'normal',
 	'customErrorMsg' => array(

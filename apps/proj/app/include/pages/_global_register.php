@@ -879,8 +879,8 @@
 		'shadow' => false,
 		'fullSize' => true,
 		'image' => array(
-			'source' => 3,
-			'image' => 'pexels-pixabay-326337.jpg' 
+			'source' => 1,
+			'image' => 'matheus-negrao-2oQAi9M6cVY-unsplash.jpg' 
 		) 
 	),
 	'imageBgColor' => '#f2f2f2',

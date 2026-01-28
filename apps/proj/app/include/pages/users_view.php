@@ -72,7 +72,11 @@
 			'reset_token',
 			'reset_date',
 			'is_doctor',
-			'supervisor_id' 
+			'supervisor_id',
+			'ext_security_id',
+			'userpic',
+			'two_factor',
+			'totp' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -170,6 +174,18 @@
 			),
 			'supervisor_id' => array( 
 				'integrated_edit_field29' 
+			),
+			'ext_security_id' => array( 
+				'integrated_edit_field30' 
+			),
+			'userpic' => array( 
+				'integrated_edit_field31' 
+			),
+			'two_factor' => array( 
+				'integrated_edit_field32' 
+			),
+			'totp' => array( 
+				'integrated_edit_field33' 
 			) 
 		) 
 	),
@@ -234,7 +250,11 @@
 					'integrated_edit_field26',
 					'integrated_edit_field27',
 					'integrated_edit_field28',
-					'integrated_edit_field29' 
+					'integrated_edit_field29',
+					'integrated_edit_field30',
+					'integrated_edit_field31',
+					'integrated_edit_field32',
+					'integrated_edit_field33' 
 				) 
 			),
 			'formXtTags' => array(
@@ -283,7 +303,11 @@
 				'integrated_edit_field26' => 'grid',
 				'integrated_edit_field27' => 'grid',
 				'integrated_edit_field28' => 'grid',
-				'integrated_edit_field29' => 'grid' 
+				'integrated_edit_field29' => 'grid',
+				'integrated_edit_field30' => 'grid',
+				'integrated_edit_field31' => 'grid',
+				'integrated_edit_field32' => 'grid',
+				'integrated_edit_field33' => 'grid' 
 			),
 			'itemLocations' => array(
 				'integrated_edit_field' => array(
@@ -405,6 +429,22 @@
 				'integrated_edit_field29' => array(
 					'location' => 'grid',
 					'cellId' => 'c3' 
+				),
+				'integrated_edit_field30' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field31' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field32' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field33' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -458,7 +498,11 @@
 				'integrated_edit_field26',
 				'integrated_edit_field27',
 				'integrated_edit_field28',
-				'integrated_edit_field29' 
+				'integrated_edit_field29',
+				'integrated_edit_field30',
+				'integrated_edit_field31',
+				'integrated_edit_field32',
+				'integrated_edit_field33' 
 			),
 			'logo' => array( 
 				'logo' 
@@ -537,7 +581,11 @@
 							'integrated_edit_field26',
 							'integrated_edit_field27',
 							'integrated_edit_field28',
-							'integrated_edit_field29' 
+							'integrated_edit_field29',
+							'integrated_edit_field30',
+							'integrated_edit_field31',
+							'integrated_edit_field32',
+							'integrated_edit_field33' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
@@ -818,7 +866,11 @@
 						'integrated_edit_field26',
 						'integrated_edit_field27',
 						'integrated_edit_field28',
-						'integrated_edit_field29' 
+						'integrated_edit_field29',
+						'integrated_edit_field30',
+						'integrated_edit_field31',
+						'integrated_edit_field32',
+						'integrated_edit_field33' 
 					) 
 				) 
 			),
@@ -1035,6 +1087,26 @@
 		),
 		'adminarea_link' => array(
 			'type' => 'adminarea_link' 
+		),
+		'integrated_edit_field30' => array(
+			'field' => 'ext_security_id',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field31' => array(
+			'field' => 'userpic',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field32' => array(
+			'field' => 'two_factor',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field33' => array(
+			'field' => 'totp',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

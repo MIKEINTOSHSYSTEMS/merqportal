@@ -75,7 +75,11 @@
 	
 ">
 		{BEGIN firstAboveGridCell}
-				{END firstAboveGridCell}	
+		 
+		<div class="alert alert-success" data-itemtype="twofactor_message" data-itemid="twofactor_message" {$item_twofactor_message} data-pageid="{$pageid}" > 
+	{$twofactor_message}
+</div>
+			{END firstAboveGridCell}	
 	</div>					</div>
 			 
 				<div class="row">
@@ -138,9 +142,52 @@
 		<div class="text-muted" >
 		</div>
 	</div>	
-</div></td>
+</div> 
+{BEGIN twofactor_code_message}
+<span data-itemtype="auth_code_message" data-itemid="auth_code_message" {$item_auth_code_message} data-pageid="{$pageid}" >
+{mlang_message TWOFACTOR_CODE}</span>
+{END twofactor_code_message}
+ 
+<div class="r-edit-field" data-itemtype="auth_code" data-itemid="auth_code" {$item_auth_code} data-pageid="{$pageid}" id="userCodeField{$id}" >
+	<input class="form-control" id="userCode{$id}" type="text">
+</div>
+	</td>
 							</tr>
 											<tr {$row_grid_3} >
+									<td 
+	class="r-align-right			"
+	colspan="2"		 
+	data-cellId="grid_c11" data-pageid="{$pageid}" data-page="_global_login">
+ 
+{BEGIN twofactor_altemail}
+<span data-itemtype="auth_altemail" data-itemid="auth_altemail" {$item_auth_altemail} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-link   
+	" data-action="change2f" data-method=0 >
+					<span class="far fa-envelope"></span>
+							{mlang_message EMAIL}			</a>
+</span>
+{END twofactor_altemail}
+ 
+{BEGIN twofactor_altphone}
+<span data-itemtype="auth_altphone" data-itemid="auth_altphone" {$item_auth_altphone} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-link   
+	" data-action="change2f" data-method=1 >
+					<span class="fas fa-phone"></span>
+							{mlang_message TWOFACTOR_TEXT}			</a>
+</span>
+{END twofactor_altphone}
+ 
+{BEGIN twofactor_altapp}
+<span data-itemtype="auth_altapp" data-itemid="auth_altapp" {$item_auth_altapp} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-link   
+	" data-action="change2f" data-method=2 >
+					<span class="fa fa-mobile-phone"></span>
+							{mlang_message TWOFACTOR_APP}			</a>
+</span>
+{END twofactor_altapp}
+</td>
+							</tr>
+											<tr {$row_grid_4} >
 									<td 
 	class=" r-ori-vert			"
 			 
@@ -149,6 +196,10 @@
 <div class="checkbox r-edit-field" data-itemtype="remember_password" data-itemid="remember_password" {$item_remember_password} data-pageid="{$pageid}" >
 	<label>
 		<input type="checkbox" id="remember_password{$id}" name="remember_password" value="1" {$rememberbox_attrs}> {mlang_message REMEMBER_ME}	</label>
+</div> 
+<div class="checkbox r-edit-field" data-itemtype="remember_machine" data-itemid="remember_machine" {$item_remember_machine} data-pageid="{$pageid}" >
+	<label>
+		<input type="checkbox" id="remember_machine{$id}" name="remember_machine" value="1" {$remembermachine_attrs}> {mlang_message REMEMBER_MACHINE}	</label>
 </div></td>
 									<td 
 	class="r-align-right r-ori-vert			"
@@ -174,7 +225,7 @@
 			
 								<tr {$row_footer_0} >
 									<td 
-	class=" r-ori-vert			"
+	class="			"
 			 
 	data-cellId="footer_c1" data-pageid="{$pageid}">
  
@@ -182,9 +233,30 @@
 <span data-itemtype="login_button" data-itemid="login_button" {$item_login_button} data-pageid="{$pageid}" data-small data-button-item>
 	<a type="button" title="" class="btn btn-primary   
 	" {$loginlink_attrs} >
+					<span class=""></span>
 							{mlang_message SIGN_IN}			</a>
 </span>
 {END signin_button}
+ 
+{BEGIN continue_button}
+<span data-itemtype="continue_login_button" data-itemid="continue_login_button" {$item_continue_login_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-primary   
+	" {$continuebutton_attrs} >
+							{mlang_message CONTINUE}			</a>
+</span>
+{END continue_button}
+ 
+<span data-itemtype="verify_button" data-itemid="verify_button" {$item_verify_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-primary   
+	" id="verifyCode{$id}" {$verifyButtonClass} >
+							{mlang_message VERIFY}			</a>
+</span>
+ 
+<span data-itemtype="resend_button" data-itemid="resend_button" {$item_resend_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-default   
+	" id="resendCode{$id}" {$resendButtonClass} >
+							{mlang_message RESENT_CODE}			</a>
+</span>
 </td>
 									<td 
 	class="r-align-right r-ori-vert			"
@@ -196,6 +268,45 @@
 	" {$forgotpasswordlink_attrs} href="remind.php" >
 							{mlang_message FORGOT}			</a>
 </span>
+</td>
+							</tr>
+											<tr {$row_footer_1} >
+									<td 
+	class=" r-ori-vert			"
+	colspan="2"		 
+	data-cellId="footer_c4" data-pageid="{$pageid}">
+ 
+<span data-itemtype="text" data-itemid="text" {$item_text} data-pageid="{$pageid}" > 
+	<br></span>
+</td>
+							</tr>
+											<tr {$row_footer_2} >
+									<td 
+	class=" r-ori-vert			"
+	colspan="2"		 
+	data-cellId="footer_c3" data-pageid="{$pageid}">
+ 
+<span data-itemtype="login_external" data-itemid="login_external" {$item_login_external} data-pageid="{$pageid}" data-page="_global_login" data-small data-button-item>
+	<a type="button" title="You will be able to login automatically using your existing MERQ Consultancy's email address!" class="btn btn-primary   
+	" data-provider="go" >
+					<img src="{$file_url images/menuicons/google-icon-logo-32.svg}" />
+							{$mlp_push}{$mlparam provider text Google}{$mltext \_Login\_with\_MERQ's\_%provider%\_Workspace\_}{$mlp_pop}			</a>
+</span>
+</td>
+							</tr>
+											<tr {$row_footer_3} >
+									<td 
+	class=" r-ori-vert			"
+	colspan="2"		 
+	data-cellId="footer_c" data-pageid="{$pageid}">
+ 
+{BEGIN google_signin}
+<span data-itemtype="login_google" data-itemid="login_google" {$item_login_google} data-pageid="{$pageid}">
+	<span  >
+		<div id="signinButton{$id}" data-width="200" data-height="28" data-size="medium">Sign in with Google</div>
+	</span>
+</span>
+{END google_signin}
 </td>
 							</tr>
 					
@@ -227,7 +338,7 @@
 			</div>
 			<div class="r-sideimage">
 							<div class="r-image"  >
-					<img data-itemtype="page_image" data-itemid="page_image_ash8f23hr" {$item_page_image_ash8f23hr} data-pageid="{$pageid}" src="images/clipart/bgphoto/pexels-alexandr-podvalny-3800060.jpg" />
+					<img data-itemtype="page_image" data-itemid="page_image_ash8f23hr" {$item_page_image_ash8f23hr} data-pageid="{$pageid}" src="images/clipart/photo/windows-SwHvzwEzCfA-unsplash.jpg" />
 				</div>
 						</div>
 		</div>

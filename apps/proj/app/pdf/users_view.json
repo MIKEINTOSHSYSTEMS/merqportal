@@ -256,6 +256,18 @@ pdfDocument = {
 				
 			{"hidden":"{$item_hide_integrated_edit_field29}","stack":[{"text":"{$jslabel users supervisor_id }","bold":true},{"text":{$supervisor_id_pdfvalue}}],"margin":[0,0,0,15]},
 				
+				
+			{"hidden":"{$item_hide_integrated_edit_field30}","stack":[{"text":"{$jslabel users ext_security_id }","bold":true},{"text":{$ext_security_id_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field31}","stack":[{"text":"{$jslabel users userpic }","bold":true},{"text":{$userpic_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field32}","stack":[{"text":"{$jslabel users two_factor }","bold":true},{"text":{$two_factor_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field33}","stack":[{"text":"{$jslabel users totp }","bold":true},{"text":{$totp_pdfvalue}}],"margin":[0,0,0,15]},
+				
 		  ],
   "border": [ false, false, false, false ],
               "alignment": 'left',
