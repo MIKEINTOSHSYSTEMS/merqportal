@@ -25,7 +25,6 @@
 					'login_message' 
 				),
 				'top' => array( 
-					'image',
 					'login-logo',
 					'login_welcome' 
 				),
@@ -64,7 +63,6 @@
 			'itemForms' => array(
 				'twofactor_message' => 'above-grid',
 				'login_message' => 'above-grid',
-				'image' => 'top',
 				'login-logo' => 'top',
 				'login_welcome' => 'top',
 				'remember_password' => 'grid',
@@ -175,9 +173,6 @@
 			),
 			'auth_altapp' => array( 
 				'auth_altapp' 
-			),
-			'image' => array( 
-				'image' 
 			) 
 		),
 		'cellMaps' => array(
@@ -281,10 +276,8 @@
 				array(
 					'cells' => array( 
 						array(
-							'cell' => 'c1' 
-						),
-						array(
-							'cell' => 'c2' 
+							'cell' => 'c1',
+							'colspan' => 1 
 						) 
 					),
 					'section' => '' 
@@ -293,7 +286,7 @@
 					'cells' => array( 
 						array(
 							'cell' => 'c3',
-							'colspan' => 2 
+							'colspan' => 1 
 						) 
 					),
 					'section' => '' 
@@ -303,19 +296,14 @@
 				'c1' => array(
 					'model' => 'c1',
 					'items' => array( 
-						'image' 
-					) 
-				),
-				'c2' => array(
-					'model' => 'c2',
-					'items' => array( 
-						 
-					) 
+						'login-logo' 
+					),
+					'background' => '#001f3f',
+					'align' => 'center' 
 				),
 				'c3' => array(
 					'model' => 'c3',
 					'items' => array( 
-						'login-logo',
 						'login_welcome' 
 					) 
 				) 
@@ -642,16 +630,6 @@
 		),
 		'auth_altapp' => array(
 			'type' => 'auth_altapp' 
-		),
-		'image' => array(
-			'type' => 'image',
-			'image' => array(
-				'image' => 'merq.png',
-				'source' => 2 
-			),
-			'width' => '400px',
-			'height' => '',
-			'mobileDisplay' => 'both' 
 		) 
 	),
 	'dbProps' => array(

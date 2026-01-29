@@ -1,3 +1,6 @@
+[data-cellid="top_c1"][data-page="_global_login"][data-cellid="top_c1"][data-page="_global_login"][data-cellid="top_c1"][data-page="_global_login"] {
+  background-color: #001f3f;
+}
 [data-cellid="grid_c11"][data-page="_global_login"][data-cellid="grid_c11"][data-page="_global_login"][data-cellid="grid_c11"][data-page="_global_login"] {
   padding-top: 5px;
 }
@@ -11,9 +14,6 @@
 [data-page="_global_login"][data-itemid="login_external"] > .btn {
   font-weight: bold;
   font-size: 17px;
-}
-[data-page="_global_login"][data-itemid="image"] {
-  width: 400px;
 }
 
 
