@@ -13,7 +13,8 @@
 			'last_name',
 			'phone',
 			'alternate_phone',
-			'full_name' 
+			'full_name',
+			'is_doctor' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -51,6 +52,9 @@
 			),
 			'full_name' => array( 
 				'integrated_edit_field8' 
+			),
+			'is_doctor' => array( 
+				'integrated_edit_field9' 
 			) 
 		) 
 	),
@@ -58,28 +62,36 @@
 		'formItems' => array(
 			'formItems' => array(
 				'above-grid' => array( 
-					'register_message' 
+					'register_message',
+					'step_nav' 
 				),
 				'top' => array( 
-					'register_header' 
+					'register_header',
+					'image' 
 				),
 				'footer' => array( 
+					'next_step',
 					'register_save',
 					'back_to_login',
 					'register_reset' 
 				),
 				'grid' => array( 
 					'integrated_edit_field3',
-					'integrated_edit_field',
-					'integrated_edit_field4',
-					'integrated_edit_field2',
-					'integrated_edit_field6',
-					'integrated_edit_field7',
-					'integrated_edit_field1',
-					'integrated_confirm_password',
-					'captcha',
 					'integrated_edit_field5',
-					'integrated_edit_field8' 
+					'integrated_edit_field4',
+					'integrated_edit_field8',
+					'integrated_edit_field9' 
+				),
+				'step2' => array( 
+					'integrated_edit_field',
+					'integrated_edit_field2',
+					'integrated_edit_field7',
+					'integrated_edit_field6' 
+				),
+				'step3' => array( 
+					'integrated_edit_field1',
+					'captcha',
+					'integrated_confirm_password' 
 				) 
 			),
 			'formXtTags' => array(
@@ -87,66 +99,74 @@
 			),
 			'itemForms' => array(
 				'register_message' => 'above-grid',
+				'step_nav' => 'above-grid',
 				'register_header' => 'top',
+				'image' => 'top',
+				'next_step' => 'footer',
 				'register_save' => 'footer',
 				'back_to_login' => 'footer',
 				'register_reset' => 'footer',
 				'integrated_edit_field3' => 'grid',
-				'integrated_edit_field' => 'grid',
-				'integrated_edit_field4' => 'grid',
-				'integrated_edit_field2' => 'grid',
-				'integrated_edit_field6' => 'grid',
-				'integrated_edit_field7' => 'grid',
-				'integrated_edit_field1' => 'grid',
-				'integrated_confirm_password' => 'grid',
-				'captcha' => 'grid',
 				'integrated_edit_field5' => 'grid',
-				'integrated_edit_field8' => 'grid' 
+				'integrated_edit_field4' => 'grid',
+				'integrated_edit_field8' => 'grid',
+				'integrated_edit_field9' => 'grid',
+				'integrated_edit_field' => 'step2',
+				'integrated_edit_field2' => 'step2',
+				'integrated_edit_field7' => 'step2',
+				'integrated_edit_field6' => 'step2',
+				'integrated_edit_field1' => 'step3',
+				'captcha' => 'step3',
+				'integrated_confirm_password' => 'step3' 
 			),
 			'itemLocations' => array(
 				'integrated_edit_field3' => array(
 					'location' => 'grid',
-					'cellId' => 'c' 
-				),
-				'integrated_edit_field' => array(
-					'location' => 'grid',
-					'cellId' => 'c4' 
-				),
-				'integrated_edit_field4' => array(
-					'location' => 'grid',
-					'cellId' => 'c1' 
-				),
-				'integrated_edit_field2' => array(
-					'location' => 'grid',
-					'cellId' => 'c2' 
-				),
-				'integrated_edit_field6' => array(
-					'location' => 'grid',
-					'cellId' => 'c6' 
-				),
-				'integrated_edit_field7' => array(
-					'location' => 'grid',
-					'cellId' => 'c7' 
-				),
-				'integrated_edit_field1' => array(
-					'location' => 'grid',
-					'cellId' => 'c8' 
-				),
-				'integrated_confirm_password' => array(
-					'location' => 'grid',
-					'cellId' => 'c9' 
-				),
-				'captcha' => array(
-					'location' => 'grid',
-					'cellId' => 'c12' 
+					'cellId' => 'c18' 
 				),
 				'integrated_edit_field5' => array(
 					'location' => 'grid',
-					'cellId' => 'c14' 
+					'cellId' => 'c22' 
+				),
+				'integrated_edit_field4' => array(
+					'location' => 'grid',
+					'cellId' => 'c24' 
 				),
 				'integrated_edit_field8' => array(
 					'location' => 'grid',
-					'cellId' => 'c15' 
+					'cellId' => 'c25' 
+				),
+				'integrated_edit_field9' => array(
+					'location' => 'grid',
+					'cellId' => 'c' 
+				),
+				'integrated_edit_field' => array(
+					'location' => 'step2',
+					'cellId' => 'c1' 
+				),
+				'integrated_edit_field2' => array(
+					'location' => 'step2',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field7' => array(
+					'location' => 'step2',
+					'cellId' => 'c4' 
+				),
+				'integrated_edit_field6' => array(
+					'location' => 'step2',
+					'cellId' => 'c5' 
+				),
+				'integrated_edit_field1' => array(
+					'location' => 'step3',
+					'cellId' => 'c1' 
+				),
+				'captcha' => array(
+					'location' => 'step3',
+					'cellId' => 'c' 
+				),
+				'integrated_confirm_password' => array(
+					'location' => 'step3',
+					'cellId' => 'c2' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -178,13 +198,23 @@
 				'integrated_edit_field5',
 				'integrated_edit_field6',
 				'integrated_edit_field7',
-				'integrated_edit_field8' 
+				'integrated_edit_field8',
+				'integrated_edit_field9' 
 			),
 			'integrated_confirm_password' => array( 
 				'integrated_confirm_password' 
 			),
 			'captcha' => array( 
 				'captcha' 
+			),
+			'next_step' => array( 
+				'next_step' 
+			),
+			'step_nav' => array( 
+				'step_nav' 
+			),
+			'image' => array( 
+				'image' 
 			) 
 		),
 		'cellMaps' => array(
@@ -201,17 +231,33 @@
 							 
 						),
 						'items' => array( 
+							'integrated_edit_field9' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'c18' => array(
+						'cols' => array( 
+							0 
+						),
+						'rows' => array( 
+							1 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
 							'integrated_edit_field3' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
-					'c1' => array(
+					'c24' => array(
 						'cols' => array( 
-							1 
+							0 
 						),
 						'rows' => array( 
-							0 
+							2 
 						),
 						'tags' => array( 
 							 
@@ -222,71 +268,7 @@
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
-					'c14' => array(
-						'cols' => array( 
-							0 
-						),
-						'rows' => array( 
-							1 
-						),
-						'tags' => array( 
-							 
-						),
-						'items' => array( 
-							'integrated_edit_field5' 
-						),
-						'fixedAtServer' => true,
-						'fixedAtClient' => false 
-					),
-					'c15' => array(
-						'cols' => array( 
-							1 
-						),
-						'rows' => array( 
-							1 
-						),
-						'tags' => array( 
-							 
-						),
-						'items' => array( 
-							'integrated_edit_field8' 
-						),
-						'fixedAtServer' => true,
-						'fixedAtClient' => false 
-					),
-					'c4' => array(
-						'cols' => array( 
-							0 
-						),
-						'rows' => array( 
-							2 
-						),
-						'tags' => array( 
-							 
-						),
-						'items' => array( 
-							'integrated_edit_field' 
-						),
-						'fixedAtServer' => true,
-						'fixedAtClient' => false 
-					),
-					'c2' => array(
-						'cols' => array( 
-							1 
-						),
-						'rows' => array( 
-							2 
-						),
-						'tags' => array( 
-							 
-						),
-						'items' => array( 
-							'integrated_edit_field2' 
-						),
-						'fixedAtServer' => true,
-						'fixedAtClient' => false 
-					),
-					'c6' => array(
+					'c22' => array(
 						'cols' => array( 
 							0 
 						),
@@ -297,14 +279,84 @@
 							 
 						),
 						'items' => array( 
+							'integrated_edit_field5' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'c25' => array(
+						'cols' => array( 
+							0 
+						),
+						'rows' => array( 
+							4 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'integrated_edit_field8' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					) 
+				),
+				'width' => 1,
+				'height' => 5 
+			),
+			'step2' => array(
+				'cells' => array(
+					'c1' => array(
+						'cols' => array( 
+							0 
+						),
+						'rows' => array( 
+							0 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'integrated_edit_field' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'c3' => array(
+						'cols' => array( 
+							0 
+						),
+						'rows' => array( 
+							1 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'integrated_edit_field2' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'c5' => array(
+						'cols' => array( 
+							0 
+						),
+						'rows' => array( 
+							2 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
 							'integrated_edit_field6' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
-					'c7' => array(
+					'c4' => array(
 						'cols' => array( 
-							1 
+							0 
 						),
 						'rows' => array( 
 							3 
@@ -317,13 +369,19 @@
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
-					),
-					'c8' => array(
+					) 
+				),
+				'width' => 1,
+				'height' => 4 
+			),
+			'step3' => array(
+				'cells' => array(
+					'c1' => array(
 						'cols' => array( 
 							0 
 						),
 						'rows' => array( 
-							4 
+							0 
 						),
 						'tags' => array( 
 							 
@@ -334,12 +392,12 @@
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
-					'c9' => array(
+					'c2' => array(
 						'cols' => array( 
-							1 
+							0 
 						),
 						'rows' => array( 
-							4 
+							1 
 						),
 						'tags' => array( 
 							 
@@ -350,44 +408,12 @@
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
 					),
-					'c10' => array(
+					'c' => array(
 						'cols' => array( 
 							0 
 						),
 						'rows' => array( 
-							5 
-						),
-						'tags' => array( 
-							 
-						),
-						'items' => array( 
-							 
-						),
-						'fixedAtServer' => false,
-						'fixedAtClient' => false 
-					),
-					'c11' => array(
-						'cols' => array( 
-							1 
-						),
-						'rows' => array( 
-							5 
-						),
-						'tags' => array( 
-							 
-						),
-						'items' => array( 
-							 
-						),
-						'fixedAtServer' => false,
-						'fixedAtClient' => false 
-					),
-					'c12' => array(
-						'cols' => array( 
-							0 
-						),
-						'rows' => array( 
-							6 
+							2 
 						),
 						'tags' => array( 
 							 
@@ -397,63 +423,16 @@
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
-					),
-					'c13' => array(
-						'cols' => array( 
-							1 
-						),
-						'rows' => array( 
-							6 
-						),
-						'tags' => array( 
-							 
-						),
-						'items' => array( 
-							 
-						),
-						'fixedAtServer' => false,
-						'fixedAtClient' => false 
-					),
-					'c3' => array(
-						'cols' => array( 
-							0 
-						),
-						'rows' => array( 
-							7 
-						),
-						'tags' => array( 
-							 
-						),
-						'items' => array( 
-							 
-						),
-						'fixedAtServer' => false,
-						'fixedAtClient' => false 
-					),
-					'c5' => array(
-						'cols' => array( 
-							1 
-						),
-						'rows' => array( 
-							7 
-						),
-						'tags' => array( 
-							 
-						),
-						'items' => array( 
-							 
-						),
-						'fixedAtServer' => false,
-						'fixedAtClient' => false 
 					) 
 				),
-				'width' => 2,
-				'height' => 8 
+				'width' => 1,
+				'height' => 3 
 			) 
 		) 
 	),
 	'page' => array(
 		'verticalBar' => false,
+		'multiStep' => true,
 		'labeledButtons' => array(
 			'update_records' => array(
 				 
@@ -495,7 +474,8 @@
 			'last_name',
 			'phone',
 			'alternate_phone',
-			'full_name' 
+			'full_name',
+			'is_doctor' 
 		) 
 	),
 	'events' => array(
@@ -527,6 +507,14 @@
 						) 
 					),
 					'section' => '' 
+				),
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c2' 
+						) 
+					),
+					'section' => '' 
 				) 
 			),
 			'cells' => array(
@@ -534,6 +522,12 @@
 					'model' => 'c1',
 					'items' => array( 
 						'register_message' 
+					) 
+				),
+				'c2' => array(
+					'model' => 'c2',
+					'items' => array( 
+						'step_nav' 
 					) 
 				) 
 			),
@@ -545,6 +539,14 @@
 		'top' => array(
 			'modelId' => 'register-header',
 			'grid' => array( 
+				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'c' 
+						) 
+					) 
+				),
 				array(
 					'cells' => array( 
 						array(
@@ -559,7 +561,15 @@
 					'model' => 'c1',
 					'items' => array( 
 						'register_header' 
-					) 
+					),
+					'align' => 'center' 
+				),
+				'c' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'image' 
+					),
+					'align' => 'center' 
 				) 
 			),
 			'deferredItems' => array( 
@@ -586,6 +596,7 @@
 				'c1' => array(
 					'model' => 'c1',
 					'items' => array( 
+						'next_step',
 						'register_save',
 						'back_to_login' 
 					) 
@@ -610,9 +621,6 @@
 					'cells' => array( 
 						array(
 							'cell' => 'c' 
-						),
-						array(
-							'cell' => 'c1' 
 						) 
 					) 
 				),
@@ -620,10 +628,102 @@
 					'section' => '',
 					'cells' => array( 
 						array(
-							'cell' => 'c14' 
-						),
+							'cell' => 'c18',
+							'colspan' => 1 
+						) 
+					) 
+				),
+				array(
+					'section' => '',
+					'cells' => array( 
 						array(
-							'cell' => 'c15' 
+							'cell' => 'c24',
+							'colspan' => 1 
+						) 
+					) 
+				),
+				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'c22',
+							'colspan' => 1 
+						) 
+					) 
+				),
+				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'c25',
+							'colspan' => 1 
+						) 
+					) 
+				) 
+			),
+			'cells' => array(
+				'c18' => array(
+					'model' => 'c3',
+					'items' => array( 
+						'integrated_edit_field3' 
+					) 
+				),
+				'c22' => array(
+					'model' => 'c3',
+					'items' => array( 
+						'integrated_edit_field5' 
+					) 
+				),
+				'c24' => array(
+					'model' => 'c3',
+					'items' => array( 
+						'integrated_edit_field4' 
+					) 
+				),
+				'c25' => array(
+					'model' => 'c3',
+					'items' => array( 
+						'integrated_edit_field8' 
+					) 
+				),
+				'c' => array(
+					'model' => 'c3',
+					'items' => array( 
+						'integrated_edit_field9' 
+					) 
+				) 
+			),
+			'deferredItems' => array( 
+				 
+			),
+			'columnCount' => 1,
+			'inlineLabels' => false,
+			'separateLabels' => false 
+		),
+		'step2' => array(
+			'modelId' => 'simple-edit',
+			'grid' => array( 
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c1' 
+						) 
+					),
+					'section' => '' 
+				),
+				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'c3' 
+						) 
+					) 
+				),
+				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'c5' 
 						) 
 					) 
 				),
@@ -632,7 +732,57 @@
 					'cells' => array( 
 						array(
 							'cell' => 'c4' 
-						),
+						) 
+					) 
+				) 
+			),
+			'cells' => array(
+				'c1' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'integrated_edit_field' 
+					) 
+				),
+				'c3' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'integrated_edit_field2' 
+					) 
+				),
+				'c4' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'integrated_edit_field7' 
+					) 
+				),
+				'c5' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'integrated_edit_field6' 
+					) 
+				) 
+			),
+			'deferredItems' => array( 
+				 
+			),
+			'columnCount' => 1,
+			'inlineLabels' => false,
+			'separateLabels' => false 
+		),
+		'step3' => array(
+			'modelId' => 'simple-edit',
+			'grid' => array( 
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c1' 
+						) 
+					),
+					'section' => '' 
+				),
+				array(
+					'section' => '',
+					'cells' => array( 
 						array(
 							'cell' => 'c2' 
 						) 
@@ -642,153 +792,28 @@
 					'section' => '',
 					'cells' => array( 
 						array(
-							'cell' => 'c6' 
-						),
-						array(
-							'cell' => 'c7' 
+							'cell' => 'c' 
 						) 
 					) 
-				),
-				array(
-					'section' => '',
-					'cells' => array( 
-						array(
-							'cell' => 'c8' 
-						),
-						array(
-							'cell' => 'c9' 
-						) 
-					) 
-				),
-				array(
-					'section' => '',
-					'cells' => array( 
-						array(
-							'cell' => 'c10' 
-						),
-						array(
-							'cell' => 'c11' 
-						) 
-					) 
-				),
-				array(
-					'section' => '',
-					'cells' => array( 
-						array(
-							'cell' => 'c12' 
-						),
-						array(
-							'cell' => 'c13' 
-						) 
-					) 
-				),
-				array(
-					'cells' => array( 
-						array(
-							'cell' => 'c3' 
-						),
-						array(
-							'cell' => 'c5' 
-						) 
-					),
-					'section' => '' 
 				) 
 			),
 			'cells' => array(
-				'c3' => array(
-					'model' => 'c3',
-					'items' => array( 
-						 
-					) 
-				),
-				'c' => array(
-					'model' => 'c3',
-					'items' => array( 
-						'integrated_edit_field3' 
-					) 
-				),
-				'c4' => array(
-					'model' => 'c3',
-					'items' => array( 
-						'integrated_edit_field' 
-					) 
-				),
 				'c1' => array(
-					'model' => 'c3',
-					'items' => array( 
-						'integrated_edit_field4' 
-					) 
-				),
-				'c2' => array(
-					'model' => 'c3',
-					'items' => array( 
-						'integrated_edit_field2' 
-					) 
-				),
-				'c5' => array(
-					'model' => 'c3',
-					'items' => array( 
-						 
-					) 
-				),
-				'c6' => array(
-					'model' => 'c3',
-					'items' => array( 
-						'integrated_edit_field6' 
-					) 
-				),
-				'c7' => array(
-					'model' => 'c3',
-					'items' => array( 
-						'integrated_edit_field7' 
-					) 
-				),
-				'c8' => array(
-					'model' => 'c3',
+					'model' => 'c1',
 					'items' => array( 
 						'integrated_edit_field1' 
 					) 
 				),
-				'c9' => array(
-					'model' => 'c3',
-					'items' => array( 
-						'integrated_confirm_password' 
-					) 
-				),
-				'c10' => array(
-					'model' => 'c3',
-					'items' => array( 
-						 
-					) 
-				),
-				'c11' => array(
-					'model' => 'c3',
-					'items' => array( 
-						 
-					) 
-				),
-				'c12' => array(
-					'model' => 'c3',
+				'c' => array(
+					'model' => 'c1',
 					'items' => array( 
 						'captcha' 
 					) 
 				),
-				'c13' => array(
-					'model' => 'c3',
+				'c2' => array(
+					'model' => 'c1',
 					'items' => array( 
-						 
-					) 
-				),
-				'c14' => array(
-					'model' => 'c3',
-					'items' => array( 
-						'integrated_edit_field5' 
-					) 
-				),
-				'c15' => array(
-					'model' => 'c3',
-					'items' => array( 
-						'integrated_edit_field8' 
+						'integrated_confirm_password' 
 					) 
 				) 
 			),
@@ -824,7 +849,12 @@
 		'integrated_edit_field1' => array(
 			'field' => 'password_hash',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'label' => array(
+				'field' => 'password_hash',
+				'table' => 'users',
+				'type' => 3 
+			) 
 		),
 		'integrated_confirm_password' => array(
 			'type' => 'integrated_confirm_password',
@@ -868,10 +898,58 @@
 		),
 		'captcha' => array(
 			'type' => 'captcha' 
+		),
+		'next_step' => array(
+			'type' => 'next_step' 
+		),
+		'step_nav' => array(
+			'type' => 'step_nav' 
+		),
+		'integrated_edit_field9' => array(
+			'field' => 'is_doctor',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0,
+			'label' => array(
+				'field' => 'is_doctor',
+				'table' => 'users',
+				'type' => 3 
+			) 
+		),
+		'image' => array(
+			'type' => 'image',
+			'image' => array(
+				'image' => 'merq.png',
+				'source' => 2 
+			),
+			'width' => '400px',
+			'mobileDisplay' => 'both' 
 		) 
 	),
 	'dbProps' => array(
 		 
+	),
+	'steps' => array( 
+		array(
+			'location' => 'grid',
+			'label' => array(
+				'text' => 'Initials',
+				'type' => 0 
+			) 
+		),
+		array(
+			'location' => 'step2',
+			'label' => array(
+				'text' => 'Account',
+				'type' => 0 
+			) 
+		),
+		array(
+			'location' => 'step3',
+			'label' => array(
+				'text' => 'Security',
+				'type' => 0 
+			) 
+		) 
 	),
 	'version' => 13,
 	'imageItem' => array(

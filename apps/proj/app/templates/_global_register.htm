@@ -35,8 +35,19 @@
 				<div class="row">
 			 
 				<div 
+	data-cellId="top_c" data-pageid="{$pageid}"	{$cell_top_c}
+	class="r-align-center r-ori-vert			col-md-12
+	
+">
+		 
+		<img src="{$file_url images/merq.png}" data-itemtype="image" data-itemid="image" {$item_image} data-pageid="{$pageid}" data-page="_global_register" />
+		</div>					</div>
+			 
+				<div class="row">
+			 
+				<div 
 	data-cellId="top_c1" data-pageid="{$pageid}"	{$cell_top_c1}
-	class=" r-ori-vert			col-md-12
+	class="r-align-center r-ori-vert			col-md-12
 	
 ">
 		 
@@ -61,19 +72,110 @@
 </div>
 			{END firstAboveGridCell}	
 	</div>					</div>
+			 
+				<div class="row">
+			 
+				<div 
+	data-cellId="above-grid_c2" data-pageid="{$pageid}"	{$cell_above-grid_c2}
+	class=" r-ori-vert			col-md-12
+	
+">
+		 
+		<ul class="nav nav-pills nav-justified" id="stepnav{$id}"  data-stepcontrol data-itemtype="step_nav" data-itemid="step_nav" {$item_step_nav} data-pageid="{$pageid}">
+			<li role="presentation" data-step="0">
+			<a href="#">Initials</a>
+		</li>
+			<li role="presentation" data-step="1">
+			<a href="#">Account</a>
+		</li>
+			<li role="presentation" data-step="2">
+			<a href="#">Security</a>
+		</li>
+	</ul>		</div>					</div>
 			</div>		
 {END above-grid_block}
-									{BEGIN grid_block}
-<table class="r-fluid r-form" data-location="grid" id="form_grid_{$pageid}" data-makeup="pretty-login" {$form_grid} data-pageid="{$pageid}" >
-						<tbody>
-			
-								<tr {$row_grid_0} >
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c" data-pageid="{$pageid}">
- 
+									{BEGIN steps_block}
+			<div id="step_0_{$id}" class="stepFrame" data-step="0" >
+		{BEGIN grid_block}
 
+
+
+
+ 
+	 
+												<table 
+	data-body-align="left"
+	data-location="grid" id="form_grid_{$pageid}" data-makeup="pretty-login" {$form_grid} data-pageid="{$pageid}" 
+	class="r-edit-form" cellpadding="0" cellspacing="0" 
+	{$grid_hiddenattr} 
+		data-form-width="1"
+		
+		data-v-width="4"
+	>
+	<tbody>
+										<tr {$row_grid_0} >
+										
+
+{BEGIN cellblock_grid_c}
+<td
+	{$cell_grid_c}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="grid_c" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
+{BEGIN is_doctor_fieldblock}
+
+
+<div class="r-integrated-field form-group clearfix {$fielddispclass_is_doctor}  r-vertical-field" 
+	data-signal-error-for="is_doctor{$id}" {$required_attr_is_doctor}
+	data-itemtype="integrated_edit_field" data-itemid="integrated_edit_field9" {$item_integrated_edit_field9} data-pageid="{$pageid}" data-field="is_doctor" data-fieldname="is_doctor" >
+
+	<label class="r-edit-label control-label {$is_doctor_label_class}" for="{$labelfor_is_doctor}">
+		{BEGIN is_doctor_label}
+			{$is_doctor_forward_control}
+			{$label _global_ is_doctor }			{END is_doctor_label}
+		<span class="icon-required"></span>
+	</label>
+	<div class="r-edit-field">
+		{$is_doctor_editcontrol}	</div>
+		<div class="r-edit-tooltip" data-helpfor="is_doctor" {$tooltipAttr _global_ is_doctor } >
+		<div class="text-muted" >
+		{$tooltip _global_ is_doctor }		</div>
+	</div>
+	</div>
+
+
+{END is_doctor_fieldblock}
+	
+								</td>
+			{END cellblock_grid_c}
+								</tr>
+	 
+	 
+														<tr {$row_grid_1} >
+										
+
+{BEGIN cellblock_grid_c18}
+<td
+	{$cell_grid_c18}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="grid_c18" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
 {BEGIN first_name_fieldblock}
 
 
@@ -97,13 +199,29 @@
 
 
 {END first_name_fieldblock}
-</td>
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c1" data-pageid="{$pageid}">
- 
+	
+								</td>
+			{END cellblock_grid_c18}
+								</tr>
+	 
+	 
+														<tr {$row_grid_2} >
+										
 
+{BEGIN cellblock_grid_c24}
+<td
+	{$cell_grid_c24}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="grid_c24" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
 {BEGIN middle_name_fieldblock}
 
 
@@ -127,15 +245,29 @@
 
 
 {END middle_name_fieldblock}
-</td>
-							</tr>
-											<tr {$row_grid_1} >
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c14" data-pageid="{$pageid}">
- 
+	
+								</td>
+			{END cellblock_grid_c24}
+								</tr>
+	 
+	 
+														<tr {$row_grid_3} >
+										
 
+{BEGIN cellblock_grid_c22}
+<td
+	{$cell_grid_c22}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="grid_c22" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
 {BEGIN last_name_fieldblock}
 
 
@@ -159,13 +291,29 @@
 
 
 {END last_name_fieldblock}
-</td>
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c15" data-pageid="{$pageid}">
- 
+	
+								</td>
+			{END cellblock_grid_c22}
+								</tr>
+	 
+	 
+														<tr {$row_grid_4} >
+										
 
+{BEGIN cellblock_grid_c25}
+<td
+	{$cell_grid_c25}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="grid_c25" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
 {BEGIN full_name_fieldblock}
 
 
@@ -189,15 +337,48 @@
 
 
 {END full_name_fieldblock}
-</td>
-							</tr>
-											<tr {$row_grid_2} >
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c4" data-pageid="{$pageid}">
- 
+	
+								</td>
+			{END cellblock_grid_c25}
+								</tr>
+			</tbody></table>
+{END grid_block}
+</div>	
+				<div id="step_1_{$id}" class="stepFrame" data-step="1" style="display:none">
+		{BEGIN step2_block}
 
+
+
+
+ 
+	 
+												<table 
+	data-body-align="left"
+	data-location="step2" id="form_step2_{$pageid}" data-makeup="pretty-login" {$form_step2} data-pageid="{$pageid}" 
+	class="r-edit-form" cellpadding="0" cellspacing="0" 
+	{$grid_hiddenattr} 
+		data-form-width="1"
+		
+		data-v-width="4"
+	>
+	<tbody>
+										<tr {$row_step2_0} >
+										
+
+{BEGIN cellblock_step2_c1}
+<td
+	{$cell_step2_c1}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="step2_c1" data-pageid="{$pageid}"
+		data-v-cell=""
+		
+>
+	<div edit-form-cell class="clearfix">
+				
 {BEGIN username_fieldblock}
 
 
@@ -221,13 +402,29 @@
 
 
 {END username_fieldblock}
-</td>
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c2" data-pageid="{$pageid}">
- 
+	
+								</td>
+			{END cellblock_step2_c1}
+								</tr>
+	 
+	 
+														<tr {$row_step2_1} >
+										
 
+{BEGIN cellblock_step2_c3}
+<td
+	{$cell_step2_c3}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="step2_c3" data-pageid="{$pageid}"
+		data-v-cell=""
+		
+>
+	<div edit-form-cell class="clearfix">
+				
 {BEGIN email_fieldblock}
 
 
@@ -251,15 +448,29 @@
 
 
 {END email_fieldblock}
-</td>
-							</tr>
-											<tr {$row_grid_3} >
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c6" data-pageid="{$pageid}">
- 
+	
+								</td>
+			{END cellblock_step2_c3}
+								</tr>
+	 
+	 
+														<tr {$row_step2_2} >
+										
 
+{BEGIN cellblock_step2_c5}
+<td
+	{$cell_step2_c5}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="step2_c5" data-pageid="{$pageid}"
+		data-v-cell=""
+		
+>
+	<div edit-form-cell class="clearfix">
+				
 {BEGIN phone_fieldblock}
 
 
@@ -283,13 +494,29 @@
 
 
 {END phone_fieldblock}
-</td>
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c7" data-pageid="{$pageid}">
- 
+	
+								</td>
+			{END cellblock_step2_c5}
+								</tr>
+	 
+	 
+														<tr {$row_step2_3} >
+										
 
+{BEGIN cellblock_step2_c4}
+<td
+	{$cell_step2_c4}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="step2_c4" data-pageid="{$pageid}"
+		data-v-cell=""
+		
+>
+	<div edit-form-cell class="clearfix">
+				
 {BEGIN alternate_phone_fieldblock}
 
 
@@ -313,15 +540,48 @@
 
 
 {END alternate_phone_fieldblock}
-</td>
-							</tr>
-											<tr {$row_grid_4} >
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c8" data-pageid="{$pageid}">
- 
+	
+								</td>
+			{END cellblock_step2_c4}
+								</tr>
+			</tbody></table>
+{END step2_block}
+</div>	
+				<div id="step_2_{$id}" class="stepFrame" data-step="2" style="display:none">
+		{BEGIN step3_block}
 
+
+
+
+ 
+	 
+												<table 
+	data-body-align="left"
+	data-location="step3" id="form_step3_{$pageid}" data-makeup="pretty-login" {$form_step3} data-pageid="{$pageid}" 
+	class="r-edit-form" cellpadding="0" cellspacing="0" 
+	{$grid_hiddenattr} 
+		data-form-width="1"
+		
+		data-v-width="4"
+	>
+	<tbody>
+										<tr {$row_step3_0} >
+										
+
+{BEGIN cellblock_step3_c1}
+<td
+	{$cell_step3_c1}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="step3_c1" data-pageid="{$pageid}"
+		data-v-cell=""
+		
+>
+	<div edit-form-cell class="clearfix">
+				
 {BEGIN password_hash_fieldblock}
 
 
@@ -345,13 +605,29 @@
 
 
 {END password_hash_fieldblock}
-</td>
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c9" data-pageid="{$pageid}">
- 
+	
+								</td>
+			{END cellblock_step3_c1}
+								</tr>
+	 
+	 
+														<tr {$row_step3_1} >
+										
 
+{BEGIN cellblock_step3_c2}
+<td
+	{$cell_step3_c2}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="step3_c2" data-pageid="{$pageid}"
+		data-v-cell=""
+		
+>
+	<div edit-form-cell class="clearfix">
+				
 {BEGIN confirm_block}
 
 
@@ -375,59 +651,45 @@
 
 
 {END confirm_block}
-</td>
-							</tr>
-											<tr {$row_grid_5} >
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c10" data-pageid="{$pageid}">
-</td>
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c11" data-pageid="{$pageid}">
-</td>
-							</tr>
-											<tr {$row_grid_6} >
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c12" data-pageid="{$pageid}">
- 
+	
+								</td>
+			{END cellblock_step3_c2}
+								</tr>
+	 
+	 
+														<tr {$row_step3_2} >
+										
 
+{BEGIN cellblock_step3_c}
+<td
+	{$cell_step3_c}
+	class=" r-ori-vert"
+	
+			data-single
+				data-fullwidth
+		
+			data-cellId="step3_c" data-pageid="{$pageid}"
+		data-v-cell="4"
+		
+>
+	<div edit-form-cell class="clearfix">
+				
 <div class="r-captcha-container form-group clearfix" data-fieldname="{$captcha_field_name}" data-signal-error-for="{$captcha_field_name}{$id}" >
-	<div class=" col-md-6" >
+	<div class="col-md-offset-3 col-md-6" >
 		{$captcha}
 	</div>
 	<div class="col-md-3 help-block" data-helpfor="{$captcha_field_name}">
 		<div class="text-muted" >
 		</div>
 	</div>	
-</div></td>
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c13" data-pageid="{$pageid}">
-</td>
-							</tr>
-											<tr {$row_grid_7} >
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c3" data-pageid="{$pageid}">
-</td>
-									<td 
-	class=" r-ori-vert			"
-			 
-	data-cellId="grid_c5" data-pageid="{$pageid}">
-</td>
-							</tr>
-					
-					</tbody>
-				</table>
-{END grid_block}
-									{BEGIN footer_block}
+</div>	
+								</td>
+			{END cellblock_step3_c}
+								</tr>
+			</tbody></table>
+{END step3_block}
+</div>	
+	{END steps_block}									{BEGIN footer_block}
 <table class="r-fluid r-form" data-location="footer" id="form_footer_{$pageid}" data-makeup="pretty-login" {$form_footer} data-pageid="{$pageid}" >
 						<tbody>
 			
@@ -436,6 +698,14 @@
 	class="			"
 			 
 	data-cellId="footer_c1" data-pageid="{$pageid}">
+ 
+{BEGIN nextStepButton}
+<span data-itemtype="next_step" data-itemid="next_step" {$item_next_step} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-primary   
+	" href="#" id="nextstep{$id}" >
+							{mlang_message NEXT_STEP}			</a>
+</span>
+{END nextStepButton}
  
 <span data-itemtype="register_save" data-itemid="register_save" {$item_register_save} data-pageid="{$pageid}" data-small data-button-item>
 	<a type="button" title="" class="btn btn-primary   

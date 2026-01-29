@@ -25,6 +25,7 @@
 					'login_message' 
 				),
 				'top' => array( 
+					'image',
 					'login-logo',
 					'login_welcome' 
 				),
@@ -63,6 +64,7 @@
 			'itemForms' => array(
 				'twofactor_message' => 'above-grid',
 				'login_message' => 'above-grid',
+				'image' => 'top',
 				'login-logo' => 'top',
 				'login_welcome' => 'top',
 				'remember_password' => 'grid',
@@ -173,6 +175,9 @@
 			),
 			'auth_altapp' => array( 
 				'auth_altapp' 
+			),
+			'image' => array( 
+				'image' 
 			) 
 		),
 		'cellMaps' => array(
@@ -298,7 +303,7 @@
 				'c1' => array(
 					'model' => 'c1',
 					'items' => array( 
-						'login-logo' 
+						'image' 
 					) 
 				),
 				'c2' => array(
@@ -310,6 +315,7 @@
 				'c3' => array(
 					'model' => 'c3',
 					'items' => array( 
+						'login-logo',
 						'login_welcome' 
 					) 
 				) 
@@ -537,10 +543,12 @@
 		),
 		'login-logo' => array(
 			'type' => 'login-logo',
-			'font-size' => '24px' 
+			'font-size' => '24px',
+			'bold' => true 
 		),
 		'login_welcome' => array(
-			'type' => 'login_welcome' 
+			'type' => 'login_welcome',
+			'italic' => true 
 		),
 		'username_label' => array(
 			'type' => 'username_label' 
@@ -585,13 +593,13 @@
 			),
 			'label' => array(
 				'type' => 0,
-				'text' => ' Login with MERQ\'s %provider% Workspace ' 
+				'text' => ' Login with MERQ\'s %provider% Workspace (New Users Only!)' 
 			),
 			'buttonStyle' => 'primary',
 			'buttonSize' => 'normal',
 			'bold' => true,
 			'mobileDisplay' => 'both',
-			'font-size' => '21px',
+			'font-size' => '17px',
 			'tooltip' => array(
 				'type' => 0,
 				'text' => 'You will be able to login automatically using your existing MERQ Consultancy\'s email address!' 
@@ -634,6 +642,16 @@
 		),
 		'auth_altapp' => array(
 			'type' => 'auth_altapp' 
+		),
+		'image' => array(
+			'type' => 'image',
+			'image' => array(
+				'image' => 'merq.png',
+				'source' => 2 
+			),
+			'width' => '400px',
+			'height' => '',
+			'mobileDisplay' => 'both' 
 		) 
 	),
 	'dbProps' => array(

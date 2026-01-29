@@ -50,7 +50,7 @@ class eventclass__global  extends TableEventsBase {
 	
 	public function plugin_phone_efedit( $pageObject ) {
 	$this->settings = array();
-$this->settings["required"] = false;                    // Wether is mandatory
+$this->settings["required"] = true;                    // Wether is mandatory
 $this->settings["tooltip"] = "Click here to enter telephone"; // Information tooltip
 $this->settings["initialCountry"] = "et";               // Country default
 $this->settings["preferredCountries"] = "et";           // Preferred Country

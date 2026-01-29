@@ -40,9 +40,7 @@
 	
 ">
 		 
-		<span data-itemtype="login-logo" data-itemid="login-logo" {$item_login-logo} data-pageid="{$pageid}" data-page="_global_login" >
-	{$logo}
-</span>
+		<img src="{$file_url images/merq.png}" data-itemtype="image" data-itemid="image" {$item_image} data-pageid="{$pageid}" data-page="_global_login" />
 		</div>			 
 				<div 
 	data-cellId="top_c2" data-pageid="{$pageid}"	{$cell_top_c2}
@@ -55,11 +53,15 @@
 			 
 				<div 
 	data-cellId="top_c3" data-pageid="{$pageid}"	{$cell_top_c3}
-	class=" r-ori-vert			col-md-12
+	class="			col-md-12
 	
 ">
 		 
-		<span data-itemtype="login_welcome" data-itemid="login_welcome" {$item_login_welcome} data-pageid="{$pageid}" >
+		<span data-itemtype="login-logo" data-itemid="login-logo" {$item_login-logo} data-pageid="{$pageid}" data-page="_global_login" >
+	{$logo}
+</span>
+	 
+		<span data-itemtype="login_welcome" data-itemid="login_welcome" {$item_login_welcome} data-pageid="{$pageid}" data-page="_global_login" >
 {mlang_message LOGIN_SUBTITLE}</span>
 		</div>					</div>
 			</div>		
@@ -290,7 +292,7 @@
 	<a type="button" title="You will be able to login automatically using your existing MERQ Consultancy's email address!" class="btn btn-primary   
 	" data-provider="go" >
 					<img src="{$file_url images/menuicons/google-icon-logo-32.svg}" />
-							{$mlp_push}{$mlparam provider text Google}{$mltext \_Login\_with\_MERQ's\_%provider%\_Workspace\_}{$mlp_pop}			</a>
+							{$mlp_push}{$mlparam provider text Google}{$mltext \_Login\_with\_MERQ's\_%provider%\_Workspace\_(New\_Users\_Only!)}{$mlp_pop}			</a>
 </span>
 </td>
 							</tr>

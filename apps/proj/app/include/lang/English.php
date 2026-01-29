@@ -807,7 +807,7 @@ $runnerLangMessages['English'] = array(
 	'customLabels' => array(
 		 
 	),
-	'projectLogo' => 'MERQPortalApp',
+	'projectLogo' => 'MERQ Portal CRM',
 	'cookieBannerText' => '' 
 );
 

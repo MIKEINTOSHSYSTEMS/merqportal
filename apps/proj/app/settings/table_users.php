@@ -146,7 +146,19 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'required' => true,
+					'validateAs' => 'Regular expression',
+					'validateRegex' => '^[a-z]+(\\.[a-z]+)?$',
+					'validateRegexMessage' => array(
+						'text' => 'Username must contain only lowercase letters and may include a single dot between words (e.g., michael or michael.k). But not at the beginning or end.',
+						'type' => 0 
+					),
+					'denyDuplicate' => true,
+					'denyDuplicateMessage' => array(
+						'text' => 'Username Value %value% already exists',
+						'type' => 0 
+					),
+					'textHTML5Input' => 'Text' 
 				) 
 			),
 			'tableName' => 'users' 
@@ -164,7 +176,19 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					'validateAs' => 'Email',
+					'required' => true,
+					'validateAs' => 'Regular expression',
+					'validateRegex' => '^[A-Za-z0-9._%+-]+@merqconsultancy\\.(org|com)$',
+					'validateRegexMessage' => array(
+						'text' => 'Only MERQ Consultancy staff are permitted to register.
+If you are unable to complete registration, please contact your System Administrator.',
+						'type' => 0 
+					),
+					'denyDuplicate' => true,
+					'denyDuplicateMessage' => array(
+						'text' => 'Email Value %value% already exists',
+						'type' => 0 
+					),
 					'textHTML5Input' => 'Email' 
 				) 
 			),
@@ -201,7 +225,7 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'textHTML5Input' => 'Text' 
 				) 
 			),
 			'tableName' => 'users' 
@@ -237,7 +261,8 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'required' => true,
+					'textHTML5Input' => 'Text' 
 				) 
 			),
 			'tableName' => 'users' 
@@ -255,7 +280,8 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'required' => true,
+					'textHTML5Input' => 'Text' 
 				) 
 			),
 			'tableName' => 'users' 
@@ -273,7 +299,8 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'required' => true,
+					'textHTML5Input' => 'Text' 
 				) 
 			),
 			'tableName' => 'users' 
@@ -293,7 +320,7 @@ FROM
 				'edit' => array(
 					'format' => 'Telephone',
 					'textHTML5Input' => 'Tel number',
-					'pluginInitString' => '$this->settings["required"] = false;                    // Wether is mandatory
+					'pluginInitString' => '$this->settings["required"] = true;                    // Wether is mandatory
 $this->settings["tooltip"] = "Click here to enter telephone"; // Information tooltip
 $this->settings["initialCountry"] = "et";               // Country default
 $this->settings["preferredCountries"] = "et";           // Preferred Country
@@ -1936,7 +1963,7 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'user_id' => 'User Id',
 		'username' => 'Username',
 		'email' => 'Email',
-		'password_hash' => 'Password Hash',
+		'password_hash' => 'Password',
 		'full_name' => 'Full Name',
 		'google_id' => 'Google Id',
 		'first_name' => 'First Name',
@@ -1961,7 +1988,7 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'is_admin' => 'Is Admin',
 		'reset_token' => 'Reset Token',
 		'reset_date' => 'Reset Date',
-		'is_doctor' => 'Is Doctor',
+		'is_doctor' => 'Are you a Doctor',
 		'supervisor_id' => 'Supervisor Id',
 		'ext_security_id' => 'Ext Security Id',
 		'userpic' => 'Userpic',

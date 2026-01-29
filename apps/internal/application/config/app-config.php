@@ -19,6 +19,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 // Uncomment the line below for development
 //define('APP_BASE_URL', 'http://merqapp/apps/internal/');
+//define('APP_BASE_URL', 'http://merqapp.mk/apps/internal/');
 // Uncomment the line below for production
 define('APP_BASE_URL', 'https://app.merqconsultancy.org/apps/internal/');
 

@@ -29,19 +29,30 @@
 				<div class="row">
 			 
 				<div 
-	data-cellId="above-grid_c1" data-pageid="{$pageid}"	{$cell_above-grid_c1}
+	data-cellId="above-grid_c" data-pageid="{$pageid}"	{$cell_above-grid_c}
 	class="r-align-center r-ori-vert			col-md-12
 	
 ">
 		{BEGIN firstAboveGridCell}
+		 
+		<img src="{$file_url images/merq.png}" data-itemtype="image" data-itemid="image" {$item_image} data-pageid="{$pageid}" data-page="_global_session_expired" />
+			{END firstAboveGridCell}	
+	</div>					</div>
+			 
+				<div class="row">
+			 
+				<div 
+	data-cellId="above-grid_c1" data-pageid="{$pageid}"	{$cell_above-grid_c1}
+	class="r-align-center r-ori-vert			col-md-12
+	
+">
 		 
 		<span data-itemtype="session_expired_message" data-itemid="session_expired_message" {$item_session_expired_message} data-pageid="{$pageid}" data-page="_global_session_expired" >
 {mlang_message SESSION_EXPIRED_TITLE}</span>
 	 
 		<span data-itemtype="session_expired_comment" data-itemid="session_expired_comment" {$item_session_expired_comment} data-pageid="{$pageid}" > 
 	{mlang_message SESSION_EXPIRED_COMMENT}</span>
-			{END firstAboveGridCell}	
-	</div>					</div>
+		</div>					</div>
 			</div>		
 {END above-grid_block}
 											{BEGIN grid_block}

@@ -24,7 +24,7 @@
 					'changepwd_message' 
 				),
 				'supertop' => array( 
-					 
+					'image' 
 				),
 				'top' => array( 
 					'changepwd_header' 
@@ -43,12 +43,11 @@
 				) 
 			),
 			'formXtTags' => array(
-				'supertop' => array( 
-					 
-				) 
+				 
 			),
 			'itemForms' => array(
 				'changepwd_message' => 'above-grid',
+				'image' => 'supertop',
 				'changepwd_header' => 'top',
 				'oldpass_label' => 'grid',
 				'oldpass' => 'grid',
@@ -96,6 +95,9 @@
 			),
 			'changepwd_header' => array( 
 				'changepwd_header' 
+			),
+			'image' => array( 
+				'image' 
 			) 
 		),
 		'cellMaps' => array(
@@ -186,6 +188,14 @@
 			'modelId' => 'panel-top',
 			'grid' => array( 
 				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'c' 
+						) 
+					) 
+				),
+				array(
 					'cells' => array( 
 						array(
 							'cell' => 'c1' 
@@ -199,6 +209,12 @@
 					'model' => 'c1',
 					'items' => array( 
 						 
+					) 
+				),
+				'c' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'image' 
 					) 
 				) 
 			),
@@ -369,6 +385,15 @@
 		),
 		'changepwd_header' => array(
 			'type' => 'changepwd_header' 
+		),
+		'image' => array(
+			'type' => 'image',
+			'image' => array(
+				'image' => 'merq.png',
+				'source' => 2 
+			),
+			'width' => '200px',
+			'mobileDisplay' => 'both' 
 		) 
 	),
 	'dbProps' => array(

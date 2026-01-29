@@ -2,11 +2,18 @@
   padding-top: 5px;
 }
 [data-page="_global_login"][data-itemid="login-logo"] {
+  font-weight: bold;
   font-size: 24px;
+}
+[data-page="_global_login"][data-itemid="login_welcome"] {
+  font-style: italic;
 }
 [data-page="_global_login"][data-itemid="login_external"] > .btn {
   font-weight: bold;
-  font-size: 21px;
+  font-size: 17px;
+}
+[data-page="_global_login"][data-itemid="image"] {
+  width: 400px;
 }
 
 

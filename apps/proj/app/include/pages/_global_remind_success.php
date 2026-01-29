@@ -18,7 +18,7 @@
 		'formItems' => array(
 			'formItems' => array(
 				'supertop' => array( 
-					 
+					'image' 
 				),
 				'top' => array( 
 					'remind_header' 
@@ -31,11 +31,10 @@
 				) 
 			),
 			'formXtTags' => array(
-				'supertop' => array( 
-					 
-				) 
+				 
 			),
 			'itemForms' => array(
+				'image' => 'supertop',
 				'remind_header' => 'top',
 				'remind_success_message' => 'grid',
 				'remind_success_submit' => 'footer' 
@@ -56,6 +55,9 @@
 			),
 			'remind_success_message' => array( 
 				'remind_success_message' 
+			),
+			'image' => array( 
+				'image' 
 			) 
 		),
 		'cellMaps' => array(
@@ -118,6 +120,14 @@
 			'modelId' => 'panel-top',
 			'grid' => array( 
 				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'c' 
+						) 
+					) 
+				),
+				array(
 					'cells' => array( 
 						array(
 							'cell' => 'c1' 
@@ -131,6 +141,12 @@
 					'model' => 'c1',
 					'items' => array( 
 						 
+					) 
+				),
+				'c' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'image' 
 					) 
 				) 
 			),
@@ -224,6 +240,15 @@
 		),
 		'remind_success_message' => array(
 			'type' => 'remind_success_message' 
+		),
+		'image' => array(
+			'type' => 'image',
+			'image' => array(
+				'image' => 'merq.png',
+				'source' => 2 
+			),
+			'width' => '200px',
+			'mobileDisplay' => 'both' 
 		) 
 	),
 	'dbProps' => array(

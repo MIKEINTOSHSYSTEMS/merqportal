@@ -19,7 +19,8 @@
 			'formItems' => array(
 				'above-grid' => array( 
 					'session_expired_message',
-					'session_expired_comment' 
+					'session_expired_comment',
+					'image' 
 				),
 				'grid' => array( 
 					'expired_stay',
@@ -32,6 +33,7 @@
 			'itemForms' => array(
 				'session_expired_message' => 'above-grid',
 				'session_expired_comment' => 'above-grid',
+				'image' => 'above-grid',
 				'expired_stay' => 'grid',
 				'expired_logout' => 'grid' 
 			),
@@ -54,6 +56,9 @@
 			),
 			'expired_logout' => array( 
 				'expired_logout' 
+			),
+			'image' => array( 
+				'image' 
 			) 
 		),
 		'cellMaps' => array(
@@ -116,6 +121,14 @@
 			'modelId' => 'session_expired-grid',
 			'grid' => array( 
 				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'c' 
+						) 
+					) 
+				),
+				array(
 					'cells' => array( 
 						array(
 							'cell' => 'c1' 
@@ -130,6 +143,12 @@
 					'items' => array( 
 						'session_expired_message',
 						'session_expired_comment' 
+					) 
+				),
+				'c' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'image' 
 					) 
 				) 
 			),
@@ -179,6 +198,15 @@
 		),
 		'expired_logout' => array(
 			'type' => 'expired_logout' 
+		),
+		'image' => array(
+			'type' => 'image',
+			'image' => array(
+				'image' => 'merq.png',
+				'source' => 2 
+			),
+			'width' => '200px',
+			'mobileDisplay' => 'both' 
 		) 
 	),
 	'dbProps' => array(
