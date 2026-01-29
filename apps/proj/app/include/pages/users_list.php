@@ -72,6 +72,7 @@
 			'previewPageId' => 'list',
 			'showCount' => true,
 			'hideEmptyChild' => false,
+			'hideEmptyPreview' => false,
 			'showProceedLink' => true,
 			'printDetails' => true 
 		) 
@@ -5210,7 +5211,9 @@
 		),
 		'simple_grid_field32' => array(
 			'field' => 'two_factor',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field66' => array(
 			'type' => 'grid_field_label',
@@ -5218,7 +5221,9 @@
 		),
 		'simple_grid_field33' => array(
 			'field' => 'totp',
-			'type' => 'grid_field' 
+			'type' => 'grid_field',
+			'inlineAdd' => false,
+			'inlineEdit' => false 
 		),
 		'simple_grid_field67' => array(
 			'type' => 'grid_field_label',
@@ -5293,7 +5298,8 @@
 			),
 			'proceedLink' => true,
 			'popup' => false,
-			'pageId' => 'list' 
+			'pageId' => 'list',
+			'hideEmptyPreview' => false 
 		),
 		'grid_checkbox' => array(
 			'type' => 'grid_checkbox' 

@@ -27,9 +27,14 @@
 					 
 				),
 				'supertop' => array( 
-					'logo',
-					'menu',
+					'expand_menu_button',
+					'collapse_button',
 					'username_button' 
+				),
+				'left' => array( 
+					'logo',
+					'expand_button',
+					'menu' 
 				),
 				'top' => array( 
 					 
@@ -64,9 +69,12 @@
 				'members_reset' => 'above-grid',
 				'members_choose_columns' => 'above-grid',
 				'members_displaying_filter' => 'above-grid',
-				'logo' => 'supertop',
-				'menu' => 'supertop',
+				'expand_menu_button' => 'supertop',
+				'collapse_button' => 'supertop',
 				'username_button' => 'supertop',
+				'logo' => 'left',
+				'expand_button' => 'left',
+				'menu' => 'left',
 				'members_source_label' => 'grid',
 				'members_username_label' => 'grid',
 				'members_displayname_label' => 'grid',
@@ -141,8 +149,8 @@
 				) 
 			),
 			'itemVisiblity' => array(
-				'menu' => 3,
-				'username_button' => 3 
+				'expand_menu_button' => 2,
+				'expand_button' => 5 
 			) 
 		),
 		'itemsByType' => array(
@@ -158,6 +166,9 @@
 			'members_displaying_filter' => array( 
 				'members_displaying_filter' 
 			),
+			'members_source_label' => array( 
+				'members_source_label' 
+			),
 			'members_username_label' => array( 
 				'members_username_label' 
 			),
@@ -170,20 +181,23 @@
 			'members_groupname_label' => array( 
 				'members_groupname_label' 
 			),
+			'members_source_filter' => array( 
+				'members_source_filter' 
+			),
 			'members_search' => array( 
 				'members_search' 
 			),
 			'members_all_users_checkbox' => array( 
 				'members_all_users_checkbox' 
 			),
-			'members_username' => array( 
-				'members_username' 
-			),
-			'members_group_checkbox' => array( 
-				'members_group_checkbox' 
+			'members_source' => array( 
+				'members_source' 
 			),
 			'members_all_groups_checkbox' => array( 
 				'members_all_groups_checkbox' 
+			),
+			'members_username' => array( 
+				'members_username' 
 			),
 			'members_displayname' => array( 
 				'members_displayname' 
@@ -191,14 +205,20 @@
 			'members_email' => array( 
 				'members_email' 
 			),
-			'members_source_label' => array( 
-				'members_source_label' 
+			'members_group_checkbox' => array( 
+				'members_group_checkbox' 
 			),
-			'members_source_filter' => array( 
-				'members_source_filter' 
+			'userinfo_link' => array( 
+				'userinfo_link' 
 			),
-			'members_source' => array( 
-				'members_source' 
+			'logout_link' => array( 
+				'logout_link' 
+			),
+			'exit_adminarea_link' => array( 
+				'exit_adminarea_link' 
+			),
+			'changepassword_link' => array( 
+				'changepassword_link' 
 			),
 			'logo' => array( 
 				'logo' 
@@ -209,17 +229,14 @@
 			'username_button' => array( 
 				'username_button' 
 			),
-			'exit_adminarea_link' => array( 
-				'exit_adminarea_link' 
+			'expand_menu_button' => array( 
+				'expand_menu_button' 
 			),
-			'userinfo_link' => array( 
-				'userinfo_link' 
+			'collapse_button' => array( 
+				'collapse_button' 
 			),
-			'logout_link' => array( 
-				'logout_link' 
-			),
-			'changepassword_link' => array( 
-				'changepassword_link' 
+			'expand_button' => array( 
+				'expand_button' 
 			) 
 		),
 		'cellMaps' => array(
@@ -443,7 +460,7 @@
 		) 
 	),
 	'page' => array(
-		'verticalBar' => false,
+		'verticalBar' => true,
 		'labeledButtons' => array(
 			'update_records' => array(
 				 
@@ -472,7 +489,7 @@
 		'menus' => array( 
 			array(
 				'id' => 'main',
-				'horizontal' => true 
+				'horizontal' => false 
 			) 
 		),
 		'calcTotalsFor' => 1,
@@ -493,7 +510,7 @@
 			$pageArray = array(
 	'id' => 'admin_members_list',
 	'type' => 'admin_members_list',
-	'layoutId' => 'topbar',
+	'layoutId' => 'leftbar',
 	'disabled' => false,
 	'default' => 0,
 	'forms' => array(
@@ -559,7 +576,7 @@
 			'recsPerRow' => 1 
 		),
 		'supertop' => array(
-			'modelId' => 'admin-topbar-menu',
+			'modelId' => 'admin-leftbar-top',
 			'grid' => array( 
 				array(
 					'cells' => array( 
@@ -577,14 +594,54 @@
 				'c1' => array(
 					'model' => 'c1',
 					'items' => array( 
-						'logo',
-						'menu' 
+						'expand_menu_button',
+						'collapse_button' 
 					) 
 				),
 				'c2' => array(
 					'model' => 'c2',
 					'items' => array( 
 						'username_button' 
+					) 
+				) 
+			),
+			'deferredItems' => array( 
+				 
+			),
+			'recsPerRow' => 1 
+		),
+		'left' => array(
+			'modelId' => 'admin-leftbar-menu',
+			'grid' => array( 
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c0' 
+						) 
+					),
+					'section' => '' 
+				),
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c1' 
+						) 
+					),
+					'section' => '' 
+				) 
+			),
+			'cells' => array(
+				'c0' => array(
+					'model' => 'c0',
+					'items' => array( 
+						'logo',
+						'expand_button' 
+					) 
+				),
+				'c1' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'menu' 
 					) 
 				) 
 			),
@@ -765,6 +822,9 @@
 		'members_displaying_filter' => array(
 			'type' => 'members_displaying_filter' 
 		),
+		'members_source_label' => array(
+			'type' => 'members_source_label' 
+		),
 		'members_username_label' => array(
 			'type' => 'members_username_label' 
 		),
@@ -777,20 +837,23 @@
 		'members_groupname_label' => array(
 			'type' => 'members_groupname_label' 
 		),
+		'members_source_filter' => array(
+			'type' => 'members_source_filter' 
+		),
 		'members_search' => array(
 			'type' => 'members_search' 
 		),
 		'members_all_users_checkbox' => array(
 			'type' => 'members_all_users_checkbox' 
 		),
-		'members_username' => array(
-			'type' => 'members_username' 
-		),
-		'members_group_checkbox' => array(
-			'type' => 'members_group_checkbox' 
+		'members_source' => array(
+			'type' => 'members_source' 
 		),
 		'members_all_groups_checkbox' => array(
 			'type' => 'members_all_groups_checkbox' 
+		),
+		'members_username' => array(
+			'type' => 'members_username' 
 		),
 		'members_displayname' => array(
 			'type' => 'members_displayname' 
@@ -798,14 +861,20 @@
 		'members_email' => array(
 			'type' => 'members_email' 
 		),
-		'members_source_label' => array(
-			'type' => 'members_source_label' 
+		'members_group_checkbox' => array(
+			'type' => 'members_group_checkbox' 
 		),
-		'members_source_filter' => array(
-			'type' => 'members_source_filter' 
+		'userinfo_link' => array(
+			'type' => 'userinfo_link' 
 		),
-		'members_source' => array(
-			'type' => 'members_source' 
+		'logout_link' => array(
+			'type' => 'logout_link' 
+		),
+		'exit_adminarea_link' => array(
+			'type' => 'exit_adminarea_link' 
+		),
+		'changepassword_link' => array(
+			'type' => 'changepassword_link' 
 		),
 		'logo' => array(
 			'type' => 'logo' 
@@ -822,17 +891,14 @@
 				'changepassword_link' 
 			) 
 		),
-		'exit_adminarea_link' => array(
-			'type' => 'exit_adminarea_link' 
+		'expand_menu_button' => array(
+			'type' => 'expand_menu_button' 
 		),
-		'userinfo_link' => array(
-			'type' => 'userinfo_link' 
+		'collapse_button' => array(
+			'type' => 'collapse_button' 
 		),
-		'logout_link' => array(
-			'type' => 'logout_link' 
-		),
-		'changepassword_link' => array(
-			'type' => 'changepassword_link' 
+		'expand_button' => array(
+			'type' => 'expand_button' 
 		) 
 	),
 	'dbProps' => array(

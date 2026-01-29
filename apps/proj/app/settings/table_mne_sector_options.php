@@ -158,7 +158,12 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'format' => 'Lookup wizard',
+					'lookupType' => 2,
+					'lookupTable' => 'mne_sector_options',
+					'lookupTableConnection' => 'conn',
+					'lookupLinkField' => 'sector_id',
+					'lookupDisplayField' => 'sector_name' 
 				) 
 			),
 			'tableName' => 'mne_sector_options' 
@@ -530,7 +535,7 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'sector_id' => 'Sector Id',
 		'sector_name' => 'Sector Name',
 		'sector_category' => 'Sector Category',
-		'parent_id' => 'Parent Id',
+		'parent_id' => 'Parent',
 		'is_active' => 'Is Active' 
 	),
 	'fieldTooltips' => array(

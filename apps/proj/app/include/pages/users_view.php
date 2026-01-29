@@ -29,8 +29,7 @@
 			'previewPageId' => '' 
 		),
 		'mne_projects' => array(
-			'displayPreview' => 2,
-			'previewPageId' => '' 
+			'displayPreview' => 1 
 		) 
 	),
 	'master' => array(
@@ -254,7 +253,8 @@
 					'integrated_edit_field30',
 					'integrated_edit_field31',
 					'integrated_edit_field32',
-					'integrated_edit_field33' 
+					'integrated_edit_field33',
+					'details_preview' 
 				) 
 			),
 			'formXtTags' => array(
@@ -307,7 +307,8 @@
 				'integrated_edit_field30' => 'grid',
 				'integrated_edit_field31' => 'grid',
 				'integrated_edit_field32' => 'grid',
-				'integrated_edit_field33' => 'grid' 
+				'integrated_edit_field33' => 'grid',
+				'details_preview' => 'grid' 
 			),
 			'itemLocations' => array(
 				'integrated_edit_field' => array(
@@ -445,6 +446,10 @@
 				'integrated_edit_field33' => array(
 					'location' => 'grid',
 					'cellId' => 'c3' 
+				),
+				'details_preview' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -534,6 +539,9 @@
 			'adminarea_link' => array( 
 				'adminarea_link' 
 			),
+			'details_preview' => array( 
+				'details_preview' 
+			),
 			'expand_button' => array( 
 				'expand_button' 
 			) 
@@ -585,7 +593,8 @@
 							'integrated_edit_field30',
 							'integrated_edit_field31',
 							'integrated_edit_field32',
-							'integrated_edit_field33' 
+							'integrated_edit_field33',
+							'details_preview' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
@@ -870,7 +879,8 @@
 						'integrated_edit_field30',
 						'integrated_edit_field31',
 						'integrated_edit_field32',
-						'integrated_edit_field33' 
+						'integrated_edit_field33',
+						'details_preview' 
 					) 
 				) 
 			),
@@ -1107,6 +1117,14 @@
 			'field' => 'totp',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0 
+		),
+		'details_preview' => array(
+			'type' => 'details_preview',
+			'table' => 15086,
+			'items' => array( 
+				 
+			),
+			'popup' => false 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

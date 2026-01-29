@@ -53,6 +53,7 @@ $runnerTableSettings['mne_extended_projects'] = array(
 	'afterEditDetails' => 'mne_extended_projects',
 	'afterAddDetail' => 'mne_extended_projects',
 	'detailsBadgeColor' => '6b8e23',
+	'displayLoading' => true,
 	'sql' => 'SELECT
 	extended_id,
 	project_id,
@@ -145,6 +146,10 @@ FROM
 						array(
 							'masterField' => 'sector_id',
 							'lookupField' => 'sector_id' 
+						),
+						array(
+							'masterField' => 'last_updated',
+							'lookupField' => 'updated_at' 
 						) 
 					) 
 				) 
@@ -164,7 +169,12 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'format' => 'Lookup wizard',
+					'lookupType' => 2,
+					'lookupTable' => 'tblclients',
+					'lookupTableConnection' => 'conn',
+					'lookupLinkField' => 'userid',
+					'lookupDisplayField' => 'company' 
 				) 
 			),
 			'tableName' => 'mne_extended_projects' 
@@ -1718,7 +1728,7 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'updated_at' => '' 
 	),
 	'pageTitles' => array(
-		 
+		'list' => 'Extended Projects' 
 	) 
 );
 }

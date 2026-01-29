@@ -1041,12 +1041,30 @@
 
 
 {END totp_fieldblock}
-	
-								</td>
+										</td>
 			{END cellblock_grid_c3}
-								</tr>
-			</tbody></table>
-{END grid_block}
+										</tr>
+										</tbody></table>
+				
+{BEGIN details_mne_projects}
+<div data-itemtype="details_preview" data-itemid="details_preview" {$item_details_preview} data-pageid="{$pageid}" class="bs-details"> 
+	<div class="panel panel-info details-grid">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+							{$details_pagetitle_mne_projects}			
+							<span>
+					{$detailslButtons_mne_projects}
+																				</span>
+			</h4>
+		</div>
+		<div class="panel-body">
+			{$displayDetailTable_mne_projects}
+		</div>
+	</div>
+</div>
+{END details_mne_projects}
+	
+				{END grid_block}
 	</div>
 <div class="r-below">
 					{BEGIN below-grid_block}

@@ -11,25 +11,22 @@
 {END styleCSSFiles}
 			
 	</head>
-	<body class="{$stylename} function-admin_rights_list"  >
+
+	<body class="{$stylename} function-admin_rights_list"   
+		>
 	{BEGIN body}
-		{$header}
 		<style>
-			{$containerCss}
+		{$containerCss}
 		</style>
-		<div class="r-topbar-page">
-			<div data-menu-width="full" 
-				data-fixed 
-				class="r-topheader" 
-				data-resize-name="topbar"
-				data-body-align="left"
-			>
-								{BEGIN supertop_block}
-<nav class="navbar navbar-default" 
-	data-location="supertop" id="form_supertop_{$pageid}" data-makeup="topbar" {$form_supertop} data-pageid="{$pageid}" >
-			 
-							 
-				<span data-cellId="supertop_c1" data-pageid="{$pageid}" class="r-align-left navbar-header" data-itemid="logo" {$item_logo}>
+		<div class="r-vbar-page">
+			<div data-width="250px" data-fixed class="r-left clearfix {$leftbar_class}" >
+								<div data-location="left" id="form_left_{$pageid}" data-makeup="leftbar" {$form_left} data-pageid="{$pageid}">
+{BEGIN left_block}
+ 
+     
+         
+
+			<div data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell class="clearfix " data-itemid="logo" {$item_logo}>
 				{BEGIN logo_block}
 	<A data-itemtype="logo" data-itemid="logo" {$item_logo} data-pageid="{$pageid}" class="navbar-brand" href="{$home_link}" data-pageid="{$pageid}" {$logo_hiddenattr}>
 		{$logo}
@@ -39,44 +36,58 @@
 					<span class="sr-only">Toggle navigation</span>	
 					<span class="icon-bar"></span>					
 				</button>				
-			</span>
-		 
-				<span data-cellId="supertop_c1" data-pageid="{$pageid}" class="r-align-left navbar-collapse" data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}">
+			</div>
+		
+ 
+
+			<div class="clearfix " data-cellId="left_c0" data-pageid="{$pageid}" data-logo-cell data-itemid="expand_button" {$item_expand_button} data-topcell-item-type="expand_button" >
+				<span data-itemtype="expand_button" data-itemid="expand_button" {$item_expand_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message EXPAND}" class="btn btn-link   
+	" href="#" >
+					<span class="glyphicon glyphicon-triangle-right"></span>
+										</a>
+</span>
+			</div>
+		
+     
+     
+         
+
+			<div data-cellId="left_c1" data-pageid="{$pageid}" class="clearfix  r-ori-vert " data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}">
 				{BEGIN menuitems_adminarea}
-<ul data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}"	class="r-menu nav navbar-nav" 
+<ul data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}"	class="r-menu nav menu-treelike" 
 	data-menulevel="1"
 >
 
 {BEGIN item_children1}
 <li class="
-	{BEGIN item_haschildren2} dropdown {END item_haschildren2} 
 	{$item_current}">
-<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-h data-menu-top >
+<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline data-menu-top >
 	{$item_separator}
-	<span class="r-menu-link  "> 
+	<span class="r-menu-link r-menu-expanded "> 
 		<span class="r-menu-title">
 		{$item_icon} {$item_title}
 		</span>
 		{BEGIN item_haschildren2}
 		{BEGIN item_expand_icon}
-		<span class="r-menu-expand-icon glyphicon glyphicon-triangle-bottom"></span>
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
 		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
 		{END item_expand_icon}
 		{END item_haschildren2}
 	</span>
+		<span class="r-menu-collapsed">{$item_collicon}{$item_firstcap}</span>
 	</a>
 {BEGIN item_showchildren2}
 <ul class="
-			dropdown-menu
+			nav collapse 
 			{$submenu_class}" 
 		id="submenu{$item_id}" data-menulevel="2">
 	{BEGIN item_children2}
 		{BEGIN item_menulink2}
 		<li class="
-						{BEGIN item_haschildren2} dropdown {END item_haschildren2}
 						{$item_current}"
 		>
-			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-h >
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
 	{$item_separator}
 	<span class="r-menu-link  "> 
 		<span class="r-menu-title">
@@ -84,7 +95,7 @@
 		</span>
 		{BEGIN item_haschildren2}
 		{BEGIN item_expand_icon}
-		<span class="r-menu-expand-icon glyphicon glyphicon-triangle-right"></span>
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
 		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
 		{END item_expand_icon}
 		{END item_haschildren2}
@@ -92,16 +103,15 @@
 	</a>
 			{BEGIN item_showchildren3}
 <ul class="
-			dropdown-menu
+			nav collapse 
 			{$submenu_class}" 
 		id="submenu{$item_id}" data-menulevel="3">
 	{BEGIN item_children3}
 		{BEGIN item_menulink3}
 		<li class="
-						{BEGIN item_haschildren3} dropdown {END item_haschildren3}
 						{$item_current}"
 		>
-			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-h >
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
 	{$item_separator}
 	<span class="r-menu-link  "> 
 		<span class="r-menu-title">
@@ -109,7 +119,7 @@
 		</span>
 		{BEGIN item_haschildren3}
 		{BEGIN item_expand_icon}
-		<span class="r-menu-expand-icon glyphicon glyphicon-triangle-right"></span>
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
 		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
 		{END item_expand_icon}
 		{END item_haschildren3}
@@ -117,16 +127,15 @@
 	</a>
 			{BEGIN item_showchildren4}
 <ul class="
-			dropdown-menu
+			nav collapse 
 			{$submenu_class}" 
 		id="submenu{$item_id}" data-menulevel="4">
 	{BEGIN item_children4}
 		{BEGIN item_menulink4}
 		<li class="
-						{BEGIN item_haschildren4} dropdown {END item_haschildren4}
 						{$item_current}"
 		>
-			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-h >
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
 	{$item_separator}
 	<span class="r-menu-link  "> 
 		<span class="r-menu-title">
@@ -134,7 +143,7 @@
 		</span>
 		{BEGIN item_haschildren4}
 		{BEGIN item_expand_icon}
-		<span class="r-menu-expand-icon glyphicon glyphicon-triangle-right"></span>
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
 		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
 		{END item_expand_icon}
 		{END item_haschildren4}
@@ -142,16 +151,15 @@
 	</a>
 			{BEGIN item_showchildren5}
 <ul class="
-			dropdown-menu
+			nav collapse 
 			{$submenu_class}" 
 		id="submenu{$item_id}" data-menulevel="5">
 	{BEGIN item_children5}
 		{BEGIN item_menulink5}
 		<li class="
-						{BEGIN item_haschildren5} dropdown {END item_haschildren5}
 						{$item_current}"
 		>
-			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-h >
+			<a {$item_attrs} title="{$item_tooltip}" data-menu-link data-menu-v data-menu-inline >
 	{$item_separator}
 	<span class="r-menu-link  "> 
 		<span class="r-menu-title">
@@ -159,7 +167,7 @@
 		</span>
 		{BEGIN item_haschildren5}
 		{BEGIN item_expand_icon}
-		<span class="r-menu-expand-icon glyphicon glyphicon-triangle-right"></span>
+		<span class="r-menu-expand-icon fa fa-angle-left"></span>
 		<span class="r-menu-mobile-expand-icon fa fa-angle-left"></span>
 		{END item_expand_icon}
 		{END item_haschildren5}
@@ -189,6 +197,33 @@
 {END item_children1}
 </ul>
 {END menuitems_adminarea}
+			</div>
+		
+    {END left_block}
+</div>				</div>
+			<div class="r-content-col" data-resize-left="leftbar">
+				<div data-resize-left="leftbar"  data-fixed class="r-topheader" data-resize-name="topbar">
+									{BEGIN supertop_block}
+<nav class="navbar navbar-default" 
+	data-location="supertop" id="form_supertop_{$pageid}" data-makeup="leftbar" {$form_supertop} data-pageid="{$pageid}" >
+			 
+							 
+				<span class="navbar-form  navbar-header" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="expand_menu_button" {$item_expand_menu_button} data-topcell-item-type="expand_menu_button" >
+				<span data-itemtype="expand_menu_button" data-itemid="expand_menu_button" {$item_expand_menu_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message SHOW_MENU}" class="btn-link   
+	 glyphicon glyphicon-menu-hamburger" href="#" >		
+				
+								</a>
+</span>
+			</span>
+		 
+				<span class="navbar-form  navbar-collapse" data-cellId="supertop_c1" data-pageid="{$pageid}" data-itemid="collapse_button" {$item_collapse_button} data-topcell-item-type="collapse_button" >
+				<span data-itemtype="collapse_button" data-itemid="collapse_button" {$item_collapse_button} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="{mlang_message COLLAPSE}" class="btn-link   
+	 glyphicon glyphicon-triangle-left" href="#" >		
+				
+								</a>
+</span>
 			</span>
 							 
 							 
@@ -240,21 +275,19 @@
 			</span>
 								</nav>
 {END supertop_block}
-					{$locking}
-			</div>	
-			<div data-body-align="left"  data-body-width="standard" class="r-body" data-resize-top="topbar" >
-				<div class="r-top">
-								{BEGIN top_block}
-<div class="r-form" data-location="top" id="form_top_{$pageid}" data-makeup="topbar" {$form_top} data-pageid="{$pageid}" >		
+						{$locking}
+				</div>
+				<div class="r-body" data-resize-top="topbar" data-body-width="standard">
+					{$header}
+					<div class="r-top">
+									{BEGIN top_block}
+<div class="r-form" data-location="top" id="form_top_{$pageid}" data-makeup="leftbar" {$form_top} data-pageid="{$pageid}" >		
 	</div>		
 {END top_block}
-					</div>
-				<div class="r-content">
-										<div class="r-data-block" data-body-width="standard" >
-						
+						</div>
 											<div class="r-above">
 					{BEGIN above-grid_block}
-<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="topbar" {$form_above-grid} data-pageid="{$pageid}" >		
+<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="leftbar" {$form_above-grid} data-pageid="{$pageid}" >		
 	 
 				<div class="row">
 			 
@@ -352,7 +385,7 @@
 {END groups}
 </ul>
 {BEGIN grid_block}
-	<table class="r-fluid table table-bordered rightsTable menuordered" cellpadding="0" data-location="grid" id="form_grid_{$pageid}" data-makeup="topbar" {$form_grid} data-pageid="{$pageid}" >
+	<table class="r-fluid table table-bordered rightsTable menuordered" cellpadding="0" data-location="grid" id="form_grid_{$pageid}" data-makeup="leftbar" {$form_grid} data-pageid="{$pageid}" >
 										<thead>
 											<tr >
 									<td 
@@ -756,7 +789,7 @@
 	</div>
 <div class="r-below">
 					{BEGIN below-grid_block}
-<div class="r-form" data-location="below-grid" id="form_below-grid_{$pageid}" data-makeup="topbar" {$form_below-grid} data-pageid="{$pageid}" >		
+<div class="r-form" data-location="below-grid" id="form_below-grid_{$pageid}" data-makeup="leftbar" {$form_below-grid} data-pageid="{$pageid}" >		
 	 
 				<div class="row">
 			 
@@ -773,12 +806,12 @@
 
 
 
-											
-					</div>
+										{$footer}
 				</div>
 			</div>
+			<div class="r-body-shadow">
+			</div>
 		</div>
-		{$footer}
 	{END body}
 	</body>
 </html>

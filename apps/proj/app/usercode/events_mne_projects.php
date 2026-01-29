@@ -22,12 +22,21 @@ class eventclass_mne_projects  extends TableEventsBase {
 		 
 	),
 	'defaultValue' => array(
+		'project_code' => array(
+			'edit' => true 
+		),
+		'created_by' => array(
+			'edit' => true 
+		),
 		'created_at' => array(
 			'edit' => true 
 		) 
 	),
 	'autoUpdateValue' => array(
 		'updated_at' => array(
+			'edit' => true 
+		),
+		'updated_by' => array(
 			'edit' => true 
 		) 
 	),
@@ -43,13 +52,28 @@ class eventclass_mne_projects  extends TableEventsBase {
 );
 			}
 	
-	public function default_created_at_efedit(  ) {
+	public function default_project_code_efedit(  ) {
+	$defaultValue = date("Y-m-d H:i:s");
+return $defaultValue;
+}
+
+public function default_created_by_efedit(  ) {
+	$defaultValue = $_SESSION["UserID"];
+return $defaultValue;
+}
+
+public function default_created_at_efedit(  ) {
 	$defaultValue = date("Y-m-d H:i:s");
 return $defaultValue;
 }
 
 public function autoupdate_updated_at_efedit(  ) {
 	$defaultValue = date("Y-m-d H:i:s");
+return $defaultValue;
+}
+
+public function autoupdate_updated_by_efedit(  ) {
+	$defaultValue = $_SESSION["UserID"];
 return $defaultValue;
 }	
 

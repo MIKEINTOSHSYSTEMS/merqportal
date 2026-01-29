@@ -360,29 +360,6 @@ $runnerPageInfo = array(
 				'print' 
 			) 
 		),
-		'mne_extended_projects' => array(
-			'add' => array( 
-				'add' 
-			),
-			'export' => array( 
-				'export' 
-			),
-			'import' => array( 
-				'import' 
-			),
-			'edit' => array( 
-				'edit' 
-			),
-			'view' => array( 
-				'view' 
-			),
-			'list' => array( 
-				'list' 
-			),
-			'print' => array( 
-				'print' 
-			) 
-		),
 		'mne_financial_overview' => array(
 			'add' => array( 
 				'add' 
@@ -792,35 +769,6 @@ $runnerPageInfo = array(
 				'gantt' 
 			) 
 		),
-		'mne_project_type_options' => array(
-			'add' => array( 
-				'add' 
-			),
-			'export' => array( 
-				'export' 
-			),
-			'import' => array( 
-				'import' 
-			),
-			'edit' => array( 
-				'edit' 
-			),
-			'view' => array( 
-				'view' 
-			),
-			'list' => array( 
-				'list' 
-			),
-			'print' => array( 
-				'print' 
-			),
-			'masterlist' => array( 
-				'masterlist' 
-			),
-			'masterprint' => array( 
-				'masterprint' 
-			) 
-		),
 		'mne_project_updates' => array(
 			'add' => array( 
 				'add' 
@@ -842,35 +790,6 @@ $runnerPageInfo = array(
 			),
 			'print' => array( 
 				'print' 
-			) 
-		),
-		'mne_projects' => array(
-			'add' => array( 
-				'add' 
-			),
-			'export' => array( 
-				'export' 
-			),
-			'import' => array( 
-				'import' 
-			),
-			'edit' => array( 
-				'edit' 
-			),
-			'view' => array( 
-				'view' 
-			),
-			'list' => array( 
-				'list' 
-			),
-			'print' => array( 
-				'print' 
-			),
-			'masterlist' => array( 
-				'masterlist' 
-			),
-			'masterprint' => array( 
-				'masterprint' 
 			) 
 		),
 		'mne_publication_types' => array(
@@ -920,35 +839,6 @@ $runnerPageInfo = array(
 			) 
 		),
 		'mne_risk_options' => array(
-			'add' => array( 
-				'add' 
-			),
-			'export' => array( 
-				'export' 
-			),
-			'import' => array( 
-				'import' 
-			),
-			'edit' => array( 
-				'edit' 
-			),
-			'view' => array( 
-				'view' 
-			),
-			'list' => array( 
-				'list' 
-			),
-			'print' => array( 
-				'print' 
-			),
-			'masterlist' => array( 
-				'masterlist' 
-			),
-			'masterprint' => array( 
-				'masterprint' 
-			) 
-		),
-		'mne_sector_options' => array(
 			'add' => array( 
 				'add' 
 			),
@@ -1075,36 +965,7 @@ $runnerPageInfo = array(
 				'print' 
 			) 
 		),
-		'mne_project_category' => array(
-			'add' => array( 
-				'add' 
-			),
-			'export' => array( 
-				'export' 
-			),
-			'import' => array( 
-				'import' 
-			),
-			'edit' => array( 
-				'edit' 
-			),
-			'view' => array( 
-				'view' 
-			),
-			'list' => array( 
-				'list' 
-			),
-			'print' => array( 
-				'print' 
-			),
-			'masterlist' => array( 
-				'masterlist' 
-			),
-			'masterprint' => array( 
-				'masterprint' 
-			) 
-		),
-		'mne_sector_category' => array(
+		'users' => array(
 			'add' => array( 
 				'add' 
 			),
@@ -1767,7 +1628,146 @@ $runnerPageInfo = array(
 				'print' 
 			) 
 		),
-		'users' => array(
+		'mne_sector_category' => array(
+			'add' => array( 
+				'add' 
+			),
+			'export' => array( 
+				'export' 
+			),
+			'import' => array( 
+				'import' 
+			),
+			'edit' => array( 
+				'edit' 
+			),
+			'view' => array( 
+				'view' 
+			),
+			'list' => array( 
+				'list' 
+			),
+			'print' => array( 
+				'print' 
+			),
+			'masterlist' => array( 
+				'masterlist' 
+			),
+			'masterprint' => array( 
+				'masterprint' 
+			) 
+		),
+		'mne_project_type_options' => array(
+			'add' => array( 
+				'add' 
+			),
+			'export' => array( 
+				'export' 
+			),
+			'import' => array( 
+				'import' 
+			),
+			'edit' => array( 
+				'edit' 
+			),
+			'view' => array( 
+				'view' 
+			),
+			'list' => array( 
+				'list' 
+			),
+			'print' => array( 
+				'print' 
+			),
+			'masterlist' => array( 
+				'masterlist' 
+			),
+			'masterprint' => array( 
+				'masterprint' 
+			) 
+		),
+		'mne_sector_options' => array(
+			'add' => array( 
+				'add' 
+			),
+			'export' => array( 
+				'export' 
+			),
+			'import' => array( 
+				'import' 
+			),
+			'edit' => array( 
+				'edit' 
+			),
+			'view' => array( 
+				'view' 
+			),
+			'list' => array( 
+				'list' 
+			),
+			'print' => array( 
+				'print' 
+			),
+			'masterlist' => array( 
+				'masterlist' 
+			),
+			'masterprint' => array( 
+				'masterprint' 
+			) 
+		),
+		'mne_project_category' => array(
+			'add' => array( 
+				'add' 
+			),
+			'export' => array( 
+				'export' 
+			),
+			'import' => array( 
+				'import' 
+			),
+			'edit' => array( 
+				'edit' 
+			),
+			'view' => array( 
+				'view' 
+			),
+			'list' => array( 
+				'list' 
+			),
+			'print' => array( 
+				'print' 
+			),
+			'masterlist' => array( 
+				'masterlist' 
+			),
+			'masterprint' => array( 
+				'masterprint' 
+			) 
+		),
+		'mne_extended_projects' => array(
+			'add' => array( 
+				'add' 
+			),
+			'export' => array( 
+				'export' 
+			),
+			'import' => array( 
+				'import' 
+			),
+			'edit' => array( 
+				'edit' 
+			),
+			'view' => array( 
+				'view' 
+			),
+			'list' => array( 
+				'list' 
+			),
+			'print' => array( 
+				'print' 
+			) 
+		),
+		'mne_projects' => array(
 			'add' => array( 
 				'add' 
 			),
@@ -1837,75 +1837,75 @@ $runnerPageInfo = array(
 	),
 	'tableMasks' => array(
 		'mne_analysis_by_source' => 'ADESPI',
-		'mne_data_methods' => 'ADESPI',
 		'mne_audit_log' => 'ADESPI',
-		'mne_business_opportunities' => 'ADESPI',
-		'mne_business_performance' => 'ADESPI',
 		'mne_budget_performance' => 'ADESPI',
-		'mne_currency_options' => 'ADESPI',
+		'mne_business_opportunities' => 'ADESPI',
 		'mne_business_options' => 'ADESPI',
+		'mne_data_methods' => 'ADESPI',
 		'mne_client_satisfaction' => 'ADESPI',
-		'mne_client_options' => 'ADESPI',
+		'mne_currency_options' => 'ADESPI',
 		'mne_data_collection' => 'ADESPI',
+		'mne_business_performance' => 'ADESPI',
+		'mne_client_options' => 'ADESPI',
 		'mne_deliverable_status' => 'ADESPI',
-		'mne_delivery_metrics' => 'ADESPI',
 		'mne_executive_dashboard' => 'ADESPI',
-		'mne_knowledge_outputs' => 'ADESPI',
+		'mne_delivery_metrics' => 'ADESPI',
+		'mne_extended_projects' => 'ADESPI',
 		'mne_financial_overview' => 'ADESPI',
+		'mne_partnership_options' => 'ADESPI',
 		'mne_opportunity_metrics' => 'ADESPI',
 		'mne_indicator_matrix' => 'ADESPI',
-		'mne_extended_projects' => 'ADESPI',
-		'mne_partnerships' => 'ADESPI',
-		'mne_partnership_options' => 'ADESPI',
 		'mne_performance_alerts' => 'ADESPI',
-		'mne_project_deliverables' => 'ADESPI',
-		'mne_project_data_management' => 'ADESPI',
-		'mne_portfolio_snapshot' => 'ADESPI',
+		'mne_partnerships' => 'ADESPI',
+		'mne_knowledge_outputs' => 'ADESPI',
 		'mne_performance_ratings' => 'ADESPI',
+		'mne_portfolio_snapshot' => 'ADESPI',
+		'mne_project_data_management' => 'ADESPI',
 		'mne_project_details' => 'ADESPI',
-		'mne_project_financials' => 'ADESPI',
-		'mne_project_issues' => 'ADESPI',
-		'mne_project_leads' => 'ADESPI',
+		'mne_project_deliverables' => 'ADESPI',
 		'mne_project_risks' => 'ADESPI',
+		'mne_project_financials' => 'ADESPI',
+		'mne_project_leads' => 'ADESPI',
+		'mne_project_issues' => 'ADESPI',
 		'mne_project_timelines' => 'ADESPI',
-		'mne_publication_types' => 'ADESPI',
 		'mne_project_type_options' => 'ADESPI',
 		'mne_project_updates' => 'ADESPI',
 		'mne_projects' => 'ADESPI',
+		'mne_publication_types' => 'ADESPI',
 		'mne_resource_options' => 'ADESPI',
-		'mne_sector_options' => 'ADESPI',
-		'mne_status_options' => 'ADESPI',
 		'mne_risk_options' => 'ADESPI',
+		'mne_status_options' => 'ADESPI',
+		'mne_sector_options' => 'ADESPI',
 		'mne_system_config' => 'ADESPI',
 		'mne_win_loss_analysis' => 'ADESPI',
-		'mne_project_category' => 'ADESPI',
-		'users' => 'ADESPI',
 		'mne_year_projects' => 'ADESPI',
+		'users' => 'ADESPI',
+		'mne_project_category' => 'ADESPI',
 		'mne_deliverable_options' => 'ADESPI',
-		'mne_sector_category' => 'ADESPI',
-		'mne_imp_level_options' => 'ADESPI',
 		'mne_quality_status' => 'ADESPI',
 		'mne_generic_options' => 'ADESPI',
 		'mne_grantee_contracted_unit' => 'ADESPI',
+		'mne_thematic_areas' => 'ADESPI',
+		'mne_sector_category' => 'ADESPI',
+		'mne_imp_level_options' => 'ADESPI',
 		'mne_opportunity_sources' => 'ADESPI',
 		'mne_data_sources' => 'ADESPI',
 		'mne_partner_types' => 'ADESPI',
-		'mne_thematic_areas' => 'ADESPI',
 		'mne_engagement_level' => 'ADESPI',
 		'mne_status_indicators' => 'ADESPI',
-		'mne_budget_category' => 'ADESPI',
+		'tblcurrency_rate_logs' => 'ADESPI',
 		'mne_indicator_groups' => 'ADESPI',
-		'tblclients' => 'ADESPI',
 		'tblcountries' => 'ADESPI',
 		'tblcurrencies' => 'ADESPI',
-		'tblcurrency_rate_logs' => 'ADESPI',
-		'merq__audit' => 'ADESPI',
-		'admin_users' => 'ADESPI',
+		'tblclients' => 'ADESPI',
+		'mne_budget_category' => 'ADESPI',
 		'tblcurrency_rates' => 'ADESPI',
-		'positions' => 'ADESPI',
-		'merq__locking' => 'ADESPI',
+		'admin_users' => 'ADESPI',
+		'merq__audit' => 'ADESPI',
 		'departments' => 'ADESPI',
 		'tbldepartments' => 'ADESPI',
+		'positions' => 'ADESPI',
+		'merq__locking' => 'ADESPI',
 		'tblstaff_departments' => 'ADESPI',
 		'tblhr_job_position' => 'ADESPI',
 		'<global>' => 'S' 

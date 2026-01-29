@@ -105,6 +105,9 @@
 		),
 		'project_members' => array(
 			'totalsType' => '' 
+		),
+		'updated_by' => array(
+			'totalsType' => '' 
 		) 
 	),
 	'fields' => array(
@@ -143,7 +146,8 @@
 			'opportunity_id',
 			'project_shortname',
 			'profit_margins',
-			'project_members' 
+			'project_members',
+			'updated_by' 
 		),
 		'exportFields' => array( 
 			'project_id',
@@ -174,6 +178,7 @@
 			'mel_lead_id',
 			'project_coordinator_id',
 			'created_by',
+			'updated_by',
 			'created_at',
 			'updated_at',
 			'is_active',
@@ -293,6 +298,9 @@
 			),
 			'project_members' => array( 
 				'export_field34' 
+			),
+			'updated_by' => array( 
+				'export_field35' 
 			) 
 		) 
 	),
@@ -340,6 +348,7 @@
 					'export_field25',
 					'export_field26',
 					'export_field27',
+					'export_field35',
 					'export_field28',
 					'export_field29',
 					'export_field30',
@@ -388,6 +397,7 @@
 				'export_field25' => 'grid',
 				'export_field26' => 'grid',
 				'export_field27' => 'grid',
+				'export_field35' => 'grid',
 				'export_field28' => 'grid',
 				'export_field29' => 'grid',
 				'export_field30' => 'grid',
@@ -450,7 +460,8 @@
 				'export_field31',
 				'export_field32',
 				'export_field33',
-				'export_field34' 
+				'export_field34',
+				'export_field35' 
 			) 
 		),
 		'cellMaps' => array(
@@ -618,6 +629,7 @@
 						'export_field25',
 						'export_field26',
 						'export_field27',
+						'export_field35',
 						'export_field28',
 						'export_field29',
 						'export_field30',
@@ -817,6 +829,10 @@
 		),
 		'export_field34' => array(
 			'field' => 'project_members',
+			'type' => 'export_field' 
+		),
+		'export_field35' => array(
+			'field' => 'updated_by',
 			'type' => 'export_field' 
 		) 
 	),

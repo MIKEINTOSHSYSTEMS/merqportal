@@ -98,11 +98,13 @@ $runnerTableSettings['mne_projects'] = array(
 	project_coordinator_id,
 	project_members,
 	created_by,
+	updated_by,
 	created_at,
 	updated_at,
 	is_active
 FROM
-	mne_projects',
+	mne_projects
+',
 	'keyFields' => array( 
 		'project_id' 
 	),
@@ -148,7 +150,7 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'defaultValue' => 'date("Y-m-d H:i:s")' 
 				) 
 			),
 			'tableName' => 'mne_projects' 
@@ -209,6 +211,8 @@ FROM
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'userid',
 					'lookupDisplayField' => 'company',
+					'lookupAllowAdd' => true,
+					'lookupAddPage' => 'add',
 					'lookupAutofillFields' => array( 
 						array(
 							'masterField' => 'client_id',
@@ -441,7 +445,9 @@ FROM
 					'lookupTable' => 'mne_project_category',
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'cat_id',
-					'lookupDisplayField' => 'category_name' 
+					'lookupDisplayField' => 'category_name',
+					'lookupAllowAdd' => true,
+					'lookupAddPage' => 'add' 
 				) 
 			),
 			'tableName' => 'mne_projects' 
@@ -466,7 +472,8 @@ FROM
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'type_id',
 					'lookupDisplayField' => 'type_name',
-					'lookupDependent' => true,
+					'lookupAllowAdd' => true,
+					'lookupAddPage' => 'add',
 					'lookupDependentFields' => array( 
 						array(
 							'masterField' => 'major_project_type_id',
@@ -497,6 +504,8 @@ FROM
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'type_id',
 					'lookupDisplayField' => 'type_name',
+					'lookupAllowAdd' => true,
+					'lookupAddPage' => 'add',
 					'lookupDependentFields' => array( 
 						array(
 							'masterField' => 'major_project_type_id',
@@ -526,7 +535,9 @@ FROM
 					'lookupTable' => 'mne_sector_category',
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'category_id',
-					'lookupDisplayField' => 'category_name' 
+					'lookupDisplayField' => 'category_name',
+					'lookupAllowAdd' => true,
+					'lookupAddPage' => 'add' 
 				) 
 			),
 			'tableName' => 'mne_projects' 
@@ -551,6 +562,8 @@ FROM
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'sector_id',
 					'lookupDisplayField' => 'sector_name',
+					'lookupAllowAdd' => true,
+					'lookupAddPage' => 'add',
 					'lookupDependent' => true,
 					'lookupDependentFields' => array( 
 						array(
@@ -582,7 +595,8 @@ FROM
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'sector_id',
 					'lookupDisplayField' => 'sector_name',
-					'lookupDependent' => true,
+					'lookupAllowAdd' => true,
+					'lookupAddPage' => 'add',
 					'lookupDependentFields' => array( 
 						array(
 							'masterField' => 'sector_id',
@@ -757,7 +771,6 @@ FROM
 			'goodName' => 'created_by',
 			'strField' => 'created_by',
 			'index' => 32,
-			'type' => 3,
 			'sqlExpression' => 'created_by',
 			'viewFormats' => array(
 				'view' => array(
@@ -766,7 +779,8 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					'format' => 'Lookup wizard',
+					'format' => 'Readonly',
+					'defaultValue' => '$_SESSION["UserID"]',
 					'lookupType' => 2,
 					'lookupTable' => 'users',
 					'lookupTableConnection' => 'conn',
@@ -782,7 +796,7 @@ FROM
 			'name' => 'created_at',
 			'goodName' => 'created_at',
 			'strField' => 'created_at',
-			'index' => 33,
+			'index' => 34,
 			'type' => 135,
 			'sqlExpression' => 'created_at',
 			'viewFormats' => array(
@@ -803,7 +817,7 @@ FROM
 			'name' => 'updated_at',
 			'goodName' => 'updated_at',
 			'strField' => 'updated_at',
-			'index' => 34,
+			'index' => 35,
 			'type' => 135,
 			'sqlExpression' => 'updated_at',
 			'viewFormats' => array(
@@ -824,7 +838,7 @@ FROM
 			'name' => 'is_active',
 			'goodName' => 'is_active',
 			'strField' => 'is_active',
-			'index' => 35,
+			'index' => 36,
 			'type' => 2,
 			'sqlExpression' => 'is_active',
 			'viewFormats' => array(
@@ -934,6 +948,25 @@ FROM
 				) 
 			),
 			'tableName' => 'mne_projects' 
+		),
+		'updated_by' => array(
+			'name' => 'updated_by',
+			'goodName' => 'updated_by',
+			'strField' => 'updated_by',
+			'index' => 33,
+			'sqlExpression' => 'updated_by',
+			'viewFormats' => array(
+				'view' => array(
+					 
+				) 
+			),
+			'editFormats' => array(
+				'edit' => array(
+					'format' => 'Readonly',
+					'autoUpdateValue' => '$_SESSION["UserID"]' 
+				) 
+			),
+			'tableName' => 'mne_projects' 
 		) 
 	),
 	'masterTables' => array( 
@@ -997,7 +1030,7 @@ FROM
 				'created_by' 
 			),
 			'masterKeys' => array( 
-				'user_id' 
+				'username' 
 			) 
 		),
 		array(
@@ -1068,11 +1101,13 @@ FROM
 	project_coordinator_id,
 	project_members,
 	created_by,
+	updated_by,
 	created_at,
 	updated_at,
 	is_active
 FROM
-	mne_projects',
+	mne_projects
+',
 		'parsed' => true,
 		'type' => 'SQLQuery',
 		'fieldList' => array( 
@@ -1557,6 +1592,21 @@ FROM
 				'columnName' => 'created_by' 
 			),
 			array(
+				'sql' => 'updated_by',
+				'parsed' => true,
+				'type' => 'FieldListItem',
+				'alias' => '',
+				'expression' => array(
+					'sql' => '',
+					'parsed' => true,
+					'type' => 'SQLField',
+					'table' => 'mne_projects',
+					'name' => 'updated_by' 
+				),
+				'encrypted' => false,
+				'columnName' => 'updated_by' 
+			),
+			array(
 				'sql' => 'created_at',
 				'parsed' => true,
 				'type' => 'FieldListItem',
@@ -1644,6 +1694,7 @@ FROM
 						'project_coordinator_id',
 						'project_members',
 						'created_by',
+						'updated_by',
 						'created_at',
 						'updated_at',
 						'is_active' 
@@ -1945,6 +1996,13 @@ FROM
 				'groupByIndex' => -1,
 				'whereIndex' => -1,
 				'havingIndex' => -1 
+			),
+			array(
+				'fieldIndex' => 35,
+				'orderByIndex' => -1,
+				'groupByIndex' => -1,
+				'whereIndex' => -1,
+				'havingIndex' => -1 
 			) 
 		),
 		'headSql' => 'SELECT',
@@ -1980,6 +2038,7 @@ FROM
 	project_coordinator_id,
 	project_members,
 	created_by,
+	updated_by,
 	created_at,
 	updated_at,
 	is_active',
@@ -2082,7 +2141,8 @@ FROM
 			'opportunity_id',
 			'project_shortname',
 			'profit_margins',
-			'project_members' 
+			'project_members',
+			'updated_by' 
 		),
 		'searchSuggest' => true,
 		'highlightSearchResults' => true,
@@ -2123,7 +2183,8 @@ FROM
 			'opportunity_id',
 			'project_shortname',
 			'profit_margins',
-			'project_members' 
+			'project_members',
+			'updated_by' 
 		) 
 	),
 	'connId' => 'conn',
@@ -2176,7 +2237,7 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'project_code' => 'Project Code',
 		'agreement_reference_no' => 'Agreement Reference No',
 		'project_name' => 'Project Name',
-		'client_id' => 'Client ID',
+		'client_id' => 'Project Client ID',
 		'client_name' => 'Client Name',
 		'start_date' => 'Start Date',
 		'end_date_original' => 'End Date Original',
@@ -2189,7 +2250,7 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'major_project_type_id' => 'Major Project Type',
 		'specific_type_primary_id' => 'Specific Type Primary',
 		'specific_type_secondary_id' => 'Specific Type Secondary',
-		'sector_id' => 'Sector Id',
+		'sector_id' => 'Sector',
 		'technical_area_primary_id' => 'Technical Area Primary',
 		'technical_area_secondary_id' => 'Technical Area Secondary',
 		'technical_area_others' => 'Technical Area (Others)',
@@ -2206,7 +2267,8 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'opportunity_id' => 'From Opportunity',
 		'project_shortname' => 'Project Short Name',
 		'profit_margins' => 'Profit Margins(%)',
-		'project_members' => 'Project Members' 
+		'project_members' => 'Project Members',
+		'updated_by' => 'Updated By' 
 	),
 	'fieldTooltips' => array(
 		'project_id' => '',
@@ -2243,7 +2305,8 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'opportunity_id' => '',
 		'project_shortname' => '',
 		'profit_margins' => '',
-		'project_members' => '' 
+		'project_members' => '',
+		'updated_by' => '' 
 	),
 	'fieldPlaceholders' => array(
 		'project_id' => '',
@@ -2280,10 +2343,11 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'opportunity_id' => '',
 		'project_shortname' => '',
 		'profit_margins' => '',
-		'project_members' => '' 
+		'project_members' => '',
+		'updated_by' => '' 
 	),
 	'pageTitles' => array(
-		 
+		'list' => 'Extended Projects' 
 	) 
 );
 }

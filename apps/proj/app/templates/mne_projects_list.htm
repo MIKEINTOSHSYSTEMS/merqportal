@@ -255,6 +255,19 @@
 								<span class="rnr-searchcontrol">{$searchcontrol1_project_id}</span>
 						</div>
 		{END searchCtrlBlock_project_id}
+																{BEGIN searchCtrlBlock_updated_by}
+
+
+		<div class="form-group srchPanelRow {$filterRow_class_updated_by}" {$filterRow_attrs_updated_by}>
+			<label>{$label mne_projects updated_by }</label>
+
+							{$delCtrlButt}
+			
+								<span class="rnr-searchtype">{$searchtype_updated_by}</span>
+								<span class="rnr-searchcontrol">{$searchcontrol_updated_by}</span>
+								<span class="rnr-searchcontrol">{$searchcontrol1_updated_by}</span>
+						</div>
+		{END searchCtrlBlock_updated_by}
 																{BEGIN searchCtrlBlock_project_members}
 
 
@@ -1312,6 +1325,9 @@
 			[data-pageid="{$pageid}"][data-itemtype="grid_field"][data-field="project_members"]:before {
 		content: "{$label mne_projects project_members}";
 	}
+			[data-pageid="{$pageid}"][data-itemtype="grid_field"][data-field="updated_by"]:before {
+		content: "{$label mne_projects updated_by}";
+	}
 	}
 </style>
 <table data-location="grid" id="form_grid_{$pageid}" data-makeup="leftbar" {$form_grid} data-pageid="{$pageid}" class=" table table-condensed table-striped table-hover table-bordered r-horizontal-grid  r-flexgrid rnr-b-grid rnr-gridtable"
@@ -1396,7 +1412,7 @@
 		{BEGIN project_id_fieldheadercolumn}
 	{BEGIN project_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field35" {$item_simple_grid_field35} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_id" data-fieldname="project_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field36" {$item_simple_grid_field36} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_id" data-fieldname="project_id" 
 
 			{$project_id_orderlinkattrs}
 	
@@ -1430,7 +1446,7 @@
 		{BEGIN project_code_fieldheadercolumn}
 	{BEGIN project_code_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field36" {$item_simple_grid_field36} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_code" data-fieldname="project_code" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field37" {$item_simple_grid_field37} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_code" data-fieldname="project_code" 
 
 			{$project_code_orderlinkattrs}
 	
@@ -1464,7 +1480,7 @@
 		{BEGIN agreement_reference_no_fieldheadercolumn}
 	{BEGIN agreement_reference_no_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field37" {$item_simple_grid_field37} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="agreement_reference_no" data-fieldname="agreement_reference_no" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field38" {$item_simple_grid_field38} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="agreement_reference_no" data-fieldname="agreement_reference_no" 
 
 			{$agreement_reference_no_orderlinkattrs}
 	
@@ -1498,7 +1514,7 @@
 		{BEGIN project_name_fieldheadercolumn}
 	{BEGIN project_name_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field38" {$item_simple_grid_field38} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_name" data-fieldname="project_name" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field39" {$item_simple_grid_field39} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_name" data-fieldname="project_name" 
 
 			{$project_name_orderlinkattrs}
 	
@@ -1532,7 +1548,7 @@
 		{BEGIN client_id_fieldheadercolumn}
 	{BEGIN client_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field39" {$item_simple_grid_field39} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="client_id" data-fieldname="client_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field40" {$item_simple_grid_field40} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="client_id" data-fieldname="client_id" 
 
 			{$client_id_orderlinkattrs}
 	
@@ -1566,7 +1582,7 @@
 		{BEGIN client_name_fieldheadercolumn}
 	{BEGIN client_name_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field40" {$item_simple_grid_field40} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="client_name" data-fieldname="client_name" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field41" {$item_simple_grid_field41} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="client_name" data-fieldname="client_name" 
 
 			{$client_name_orderlinkattrs}
 	
@@ -1600,7 +1616,7 @@
 		{BEGIN start_date_fieldheadercolumn}
 	{BEGIN start_date_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field41" {$item_simple_grid_field41} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="start_date" data-fieldname="start_date" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field42" {$item_simple_grid_field42} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="start_date" data-fieldname="start_date" 
 
 			{$start_date_orderlinkattrs}
 	
@@ -1634,7 +1650,7 @@
 		{BEGIN end_date_original_fieldheadercolumn}
 	{BEGIN end_date_original_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field42" {$item_simple_grid_field42} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="end_date_original" data-fieldname="end_date_original" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field43" {$item_simple_grid_field43} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="end_date_original" data-fieldname="end_date_original" 
 
 			{$end_date_original_orderlinkattrs}
 	
@@ -1668,7 +1684,7 @@
 		{BEGIN date_extended_fieldheadercolumn}
 	{BEGIN date_extended_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field43" {$item_simple_grid_field43} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="date_extended" data-fieldname="date_extended" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field44" {$item_simple_grid_field44} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="date_extended" data-fieldname="date_extended" 
 
 			{$date_extended_orderlinkattrs}
 	
@@ -1702,7 +1718,7 @@
 		{BEGIN reason_for_extension_fieldheadercolumn}
 	{BEGIN reason_for_extension_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field44" {$item_simple_grid_field44} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="reason_for_extension" data-fieldname="reason_for_extension" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field45" {$item_simple_grid_field45} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="reason_for_extension" data-fieldname="reason_for_extension" 
 
 			{$reason_for_extension_orderlinkattrs}
 	
@@ -1736,7 +1752,7 @@
 		{BEGIN total_value_fieldheadercolumn}
 	{BEGIN total_value_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field45" {$item_simple_grid_field45} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="total_value" data-fieldname="total_value" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field46" {$item_simple_grid_field46} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="total_value" data-fieldname="total_value" 
 
 			{$total_value_orderlinkattrs}
 	
@@ -1770,7 +1786,7 @@
 		{BEGIN currency_id_fieldheadercolumn}
 	{BEGIN currency_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field46" {$item_simple_grid_field46} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="currency_id" data-fieldname="currency_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field47" {$item_simple_grid_field47} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="currency_id" data-fieldname="currency_id" 
 
 			{$currency_id_orderlinkattrs}
 	
@@ -1804,7 +1820,7 @@
 		{BEGIN contract_type_id_fieldheadercolumn}
 	{BEGIN contract_type_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field47" {$item_simple_grid_field47} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="contract_type_id" data-fieldname="contract_type_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field48" {$item_simple_grid_field48} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="contract_type_id" data-fieldname="contract_type_id" 
 
 			{$contract_type_id_orderlinkattrs}
 	
@@ -1838,7 +1854,7 @@
 		{BEGIN grantee_contracted_unit_fieldheadercolumn}
 	{BEGIN grantee_contracted_unit_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field48" {$item_simple_grid_field48} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="grantee_contracted_unit" data-fieldname="grantee_contracted_unit" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field49" {$item_simple_grid_field49} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="grantee_contracted_unit" data-fieldname="grantee_contracted_unit" 
 
 			{$grantee_contracted_unit_orderlinkattrs}
 	
@@ -1872,7 +1888,7 @@
 		{BEGIN major_project_type_id_fieldheadercolumn}
 	{BEGIN major_project_type_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field49" {$item_simple_grid_field49} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="major_project_type_id" data-fieldname="major_project_type_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field50" {$item_simple_grid_field50} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="major_project_type_id" data-fieldname="major_project_type_id" 
 
 			{$major_project_type_id_orderlinkattrs}
 	
@@ -1906,7 +1922,7 @@
 		{BEGIN specific_type_primary_id_fieldheadercolumn}
 	{BEGIN specific_type_primary_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field50" {$item_simple_grid_field50} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="specific_type_primary_id" data-fieldname="specific_type_primary_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field51" {$item_simple_grid_field51} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="specific_type_primary_id" data-fieldname="specific_type_primary_id" 
 
 			{$specific_type_primary_id_orderlinkattrs}
 	
@@ -1940,7 +1956,7 @@
 		{BEGIN specific_type_secondary_id_fieldheadercolumn}
 	{BEGIN specific_type_secondary_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field51" {$item_simple_grid_field51} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="specific_type_secondary_id" data-fieldname="specific_type_secondary_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field52" {$item_simple_grid_field52} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="specific_type_secondary_id" data-fieldname="specific_type_secondary_id" 
 
 			{$specific_type_secondary_id_orderlinkattrs}
 	
@@ -1974,7 +1990,7 @@
 		{BEGIN sector_id_fieldheadercolumn}
 	{BEGIN sector_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field52" {$item_simple_grid_field52} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="sector_id" data-fieldname="sector_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field53" {$item_simple_grid_field53} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="sector_id" data-fieldname="sector_id" 
 
 			{$sector_id_orderlinkattrs}
 	
@@ -2008,7 +2024,7 @@
 		{BEGIN technical_area_primary_id_fieldheadercolumn}
 	{BEGIN technical_area_primary_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field53" {$item_simple_grid_field53} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="technical_area_primary_id" data-fieldname="technical_area_primary_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field54" {$item_simple_grid_field54} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="technical_area_primary_id" data-fieldname="technical_area_primary_id" 
 
 			{$technical_area_primary_id_orderlinkattrs}
 	
@@ -2042,7 +2058,7 @@
 		{BEGIN technical_area_secondary_id_fieldheadercolumn}
 	{BEGIN technical_area_secondary_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field54" {$item_simple_grid_field54} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="technical_area_secondary_id" data-fieldname="technical_area_secondary_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field55" {$item_simple_grid_field55} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="technical_area_secondary_id" data-fieldname="technical_area_secondary_id" 
 
 			{$technical_area_secondary_id_orderlinkattrs}
 	
@@ -2076,7 +2092,7 @@
 		{BEGIN technical_area_others_fieldheadercolumn}
 	{BEGIN technical_area_others_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field55" {$item_simple_grid_field55} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="technical_area_others" data-fieldname="technical_area_others" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field56" {$item_simple_grid_field56} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="technical_area_others" data-fieldname="technical_area_others" 
 
 			{$technical_area_others_orderlinkattrs}
 	
@@ -2110,7 +2126,7 @@
 		{BEGIN current_status_id_fieldheadercolumn}
 	{BEGIN current_status_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field56" {$item_simple_grid_field56} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="current_status_id" data-fieldname="current_status_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field57" {$item_simple_grid_field57} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="current_status_id" data-fieldname="current_status_id" 
 
 			{$current_status_id_orderlinkattrs}
 	
@@ -2144,7 +2160,7 @@
 		{BEGIN project_description_fieldheadercolumn}
 	{BEGIN project_description_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field57" {$item_simple_grid_field57} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_description" data-fieldname="project_description" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field58" {$item_simple_grid_field58} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_description" data-fieldname="project_description" 
 
 			{$project_description_orderlinkattrs}
 	
@@ -2178,7 +2194,7 @@
 		{BEGIN project_manager_id_fieldheadercolumn}
 	{BEGIN project_manager_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field58" {$item_simple_grid_field58} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_manager_id" data-fieldname="project_manager_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field59" {$item_simple_grid_field59} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_manager_id" data-fieldname="project_manager_id" 
 
 			{$project_manager_id_orderlinkattrs}
 	
@@ -2212,7 +2228,7 @@
 		{BEGIN technical_lead_id_fieldheadercolumn}
 	{BEGIN technical_lead_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field59" {$item_simple_grid_field59} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="technical_lead_id" data-fieldname="technical_lead_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field60" {$item_simple_grid_field60} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="technical_lead_id" data-fieldname="technical_lead_id" 
 
 			{$technical_lead_id_orderlinkattrs}
 	
@@ -2246,7 +2262,7 @@
 		{BEGIN mel_lead_id_fieldheadercolumn}
 	{BEGIN mel_lead_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field60" {$item_simple_grid_field60} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="mel_lead_id" data-fieldname="mel_lead_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field61" {$item_simple_grid_field61} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="mel_lead_id" data-fieldname="mel_lead_id" 
 
 			{$mel_lead_id_orderlinkattrs}
 	
@@ -2280,7 +2296,7 @@
 		{BEGIN project_coordinator_id_fieldheadercolumn}
 	{BEGIN project_coordinator_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field61" {$item_simple_grid_field61} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_coordinator_id" data-fieldname="project_coordinator_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field62" {$item_simple_grid_field62} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_coordinator_id" data-fieldname="project_coordinator_id" 
 
 			{$project_coordinator_id_orderlinkattrs}
 	
@@ -2314,7 +2330,7 @@
 		{BEGIN created_by_fieldheadercolumn}
 	{BEGIN created_by_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field62" {$item_simple_grid_field62} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="created_by" data-fieldname="created_by" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field63" {$item_simple_grid_field63} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="created_by" data-fieldname="created_by" 
 
 			{$created_by_orderlinkattrs}
 	
@@ -2348,7 +2364,7 @@
 		{BEGIN created_at_fieldheadercolumn}
 	{BEGIN created_at_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field63" {$item_simple_grid_field63} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="created_at" data-fieldname="created_at" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field64" {$item_simple_grid_field64} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="created_at" data-fieldname="created_at" 
 
 			{$created_at_orderlinkattrs}
 	
@@ -2371,18 +2387,52 @@
 	{$cell_grid_headcell_field29}
 	{$recordattrs}
 	class="
+		 r-ori-vert		 {$updated_by_class}	"
+
+			data-field="updated_by"
+	
+	data-cellId="grid_headcell_field29" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	>
+
+	 
+		{BEGIN updated_by_fieldheadercolumn}
+	{BEGIN updated_by_fieldheader}
+<span 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field65" {$item_simple_grid_field65} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="updated_by" data-fieldname="updated_by" 
+
+			{$updated_by_orderlinkattrs}
+	
+	
+	>
+	<span class="text-label">
+		<span>{$label mne_projects updated_by }</span>
+					{$arrow_icon_updated_by}
+			</span>
+	</span>
+	{END updated_by_fieldheader}
+{END updated_by_fieldheadercolumn}
+
+	
+	</th>
+	{END cellblock_grid_headcell_field29}
+									{BEGIN cellblock_grid_headcell_field30}
+	<th
+	
+	{$cell_grid_headcell_field30}
+	{$recordattrs}
+	class="
 		 r-ori-vert		 {$updated_at_class}	"
 
 			data-field="updated_at"
 	
-	data-cellId="grid_headcell_field29" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_headcell_field30" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
 		{BEGIN updated_at_fieldheadercolumn}
 	{BEGIN updated_at_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field64" {$item_simple_grid_field64} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="updated_at" data-fieldname="updated_at" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field66" {$item_simple_grid_field66} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="updated_at" data-fieldname="updated_at" 
 
 			{$updated_at_orderlinkattrs}
 	
@@ -2398,25 +2448,25 @@
 
 	
 	</th>
-	{END cellblock_grid_headcell_field29}
-									{BEGIN cellblock_grid_headcell_field30}
+	{END cellblock_grid_headcell_field30}
+									{BEGIN cellblock_grid_headcell_field31}
 	<th
 	
-	{$cell_grid_headcell_field30}
+	{$cell_grid_headcell_field31}
 	{$recordattrs}
 	class="
 		 r-ori-vert		 {$is_active_class}	"
 
 			data-field="is_active"
 	
-	data-cellId="grid_headcell_field30" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_headcell_field31" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
 		{BEGIN is_active_fieldheadercolumn}
 	{BEGIN is_active_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field65" {$item_simple_grid_field65} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="is_active" data-fieldname="is_active" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field67" {$item_simple_grid_field67} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="is_active" data-fieldname="is_active" 
 
 			{$is_active_orderlinkattrs}
 	
@@ -2432,25 +2482,25 @@
 
 	
 	</th>
-	{END cellblock_grid_headcell_field30}
-									{BEGIN cellblock_grid_headcell_field31}
+	{END cellblock_grid_headcell_field31}
+									{BEGIN cellblock_grid_headcell_field32}
 	<th
 	
-	{$cell_grid_headcell_field31}
+	{$cell_grid_headcell_field32}
 	{$recordattrs}
 	class="
 		 r-ori-vert		 {$opportunity_id_class}	"
 
 			data-field="opportunity_id"
 	
-	data-cellId="grid_headcell_field31" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_headcell_field32" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
 		{BEGIN opportunity_id_fieldheadercolumn}
 	{BEGIN opportunity_id_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field66" {$item_simple_grid_field66} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="opportunity_id" data-fieldname="opportunity_id" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field68" {$item_simple_grid_field68} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="opportunity_id" data-fieldname="opportunity_id" 
 
 			{$opportunity_id_orderlinkattrs}
 	
@@ -2466,25 +2516,25 @@
 
 	
 	</th>
-	{END cellblock_grid_headcell_field31}
-									{BEGIN cellblock_grid_headcell_field32}
+	{END cellblock_grid_headcell_field32}
+									{BEGIN cellblock_grid_headcell_field33}
 	<th
 	
-	{$cell_grid_headcell_field32}
+	{$cell_grid_headcell_field33}
 	{$recordattrs}
 	class="
 		 r-ori-vert		 {$project_shortname_class}	"
 
 			data-field="project_shortname"
 	
-	data-cellId="grid_headcell_field32" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_headcell_field33" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
 		{BEGIN project_shortname_fieldheadercolumn}
 	{BEGIN project_shortname_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field67" {$item_simple_grid_field67} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_shortname" data-fieldname="project_shortname" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field69" {$item_simple_grid_field69} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_shortname" data-fieldname="project_shortname" 
 
 			{$project_shortname_orderlinkattrs}
 	
@@ -2500,25 +2550,25 @@
 
 	
 	</th>
-	{END cellblock_grid_headcell_field32}
-									{BEGIN cellblock_grid_headcell_field33}
+	{END cellblock_grid_headcell_field33}
+									{BEGIN cellblock_grid_headcell_field34}
 	<th
 	
-	{$cell_grid_headcell_field33}
+	{$cell_grid_headcell_field34}
 	{$recordattrs}
 	class="
 		 r-ori-vert		 {$profit_margins_class}	"
 
 			data-field="profit_margins"
 	
-	data-cellId="grid_headcell_field33" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_headcell_field34" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
 		{BEGIN profit_margins_fieldheadercolumn}
 	{BEGIN profit_margins_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field68" {$item_simple_grid_field68} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="profit_margins" data-fieldname="profit_margins" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field70" {$item_simple_grid_field70} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="profit_margins" data-fieldname="profit_margins" 
 
 			{$profit_margins_orderlinkattrs}
 	
@@ -2534,25 +2584,25 @@
 
 	
 	</th>
-	{END cellblock_grid_headcell_field33}
-									{BEGIN cellblock_grid_headcell_field34}
+	{END cellblock_grid_headcell_field34}
+									{BEGIN cellblock_grid_headcell_field35}
 	<th
 	
-	{$cell_grid_headcell_field34}
+	{$cell_grid_headcell_field35}
 	{$recordattrs}
 	class="
 		 r-ori-vert		 {$project_members_class}	"
 
 			data-field="project_members"
 	
-	data-cellId="grid_headcell_field34" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_headcell_field35" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
 		{BEGIN project_members_fieldheadercolumn}
 	{BEGIN project_members_fieldheader}
 <span 
-	data-itemtype="grid_field_label" data-itemid="simple_grid_field69" {$item_simple_grid_field69} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_members" data-fieldname="project_members" 
+	data-itemtype="grid_field_label" data-itemid="simple_grid_field71" {$item_simple_grid_field71} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="project_members" data-fieldname="project_members" 
 
 			{$project_members_orderlinkattrs}
 	
@@ -2568,7 +2618,7 @@
 
 	
 	</th>
-	{END cellblock_grid_headcell_field34}
+	{END cellblock_grid_headcell_field35}
 							</tr>
 																				
 					{END grid_header}
@@ -3561,11 +3611,32 @@
 	{$cell_grid_cell_field29}
 	{$recordattrs}
 	class="
+		 r-ori-vert		 {$updated_by_class}	"
+
+			data-field="updated_by"
+	
+	data-cellId="grid_cell_field29" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	>
+
+	 
+		{BEGIN updated_by_fieldcolumn}
+<span data-itemtype="grid_field" data-itemid="simple_grid_field35" {$item_simple_grid_field35} data-pageid="{$pageid}" data-record-id="{$recId}" data-field="updated_by" data-fieldname="updated_by" data-default-width >
+{$updated_by_value}
+</span>
+{END updated_by_fieldcolumn}	
+	</td>
+	{END cellblock_grid_cell_field29}
+									{BEGIN cellblock_grid_cell_field30}
+	<td
+	
+	{$cell_grid_cell_field30}
+	{$recordattrs}
+	class="
 		 r-ori-vert		 {$updated_at_class}	"
 
 			data-field="updated_at"
 	
-	data-cellId="grid_cell_field29" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_cell_field30" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
@@ -3575,18 +3646,18 @@
 </span>
 {END updated_at_fieldcolumn}	
 	</td>
-	{END cellblock_grid_cell_field29}
-									{BEGIN cellblock_grid_cell_field30}
+	{END cellblock_grid_cell_field30}
+									{BEGIN cellblock_grid_cell_field31}
 	<td
 	
-	{$cell_grid_cell_field30}
+	{$cell_grid_cell_field31}
 	{$recordattrs}
 	class="
 		 r-ori-vert		 {$is_active_class}	"
 
 			data-field="is_active"
 	
-	data-cellId="grid_cell_field30" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_cell_field31" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
@@ -3596,18 +3667,18 @@
 </span>
 {END is_active_fieldcolumn}	
 	</td>
-	{END cellblock_grid_cell_field30}
-									{BEGIN cellblock_grid_cell_field31}
+	{END cellblock_grid_cell_field31}
+									{BEGIN cellblock_grid_cell_field32}
 	<td
 	
-	{$cell_grid_cell_field31}
+	{$cell_grid_cell_field32}
 	{$recordattrs}
 	class="
 		 r-ori-vert		 {$opportunity_id_class}	"
 
 			data-field="opportunity_id"
 	
-	data-cellId="grid_cell_field31" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_cell_field32" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
@@ -3617,18 +3688,18 @@
 </span>
 {END opportunity_id_fieldcolumn}	
 	</td>
-	{END cellblock_grid_cell_field31}
-									{BEGIN cellblock_grid_cell_field32}
+	{END cellblock_grid_cell_field32}
+									{BEGIN cellblock_grid_cell_field33}
 	<td
 	
-	{$cell_grid_cell_field32}
+	{$cell_grid_cell_field33}
 	{$recordattrs}
 	class="
 		 r-ori-vert		 {$project_shortname_class}	"
 
 			data-field="project_shortname"
 	
-	data-cellId="grid_cell_field32" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_cell_field33" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
@@ -3638,18 +3709,18 @@
 </span>
 {END project_shortname_fieldcolumn}	
 	</td>
-	{END cellblock_grid_cell_field32}
-									{BEGIN cellblock_grid_cell_field33}
+	{END cellblock_grid_cell_field33}
+									{BEGIN cellblock_grid_cell_field34}
 	<td
 	
-	{$cell_grid_cell_field33}
+	{$cell_grid_cell_field34}
 	{$recordattrs}
 	class="
 		 r-ori-vert		 {$profit_margins_class}	"
 
 			data-field="profit_margins"
 	
-	data-cellId="grid_cell_field33" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_cell_field34" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
@@ -3659,18 +3730,18 @@
 </span>
 {END profit_margins_fieldcolumn}	
 	</td>
-	{END cellblock_grid_cell_field33}
-									{BEGIN cellblock_grid_cell_field34}
+	{END cellblock_grid_cell_field34}
+									{BEGIN cellblock_grid_cell_field35}
 	<td
 	
-	{$cell_grid_cell_field34}
+	{$cell_grid_cell_field35}
 	{$recordattrs}
 	class="
 		 r-ori-vert		 {$project_members_class}	"
 
 			data-field="project_members"
 	
-	data-cellId="grid_cell_field34" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_cell_field35" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
 	 
@@ -3680,7 +3751,7 @@
 </span>
 {END project_members_fieldcolumn}	
 	</td>
-	{END cellblock_grid_cell_field34}
+	{END cellblock_grid_cell_field35}
 							</tr>
 											<tr {$rowattrs} {$row_grid_2} class="{$rowclass}
 				
@@ -4242,7 +4313,7 @@
 	{$cell_grid_footcell_field29}
 	{$recordattrs}
 	class="
-		 r-ori-vert		 {$updated_at_class}	"
+		 r-ori-vert		 {$updated_by_class}	"
 
 	
 	data-cellId="grid_footcell_field29" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_projects_list"	
@@ -4257,7 +4328,7 @@
 	{$cell_grid_footcell_field30}
 	{$recordattrs}
 	class="
-		 r-ori-vert		 {$is_active_class}	"
+		 r-ori-vert		 {$updated_at_class}	"
 
 	
 	data-cellId="grid_footcell_field30" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_projects_list"	
@@ -4272,7 +4343,7 @@
 	{$cell_grid_footcell_field31}
 	{$recordattrs}
 	class="
-		 r-ori-vert		 {$opportunity_id_class}	"
+		 r-ori-vert		 {$is_active_class}	"
 
 	
 	data-cellId="grid_footcell_field31" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_projects_list"	
@@ -4287,7 +4358,7 @@
 	{$cell_grid_footcell_field32}
 	{$recordattrs}
 	class="
-		 r-ori-vert		 {$project_shortname_class}	"
+		 r-ori-vert		 {$opportunity_id_class}	"
 
 	
 	data-cellId="grid_footcell_field32" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_projects_list"	
@@ -4302,7 +4373,7 @@
 	{$cell_grid_footcell_field33}
 	{$recordattrs}
 	class="
-		 r-ori-vert		 {$profit_margins_class}	"
+		 r-ori-vert		 {$project_shortname_class}	"
 
 	
 	data-cellId="grid_footcell_field33" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_projects_list"	
@@ -4317,7 +4388,7 @@
 	{$cell_grid_footcell_field34}
 	{$recordattrs}
 	class="
-		 r-ori-vert		 {$project_members_class}	"
+		 r-ori-vert		 {$profit_margins_class}	"
 
 	
 	data-cellId="grid_footcell_field34" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_projects_list"	
@@ -4326,6 +4397,21 @@
 	
 	</td>
 	{END cellblock_grid_footcell_field34}
+									{BEGIN cellblock_grid_footcell_field35}
+	<td
+	
+	{$cell_grid_footcell_field35}
+	{$recordattrs}
+	class="
+		 r-ori-vert		 {$project_members_class}	"
+
+	
+	data-cellId="grid_footcell_field35" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_projects_list"	
+	>
+
+	
+	</td>
+	{END cellblock_grid_footcell_field35}
 							</tr>
 					
 					</tfoot>

@@ -169,6 +169,9 @@ pdfDocument = {
 										{BEGIN col_grid_34}
 					"%",
 					{END col_grid_34}
+										{BEGIN col_grid_35}
+					"%",
+					{END col_grid_35}
 															],
 											heights: [ // first height for header part
 					"%",
@@ -352,7 +355,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects project_id }","hidden":"{$item_hide_simple_grid_field35}","bold":true},
+			{"text":"{$jslabel mne_projects project_id }","hidden":"{$item_hide_simple_grid_field36}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -381,7 +384,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects project_code }","hidden":"{$item_hide_simple_grid_field36}","bold":true},
+			{"text":"{$jslabel mne_projects project_code }","hidden":"{$item_hide_simple_grid_field37}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -410,7 +413,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects agreement_reference_no }","hidden":"{$item_hide_simple_grid_field37}","bold":true},
+			{"text":"{$jslabel mne_projects agreement_reference_no }","hidden":"{$item_hide_simple_grid_field38}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -439,7 +442,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects project_name }","hidden":"{$item_hide_simple_grid_field38}","bold":true},
+			{"text":"{$jslabel mne_projects project_name }","hidden":"{$item_hide_simple_grid_field39}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -468,7 +471,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects client_id }","hidden":"{$item_hide_simple_grid_field39}","bold":true},
+			{"text":"{$jslabel mne_projects client_id }","hidden":"{$item_hide_simple_grid_field40}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -497,7 +500,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects client_name }","hidden":"{$item_hide_simple_grid_field40}","bold":true},
+			{"text":"{$jslabel mne_projects client_name }","hidden":"{$item_hide_simple_grid_field41}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -526,7 +529,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects start_date }","hidden":"{$item_hide_simple_grid_field41}","bold":true},
+			{"text":"{$jslabel mne_projects start_date }","hidden":"{$item_hide_simple_grid_field42}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -555,7 +558,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects end_date_original }","hidden":"{$item_hide_simple_grid_field42}","bold":true},
+			{"text":"{$jslabel mne_projects end_date_original }","hidden":"{$item_hide_simple_grid_field43}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -584,7 +587,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects date_extended }","hidden":"{$item_hide_simple_grid_field43}","bold":true},
+			{"text":"{$jslabel mne_projects date_extended }","hidden":"{$item_hide_simple_grid_field44}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -613,7 +616,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects reason_for_extension }","hidden":"{$item_hide_simple_grid_field44}","bold":true},
+			{"text":"{$jslabel mne_projects reason_for_extension }","hidden":"{$item_hide_simple_grid_field45}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -642,7 +645,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects total_value }","hidden":"{$item_hide_simple_grid_field45}","bold":true},
+			{"text":"{$jslabel mne_projects total_value }","hidden":"{$item_hide_simple_grid_field46}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -671,7 +674,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects currency_id }","hidden":"{$item_hide_simple_grid_field46}","bold":true},
+			{"text":"{$jslabel mne_projects currency_id }","hidden":"{$item_hide_simple_grid_field47}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -700,7 +703,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects contract_type_id }","hidden":"{$item_hide_simple_grid_field47}","bold":true},
+			{"text":"{$jslabel mne_projects contract_type_id }","hidden":"{$item_hide_simple_grid_field48}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -729,7 +732,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects grantee_contracted_unit }","hidden":"{$item_hide_simple_grid_field48}","bold":true},
+			{"text":"{$jslabel mne_projects grantee_contracted_unit }","hidden":"{$item_hide_simple_grid_field49}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -758,7 +761,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects major_project_type_id }","hidden":"{$item_hide_simple_grid_field49}","bold":true},
+			{"text":"{$jslabel mne_projects major_project_type_id }","hidden":"{$item_hide_simple_grid_field50}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -787,7 +790,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects specific_type_primary_id }","hidden":"{$item_hide_simple_grid_field50}","bold":true},
+			{"text":"{$jslabel mne_projects specific_type_primary_id }","hidden":"{$item_hide_simple_grid_field51}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -816,7 +819,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects specific_type_secondary_id }","hidden":"{$item_hide_simple_grid_field51}","bold":true},
+			{"text":"{$jslabel mne_projects specific_type_secondary_id }","hidden":"{$item_hide_simple_grid_field52}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -845,7 +848,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects sector_id }","hidden":"{$item_hide_simple_grid_field52}","bold":true},
+			{"text":"{$jslabel mne_projects sector_id }","hidden":"{$item_hide_simple_grid_field53}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -874,7 +877,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects technical_area_primary_id }","hidden":"{$item_hide_simple_grid_field53}","bold":true},
+			{"text":"{$jslabel mne_projects technical_area_primary_id }","hidden":"{$item_hide_simple_grid_field54}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -903,7 +906,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects technical_area_secondary_id }","hidden":"{$item_hide_simple_grid_field54}","bold":true},
+			{"text":"{$jslabel mne_projects technical_area_secondary_id }","hidden":"{$item_hide_simple_grid_field55}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -932,7 +935,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects technical_area_others }","hidden":"{$item_hide_simple_grid_field55}","bold":true},
+			{"text":"{$jslabel mne_projects technical_area_others }","hidden":"{$item_hide_simple_grid_field56}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -961,7 +964,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects current_status_id }","hidden":"{$item_hide_simple_grid_field56}","bold":true},
+			{"text":"{$jslabel mne_projects current_status_id }","hidden":"{$item_hide_simple_grid_field57}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -990,7 +993,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects project_description }","hidden":"{$item_hide_simple_grid_field57}","bold":true},
+			{"text":"{$jslabel mne_projects project_description }","hidden":"{$item_hide_simple_grid_field58}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1019,7 +1022,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects project_manager_id }","hidden":"{$item_hide_simple_grid_field58}","bold":true},
+			{"text":"{$jslabel mne_projects project_manager_id }","hidden":"{$item_hide_simple_grid_field59}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1048,7 +1051,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects technical_lead_id }","hidden":"{$item_hide_simple_grid_field59}","bold":true},
+			{"text":"{$jslabel mne_projects technical_lead_id }","hidden":"{$item_hide_simple_grid_field60}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1077,7 +1080,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects mel_lead_id }","hidden":"{$item_hide_simple_grid_field60}","bold":true},
+			{"text":"{$jslabel mne_projects mel_lead_id }","hidden":"{$item_hide_simple_grid_field61}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1106,7 +1109,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects project_coordinator_id }","hidden":"{$item_hide_simple_grid_field61}","bold":true},
+			{"text":"{$jslabel mne_projects project_coordinator_id }","hidden":"{$item_hide_simple_grid_field62}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1135,7 +1138,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects created_by }","hidden":"{$item_hide_simple_grid_field62}","bold":true},
+			{"text":"{$jslabel mne_projects created_by }","hidden":"{$item_hide_simple_grid_field63}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1148,6 +1151,35 @@ pdfDocument = {
 																							{BEGIN cellblock_grid_headcell_field28}
 {
 	cellId: 'headcell_field28',
+	col:0,
+	row:0,
+			fieldName: 'updated_by',
+				style: 'headcell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				
+			{"text":"{$jslabel mne_projects updated_by }","hidden":"{$item_hide_simple_grid_field64}","bold":true},
+				
+		  ],
+  "border": [ true, true, true, true ],
+              "alignment": '{$updated_by_align}',
+     
+      
+      },
+
+{END cellblock_grid_headcell_field28}
+																							{BEGIN cellblock_grid_headcell_field29}
+{
+	cellId: 'headcell_field29',
 	col:0,
 	row:0,
 			fieldName: 'created_at',
@@ -1164,7 +1196,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects created_at }","hidden":"{$item_hide_simple_grid_field63}","bold":true},
+			{"text":"{$jslabel mne_projects created_at }","hidden":"{$item_hide_simple_grid_field65}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1173,10 +1205,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field28}
-																							{BEGIN cellblock_grid_headcell_field29}
+{END cellblock_grid_headcell_field29}
+																							{BEGIN cellblock_grid_headcell_field30}
 {
-	cellId: 'headcell_field29',
+	cellId: 'headcell_field30',
 	col:0,
 	row:0,
 			fieldName: 'updated_at',
@@ -1193,7 +1225,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects updated_at }","hidden":"{$item_hide_simple_grid_field64}","bold":true},
+			{"text":"{$jslabel mne_projects updated_at }","hidden":"{$item_hide_simple_grid_field66}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1202,10 +1234,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field29}
-																							{BEGIN cellblock_grid_headcell_field30}
+{END cellblock_grid_headcell_field30}
+																							{BEGIN cellblock_grid_headcell_field31}
 {
-	cellId: 'headcell_field30',
+	cellId: 'headcell_field31',
 	col:0,
 	row:0,
 			fieldName: 'is_active',
@@ -1222,7 +1254,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects is_active }","hidden":"{$item_hide_simple_grid_field65}","bold":true},
+			{"text":"{$jslabel mne_projects is_active }","hidden":"{$item_hide_simple_grid_field67}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1231,10 +1263,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field30}
-																							{BEGIN cellblock_grid_headcell_field31}
+{END cellblock_grid_headcell_field31}
+																							{BEGIN cellblock_grid_headcell_field32}
 {
-	cellId: 'headcell_field31',
+	cellId: 'headcell_field32',
 	col:0,
 	row:0,
 			fieldName: 'opportunity_id',
@@ -1251,7 +1283,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects opportunity_id }","hidden":"{$item_hide_simple_grid_field66}","bold":true},
+			{"text":"{$jslabel mne_projects opportunity_id }","hidden":"{$item_hide_simple_grid_field68}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1260,10 +1292,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field31}
-																							{BEGIN cellblock_grid_headcell_field32}
+{END cellblock_grid_headcell_field32}
+																							{BEGIN cellblock_grid_headcell_field33}
 {
-	cellId: 'headcell_field32',
+	cellId: 'headcell_field33',
 	col:0,
 	row:0,
 			fieldName: 'project_shortname',
@@ -1280,7 +1312,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects project_shortname }","hidden":"{$item_hide_simple_grid_field67}","bold":true},
+			{"text":"{$jslabel mne_projects project_shortname }","hidden":"{$item_hide_simple_grid_field69}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1289,10 +1321,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field32}
-																							{BEGIN cellblock_grid_headcell_field33}
+{END cellblock_grid_headcell_field33}
+																							{BEGIN cellblock_grid_headcell_field34}
 {
-	cellId: 'headcell_field33',
+	cellId: 'headcell_field34',
 	col:0,
 	row:0,
 			fieldName: 'profit_margins',
@@ -1309,7 +1341,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects profit_margins }","hidden":"{$item_hide_simple_grid_field68}","bold":true},
+			{"text":"{$jslabel mne_projects profit_margins }","hidden":"{$item_hide_simple_grid_field70}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1318,10 +1350,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field33}
-																							{BEGIN cellblock_grid_headcell_field34}
+{END cellblock_grid_headcell_field34}
+																							{BEGIN cellblock_grid_headcell_field35}
 {
-	cellId: 'headcell_field34',
+	cellId: 'headcell_field35',
 	col:0,
 	row:0,
 			fieldName: 'project_members',
@@ -1338,7 +1370,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_projects project_members }","hidden":"{$item_hide_simple_grid_field69}","bold":true},
+			{"text":"{$jslabel mne_projects project_members }","hidden":"{$item_hide_simple_grid_field71}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1347,7 +1379,7 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field34}
+{END cellblock_grid_headcell_field35}
 											],
 				{END row_grid_0}
 		
@@ -2174,6 +2206,35 @@ pdfDocument = {
 	cellId: 'cell_field28',
 	col:0,
 	row:0,
+			fieldName: 'updated_by',
+				style: 'bodycell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				
+			{"text":{$updated_by_pdfvalue},"hidden":"{$item_hide_simple_grid_field35}"},
+				
+		  ],
+  "border": [ true, true, true, true ],
+              "alignment": '{$updated_by_align}',
+     
+      
+      },
+
+{END cellblock_grid_cell_field28}
+																							{BEGIN cellblock_grid_cell_field29}
+{
+	cellId: 'cell_field29',
+	col:0,
+	row:0,
 			fieldName: 'created_at',
 				style: 'bodycell',
 		
@@ -2197,10 +2258,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field28}
-																							{BEGIN cellblock_grid_cell_field29}
+{END cellblock_grid_cell_field29}
+																							{BEGIN cellblock_grid_cell_field30}
 {
-	cellId: 'cell_field29',
+	cellId: 'cell_field30',
 	col:0,
 	row:0,
 			fieldName: 'updated_at',
@@ -2226,10 +2287,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field29}
-																							{BEGIN cellblock_grid_cell_field30}
+{END cellblock_grid_cell_field30}
+																							{BEGIN cellblock_grid_cell_field31}
 {
-	cellId: 'cell_field30',
+	cellId: 'cell_field31',
 	col:0,
 	row:0,
 			fieldName: 'is_active',
@@ -2255,10 +2316,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field30}
-																							{BEGIN cellblock_grid_cell_field31}
+{END cellblock_grid_cell_field31}
+																							{BEGIN cellblock_grid_cell_field32}
 {
-	cellId: 'cell_field31',
+	cellId: 'cell_field32',
 	col:0,
 	row:0,
 			fieldName: 'opportunity_id',
@@ -2284,10 +2345,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field31}
-																							{BEGIN cellblock_grid_cell_field32}
+{END cellblock_grid_cell_field32}
+																							{BEGIN cellblock_grid_cell_field33}
 {
-	cellId: 'cell_field32',
+	cellId: 'cell_field33',
 	col:0,
 	row:0,
 			fieldName: 'project_shortname',
@@ -2313,10 +2374,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field32}
-																							{BEGIN cellblock_grid_cell_field33}
+{END cellblock_grid_cell_field33}
+																							{BEGIN cellblock_grid_cell_field34}
 {
-	cellId: 'cell_field33',
+	cellId: 'cell_field34',
 	col:0,
 	row:0,
 			fieldName: 'profit_margins',
@@ -2342,10 +2403,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field33}
-																							{BEGIN cellblock_grid_cell_field34}
+{END cellblock_grid_cell_field34}
+																							{BEGIN cellblock_grid_cell_field35}
 {
-	cellId: 'cell_field34',
+	cellId: 'cell_field35',
 	col:0,
 	row:0,
 			fieldName: 'project_members',
@@ -2371,7 +2432,7 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field34}
+{END cellblock_grid_cell_field35}
 											],
 				{END row_grid_1}
 						{BEGIN row_grid_2}
@@ -2704,6 +2765,13 @@ pdfDocument = {
 				cellId: 'cell_dpreview',
 				row:  0,
 				col:  34,
+				text: '',
+				compensateColspan: true
+			},
+														{ 
+				cellId: 'cell_dpreview',
+				row:  0,
+				col:  35,
 				text: '',
 				compensateColspan: true
 			},
@@ -3626,6 +3694,32 @@ pdfDocument = {
       },
 
 {END cellblock_grid_footcell_field34}
+																							{BEGIN cellblock_grid_footcell_field35}
+{
+	cellId: 'footcell_field35',
+	col:0,
+	row:0,
+				style: 'footcell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				'',
+	  ],
+  "border": [ true, true, true, true ],
+              "alignment": 'left',
+     
+      
+      },
+
+{END cellblock_grid_footcell_field35}
 											],
 				{END row_grid_3}
 		

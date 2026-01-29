@@ -26,17 +26,6 @@ $runnerDbTableInfo['mne_projects'] = array(
 			) 
 		),
 		array(
-			'name' => 'fk_project_created_by',
-			'refTable' => 'users',
-			'refSchema' => '',
-			'columns' => array( 
-				array(
-					'column' => 'created_by',
-					'ref_column' => 'user_id' 
-				) 
-			) 
-		),
-		array(
 			'name' => 'fk_project_currency',
 			'refTable' => 'mne_currency_options',
 			'refSchema' => '',
@@ -502,10 +491,21 @@ $runnerDbTableInfo['mne_projects'] = array(
 		),
 		array(
 			'name' => 'created_by',
-			'type' => 3,
-			'size' => 11,
+			'type' => 200,
+			'size' => 255,
 			'scale' => 0,
-			'typeName' => 'int(11)',
+			'typeName' => 'varchar(255)',
+			'nullable' => true,
+			'autoinc' => false,
+			'defaultValueSQL' => null,
+			'defaultValue' => '' 
+		),
+		array(
+			'name' => 'updated_by',
+			'type' => 200,
+			'size' => 255,
+			'scale' => 0,
+			'typeName' => 'varchar(255)',
 			'nullable' => true,
 			'autoinc' => false,
 			'defaultValueSQL' => null,

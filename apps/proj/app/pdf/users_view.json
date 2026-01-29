@@ -268,6 +268,11 @@ pdfDocument = {
 				
 			{"hidden":"{$item_hide_integrated_edit_field33}","stack":[{"text":"{$jslabel users totp }","bold":true},{"text":{$totp_pdfvalue}}],"margin":[0,0,0,15]},
 				
+				
+			 {BEGIN details_mne_projects}
+			{$displayDetailTable_mne_projects }
+		{END details_mne_projects},
+				
 		  ],
   "border": [ false, false, false, false ],
               "alignment": 'left',

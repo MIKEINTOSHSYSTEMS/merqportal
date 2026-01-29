@@ -4205,7 +4205,7 @@
 	'imagePosition' => 'right',
 	'listTotals' => 1,
 	'title' => array(
-		 
+		'English' => 'Extended Projects' 
 	) 
 );
 		?>

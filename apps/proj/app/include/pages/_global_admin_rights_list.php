@@ -31,9 +31,14 @@
 					 
 				),
 				'supertop' => array( 
-					'logo',
-					'menu',
+					'expand_menu_button',
+					'collapse_button',
 					'username_button' 
+				),
+				'left' => array( 
+					'logo',
+					'expand_button',
+					'menu' 
 				),
 				'top' => array( 
 					 
@@ -95,9 +100,12 @@
 				'rights_del_group' => 'above-grid',
 				'rights_rename_group' => 'above-grid',
 				'rights_copy_permissions' => 'above-grid',
-				'logo' => 'supertop',
-				'menu' => 'supertop',
+				'expand_menu_button' => 'supertop',
+				'collapse_button' => 'supertop',
 				'username_button' => 'supertop',
+				'logo' => 'left',
+				'expand_button' => 'left',
+				'menu' => 'left',
 				'rights_search' => 'grid',
 				'rights_name_a' => 'grid',
 				'rights_name_e' => 'grid',
@@ -140,8 +148,8 @@
 				 
 			),
 			'itemVisiblity' => array(
-				'menu' => 3,
-				'username_button' => 3 
+				'expand_menu_button' => 2,
+				'expand_button' => 5 
 			) 
 		),
 		'itemsByType' => array(
@@ -150,6 +158,12 @@
 			),
 			'rights_reset' => array( 
 				'rights_reset' 
+			),
+			'rights_displaying_tables' => array( 
+				'rights_displaying_tables' 
+			),
+			'rights_ordering_tables' => array( 
+				'rights_ordering_tables' 
 			),
 			'rights_add_group' => array( 
 				'rights_add_group' 
@@ -162,12 +176,6 @@
 			),
 			'rights_copy_permissions' => array( 
 				'rights_copy_permissions' 
-			),
-			'rights_displaying_tables' => array( 
-				'rights_displaying_tables' 
-			),
-			'rights_ordering_tables' => array( 
-				'rights_ordering_tables' 
 			),
 			'rights_search' => array( 
 				'rights_search' 
@@ -196,6 +204,33 @@
 			'rights_name_m1' => array( 
 				'rights_name_m1' 
 			),
+			'rights_checkbox_page' => array( 
+				'rights_checkbox_page' 
+			),
+			'rights_page' => array( 
+				'rights_page' 
+			),
+			'rights_checkbox_page_a' => array( 
+				'rights_checkbox_page_a' 
+			),
+			'rights_checkbox_page_e' => array( 
+				'rights_checkbox_page_e' 
+			),
+			'rights_checkbox_page_d' => array( 
+				'rights_checkbox_page_d' 
+			),
+			'rights_checkbox_page_s' => array( 
+				'rights_checkbox_page_s' 
+			),
+			'rights_checkbox_page_p' => array( 
+				'rights_checkbox_page_p' 
+			),
+			'rights_checkbox_page_i' => array( 
+				'rights_checkbox_page_i' 
+			),
+			'rights_expand_all' => array( 
+				'rights_expand_all' 
+			),
 			'rights_checkbox_all_a' => array( 
 				'rights_checkbox_all_a' 
 			),
@@ -223,6 +258,15 @@
 			'rights_table' => array( 
 				'rights_table' 
 			),
+			'rights_show_pages' => array( 
+				'rights_show_pages' 
+			),
+			'rights_hide_pages' => array( 
+				'rights_hide_pages' 
+			),
+			'rights_group_expander' => array( 
+				'rights_group_expander' 
+			),
 			'rights_checkbox_a' => array( 
 				'rights_checkbox_a' 
 			),
@@ -244,41 +288,17 @@
 			'rights_checkbox_m' => array( 
 				'rights_checkbox_m' 
 			),
-			'rights_page' => array( 
-				'rights_page' 
+			'userinfo_link' => array( 
+				'userinfo_link' 
 			),
-			'rights_checkbox_page_a' => array( 
-				'rights_checkbox_page_a' 
+			'logout_link' => array( 
+				'logout_link' 
 			),
-			'rights_checkbox_page_e' => array( 
-				'rights_checkbox_page_e' 
+			'exit_adminarea_link' => array( 
+				'exit_adminarea_link' 
 			),
-			'rights_checkbox_page_d' => array( 
-				'rights_checkbox_page_d' 
-			),
-			'rights_checkbox_page_s' => array( 
-				'rights_checkbox_page_s' 
-			),
-			'rights_checkbox_page_p' => array( 
-				'rights_checkbox_page_p' 
-			),
-			'rights_checkbox_page_i' => array( 
-				'rights_checkbox_page_i' 
-			),
-			'rights_show_pages' => array( 
-				'rights_show_pages' 
-			),
-			'rights_hide_pages' => array( 
-				'rights_hide_pages' 
-			),
-			'rights_checkbox_page' => array( 
-				'rights_checkbox_page' 
-			),
-			'rights_group_expander' => array( 
-				'rights_group_expander' 
-			),
-			'rights_expand_all' => array( 
-				'rights_expand_all' 
+			'changepassword_link' => array( 
+				'changepassword_link' 
 			),
 			'logo' => array( 
 				'logo' 
@@ -289,17 +309,14 @@
 			'username_button' => array( 
 				'username_button' 
 			),
-			'exit_adminarea_link' => array( 
-				'exit_adminarea_link' 
+			'expand_menu_button' => array( 
+				'expand_menu_button' 
 			),
-			'userinfo_link' => array( 
-				'userinfo_link' 
+			'collapse_button' => array( 
+				'collapse_button' 
 			),
-			'logout_link' => array( 
-				'logout_link' 
-			),
-			'changepassword_link' => array( 
-				'changepassword_link' 
+			'expand_button' => array( 
+				'expand_button' 
 			) 
 		),
 		'cellMaps' => array(
@@ -307,7 +324,7 @@
 		) 
 	),
 	'page' => array(
-		'verticalBar' => false,
+		'verticalBar' => true,
 		'labeledButtons' => array(
 			'update_records' => array(
 				 
@@ -336,7 +353,7 @@
 		'menus' => array( 
 			array(
 				'id' => 'main',
-				'horizontal' => true 
+				'horizontal' => false 
 			) 
 		),
 		'calcTotalsFor' => 1,
@@ -357,7 +374,7 @@
 			$pageArray = array(
 	'id' => 'admin_rights_list',
 	'type' => 'admin_rights_list',
-	'layoutId' => 'topbar',
+	'layoutId' => 'leftbar',
 	'disabled' => false,
 	'default' => 0,
 	'forms' => array(
@@ -441,7 +458,7 @@
 			'recsPerRow' => 1 
 		),
 		'supertop' => array(
-			'modelId' => 'admin-topbar-menu',
+			'modelId' => 'admin-leftbar-top',
 			'grid' => array( 
 				array(
 					'cells' => array( 
@@ -459,14 +476,54 @@
 				'c1' => array(
 					'model' => 'c1',
 					'items' => array( 
-						'logo',
-						'menu' 
+						'expand_menu_button',
+						'collapse_button' 
 					) 
 				),
 				'c2' => array(
 					'model' => 'c2',
 					'items' => array( 
 						'username_button' 
+					) 
+				) 
+			),
+			'deferredItems' => array( 
+				 
+			),
+			'recsPerRow' => 1 
+		),
+		'left' => array(
+			'modelId' => 'admin-leftbar-menu',
+			'grid' => array( 
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c0' 
+						) 
+					),
+					'section' => '' 
+				),
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c1' 
+						) 
+					),
+					'section' => '' 
+				) 
+			),
+			'cells' => array(
+				'c0' => array(
+					'model' => 'c0',
+					'items' => array( 
+						'logo',
+						'expand_button' 
+					) 
+				),
+				'c1' => array(
+					'model' => 'c1',
+					'items' => array( 
+						'menu' 
 					) 
 				) 
 			),
@@ -841,6 +898,12 @@
 		'rights_reset' => array(
 			'type' => 'rights_reset' 
 		),
+		'rights_displaying_tables' => array(
+			'type' => 'rights_displaying_tables' 
+		),
+		'rights_ordering_tables' => array(
+			'type' => 'rights_ordering_tables' 
+		),
 		'rights_add_group' => array(
 			'type' => 'rights_add_group' 
 		),
@@ -852,12 +915,6 @@
 		),
 		'rights_copy_permissions' => array(
 			'type' => 'rights_copy_permissions' 
-		),
-		'rights_displaying_tables' => array(
-			'type' => 'rights_displaying_tables' 
-		),
-		'rights_ordering_tables' => array(
-			'type' => 'rights_ordering_tables' 
 		),
 		'rights_search' => array(
 			'type' => 'rights_search' 
@@ -886,6 +943,33 @@
 		'rights_name_m1' => array(
 			'type' => 'rights_name_m1' 
 		),
+		'rights_checkbox_page' => array(
+			'type' => 'rights_checkbox_page' 
+		),
+		'rights_page' => array(
+			'type' => 'rights_page' 
+		),
+		'rights_checkbox_page_a' => array(
+			'type' => 'rights_checkbox_page_a' 
+		),
+		'rights_checkbox_page_e' => array(
+			'type' => 'rights_checkbox_page_e' 
+		),
+		'rights_checkbox_page_d' => array(
+			'type' => 'rights_checkbox_page_d' 
+		),
+		'rights_checkbox_page_s' => array(
+			'type' => 'rights_checkbox_page_s' 
+		),
+		'rights_checkbox_page_p' => array(
+			'type' => 'rights_checkbox_page_p' 
+		),
+		'rights_checkbox_page_i' => array(
+			'type' => 'rights_checkbox_page_i' 
+		),
+		'rights_expand_all' => array(
+			'type' => 'rights_expand_all' 
+		),
 		'rights_checkbox_all_a' => array(
 			'type' => 'rights_checkbox_all_a' 
 		),
@@ -913,6 +997,15 @@
 		'rights_table' => array(
 			'type' => 'rights_table' 
 		),
+		'rights_show_pages' => array(
+			'type' => 'rights_show_pages' 
+		),
+		'rights_hide_pages' => array(
+			'type' => 'rights_hide_pages' 
+		),
+		'rights_group_expander' => array(
+			'type' => 'rights_group_expander' 
+		),
 		'rights_checkbox_a' => array(
 			'type' => 'rights_checkbox_a' 
 		),
@@ -934,41 +1027,17 @@
 		'rights_checkbox_m' => array(
 			'type' => 'rights_checkbox_m' 
 		),
-		'rights_page' => array(
-			'type' => 'rights_page' 
+		'userinfo_link' => array(
+			'type' => 'userinfo_link' 
 		),
-		'rights_checkbox_page_a' => array(
-			'type' => 'rights_checkbox_page_a' 
+		'logout_link' => array(
+			'type' => 'logout_link' 
 		),
-		'rights_checkbox_page_e' => array(
-			'type' => 'rights_checkbox_page_e' 
+		'exit_adminarea_link' => array(
+			'type' => 'exit_adminarea_link' 
 		),
-		'rights_checkbox_page_d' => array(
-			'type' => 'rights_checkbox_page_d' 
-		),
-		'rights_checkbox_page_s' => array(
-			'type' => 'rights_checkbox_page_s' 
-		),
-		'rights_checkbox_page_p' => array(
-			'type' => 'rights_checkbox_page_p' 
-		),
-		'rights_checkbox_page_i' => array(
-			'type' => 'rights_checkbox_page_i' 
-		),
-		'rights_show_pages' => array(
-			'type' => 'rights_show_pages' 
-		),
-		'rights_hide_pages' => array(
-			'type' => 'rights_hide_pages' 
-		),
-		'rights_checkbox_page' => array(
-			'type' => 'rights_checkbox_page' 
-		),
-		'rights_group_expander' => array(
-			'type' => 'rights_group_expander' 
-		),
-		'rights_expand_all' => array(
-			'type' => 'rights_expand_all' 
+		'changepassword_link' => array(
+			'type' => 'changepassword_link' 
 		),
 		'logo' => array(
 			'type' => 'logo' 
@@ -985,17 +1054,14 @@
 				'changepassword_link' 
 			) 
 		),
-		'exit_adminarea_link' => array(
-			'type' => 'exit_adminarea_link' 
+		'expand_menu_button' => array(
+			'type' => 'expand_menu_button' 
 		),
-		'userinfo_link' => array(
-			'type' => 'userinfo_link' 
+		'collapse_button' => array(
+			'type' => 'collapse_button' 
 		),
-		'logout_link' => array(
-			'type' => 'logout_link' 
-		),
-		'changepassword_link' => array(
-			'type' => 'changepassword_link' 
+		'expand_button' => array(
+			'type' => 'expand_button' 
 		) 
 	),
 	'dbProps' => array(

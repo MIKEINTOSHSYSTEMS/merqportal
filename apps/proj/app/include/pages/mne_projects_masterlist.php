@@ -30,6 +30,7 @@
 			'mel_lead_id',
 			'project_coordinator_id',
 			'created_by',
+			'updated_by',
 			'created_at',
 			'updated_at',
 			'is_active',
@@ -47,143 +48,147 @@
 		'fieldItems' => array(
 			'project_id' => array( 
 				'simple_grid_field',
-				'simple_grid_field35' 
+				'simple_grid_field36' 
 			),
 			'project_code' => array( 
 				'simple_grid_field1',
-				'simple_grid_field36' 
+				'simple_grid_field37' 
 			),
 			'agreement_reference_no' => array( 
 				'simple_grid_field2',
-				'simple_grid_field37' 
+				'simple_grid_field38' 
 			),
 			'project_name' => array( 
 				'simple_grid_field3',
-				'simple_grid_field38' 
+				'simple_grid_field39' 
 			),
 			'client_id' => array( 
 				'simple_grid_field4',
-				'simple_grid_field39' 
+				'simple_grid_field40' 
 			),
 			'client_name' => array( 
 				'simple_grid_field5',
-				'simple_grid_field40' 
+				'simple_grid_field41' 
 			),
 			'start_date' => array( 
 				'simple_grid_field6',
-				'simple_grid_field41' 
+				'simple_grid_field42' 
 			),
 			'end_date_original' => array( 
 				'simple_grid_field7',
-				'simple_grid_field42' 
+				'simple_grid_field43' 
 			),
 			'date_extended' => array( 
 				'simple_grid_field8',
-				'simple_grid_field43' 
+				'simple_grid_field44' 
 			),
 			'reason_for_extension' => array( 
 				'simple_grid_field9',
-				'simple_grid_field44' 
+				'simple_grid_field45' 
 			),
 			'total_value' => array( 
 				'simple_grid_field10',
-				'simple_grid_field45' 
+				'simple_grid_field46' 
 			),
 			'currency_id' => array( 
 				'simple_grid_field11',
-				'simple_grid_field46' 
+				'simple_grid_field47' 
 			),
 			'contract_type_id' => array( 
 				'simple_grid_field12',
-				'simple_grid_field47' 
+				'simple_grid_field48' 
 			),
 			'grantee_contracted_unit' => array( 
 				'simple_grid_field13',
-				'simple_grid_field48' 
+				'simple_grid_field49' 
 			),
 			'major_project_type_id' => array( 
 				'simple_grid_field14',
-				'simple_grid_field49' 
+				'simple_grid_field50' 
 			),
 			'specific_type_primary_id' => array( 
 				'simple_grid_field15',
-				'simple_grid_field50' 
+				'simple_grid_field51' 
 			),
 			'specific_type_secondary_id' => array( 
 				'simple_grid_field16',
-				'simple_grid_field51' 
+				'simple_grid_field52' 
 			),
 			'sector_id' => array( 
 				'simple_grid_field17',
-				'simple_grid_field52' 
+				'simple_grid_field53' 
 			),
 			'technical_area_primary_id' => array( 
 				'simple_grid_field18',
-				'simple_grid_field53' 
+				'simple_grid_field54' 
 			),
 			'technical_area_secondary_id' => array( 
 				'simple_grid_field19',
-				'simple_grid_field54' 
+				'simple_grid_field55' 
 			),
 			'technical_area_others' => array( 
 				'simple_grid_field20',
-				'simple_grid_field55' 
+				'simple_grid_field56' 
 			),
 			'current_status_id' => array( 
 				'simple_grid_field21',
-				'simple_grid_field56' 
+				'simple_grid_field57' 
 			),
 			'project_description' => array( 
 				'simple_grid_field22',
-				'simple_grid_field57' 
+				'simple_grid_field58' 
 			),
 			'project_manager_id' => array( 
 				'simple_grid_field23',
-				'simple_grid_field58' 
+				'simple_grid_field59' 
 			),
 			'technical_lead_id' => array( 
 				'simple_grid_field24',
-				'simple_grid_field59' 
+				'simple_grid_field60' 
 			),
 			'mel_lead_id' => array( 
 				'simple_grid_field25',
-				'simple_grid_field60' 
+				'simple_grid_field61' 
 			),
 			'project_coordinator_id' => array( 
 				'simple_grid_field26',
-				'simple_grid_field61' 
+				'simple_grid_field62' 
 			),
 			'created_by' => array( 
 				'simple_grid_field27',
-				'simple_grid_field62' 
+				'simple_grid_field63' 
+			),
+			'updated_by' => array( 
+				'simple_grid_field35',
+				'simple_grid_field64' 
 			),
 			'created_at' => array( 
 				'simple_grid_field28',
-				'simple_grid_field63' 
+				'simple_grid_field65' 
 			),
 			'updated_at' => array( 
 				'simple_grid_field29',
-				'simple_grid_field64' 
+				'simple_grid_field66' 
 			),
 			'is_active' => array( 
 				'simple_grid_field30',
-				'simple_grid_field65' 
+				'simple_grid_field67' 
 			),
 			'opportunity_id' => array( 
 				'simple_grid_field31',
-				'simple_grid_field66' 
+				'simple_grid_field68' 
 			),
 			'project_shortname' => array( 
 				'simple_grid_field32',
-				'simple_grid_field67' 
+				'simple_grid_field69' 
 			),
 			'profit_margins' => array( 
 				'simple_grid_field33',
-				'simple_grid_field68' 
+				'simple_grid_field70' 
 			),
 			'project_members' => array( 
 				'simple_grid_field34',
-				'simple_grid_field69' 
+				'simple_grid_field71' 
 			) 
 		) 
 	),
@@ -207,75 +212,77 @@
 					'masterlist_header' 
 				),
 				'grid' => array( 
-					'simple_grid_field35',
-					'simple_grid_field',
 					'simple_grid_field36',
-					'simple_grid_field1',
+					'simple_grid_field',
 					'simple_grid_field37',
-					'simple_grid_field2',
+					'simple_grid_field1',
 					'simple_grid_field38',
-					'simple_grid_field3',
+					'simple_grid_field2',
 					'simple_grid_field39',
-					'simple_grid_field4',
+					'simple_grid_field3',
 					'simple_grid_field40',
-					'simple_grid_field5',
+					'simple_grid_field4',
 					'simple_grid_field41',
-					'simple_grid_field6',
+					'simple_grid_field5',
 					'simple_grid_field42',
-					'simple_grid_field7',
+					'simple_grid_field6',
 					'simple_grid_field43',
-					'simple_grid_field8',
+					'simple_grid_field7',
 					'simple_grid_field44',
-					'simple_grid_field9',
+					'simple_grid_field8',
 					'simple_grid_field45',
-					'simple_grid_field10',
+					'simple_grid_field9',
 					'simple_grid_field46',
-					'simple_grid_field11',
+					'simple_grid_field10',
 					'simple_grid_field47',
-					'simple_grid_field12',
+					'simple_grid_field11',
 					'simple_grid_field48',
-					'simple_grid_field13',
+					'simple_grid_field12',
 					'simple_grid_field49',
-					'simple_grid_field14',
+					'simple_grid_field13',
 					'simple_grid_field50',
-					'simple_grid_field15',
+					'simple_grid_field14',
 					'simple_grid_field51',
-					'simple_grid_field16',
+					'simple_grid_field15',
 					'simple_grid_field52',
-					'simple_grid_field17',
+					'simple_grid_field16',
 					'simple_grid_field53',
-					'simple_grid_field18',
+					'simple_grid_field17',
 					'simple_grid_field54',
-					'simple_grid_field19',
+					'simple_grid_field18',
 					'simple_grid_field55',
-					'simple_grid_field20',
+					'simple_grid_field19',
 					'simple_grid_field56',
-					'simple_grid_field21',
+					'simple_grid_field20',
 					'simple_grid_field57',
-					'simple_grid_field22',
+					'simple_grid_field21',
 					'simple_grid_field58',
-					'simple_grid_field23',
+					'simple_grid_field22',
 					'simple_grid_field59',
-					'simple_grid_field24',
+					'simple_grid_field23',
 					'simple_grid_field60',
-					'simple_grid_field25',
+					'simple_grid_field24',
 					'simple_grid_field61',
-					'simple_grid_field26',
+					'simple_grid_field25',
 					'simple_grid_field62',
-					'simple_grid_field27',
+					'simple_grid_field26',
 					'simple_grid_field63',
-					'simple_grid_field28',
+					'simple_grid_field27',
 					'simple_grid_field64',
-					'simple_grid_field29',
+					'simple_grid_field35',
 					'simple_grid_field65',
-					'simple_grid_field30',
+					'simple_grid_field28',
 					'simple_grid_field66',
-					'simple_grid_field31',
+					'simple_grid_field29',
 					'simple_grid_field67',
-					'simple_grid_field32',
+					'simple_grid_field30',
 					'simple_grid_field68',
-					'simple_grid_field33',
+					'simple_grid_field31',
 					'simple_grid_field69',
+					'simple_grid_field32',
+					'simple_grid_field70',
+					'simple_grid_field33',
+					'simple_grid_field71',
 					'simple_grid_field34',
 					'grid_inline_cancel' 
 				) 
@@ -292,80 +299,82 @@
 				'inline_add' => 'above-grid',
 				'back_master' => 'top',
 				'masterlist_header' => 'top',
-				'simple_grid_field35' => 'grid',
-				'simple_grid_field' => 'grid',
 				'simple_grid_field36' => 'grid',
-				'simple_grid_field1' => 'grid',
+				'simple_grid_field' => 'grid',
 				'simple_grid_field37' => 'grid',
-				'simple_grid_field2' => 'grid',
+				'simple_grid_field1' => 'grid',
 				'simple_grid_field38' => 'grid',
-				'simple_grid_field3' => 'grid',
+				'simple_grid_field2' => 'grid',
 				'simple_grid_field39' => 'grid',
-				'simple_grid_field4' => 'grid',
+				'simple_grid_field3' => 'grid',
 				'simple_grid_field40' => 'grid',
-				'simple_grid_field5' => 'grid',
+				'simple_grid_field4' => 'grid',
 				'simple_grid_field41' => 'grid',
-				'simple_grid_field6' => 'grid',
+				'simple_grid_field5' => 'grid',
 				'simple_grid_field42' => 'grid',
-				'simple_grid_field7' => 'grid',
+				'simple_grid_field6' => 'grid',
 				'simple_grid_field43' => 'grid',
-				'simple_grid_field8' => 'grid',
+				'simple_grid_field7' => 'grid',
 				'simple_grid_field44' => 'grid',
-				'simple_grid_field9' => 'grid',
+				'simple_grid_field8' => 'grid',
 				'simple_grid_field45' => 'grid',
-				'simple_grid_field10' => 'grid',
+				'simple_grid_field9' => 'grid',
 				'simple_grid_field46' => 'grid',
-				'simple_grid_field11' => 'grid',
+				'simple_grid_field10' => 'grid',
 				'simple_grid_field47' => 'grid',
-				'simple_grid_field12' => 'grid',
+				'simple_grid_field11' => 'grid',
 				'simple_grid_field48' => 'grid',
-				'simple_grid_field13' => 'grid',
+				'simple_grid_field12' => 'grid',
 				'simple_grid_field49' => 'grid',
-				'simple_grid_field14' => 'grid',
+				'simple_grid_field13' => 'grid',
 				'simple_grid_field50' => 'grid',
-				'simple_grid_field15' => 'grid',
+				'simple_grid_field14' => 'grid',
 				'simple_grid_field51' => 'grid',
-				'simple_grid_field16' => 'grid',
+				'simple_grid_field15' => 'grid',
 				'simple_grid_field52' => 'grid',
-				'simple_grid_field17' => 'grid',
+				'simple_grid_field16' => 'grid',
 				'simple_grid_field53' => 'grid',
-				'simple_grid_field18' => 'grid',
+				'simple_grid_field17' => 'grid',
 				'simple_grid_field54' => 'grid',
-				'simple_grid_field19' => 'grid',
+				'simple_grid_field18' => 'grid',
 				'simple_grid_field55' => 'grid',
-				'simple_grid_field20' => 'grid',
+				'simple_grid_field19' => 'grid',
 				'simple_grid_field56' => 'grid',
-				'simple_grid_field21' => 'grid',
+				'simple_grid_field20' => 'grid',
 				'simple_grid_field57' => 'grid',
-				'simple_grid_field22' => 'grid',
+				'simple_grid_field21' => 'grid',
 				'simple_grid_field58' => 'grid',
-				'simple_grid_field23' => 'grid',
+				'simple_grid_field22' => 'grid',
 				'simple_grid_field59' => 'grid',
-				'simple_grid_field24' => 'grid',
+				'simple_grid_field23' => 'grid',
 				'simple_grid_field60' => 'grid',
-				'simple_grid_field25' => 'grid',
+				'simple_grid_field24' => 'grid',
 				'simple_grid_field61' => 'grid',
-				'simple_grid_field26' => 'grid',
+				'simple_grid_field25' => 'grid',
 				'simple_grid_field62' => 'grid',
-				'simple_grid_field27' => 'grid',
+				'simple_grid_field26' => 'grid',
 				'simple_grid_field63' => 'grid',
-				'simple_grid_field28' => 'grid',
+				'simple_grid_field27' => 'grid',
 				'simple_grid_field64' => 'grid',
-				'simple_grid_field29' => 'grid',
+				'simple_grid_field35' => 'grid',
 				'simple_grid_field65' => 'grid',
-				'simple_grid_field30' => 'grid',
+				'simple_grid_field28' => 'grid',
 				'simple_grid_field66' => 'grid',
-				'simple_grid_field31' => 'grid',
+				'simple_grid_field29' => 'grid',
 				'simple_grid_field67' => 'grid',
-				'simple_grid_field32' => 'grid',
+				'simple_grid_field30' => 'grid',
 				'simple_grid_field68' => 'grid',
-				'simple_grid_field33' => 'grid',
+				'simple_grid_field31' => 'grid',
 				'simple_grid_field69' => 'grid',
+				'simple_grid_field32' => 'grid',
+				'simple_grid_field70' => 'grid',
+				'simple_grid_field33' => 'grid',
+				'simple_grid_field71' => 'grid',
 				'simple_grid_field34' => 'grid',
 				'grid_inline_cancel' => 'grid' 
 			),
 			'itemLocations' => array(
-				'simple_grid_field35' => array(
+				'simple_grid_field36' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field' 
 				),
@@ -373,7 +382,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field' 
 				),
-				'simple_grid_field36' => array(
+				'simple_grid_field37' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field1' 
 				),
@@ -381,7 +390,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field1' 
 				),
-				'simple_grid_field37' => array(
+				'simple_grid_field38' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field2' 
 				),
@@ -389,7 +398,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field2' 
 				),
-				'simple_grid_field38' => array(
+				'simple_grid_field39' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field3' 
 				),
@@ -397,7 +406,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field3' 
 				),
-				'simple_grid_field39' => array(
+				'simple_grid_field40' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field4' 
 				),
@@ -405,7 +414,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field4' 
 				),
-				'simple_grid_field40' => array(
+				'simple_grid_field41' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field5' 
 				),
@@ -413,7 +422,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field5' 
 				),
-				'simple_grid_field41' => array(
+				'simple_grid_field42' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field6' 
 				),
@@ -421,7 +430,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field6' 
 				),
-				'simple_grid_field42' => array(
+				'simple_grid_field43' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field7' 
 				),
@@ -429,7 +438,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field7' 
 				),
-				'simple_grid_field43' => array(
+				'simple_grid_field44' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field8' 
 				),
@@ -437,7 +446,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field8' 
 				),
-				'simple_grid_field44' => array(
+				'simple_grid_field45' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field9' 
 				),
@@ -445,7 +454,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field9' 
 				),
-				'simple_grid_field45' => array(
+				'simple_grid_field46' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field10' 
 				),
@@ -453,7 +462,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field10' 
 				),
-				'simple_grid_field46' => array(
+				'simple_grid_field47' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field11' 
 				),
@@ -461,7 +470,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field11' 
 				),
-				'simple_grid_field47' => array(
+				'simple_grid_field48' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field12' 
 				),
@@ -469,7 +478,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field12' 
 				),
-				'simple_grid_field48' => array(
+				'simple_grid_field49' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field13' 
 				),
@@ -477,7 +486,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field13' 
 				),
-				'simple_grid_field49' => array(
+				'simple_grid_field50' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field14' 
 				),
@@ -485,7 +494,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field14' 
 				),
-				'simple_grid_field50' => array(
+				'simple_grid_field51' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field15' 
 				),
@@ -493,7 +502,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field15' 
 				),
-				'simple_grid_field51' => array(
+				'simple_grid_field52' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field16' 
 				),
@@ -501,7 +510,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field16' 
 				),
-				'simple_grid_field52' => array(
+				'simple_grid_field53' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field17' 
 				),
@@ -509,7 +518,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field17' 
 				),
-				'simple_grid_field53' => array(
+				'simple_grid_field54' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field18' 
 				),
@@ -517,7 +526,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field18' 
 				),
-				'simple_grid_field54' => array(
+				'simple_grid_field55' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field19' 
 				),
@@ -525,7 +534,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field19' 
 				),
-				'simple_grid_field55' => array(
+				'simple_grid_field56' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field20' 
 				),
@@ -533,7 +542,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field20' 
 				),
-				'simple_grid_field56' => array(
+				'simple_grid_field57' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field21' 
 				),
@@ -541,7 +550,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field21' 
 				),
-				'simple_grid_field57' => array(
+				'simple_grid_field58' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field22' 
 				),
@@ -549,7 +558,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field22' 
 				),
-				'simple_grid_field58' => array(
+				'simple_grid_field59' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field23' 
 				),
@@ -557,7 +566,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field23' 
 				),
-				'simple_grid_field59' => array(
+				'simple_grid_field60' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field24' 
 				),
@@ -565,7 +574,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field24' 
 				),
-				'simple_grid_field60' => array(
+				'simple_grid_field61' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field25' 
 				),
@@ -573,7 +582,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field25' 
 				),
-				'simple_grid_field61' => array(
+				'simple_grid_field62' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field26' 
 				),
@@ -581,7 +590,7 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field26' 
 				),
-				'simple_grid_field62' => array(
+				'simple_grid_field63' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field27' 
 				),
@@ -589,61 +598,69 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field27' 
 				),
-				'simple_grid_field63' => array(
+				'simple_grid_field64' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field28' 
 				),
-				'simple_grid_field28' => array(
+				'simple_grid_field35' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field28' 
 				),
-				'simple_grid_field64' => array(
+				'simple_grid_field65' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field29' 
 				),
-				'simple_grid_field29' => array(
+				'simple_grid_field28' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field29' 
 				),
-				'simple_grid_field65' => array(
+				'simple_grid_field66' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field30' 
 				),
-				'simple_grid_field30' => array(
+				'simple_grid_field29' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field30' 
 				),
-				'simple_grid_field66' => array(
+				'simple_grid_field67' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field31' 
 				),
-				'simple_grid_field31' => array(
+				'simple_grid_field30' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field31' 
 				),
-				'simple_grid_field67' => array(
+				'simple_grid_field68' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field32' 
 				),
-				'simple_grid_field32' => array(
+				'simple_grid_field31' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field32' 
 				),
-				'simple_grid_field68' => array(
+				'simple_grid_field69' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field33' 
 				),
-				'simple_grid_field33' => array(
+				'simple_grid_field32' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field33' 
 				),
-				'simple_grid_field69' => array(
+				'simple_grid_field70' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_field34' 
 				),
-				'simple_grid_field34' => array(
+				'simple_grid_field33' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field34' 
+				),
+				'simple_grid_field71' => array(
+					'location' => 'grid',
+					'cellId' => 'headcell_field35' 
+				),
+				'simple_grid_field34' => array(
+					'location' => 'grid',
+					'cellId' => 'cell_field35' 
 				),
 				'grid_inline_cancel' => array(
 					'location' => 'grid',
@@ -690,6 +707,7 @@
 				'simple_grid_field25',
 				'simple_grid_field26',
 				'simple_grid_field27',
+				'simple_grid_field35',
 				'simple_grid_field28',
 				'simple_grid_field29',
 				'simple_grid_field30',
@@ -699,7 +717,6 @@
 				'simple_grid_field34' 
 			),
 			'grid_field_label' => array( 
-				'simple_grid_field35',
 				'simple_grid_field36',
 				'simple_grid_field37',
 				'simple_grid_field38',
@@ -733,7 +750,9 @@
 				'simple_grid_field66',
 				'simple_grid_field67',
 				'simple_grid_field68',
-				'simple_grid_field69' 
+				'simple_grid_field69',
+				'simple_grid_field70',
+				'simple_grid_field71' 
 			),
 			'inline_add' => array( 
 				'inline_add' 
@@ -772,7 +791,7 @@
 							'project_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field35' 
+							'simple_grid_field36' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -788,7 +807,7 @@
 							'project_code_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field36' 
+							'simple_grid_field37' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -804,7 +823,7 @@
 							'agreement_reference_no_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field37' 
+							'simple_grid_field38' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -820,7 +839,7 @@
 							'project_name_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field38' 
+							'simple_grid_field39' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -836,7 +855,7 @@
 							'client_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field39' 
+							'simple_grid_field40' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -852,7 +871,7 @@
 							'client_name_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field40' 
+							'simple_grid_field41' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -868,7 +887,7 @@
 							'start_date_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field41' 
+							'simple_grid_field42' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -884,7 +903,7 @@
 							'end_date_original_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field42' 
+							'simple_grid_field43' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -900,7 +919,7 @@
 							'date_extended_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field43' 
+							'simple_grid_field44' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -916,7 +935,7 @@
 							'reason_for_extension_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field44' 
+							'simple_grid_field45' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -932,7 +951,7 @@
 							'total_value_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field45' 
+							'simple_grid_field46' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -948,7 +967,7 @@
 							'currency_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field46' 
+							'simple_grid_field47' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -964,7 +983,7 @@
 							'contract_type_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field47' 
+							'simple_grid_field48' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -980,7 +999,7 @@
 							'grantee_contracted_unit_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field48' 
+							'simple_grid_field49' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -996,7 +1015,7 @@
 							'major_project_type_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field49' 
+							'simple_grid_field50' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1012,7 +1031,7 @@
 							'specific_type_primary_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field50' 
+							'simple_grid_field51' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1028,7 +1047,7 @@
 							'specific_type_secondary_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field51' 
+							'simple_grid_field52' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1044,7 +1063,7 @@
 							'sector_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field52' 
+							'simple_grid_field53' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1060,7 +1079,7 @@
 							'technical_area_primary_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field53' 
+							'simple_grid_field54' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1076,7 +1095,7 @@
 							'technical_area_secondary_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field54' 
+							'simple_grid_field55' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1092,7 +1111,7 @@
 							'technical_area_others_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field55' 
+							'simple_grid_field56' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1108,7 +1127,7 @@
 							'current_status_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field56' 
+							'simple_grid_field57' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1124,7 +1143,7 @@
 							'project_description_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field57' 
+							'simple_grid_field58' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1140,7 +1159,7 @@
 							'project_manager_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field58' 
+							'simple_grid_field59' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1156,7 +1175,7 @@
 							'technical_lead_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field59' 
+							'simple_grid_field60' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1172,7 +1191,7 @@
 							'mel_lead_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field60' 
+							'simple_grid_field61' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1188,7 +1207,7 @@
 							'project_coordinator_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field61' 
+							'simple_grid_field62' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1204,7 +1223,7 @@
 							'created_by_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field62' 
+							'simple_grid_field63' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1217,10 +1236,10 @@
 							0 
 						),
 						'tags' => array( 
-							'created_at_fieldheadercolumn' 
+							'updated_by_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field63' 
+							'simple_grid_field64' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1233,10 +1252,10 @@
 							0 
 						),
 						'tags' => array( 
-							'updated_at_fieldheadercolumn' 
+							'created_at_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field64' 
+							'simple_grid_field65' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1249,10 +1268,10 @@
 							0 
 						),
 						'tags' => array( 
-							'is_active_fieldheadercolumn' 
+							'updated_at_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field65' 
+							'simple_grid_field66' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1265,10 +1284,10 @@
 							0 
 						),
 						'tags' => array( 
-							'opportunity_id_fieldheadercolumn' 
+							'is_active_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field66' 
+							'simple_grid_field67' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1281,10 +1300,10 @@
 							0 
 						),
 						'tags' => array( 
-							'project_shortname_fieldheadercolumn' 
+							'opportunity_id_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field67' 
+							'simple_grid_field68' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1297,10 +1316,10 @@
 							0 
 						),
 						'tags' => array( 
-							'profit_margins_fieldheadercolumn' 
+							'project_shortname_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field68' 
+							'simple_grid_field69' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1313,10 +1332,26 @@
 							0 
 						),
 						'tags' => array( 
+							'profit_margins_fieldheadercolumn' 
+						),
+						'items' => array( 
+							'simple_grid_field70' 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
+					),
+					'headcell_field35' => array(
+						'cols' => array( 
+							36 
+						),
+						'rows' => array( 
+							0 
+						),
+						'tags' => array( 
 							'project_members_fieldheadercolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field69' 
+							'simple_grid_field71' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1793,6 +1828,22 @@
 							1 
 						),
 						'tags' => array( 
+							'updated_by_fieldcolumn' 
+						),
+						'items' => array( 
+							'simple_grid_field35' 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
+					),
+					'cell_field29' => array(
+						'cols' => array( 
+							30 
+						),
+						'rows' => array( 
+							1 
+						),
+						'tags' => array( 
 							'created_at_fieldcolumn' 
 						),
 						'items' => array( 
@@ -1801,9 +1852,9 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'cell_field29' => array(
+					'cell_field30' => array(
 						'cols' => array( 
-							30 
+							31 
 						),
 						'rows' => array( 
 							1 
@@ -1817,9 +1868,9 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'cell_field30' => array(
+					'cell_field31' => array(
 						'cols' => array( 
-							31 
+							32 
 						),
 						'rows' => array( 
 							1 
@@ -1833,9 +1884,9 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'cell_field31' => array(
+					'cell_field32' => array(
 						'cols' => array( 
-							32 
+							33 
 						),
 						'rows' => array( 
 							1 
@@ -1849,9 +1900,9 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'cell_field32' => array(
+					'cell_field33' => array(
 						'cols' => array( 
-							33 
+							34 
 						),
 						'rows' => array( 
 							1 
@@ -1865,9 +1916,9 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'cell_field33' => array(
+					'cell_field34' => array(
 						'cols' => array( 
-							34 
+							35 
 						),
 						'rows' => array( 
 							1 
@@ -1881,9 +1932,9 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'cell_field34' => array(
+					'cell_field35' => array(
 						'cols' => array( 
-							35 
+							36 
 						),
 						'rows' => array( 
 							1 
@@ -2472,9 +2523,25 @@
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
+					),
+					'footcell_field35' => array(
+						'cols' => array( 
+							36 
+						),
+						'rows' => array( 
+							2 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
 					) 
 				),
-				'width' => 36,
+				'width' => 37,
 				'height' => 3 
 			) 
 		) 
@@ -2728,6 +2795,9 @@
 						),
 						array(
 							'cell' => 'headcell_field34' 
+						),
+						array(
+							'cell' => 'headcell_field35' 
 						) 
 					) 
 				),
@@ -2841,6 +2911,9 @@
 						),
 						array(
 							'cell' => 'cell_field34' 
+						),
+						array(
+							'cell' => 'cell_field35' 
 						) 
 					) 
 				),
@@ -2954,6 +3027,9 @@
 						),
 						array(
 							'cell' => 'footcell_field34' 
+						),
+						array(
+							'cell' => 'footcell_field35' 
 						) 
 					) 
 				) 
@@ -2962,7 +3038,7 @@
 				'headcell_field' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field35' 
+						'simple_grid_field36' 
 					),
 					'field' => 'project_id',
 					'columnName' => 'field' 
@@ -2984,7 +3060,7 @@
 				'headcell_field1' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field36' 
+						'simple_grid_field37' 
 					),
 					'field' => 'project_code',
 					'columnName' => 'field' 
@@ -3006,7 +3082,7 @@
 				'headcell_field2' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field37' 
+						'simple_grid_field38' 
 					),
 					'field' => 'agreement_reference_no',
 					'columnName' => 'field' 
@@ -3028,7 +3104,7 @@
 				'headcell_field3' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field38' 
+						'simple_grid_field39' 
 					),
 					'field' => 'project_name',
 					'columnName' => 'field' 
@@ -3050,7 +3126,7 @@
 				'headcell_field4' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field39' 
+						'simple_grid_field40' 
 					),
 					'field' => 'client_id',
 					'columnName' => 'field' 
@@ -3072,7 +3148,7 @@
 				'headcell_field5' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field40' 
+						'simple_grid_field41' 
 					),
 					'field' => 'client_name',
 					'columnName' => 'field' 
@@ -3094,7 +3170,7 @@
 				'headcell_field6' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field41' 
+						'simple_grid_field42' 
 					),
 					'field' => 'start_date',
 					'columnName' => 'field' 
@@ -3116,7 +3192,7 @@
 				'headcell_field7' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field42' 
+						'simple_grid_field43' 
 					),
 					'field' => 'end_date_original',
 					'columnName' => 'field' 
@@ -3138,7 +3214,7 @@
 				'headcell_field8' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field43' 
+						'simple_grid_field44' 
 					),
 					'field' => 'date_extended',
 					'columnName' => 'field' 
@@ -3160,7 +3236,7 @@
 				'headcell_field9' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field44' 
+						'simple_grid_field45' 
 					),
 					'field' => 'reason_for_extension',
 					'columnName' => 'field' 
@@ -3182,7 +3258,7 @@
 				'headcell_field10' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field45' 
+						'simple_grid_field46' 
 					),
 					'field' => 'total_value',
 					'columnName' => 'field' 
@@ -3204,7 +3280,7 @@
 				'headcell_field11' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field46' 
+						'simple_grid_field47' 
 					),
 					'field' => 'currency_id',
 					'columnName' => 'field' 
@@ -3226,7 +3302,7 @@
 				'headcell_field12' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field47' 
+						'simple_grid_field48' 
 					),
 					'field' => 'contract_type_id',
 					'columnName' => 'field' 
@@ -3248,7 +3324,7 @@
 				'headcell_field13' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field48' 
+						'simple_grid_field49' 
 					),
 					'field' => 'grantee_contracted_unit',
 					'columnName' => 'field' 
@@ -3270,7 +3346,7 @@
 				'headcell_field14' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field49' 
+						'simple_grid_field50' 
 					),
 					'field' => 'major_project_type_id',
 					'columnName' => 'field' 
@@ -3292,7 +3368,7 @@
 				'headcell_field15' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field50' 
+						'simple_grid_field51' 
 					),
 					'field' => 'specific_type_primary_id',
 					'columnName' => 'field' 
@@ -3314,7 +3390,7 @@
 				'headcell_field16' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field51' 
+						'simple_grid_field52' 
 					),
 					'field' => 'specific_type_secondary_id',
 					'columnName' => 'field' 
@@ -3336,7 +3412,7 @@
 				'headcell_field17' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field52' 
+						'simple_grid_field53' 
 					),
 					'field' => 'sector_id',
 					'columnName' => 'field' 
@@ -3358,7 +3434,7 @@
 				'headcell_field18' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field53' 
+						'simple_grid_field54' 
 					),
 					'field' => 'technical_area_primary_id',
 					'columnName' => 'field' 
@@ -3380,7 +3456,7 @@
 				'headcell_field19' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field54' 
+						'simple_grid_field55' 
 					),
 					'field' => 'technical_area_secondary_id',
 					'columnName' => 'field' 
@@ -3402,7 +3478,7 @@
 				'headcell_field20' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field55' 
+						'simple_grid_field56' 
 					),
 					'field' => 'technical_area_others',
 					'columnName' => 'field' 
@@ -3424,7 +3500,7 @@
 				'headcell_field21' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field56' 
+						'simple_grid_field57' 
 					),
 					'field' => 'current_status_id',
 					'columnName' => 'field' 
@@ -3446,7 +3522,7 @@
 				'headcell_field22' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field57' 
+						'simple_grid_field58' 
 					),
 					'field' => 'project_description',
 					'columnName' => 'field' 
@@ -3468,7 +3544,7 @@
 				'headcell_field23' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field58' 
+						'simple_grid_field59' 
 					),
 					'field' => 'project_manager_id',
 					'columnName' => 'field' 
@@ -3490,7 +3566,7 @@
 				'headcell_field24' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field59' 
+						'simple_grid_field60' 
 					),
 					'field' => 'technical_lead_id',
 					'columnName' => 'field' 
@@ -3512,7 +3588,7 @@
 				'headcell_field25' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field60' 
+						'simple_grid_field61' 
 					),
 					'field' => 'mel_lead_id',
 					'columnName' => 'field' 
@@ -3534,7 +3610,7 @@
 				'headcell_field26' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field61' 
+						'simple_grid_field62' 
 					),
 					'field' => 'project_coordinator_id',
 					'columnName' => 'field' 
@@ -3556,7 +3632,7 @@
 				'headcell_field27' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field62' 
+						'simple_grid_field63' 
 					),
 					'field' => 'created_by',
 					'columnName' => 'field' 
@@ -3578,17 +3654,17 @@
 				'headcell_field28' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field63' 
+						'simple_grid_field64' 
 					),
-					'field' => 'created_at',
+					'field' => 'updated_by',
 					'columnName' => 'field' 
 				),
 				'cell_field28' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field28' 
+						'simple_grid_field35' 
 					),
-					'field' => 'created_at',
+					'field' => 'updated_by',
 					'columnName' => 'field' 
 				),
 				'footcell_field28' => array(
@@ -3600,17 +3676,17 @@
 				'headcell_field29' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field64' 
+						'simple_grid_field65' 
 					),
-					'field' => 'updated_at',
+					'field' => 'created_at',
 					'columnName' => 'field' 
 				),
 				'cell_field29' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field29' 
+						'simple_grid_field28' 
 					),
-					'field' => 'updated_at',
+					'field' => 'created_at',
 					'columnName' => 'field' 
 				),
 				'footcell_field29' => array(
@@ -3622,17 +3698,17 @@
 				'headcell_field30' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field65' 
+						'simple_grid_field66' 
 					),
-					'field' => 'is_active',
+					'field' => 'updated_at',
 					'columnName' => 'field' 
 				),
 				'cell_field30' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field30' 
+						'simple_grid_field29' 
 					),
-					'field' => 'is_active',
+					'field' => 'updated_at',
 					'columnName' => 'field' 
 				),
 				'footcell_field30' => array(
@@ -3644,17 +3720,17 @@
 				'headcell_field31' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field66' 
+						'simple_grid_field67' 
 					),
-					'field' => 'opportunity_id',
+					'field' => 'is_active',
 					'columnName' => 'field' 
 				),
 				'cell_field31' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field31' 
+						'simple_grid_field30' 
 					),
-					'field' => 'opportunity_id',
+					'field' => 'is_active',
 					'columnName' => 'field' 
 				),
 				'footcell_field31' => array(
@@ -3666,17 +3742,17 @@
 				'headcell_field32' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field67' 
+						'simple_grid_field68' 
 					),
-					'field' => 'project_shortname',
+					'field' => 'opportunity_id',
 					'columnName' => 'field' 
 				),
 				'cell_field32' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field32' 
+						'simple_grid_field31' 
 					),
-					'field' => 'project_shortname',
+					'field' => 'opportunity_id',
 					'columnName' => 'field' 
 				),
 				'footcell_field32' => array(
@@ -3688,17 +3764,17 @@
 				'headcell_field33' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field68' 
+						'simple_grid_field69' 
 					),
-					'field' => 'profit_margins',
+					'field' => 'project_shortname',
 					'columnName' => 'field' 
 				),
 				'cell_field33' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field33' 
+						'simple_grid_field32' 
 					),
-					'field' => 'profit_margins',
+					'field' => 'project_shortname',
 					'columnName' => 'field' 
 				),
 				'footcell_field33' => array(
@@ -3710,12 +3786,34 @@
 				'headcell_field34' => array(
 					'model' => 'headcell_field',
 					'items' => array( 
-						'simple_grid_field69' 
+						'simple_grid_field70' 
+					),
+					'field' => 'profit_margins',
+					'columnName' => 'field' 
+				),
+				'cell_field34' => array(
+					'model' => 'cell_field',
+					'items' => array( 
+						'simple_grid_field33' 
+					),
+					'field' => 'profit_margins',
+					'columnName' => 'field' 
+				),
+				'footcell_field34' => array(
+					'model' => 'footcell_field',
+					'items' => array( 
+						 
+					) 
+				),
+				'headcell_field35' => array(
+					'model' => 'headcell_field',
+					'items' => array( 
+						'simple_grid_field71' 
 					),
 					'field' => 'project_members',
 					'columnName' => 'field' 
 				),
-				'cell_field34' => array(
+				'cell_field35' => array(
 					'model' => 'cell_field',
 					'items' => array( 
 						'simple_grid_field34' 
@@ -3723,7 +3821,7 @@
 					'field' => 'project_members',
 					'columnName' => 'field' 
 				),
-				'footcell_field34' => array(
+				'footcell_field35' => array(
 					'model' => 'footcell_field',
 					'items' => array( 
 						 
@@ -3765,7 +3863,7 @@
 			'field' => 'project_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field35' => array(
+		'simple_grid_field36' => array(
 			'type' => 'grid_field_label',
 			'field' => 'project_id' 
 		),
@@ -3773,7 +3871,7 @@
 			'field' => 'project_code',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field36' => array(
+		'simple_grid_field37' => array(
 			'type' => 'grid_field_label',
 			'field' => 'project_code' 
 		),
@@ -3781,7 +3879,7 @@
 			'field' => 'agreement_reference_no',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field37' => array(
+		'simple_grid_field38' => array(
 			'type' => 'grid_field_label',
 			'field' => 'agreement_reference_no' 
 		),
@@ -3789,7 +3887,7 @@
 			'field' => 'project_name',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field38' => array(
+		'simple_grid_field39' => array(
 			'type' => 'grid_field_label',
 			'field' => 'project_name' 
 		),
@@ -3797,7 +3895,7 @@
 			'field' => 'client_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field39' => array(
+		'simple_grid_field40' => array(
 			'type' => 'grid_field_label',
 			'field' => 'client_id' 
 		),
@@ -3805,7 +3903,7 @@
 			'field' => 'client_name',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field40' => array(
+		'simple_grid_field41' => array(
 			'type' => 'grid_field_label',
 			'field' => 'client_name' 
 		),
@@ -3813,7 +3911,7 @@
 			'field' => 'start_date',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field41' => array(
+		'simple_grid_field42' => array(
 			'type' => 'grid_field_label',
 			'field' => 'start_date' 
 		),
@@ -3821,7 +3919,7 @@
 			'field' => 'end_date_original',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field42' => array(
+		'simple_grid_field43' => array(
 			'type' => 'grid_field_label',
 			'field' => 'end_date_original' 
 		),
@@ -3829,7 +3927,7 @@
 			'field' => 'date_extended',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field43' => array(
+		'simple_grid_field44' => array(
 			'type' => 'grid_field_label',
 			'field' => 'date_extended' 
 		),
@@ -3837,7 +3935,7 @@
 			'field' => 'reason_for_extension',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field44' => array(
+		'simple_grid_field45' => array(
 			'type' => 'grid_field_label',
 			'field' => 'reason_for_extension' 
 		),
@@ -3845,7 +3943,7 @@
 			'field' => 'total_value',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field45' => array(
+		'simple_grid_field46' => array(
 			'type' => 'grid_field_label',
 			'field' => 'total_value' 
 		),
@@ -3853,7 +3951,7 @@
 			'field' => 'currency_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field46' => array(
+		'simple_grid_field47' => array(
 			'type' => 'grid_field_label',
 			'field' => 'currency_id' 
 		),
@@ -3861,7 +3959,7 @@
 			'field' => 'contract_type_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field47' => array(
+		'simple_grid_field48' => array(
 			'type' => 'grid_field_label',
 			'field' => 'contract_type_id' 
 		),
@@ -3869,7 +3967,7 @@
 			'field' => 'grantee_contracted_unit',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field48' => array(
+		'simple_grid_field49' => array(
 			'type' => 'grid_field_label',
 			'field' => 'grantee_contracted_unit' 
 		),
@@ -3877,7 +3975,7 @@
 			'field' => 'major_project_type_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field49' => array(
+		'simple_grid_field50' => array(
 			'type' => 'grid_field_label',
 			'field' => 'major_project_type_id' 
 		),
@@ -3885,7 +3983,7 @@
 			'field' => 'specific_type_primary_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field50' => array(
+		'simple_grid_field51' => array(
 			'type' => 'grid_field_label',
 			'field' => 'specific_type_primary_id' 
 		),
@@ -3893,7 +3991,7 @@
 			'field' => 'specific_type_secondary_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field51' => array(
+		'simple_grid_field52' => array(
 			'type' => 'grid_field_label',
 			'field' => 'specific_type_secondary_id' 
 		),
@@ -3901,7 +3999,7 @@
 			'field' => 'sector_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field52' => array(
+		'simple_grid_field53' => array(
 			'type' => 'grid_field_label',
 			'field' => 'sector_id' 
 		),
@@ -3909,7 +4007,7 @@
 			'field' => 'technical_area_primary_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field53' => array(
+		'simple_grid_field54' => array(
 			'type' => 'grid_field_label',
 			'field' => 'technical_area_primary_id' 
 		),
@@ -3917,7 +4015,7 @@
 			'field' => 'technical_area_secondary_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field54' => array(
+		'simple_grid_field55' => array(
 			'type' => 'grid_field_label',
 			'field' => 'technical_area_secondary_id' 
 		),
@@ -3925,7 +4023,7 @@
 			'field' => 'technical_area_others',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field55' => array(
+		'simple_grid_field56' => array(
 			'type' => 'grid_field_label',
 			'field' => 'technical_area_others' 
 		),
@@ -3933,7 +4031,7 @@
 			'field' => 'current_status_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field56' => array(
+		'simple_grid_field57' => array(
 			'type' => 'grid_field_label',
 			'field' => 'current_status_id' 
 		),
@@ -3941,7 +4039,7 @@
 			'field' => 'project_description',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field57' => array(
+		'simple_grid_field58' => array(
 			'type' => 'grid_field_label',
 			'field' => 'project_description' 
 		),
@@ -3949,7 +4047,7 @@
 			'field' => 'project_manager_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field58' => array(
+		'simple_grid_field59' => array(
 			'type' => 'grid_field_label',
 			'field' => 'project_manager_id' 
 		),
@@ -3957,7 +4055,7 @@
 			'field' => 'technical_lead_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field59' => array(
+		'simple_grid_field60' => array(
 			'type' => 'grid_field_label',
 			'field' => 'technical_lead_id' 
 		),
@@ -3965,7 +4063,7 @@
 			'field' => 'mel_lead_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field60' => array(
+		'simple_grid_field61' => array(
 			'type' => 'grid_field_label',
 			'field' => 'mel_lead_id' 
 		),
@@ -3973,7 +4071,7 @@
 			'field' => 'project_coordinator_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field61' => array(
+		'simple_grid_field62' => array(
 			'type' => 'grid_field_label',
 			'field' => 'project_coordinator_id' 
 		),
@@ -3981,15 +4079,23 @@
 			'field' => 'created_by',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field62' => array(
+		'simple_grid_field63' => array(
 			'type' => 'grid_field_label',
 			'field' => 'created_by' 
+		),
+		'simple_grid_field35' => array(
+			'field' => 'updated_by',
+			'type' => 'grid_field' 
+		),
+		'simple_grid_field64' => array(
+			'type' => 'grid_field_label',
+			'field' => 'updated_by' 
 		),
 		'simple_grid_field28' => array(
 			'field' => 'created_at',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field63' => array(
+		'simple_grid_field65' => array(
 			'type' => 'grid_field_label',
 			'field' => 'created_at' 
 		),
@@ -3997,7 +4103,7 @@
 			'field' => 'updated_at',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field64' => array(
+		'simple_grid_field66' => array(
 			'type' => 'grid_field_label',
 			'field' => 'updated_at' 
 		),
@@ -4005,7 +4111,7 @@
 			'field' => 'is_active',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field65' => array(
+		'simple_grid_field67' => array(
 			'type' => 'grid_field_label',
 			'field' => 'is_active' 
 		),
@@ -4013,7 +4119,7 @@
 			'field' => 'opportunity_id',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field66' => array(
+		'simple_grid_field68' => array(
 			'type' => 'grid_field_label',
 			'field' => 'opportunity_id' 
 		),
@@ -4021,7 +4127,7 @@
 			'field' => 'project_shortname',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field67' => array(
+		'simple_grid_field69' => array(
 			'type' => 'grid_field_label',
 			'field' => 'project_shortname' 
 		),
@@ -4029,7 +4135,7 @@
 			'field' => 'profit_margins',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field68' => array(
+		'simple_grid_field70' => array(
 			'type' => 'grid_field_label',
 			'field' => 'profit_margins' 
 		),
@@ -4037,7 +4143,7 @@
 			'field' => 'project_members',
 			'type' => 'grid_field' 
 		),
-		'simple_grid_field69' => array(
+		'simple_grid_field71' => array(
 			'type' => 'grid_field_label',
 			'field' => 'project_members' 
 		),

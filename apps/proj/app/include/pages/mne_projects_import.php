@@ -30,6 +30,7 @@
 			'mel_lead_id',
 			'project_coordinator_id',
 			'created_by',
+			'updated_by',
 			'created_at',
 			'updated_at',
 			'is_active',
@@ -149,6 +150,9 @@
 			),
 			'project_members' => array( 
 				'import_field34' 
+			),
+			'updated_by' => array( 
+				'import_field35' 
 			) 
 		) 
 	),
@@ -196,6 +200,7 @@
 					'import_field25',
 					'import_field26',
 					'import_field27',
+					'import_field35',
 					'import_field28',
 					'import_field29',
 					'import_field30',
@@ -240,6 +245,7 @@
 				'import_field25' => 'grid',
 				'import_field26' => 'grid',
 				'import_field27' => 'grid',
+				'import_field35' => 'grid',
 				'import_field28' => 'grid',
 				'import_field29' => 'grid',
 				'import_field30' => 'grid',
@@ -294,7 +300,8 @@
 				'import_field31',
 				'import_field32',
 				'import_field33',
-				'import_field34' 
+				'import_field34',
+				'import_field35' 
 			) 
 		),
 		'cellMaps' => array(
@@ -450,6 +457,7 @@
 						'import_field25',
 						'import_field26',
 						'import_field27',
+						'import_field35',
 						'import_field28',
 						'import_field29',
 						'import_field30',
@@ -608,6 +616,10 @@
 		),
 		'import_field34' => array(
 			'field' => 'project_members',
+			'type' => 'import_field' 
+		),
+		'import_field35' => array(
+			'field' => 'updated_by',
 			'type' => 'import_field' 
 		) 
 	),
