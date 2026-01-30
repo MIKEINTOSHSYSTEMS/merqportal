@@ -3,6 +3,11 @@
 	'pdf' => array(
 		'pdfView' => false 
 	),
+	'details' => array(
+		'mne_project_data_management' => array(
+			'displayPreview' => 1 
+		) 
+	),
 	'master' => array(
 		'mne_projects' => array(
 			'preview' => false 
@@ -71,7 +76,68 @@
 			'summary_notes_count',
 			'code_reports_count',
 			'created_at',
-			'updated_at' 
+			'updated_at',
+			'other_specify',
+			'hh_listing',
+			'children_zero_to_five_months',
+			'children_six_to_23_months',
+			'children_24_to_59_months',
+			'children_under_five_age',
+			'adolescent',
+			'pregnant_women',
+			'lactating_women',
+			'non_pregnant_women',
+			'health_workers',
+			'task_recording',
+			'youth_centre_assessment',
+			'private_hospital',
+			'private_clinic',
+			'federal_level',
+			'rhb',
+			'zonal_health_dept',
+			'woreda_ho',
+			'woreda_other_sector',
+			'kebele',
+			'city',
+			'university',
+			'school',
+			'school_youth',
+			'communal_water_source',
+			'employer',
+			'faculty_audit_attrition_rates',
+			'department_heads_survey',
+			'skills_lab_inventory',
+			'clinical_practice_site_inventory',
+			'curriculum_review',
+			'faculty_survey',
+			'provider_graduate_tracer_survey',
+			'family_planning_facility_audit',
+			'comprehensive_abortion_care_facility',
+			'researcher_survey',
+			'rural_hep_hh_characteristics',
+			'rural_hep_women_data',
+			'rural_hep_men_data',
+			'rural_hep_adolescents_data',
+			'rural_health_post_assessment',
+			'rural_health_extension_workers',
+			'rural_health_centre_data',
+			'institutional_profile_data',
+			'coc_centers_data',
+			'instructor_data',
+			'trainees_data',
+			'attrition_data',
+			'attitude_data',
+			'phem_all_hews_data',
+			'phem_hew_head_health_post',
+			'phem_health_center_data',
+			'phem_woreda_level_data',
+			'urban_hep_hh_characteristics',
+			'urban_hep_hew_professionals',
+			'urban_hep_hc_assessment',
+			'me_system_functionality_hc_ph',
+			'me_system_functionality_health_posts',
+			'network_care_documentation',
+			'network_care_maturity_assessment' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -265,6 +331,189 @@
 			),
 			'updated_at' => array( 
 				'integrated_edit_field57' 
+			),
+			'other_specify' => array( 
+				'integrated_edit_field62' 
+			),
+			'hh_listing' => array( 
+				'integrated_edit_field63' 
+			),
+			'children_zero_to_five_months' => array( 
+				'integrated_edit_field64' 
+			),
+			'children_six_to_23_months' => array( 
+				'integrated_edit_field65' 
+			),
+			'children_24_to_59_months' => array( 
+				'integrated_edit_field66' 
+			),
+			'children_under_five_age' => array( 
+				'integrated_edit_field67' 
+			),
+			'adolescent' => array( 
+				'integrated_edit_field68' 
+			),
+			'pregnant_women' => array( 
+				'integrated_edit_field69' 
+			),
+			'lactating_women' => array( 
+				'integrated_edit_field70' 
+			),
+			'non_pregnant_women' => array( 
+				'integrated_edit_field71' 
+			),
+			'health_workers' => array( 
+				'integrated_edit_field72' 
+			),
+			'task_recording' => array( 
+				'integrated_edit_field73' 
+			),
+			'youth_centre_assessment' => array( 
+				'integrated_edit_field74' 
+			),
+			'private_hospital' => array( 
+				'integrated_edit_field75' 
+			),
+			'private_clinic' => array( 
+				'integrated_edit_field76' 
+			),
+			'federal_level' => array( 
+				'integrated_edit_field77' 
+			),
+			'rhb' => array( 
+				'integrated_edit_field78' 
+			),
+			'zonal_health_dept' => array( 
+				'integrated_edit_field79' 
+			),
+			'woreda_ho' => array( 
+				'integrated_edit_field80' 
+			),
+			'woreda_other_sector' => array( 
+				'integrated_edit_field81' 
+			),
+			'kebele' => array( 
+				'integrated_edit_field82' 
+			),
+			'city' => array( 
+				'integrated_edit_field83' 
+			),
+			'university' => array( 
+				'integrated_edit_field84' 
+			),
+			'school' => array( 
+				'integrated_edit_field85' 
+			),
+			'school_youth' => array( 
+				'integrated_edit_field86' 
+			),
+			'communal_water_source' => array( 
+				'integrated_edit_field87' 
+			),
+			'employer' => array( 
+				'integrated_edit_field88' 
+			),
+			'faculty_audit_attrition_rates' => array( 
+				'integrated_edit_field89' 
+			),
+			'department_heads_survey' => array( 
+				'integrated_edit_field90' 
+			),
+			'skills_lab_inventory' => array( 
+				'integrated_edit_field91' 
+			),
+			'clinical_practice_site_inventory' => array( 
+				'integrated_edit_field92' 
+			),
+			'curriculum_review' => array( 
+				'integrated_edit_field93' 
+			),
+			'faculty_survey' => array( 
+				'integrated_edit_field94' 
+			),
+			'provider_graduate_tracer_survey' => array( 
+				'integrated_edit_field95' 
+			),
+			'family_planning_facility_audit' => array( 
+				'integrated_edit_field96' 
+			),
+			'comprehensive_abortion_care_facility' => array( 
+				'integrated_edit_field97' 
+			),
+			'researcher_survey' => array( 
+				'integrated_edit_field98' 
+			),
+			'rural_hep_hh_characteristics' => array( 
+				'integrated_edit_field99' 
+			),
+			'rural_hep_women_data' => array( 
+				'integrated_edit_field100' 
+			),
+			'rural_hep_men_data' => array( 
+				'integrated_edit_field101' 
+			),
+			'rural_hep_adolescents_data' => array( 
+				'integrated_edit_field102' 
+			),
+			'rural_health_post_assessment' => array( 
+				'integrated_edit_field103' 
+			),
+			'rural_health_extension_workers' => array( 
+				'integrated_edit_field104' 
+			),
+			'rural_health_centre_data' => array( 
+				'integrated_edit_field105' 
+			),
+			'institutional_profile_data' => array( 
+				'integrated_edit_field106' 
+			),
+			'coc_centers_data' => array( 
+				'integrated_edit_field107' 
+			),
+			'instructor_data' => array( 
+				'integrated_edit_field108' 
+			),
+			'trainees_data' => array( 
+				'integrated_edit_field109' 
+			),
+			'attrition_data' => array( 
+				'integrated_edit_field110' 
+			),
+			'attitude_data' => array( 
+				'integrated_edit_field111' 
+			),
+			'phem_all_hews_data' => array( 
+				'integrated_edit_field112' 
+			),
+			'phem_hew_head_health_post' => array( 
+				'integrated_edit_field113' 
+			),
+			'phem_health_center_data' => array( 
+				'integrated_edit_field114' 
+			),
+			'phem_woreda_level_data' => array( 
+				'integrated_edit_field115' 
+			),
+			'urban_hep_hh_characteristics' => array( 
+				'integrated_edit_field116' 
+			),
+			'urban_hep_hew_professionals' => array( 
+				'integrated_edit_field117' 
+			),
+			'urban_hep_hc_assessment' => array( 
+				'integrated_edit_field118' 
+			),
+			'me_system_functionality_hc_ph' => array( 
+				'integrated_edit_field119' 
+			),
+			'me_system_functionality_health_posts' => array( 
+				'integrated_edit_field120' 
+			),
+			'network_care_documentation' => array( 
+				'integrated_edit_field121' 
+			),
+			'network_care_maturity_assessment' => array( 
+				'integrated_edit_field122' 
 			) 
 		) 
 	),
@@ -363,7 +612,69 @@
 					'integrated_edit_field54',
 					'integrated_edit_field55',
 					'integrated_edit_field56',
-					'integrated_edit_field57' 
+					'integrated_edit_field57',
+					'integrated_edit_field62',
+					'integrated_edit_field63',
+					'integrated_edit_field64',
+					'integrated_edit_field65',
+					'integrated_edit_field66',
+					'integrated_edit_field67',
+					'integrated_edit_field68',
+					'integrated_edit_field69',
+					'integrated_edit_field70',
+					'integrated_edit_field71',
+					'integrated_edit_field72',
+					'integrated_edit_field73',
+					'integrated_edit_field74',
+					'integrated_edit_field75',
+					'integrated_edit_field76',
+					'integrated_edit_field77',
+					'integrated_edit_field78',
+					'integrated_edit_field79',
+					'integrated_edit_field80',
+					'integrated_edit_field81',
+					'integrated_edit_field82',
+					'integrated_edit_field83',
+					'integrated_edit_field84',
+					'integrated_edit_field85',
+					'integrated_edit_field86',
+					'integrated_edit_field87',
+					'integrated_edit_field88',
+					'integrated_edit_field89',
+					'integrated_edit_field90',
+					'integrated_edit_field91',
+					'integrated_edit_field92',
+					'integrated_edit_field93',
+					'integrated_edit_field94',
+					'integrated_edit_field95',
+					'integrated_edit_field96',
+					'integrated_edit_field97',
+					'integrated_edit_field98',
+					'integrated_edit_field99',
+					'integrated_edit_field100',
+					'integrated_edit_field101',
+					'integrated_edit_field102',
+					'integrated_edit_field103',
+					'integrated_edit_field104',
+					'integrated_edit_field105',
+					'integrated_edit_field106',
+					'integrated_edit_field107',
+					'integrated_edit_field108',
+					'integrated_edit_field109',
+					'integrated_edit_field110',
+					'integrated_edit_field111',
+					'integrated_edit_field112',
+					'integrated_edit_field113',
+					'integrated_edit_field114',
+					'integrated_edit_field115',
+					'integrated_edit_field116',
+					'integrated_edit_field117',
+					'integrated_edit_field118',
+					'integrated_edit_field119',
+					'integrated_edit_field120',
+					'integrated_edit_field121',
+					'integrated_edit_field122',
+					'details_preview' 
 				) 
 			),
 			'formXtTags' => array(
@@ -446,7 +757,69 @@
 				'integrated_edit_field54' => 'grid',
 				'integrated_edit_field55' => 'grid',
 				'integrated_edit_field56' => 'grid',
-				'integrated_edit_field57' => 'grid' 
+				'integrated_edit_field57' => 'grid',
+				'integrated_edit_field62' => 'grid',
+				'integrated_edit_field63' => 'grid',
+				'integrated_edit_field64' => 'grid',
+				'integrated_edit_field65' => 'grid',
+				'integrated_edit_field66' => 'grid',
+				'integrated_edit_field67' => 'grid',
+				'integrated_edit_field68' => 'grid',
+				'integrated_edit_field69' => 'grid',
+				'integrated_edit_field70' => 'grid',
+				'integrated_edit_field71' => 'grid',
+				'integrated_edit_field72' => 'grid',
+				'integrated_edit_field73' => 'grid',
+				'integrated_edit_field74' => 'grid',
+				'integrated_edit_field75' => 'grid',
+				'integrated_edit_field76' => 'grid',
+				'integrated_edit_field77' => 'grid',
+				'integrated_edit_field78' => 'grid',
+				'integrated_edit_field79' => 'grid',
+				'integrated_edit_field80' => 'grid',
+				'integrated_edit_field81' => 'grid',
+				'integrated_edit_field82' => 'grid',
+				'integrated_edit_field83' => 'grid',
+				'integrated_edit_field84' => 'grid',
+				'integrated_edit_field85' => 'grid',
+				'integrated_edit_field86' => 'grid',
+				'integrated_edit_field87' => 'grid',
+				'integrated_edit_field88' => 'grid',
+				'integrated_edit_field89' => 'grid',
+				'integrated_edit_field90' => 'grid',
+				'integrated_edit_field91' => 'grid',
+				'integrated_edit_field92' => 'grid',
+				'integrated_edit_field93' => 'grid',
+				'integrated_edit_field94' => 'grid',
+				'integrated_edit_field95' => 'grid',
+				'integrated_edit_field96' => 'grid',
+				'integrated_edit_field97' => 'grid',
+				'integrated_edit_field98' => 'grid',
+				'integrated_edit_field99' => 'grid',
+				'integrated_edit_field100' => 'grid',
+				'integrated_edit_field101' => 'grid',
+				'integrated_edit_field102' => 'grid',
+				'integrated_edit_field103' => 'grid',
+				'integrated_edit_field104' => 'grid',
+				'integrated_edit_field105' => 'grid',
+				'integrated_edit_field106' => 'grid',
+				'integrated_edit_field107' => 'grid',
+				'integrated_edit_field108' => 'grid',
+				'integrated_edit_field109' => 'grid',
+				'integrated_edit_field110' => 'grid',
+				'integrated_edit_field111' => 'grid',
+				'integrated_edit_field112' => 'grid',
+				'integrated_edit_field113' => 'grid',
+				'integrated_edit_field114' => 'grid',
+				'integrated_edit_field115' => 'grid',
+				'integrated_edit_field116' => 'grid',
+				'integrated_edit_field117' => 'grid',
+				'integrated_edit_field118' => 'grid',
+				'integrated_edit_field119' => 'grid',
+				'integrated_edit_field120' => 'grid',
+				'integrated_edit_field121' => 'grid',
+				'integrated_edit_field122' => 'grid',
+				'details_preview' => 'grid' 
 			),
 			'itemLocations' => array(
 				'integrated_edit_field' => array(
@@ -696,6 +1069,254 @@
 				'integrated_edit_field57' => array(
 					'location' => 'grid',
 					'cellId' => 'c3' 
+				),
+				'integrated_edit_field62' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field63' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field64' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field65' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field66' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field67' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field68' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field69' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field70' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field71' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field72' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field73' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field74' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field75' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field76' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field77' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field78' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field79' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field80' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field81' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field82' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field83' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field84' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field85' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field86' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field87' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field88' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field89' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field90' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field91' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field92' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field93' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field94' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field95' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field96' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field97' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field98' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field99' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field100' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field101' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field102' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field103' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field104' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field105' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field106' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field107' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field108' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field109' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field110' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field111' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field112' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field113' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field114' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field115' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field116' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field117' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field118' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field119' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field120' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field121' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'integrated_edit_field122' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
+				),
+				'details_preview' => array(
+					'location' => 'grid',
+					'cellId' => 'c3' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -799,7 +1420,68 @@
 				'integrated_edit_field54',
 				'integrated_edit_field55',
 				'integrated_edit_field56',
-				'integrated_edit_field57' 
+				'integrated_edit_field57',
+				'integrated_edit_field62',
+				'integrated_edit_field63',
+				'integrated_edit_field64',
+				'integrated_edit_field65',
+				'integrated_edit_field66',
+				'integrated_edit_field67',
+				'integrated_edit_field68',
+				'integrated_edit_field69',
+				'integrated_edit_field70',
+				'integrated_edit_field71',
+				'integrated_edit_field72',
+				'integrated_edit_field73',
+				'integrated_edit_field74',
+				'integrated_edit_field75',
+				'integrated_edit_field76',
+				'integrated_edit_field77',
+				'integrated_edit_field78',
+				'integrated_edit_field79',
+				'integrated_edit_field80',
+				'integrated_edit_field81',
+				'integrated_edit_field82',
+				'integrated_edit_field83',
+				'integrated_edit_field84',
+				'integrated_edit_field85',
+				'integrated_edit_field86',
+				'integrated_edit_field87',
+				'integrated_edit_field88',
+				'integrated_edit_field89',
+				'integrated_edit_field90',
+				'integrated_edit_field91',
+				'integrated_edit_field92',
+				'integrated_edit_field93',
+				'integrated_edit_field94',
+				'integrated_edit_field95',
+				'integrated_edit_field96',
+				'integrated_edit_field97',
+				'integrated_edit_field98',
+				'integrated_edit_field99',
+				'integrated_edit_field100',
+				'integrated_edit_field101',
+				'integrated_edit_field102',
+				'integrated_edit_field103',
+				'integrated_edit_field104',
+				'integrated_edit_field105',
+				'integrated_edit_field106',
+				'integrated_edit_field107',
+				'integrated_edit_field108',
+				'integrated_edit_field109',
+				'integrated_edit_field110',
+				'integrated_edit_field111',
+				'integrated_edit_field112',
+				'integrated_edit_field113',
+				'integrated_edit_field114',
+				'integrated_edit_field115',
+				'integrated_edit_field116',
+				'integrated_edit_field117',
+				'integrated_edit_field118',
+				'integrated_edit_field119',
+				'integrated_edit_field120',
+				'integrated_edit_field121',
+				'integrated_edit_field122' 
 			),
 			'username_button' => array( 
 				'username_button' 
@@ -818,6 +1500,9 @@
 			),
 			'adminarea_link' => array( 
 				'adminarea_link' 
+			),
+			'details_preview' => array( 
+				'details_preview' 
 			),
 			'expand_button' => array( 
 				'expand_button' 
@@ -898,7 +1583,69 @@
 							'integrated_edit_field54',
 							'integrated_edit_field55',
 							'integrated_edit_field56',
-							'integrated_edit_field57' 
+							'integrated_edit_field57',
+							'integrated_edit_field62',
+							'integrated_edit_field63',
+							'integrated_edit_field64',
+							'integrated_edit_field65',
+							'integrated_edit_field66',
+							'integrated_edit_field67',
+							'integrated_edit_field68',
+							'integrated_edit_field69',
+							'integrated_edit_field70',
+							'integrated_edit_field71',
+							'integrated_edit_field72',
+							'integrated_edit_field73',
+							'integrated_edit_field74',
+							'integrated_edit_field75',
+							'integrated_edit_field76',
+							'integrated_edit_field77',
+							'integrated_edit_field78',
+							'integrated_edit_field79',
+							'integrated_edit_field80',
+							'integrated_edit_field81',
+							'integrated_edit_field82',
+							'integrated_edit_field83',
+							'integrated_edit_field84',
+							'integrated_edit_field85',
+							'integrated_edit_field86',
+							'integrated_edit_field87',
+							'integrated_edit_field88',
+							'integrated_edit_field89',
+							'integrated_edit_field90',
+							'integrated_edit_field91',
+							'integrated_edit_field92',
+							'integrated_edit_field93',
+							'integrated_edit_field94',
+							'integrated_edit_field95',
+							'integrated_edit_field96',
+							'integrated_edit_field97',
+							'integrated_edit_field98',
+							'integrated_edit_field99',
+							'integrated_edit_field100',
+							'integrated_edit_field101',
+							'integrated_edit_field102',
+							'integrated_edit_field103',
+							'integrated_edit_field104',
+							'integrated_edit_field105',
+							'integrated_edit_field106',
+							'integrated_edit_field107',
+							'integrated_edit_field108',
+							'integrated_edit_field109',
+							'integrated_edit_field110',
+							'integrated_edit_field111',
+							'integrated_edit_field112',
+							'integrated_edit_field113',
+							'integrated_edit_field114',
+							'integrated_edit_field115',
+							'integrated_edit_field116',
+							'integrated_edit_field117',
+							'integrated_edit_field118',
+							'integrated_edit_field119',
+							'integrated_edit_field120',
+							'integrated_edit_field121',
+							'integrated_edit_field122',
+							'details_preview' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
@@ -1213,7 +1960,69 @@
 						'integrated_edit_field54',
 						'integrated_edit_field55',
 						'integrated_edit_field56',
-						'integrated_edit_field57' 
+						'integrated_edit_field57',
+						'integrated_edit_field62',
+						'integrated_edit_field63',
+						'integrated_edit_field64',
+						'integrated_edit_field65',
+						'integrated_edit_field66',
+						'integrated_edit_field67',
+						'integrated_edit_field68',
+						'integrated_edit_field69',
+						'integrated_edit_field70',
+						'integrated_edit_field71',
+						'integrated_edit_field72',
+						'integrated_edit_field73',
+						'integrated_edit_field74',
+						'integrated_edit_field75',
+						'integrated_edit_field76',
+						'integrated_edit_field77',
+						'integrated_edit_field78',
+						'integrated_edit_field79',
+						'integrated_edit_field80',
+						'integrated_edit_field81',
+						'integrated_edit_field82',
+						'integrated_edit_field83',
+						'integrated_edit_field84',
+						'integrated_edit_field85',
+						'integrated_edit_field86',
+						'integrated_edit_field87',
+						'integrated_edit_field88',
+						'integrated_edit_field89',
+						'integrated_edit_field90',
+						'integrated_edit_field91',
+						'integrated_edit_field92',
+						'integrated_edit_field93',
+						'integrated_edit_field94',
+						'integrated_edit_field95',
+						'integrated_edit_field96',
+						'integrated_edit_field97',
+						'integrated_edit_field98',
+						'integrated_edit_field99',
+						'integrated_edit_field100',
+						'integrated_edit_field101',
+						'integrated_edit_field102',
+						'integrated_edit_field103',
+						'integrated_edit_field104',
+						'integrated_edit_field105',
+						'integrated_edit_field106',
+						'integrated_edit_field107',
+						'integrated_edit_field108',
+						'integrated_edit_field109',
+						'integrated_edit_field110',
+						'integrated_edit_field111',
+						'integrated_edit_field112',
+						'integrated_edit_field113',
+						'integrated_edit_field114',
+						'integrated_edit_field115',
+						'integrated_edit_field116',
+						'integrated_edit_field117',
+						'integrated_edit_field118',
+						'integrated_edit_field119',
+						'integrated_edit_field120',
+						'integrated_edit_field121',
+						'integrated_edit_field122',
+						'details_preview' 
 					) 
 				) 
 			),
@@ -1658,6 +2467,319 @@
 		),
 		'adminarea_link' => array(
 			'type' => 'adminarea_link' 
+		),
+		'integrated_edit_field62' => array(
+			'field' => 'other_specify',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field63' => array(
+			'field' => 'hh_listing',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field64' => array(
+			'field' => 'children_zero_to_five_months',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field65' => array(
+			'field' => 'children_six_to_23_months',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field66' => array(
+			'field' => 'children_24_to_59_months',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field67' => array(
+			'field' => 'children_under_five_age',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field68' => array(
+			'field' => 'adolescent',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field69' => array(
+			'field' => 'pregnant_women',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field70' => array(
+			'field' => 'lactating_women',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field71' => array(
+			'field' => 'non_pregnant_women',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field72' => array(
+			'field' => 'health_workers',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field73' => array(
+			'field' => 'task_recording',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field74' => array(
+			'field' => 'youth_centre_assessment',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field75' => array(
+			'field' => 'private_hospital',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field76' => array(
+			'field' => 'private_clinic',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field77' => array(
+			'field' => 'federal_level',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field78' => array(
+			'field' => 'rhb',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field79' => array(
+			'field' => 'zonal_health_dept',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field80' => array(
+			'field' => 'woreda_ho',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field81' => array(
+			'field' => 'woreda_other_sector',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field82' => array(
+			'field' => 'kebele',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field83' => array(
+			'field' => 'city',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field84' => array(
+			'field' => 'university',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field85' => array(
+			'field' => 'school',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field86' => array(
+			'field' => 'school_youth',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field87' => array(
+			'field' => 'communal_water_source',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field88' => array(
+			'field' => 'employer',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field89' => array(
+			'field' => 'faculty_audit_attrition_rates',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field90' => array(
+			'field' => 'department_heads_survey',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field91' => array(
+			'field' => 'skills_lab_inventory',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field92' => array(
+			'field' => 'clinical_practice_site_inventory',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field93' => array(
+			'field' => 'curriculum_review',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field94' => array(
+			'field' => 'faculty_survey',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field95' => array(
+			'field' => 'provider_graduate_tracer_survey',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field96' => array(
+			'field' => 'family_planning_facility_audit',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field97' => array(
+			'field' => 'comprehensive_abortion_care_facility',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field98' => array(
+			'field' => 'researcher_survey',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field99' => array(
+			'field' => 'rural_hep_hh_characteristics',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field100' => array(
+			'field' => 'rural_hep_women_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field101' => array(
+			'field' => 'rural_hep_men_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field102' => array(
+			'field' => 'rural_hep_adolescents_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field103' => array(
+			'field' => 'rural_health_post_assessment',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field104' => array(
+			'field' => 'rural_health_extension_workers',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field105' => array(
+			'field' => 'rural_health_centre_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field106' => array(
+			'field' => 'institutional_profile_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field107' => array(
+			'field' => 'coc_centers_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field108' => array(
+			'field' => 'instructor_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field109' => array(
+			'field' => 'trainees_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field110' => array(
+			'field' => 'attrition_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field111' => array(
+			'field' => 'attitude_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field112' => array(
+			'field' => 'phem_all_hews_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field113' => array(
+			'field' => 'phem_hew_head_health_post',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field114' => array(
+			'field' => 'phem_health_center_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field115' => array(
+			'field' => 'phem_woreda_level_data',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field116' => array(
+			'field' => 'urban_hep_hh_characteristics',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field117' => array(
+			'field' => 'urban_hep_hew_professionals',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field118' => array(
+			'field' => 'urban_hep_hc_assessment',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field119' => array(
+			'field' => 'me_system_functionality_hc_ph',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field120' => array(
+			'field' => 'me_system_functionality_health_posts',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field121' => array(
+			'field' => 'network_care_documentation',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'integrated_edit_field122' => array(
+			'field' => 'network_care_maturity_assessment',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
+		),
+		'details_preview' => array(
+			'type' => 'details_preview',
+			'table' => 14534,
+			'items' => array( 
+				 
+			),
+			'popup' => false 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

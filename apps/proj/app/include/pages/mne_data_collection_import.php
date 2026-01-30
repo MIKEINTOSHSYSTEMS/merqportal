@@ -64,7 +64,68 @@
 			'ownership',
 			'data_access',
 			'method',
-			'doc_review' 
+			'doc_review',
+			'other_specify',
+			'hh_listing',
+			'children_zero_to_five_months',
+			'children_six_to_23_months',
+			'children_24_to_59_months',
+			'children_under_five_age',
+			'adolescent',
+			'pregnant_women',
+			'lactating_women',
+			'non_pregnant_women',
+			'health_workers',
+			'task_recording',
+			'youth_centre_assessment',
+			'private_hospital',
+			'private_clinic',
+			'federal_level',
+			'rhb',
+			'zonal_health_dept',
+			'woreda_ho',
+			'woreda_other_sector',
+			'kebele',
+			'city',
+			'university',
+			'school',
+			'school_youth',
+			'communal_water_source',
+			'employer',
+			'faculty_audit_attrition_rates',
+			'department_heads_survey',
+			'skills_lab_inventory',
+			'clinical_practice_site_inventory',
+			'curriculum_review',
+			'faculty_survey',
+			'provider_graduate_tracer_survey',
+			'family_planning_facility_audit',
+			'comprehensive_abortion_care_facility',
+			'researcher_survey',
+			'rural_hep_hh_characteristics',
+			'rural_hep_women_data',
+			'rural_hep_men_data',
+			'rural_hep_adolescents_data',
+			'rural_health_post_assessment',
+			'rural_health_extension_workers',
+			'rural_health_centre_data',
+			'institutional_profile_data',
+			'coc_centers_data',
+			'instructor_data',
+			'trainees_data',
+			'attrition_data',
+			'attitude_data',
+			'phem_all_hews_data',
+			'phem_hew_head_health_post',
+			'phem_health_center_data',
+			'phem_woreda_level_data',
+			'urban_hep_hh_characteristics',
+			'urban_hep_hew_professionals',
+			'urban_hep_hc_assessment',
+			'me_system_functionality_hc_ph',
+			'me_system_functionality_health_posts',
+			'network_care_documentation',
+			'network_care_maturity_assessment' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -261,6 +322,189 @@
 			),
 			'doc_review' => array( 
 				'import_field62' 
+			),
+			'other_specify' => array( 
+				'import_field63' 
+			),
+			'hh_listing' => array( 
+				'import_field64' 
+			),
+			'children_zero_to_five_months' => array( 
+				'import_field65' 
+			),
+			'children_six_to_23_months' => array( 
+				'import_field66' 
+			),
+			'children_24_to_59_months' => array( 
+				'import_field67' 
+			),
+			'children_under_five_age' => array( 
+				'import_field68' 
+			),
+			'adolescent' => array( 
+				'import_field69' 
+			),
+			'pregnant_women' => array( 
+				'import_field70' 
+			),
+			'lactating_women' => array( 
+				'import_field71' 
+			),
+			'non_pregnant_women' => array( 
+				'import_field72' 
+			),
+			'health_workers' => array( 
+				'import_field73' 
+			),
+			'task_recording' => array( 
+				'import_field74' 
+			),
+			'youth_centre_assessment' => array( 
+				'import_field75' 
+			),
+			'private_hospital' => array( 
+				'import_field76' 
+			),
+			'private_clinic' => array( 
+				'import_field77' 
+			),
+			'federal_level' => array( 
+				'import_field78' 
+			),
+			'rhb' => array( 
+				'import_field79' 
+			),
+			'zonal_health_dept' => array( 
+				'import_field80' 
+			),
+			'woreda_ho' => array( 
+				'import_field81' 
+			),
+			'woreda_other_sector' => array( 
+				'import_field82' 
+			),
+			'kebele' => array( 
+				'import_field83' 
+			),
+			'city' => array( 
+				'import_field84' 
+			),
+			'university' => array( 
+				'import_field85' 
+			),
+			'school' => array( 
+				'import_field86' 
+			),
+			'school_youth' => array( 
+				'import_field87' 
+			),
+			'communal_water_source' => array( 
+				'import_field88' 
+			),
+			'employer' => array( 
+				'import_field89' 
+			),
+			'faculty_audit_attrition_rates' => array( 
+				'import_field90' 
+			),
+			'department_heads_survey' => array( 
+				'import_field91' 
+			),
+			'skills_lab_inventory' => array( 
+				'import_field92' 
+			),
+			'clinical_practice_site_inventory' => array( 
+				'import_field93' 
+			),
+			'curriculum_review' => array( 
+				'import_field94' 
+			),
+			'faculty_survey' => array( 
+				'import_field95' 
+			),
+			'provider_graduate_tracer_survey' => array( 
+				'import_field96' 
+			),
+			'family_planning_facility_audit' => array( 
+				'import_field97' 
+			),
+			'comprehensive_abortion_care_facility' => array( 
+				'import_field98' 
+			),
+			'researcher_survey' => array( 
+				'import_field99' 
+			),
+			'rural_hep_hh_characteristics' => array( 
+				'import_field100' 
+			),
+			'rural_hep_women_data' => array( 
+				'import_field101' 
+			),
+			'rural_hep_men_data' => array( 
+				'import_field102' 
+			),
+			'rural_hep_adolescents_data' => array( 
+				'import_field103' 
+			),
+			'rural_health_post_assessment' => array( 
+				'import_field104' 
+			),
+			'rural_health_extension_workers' => array( 
+				'import_field105' 
+			),
+			'rural_health_centre_data' => array( 
+				'import_field106' 
+			),
+			'institutional_profile_data' => array( 
+				'import_field107' 
+			),
+			'coc_centers_data' => array( 
+				'import_field108' 
+			),
+			'instructor_data' => array( 
+				'import_field109' 
+			),
+			'trainees_data' => array( 
+				'import_field110' 
+			),
+			'attrition_data' => array( 
+				'import_field111' 
+			),
+			'attitude_data' => array( 
+				'import_field112' 
+			),
+			'phem_all_hews_data' => array( 
+				'import_field113' 
+			),
+			'phem_hew_head_health_post' => array( 
+				'import_field114' 
+			),
+			'phem_health_center_data' => array( 
+				'import_field115' 
+			),
+			'phem_woreda_level_data' => array( 
+				'import_field116' 
+			),
+			'urban_hep_hh_characteristics' => array( 
+				'import_field117' 
+			),
+			'urban_hep_hew_professionals' => array( 
+				'import_field118' 
+			),
+			'urban_hep_hc_assessment' => array( 
+				'import_field119' 
+			),
+			'me_system_functionality_hc_ph' => array( 
+				'import_field120' 
+			),
+			'me_system_functionality_health_posts' => array( 
+				'import_field121' 
+			),
+			'network_care_documentation' => array( 
+				'import_field122' 
+			),
+			'network_care_maturity_assessment' => array( 
+				'import_field123' 
 			) 
 		) 
 	),
@@ -342,7 +586,68 @@
 					'import_field59',
 					'import_field60',
 					'import_field61',
-					'import_field62' 
+					'import_field62',
+					'import_field63',
+					'import_field64',
+					'import_field65',
+					'import_field66',
+					'import_field67',
+					'import_field68',
+					'import_field69',
+					'import_field70',
+					'import_field71',
+					'import_field72',
+					'import_field73',
+					'import_field74',
+					'import_field75',
+					'import_field76',
+					'import_field77',
+					'import_field78',
+					'import_field79',
+					'import_field80',
+					'import_field81',
+					'import_field82',
+					'import_field83',
+					'import_field84',
+					'import_field85',
+					'import_field86',
+					'import_field87',
+					'import_field88',
+					'import_field89',
+					'import_field90',
+					'import_field91',
+					'import_field92',
+					'import_field93',
+					'import_field94',
+					'import_field95',
+					'import_field96',
+					'import_field97',
+					'import_field98',
+					'import_field99',
+					'import_field100',
+					'import_field101',
+					'import_field102',
+					'import_field103',
+					'import_field104',
+					'import_field105',
+					'import_field106',
+					'import_field107',
+					'import_field108',
+					'import_field109',
+					'import_field110',
+					'import_field111',
+					'import_field112',
+					'import_field113',
+					'import_field114',
+					'import_field115',
+					'import_field116',
+					'import_field117',
+					'import_field118',
+					'import_field119',
+					'import_field120',
+					'import_field121',
+					'import_field122',
+					'import_field123' 
 				) 
 			),
 			'formXtTags' => array(
@@ -414,7 +719,68 @@
 				'import_field59' => 'grid',
 				'import_field60' => 'grid',
 				'import_field61' => 'grid',
-				'import_field62' => 'grid' 
+				'import_field62' => 'grid',
+				'import_field63' => 'grid',
+				'import_field64' => 'grid',
+				'import_field65' => 'grid',
+				'import_field66' => 'grid',
+				'import_field67' => 'grid',
+				'import_field68' => 'grid',
+				'import_field69' => 'grid',
+				'import_field70' => 'grid',
+				'import_field71' => 'grid',
+				'import_field72' => 'grid',
+				'import_field73' => 'grid',
+				'import_field74' => 'grid',
+				'import_field75' => 'grid',
+				'import_field76' => 'grid',
+				'import_field77' => 'grid',
+				'import_field78' => 'grid',
+				'import_field79' => 'grid',
+				'import_field80' => 'grid',
+				'import_field81' => 'grid',
+				'import_field82' => 'grid',
+				'import_field83' => 'grid',
+				'import_field84' => 'grid',
+				'import_field85' => 'grid',
+				'import_field86' => 'grid',
+				'import_field87' => 'grid',
+				'import_field88' => 'grid',
+				'import_field89' => 'grid',
+				'import_field90' => 'grid',
+				'import_field91' => 'grid',
+				'import_field92' => 'grid',
+				'import_field93' => 'grid',
+				'import_field94' => 'grid',
+				'import_field95' => 'grid',
+				'import_field96' => 'grid',
+				'import_field97' => 'grid',
+				'import_field98' => 'grid',
+				'import_field99' => 'grid',
+				'import_field100' => 'grid',
+				'import_field101' => 'grid',
+				'import_field102' => 'grid',
+				'import_field103' => 'grid',
+				'import_field104' => 'grid',
+				'import_field105' => 'grid',
+				'import_field106' => 'grid',
+				'import_field107' => 'grid',
+				'import_field108' => 'grid',
+				'import_field109' => 'grid',
+				'import_field110' => 'grid',
+				'import_field111' => 'grid',
+				'import_field112' => 'grid',
+				'import_field113' => 'grid',
+				'import_field114' => 'grid',
+				'import_field115' => 'grid',
+				'import_field116' => 'grid',
+				'import_field117' => 'grid',
+				'import_field118' => 'grid',
+				'import_field119' => 'grid',
+				'import_field120' => 'grid',
+				'import_field121' => 'grid',
+				'import_field122' => 'grid',
+				'import_field123' => 'grid' 
 			),
 			'itemLocations' => array(
 				 
@@ -490,7 +856,68 @@
 				'import_field59',
 				'import_field60',
 				'import_field61',
-				'import_field62' 
+				'import_field62',
+				'import_field63',
+				'import_field64',
+				'import_field65',
+				'import_field66',
+				'import_field67',
+				'import_field68',
+				'import_field69',
+				'import_field70',
+				'import_field71',
+				'import_field72',
+				'import_field73',
+				'import_field74',
+				'import_field75',
+				'import_field76',
+				'import_field77',
+				'import_field78',
+				'import_field79',
+				'import_field80',
+				'import_field81',
+				'import_field82',
+				'import_field83',
+				'import_field84',
+				'import_field85',
+				'import_field86',
+				'import_field87',
+				'import_field88',
+				'import_field89',
+				'import_field90',
+				'import_field91',
+				'import_field92',
+				'import_field93',
+				'import_field94',
+				'import_field95',
+				'import_field96',
+				'import_field97',
+				'import_field98',
+				'import_field99',
+				'import_field100',
+				'import_field101',
+				'import_field102',
+				'import_field103',
+				'import_field104',
+				'import_field105',
+				'import_field106',
+				'import_field107',
+				'import_field108',
+				'import_field109',
+				'import_field110',
+				'import_field111',
+				'import_field112',
+				'import_field113',
+				'import_field114',
+				'import_field115',
+				'import_field116',
+				'import_field117',
+				'import_field118',
+				'import_field119',
+				'import_field120',
+				'import_field121',
+				'import_field122',
+				'import_field123' 
 			) 
 		),
 		'cellMaps' => array(
@@ -680,7 +1107,68 @@
 						'import_field59',
 						'import_field60',
 						'import_field61',
-						'import_field62' 
+						'import_field62',
+						'import_field63',
+						'import_field64',
+						'import_field65',
+						'import_field66',
+						'import_field67',
+						'import_field68',
+						'import_field69',
+						'import_field70',
+						'import_field71',
+						'import_field72',
+						'import_field73',
+						'import_field74',
+						'import_field75',
+						'import_field76',
+						'import_field77',
+						'import_field78',
+						'import_field79',
+						'import_field80',
+						'import_field81',
+						'import_field82',
+						'import_field83',
+						'import_field84',
+						'import_field85',
+						'import_field86',
+						'import_field87',
+						'import_field88',
+						'import_field89',
+						'import_field90',
+						'import_field91',
+						'import_field92',
+						'import_field93',
+						'import_field94',
+						'import_field95',
+						'import_field96',
+						'import_field97',
+						'import_field98',
+						'import_field99',
+						'import_field100',
+						'import_field101',
+						'import_field102',
+						'import_field103',
+						'import_field104',
+						'import_field105',
+						'import_field106',
+						'import_field107',
+						'import_field108',
+						'import_field109',
+						'import_field110',
+						'import_field111',
+						'import_field112',
+						'import_field113',
+						'import_field114',
+						'import_field115',
+						'import_field116',
+						'import_field117',
+						'import_field118',
+						'import_field119',
+						'import_field120',
+						'import_field121',
+						'import_field122',
+						'import_field123' 
 					) 
 				) 
 			),
@@ -944,6 +1432,250 @@
 		),
 		'import_field62' => array(
 			'field' => 'doc_review',
+			'type' => 'import_field' 
+		),
+		'import_field63' => array(
+			'field' => 'other_specify',
+			'type' => 'import_field' 
+		),
+		'import_field64' => array(
+			'field' => 'hh_listing',
+			'type' => 'import_field' 
+		),
+		'import_field65' => array(
+			'field' => 'children_zero_to_five_months',
+			'type' => 'import_field' 
+		),
+		'import_field66' => array(
+			'field' => 'children_six_to_23_months',
+			'type' => 'import_field' 
+		),
+		'import_field67' => array(
+			'field' => 'children_24_to_59_months',
+			'type' => 'import_field' 
+		),
+		'import_field68' => array(
+			'field' => 'children_under_five_age',
+			'type' => 'import_field' 
+		),
+		'import_field69' => array(
+			'field' => 'adolescent',
+			'type' => 'import_field' 
+		),
+		'import_field70' => array(
+			'field' => 'pregnant_women',
+			'type' => 'import_field' 
+		),
+		'import_field71' => array(
+			'field' => 'lactating_women',
+			'type' => 'import_field' 
+		),
+		'import_field72' => array(
+			'field' => 'non_pregnant_women',
+			'type' => 'import_field' 
+		),
+		'import_field73' => array(
+			'field' => 'health_workers',
+			'type' => 'import_field' 
+		),
+		'import_field74' => array(
+			'field' => 'task_recording',
+			'type' => 'import_field' 
+		),
+		'import_field75' => array(
+			'field' => 'youth_centre_assessment',
+			'type' => 'import_field' 
+		),
+		'import_field76' => array(
+			'field' => 'private_hospital',
+			'type' => 'import_field' 
+		),
+		'import_field77' => array(
+			'field' => 'private_clinic',
+			'type' => 'import_field' 
+		),
+		'import_field78' => array(
+			'field' => 'federal_level',
+			'type' => 'import_field' 
+		),
+		'import_field79' => array(
+			'field' => 'rhb',
+			'type' => 'import_field' 
+		),
+		'import_field80' => array(
+			'field' => 'zonal_health_dept',
+			'type' => 'import_field' 
+		),
+		'import_field81' => array(
+			'field' => 'woreda_ho',
+			'type' => 'import_field' 
+		),
+		'import_field82' => array(
+			'field' => 'woreda_other_sector',
+			'type' => 'import_field' 
+		),
+		'import_field83' => array(
+			'field' => 'kebele',
+			'type' => 'import_field' 
+		),
+		'import_field84' => array(
+			'field' => 'city',
+			'type' => 'import_field' 
+		),
+		'import_field85' => array(
+			'field' => 'university',
+			'type' => 'import_field' 
+		),
+		'import_field86' => array(
+			'field' => 'school',
+			'type' => 'import_field' 
+		),
+		'import_field87' => array(
+			'field' => 'school_youth',
+			'type' => 'import_field' 
+		),
+		'import_field88' => array(
+			'field' => 'communal_water_source',
+			'type' => 'import_field' 
+		),
+		'import_field89' => array(
+			'field' => 'employer',
+			'type' => 'import_field' 
+		),
+		'import_field90' => array(
+			'field' => 'faculty_audit_attrition_rates',
+			'type' => 'import_field' 
+		),
+		'import_field91' => array(
+			'field' => 'department_heads_survey',
+			'type' => 'import_field' 
+		),
+		'import_field92' => array(
+			'field' => 'skills_lab_inventory',
+			'type' => 'import_field' 
+		),
+		'import_field93' => array(
+			'field' => 'clinical_practice_site_inventory',
+			'type' => 'import_field' 
+		),
+		'import_field94' => array(
+			'field' => 'curriculum_review',
+			'type' => 'import_field' 
+		),
+		'import_field95' => array(
+			'field' => 'faculty_survey',
+			'type' => 'import_field' 
+		),
+		'import_field96' => array(
+			'field' => 'provider_graduate_tracer_survey',
+			'type' => 'import_field' 
+		),
+		'import_field97' => array(
+			'field' => 'family_planning_facility_audit',
+			'type' => 'import_field' 
+		),
+		'import_field98' => array(
+			'field' => 'comprehensive_abortion_care_facility',
+			'type' => 'import_field' 
+		),
+		'import_field99' => array(
+			'field' => 'researcher_survey',
+			'type' => 'import_field' 
+		),
+		'import_field100' => array(
+			'field' => 'rural_hep_hh_characteristics',
+			'type' => 'import_field' 
+		),
+		'import_field101' => array(
+			'field' => 'rural_hep_women_data',
+			'type' => 'import_field' 
+		),
+		'import_field102' => array(
+			'field' => 'rural_hep_men_data',
+			'type' => 'import_field' 
+		),
+		'import_field103' => array(
+			'field' => 'rural_hep_adolescents_data',
+			'type' => 'import_field' 
+		),
+		'import_field104' => array(
+			'field' => 'rural_health_post_assessment',
+			'type' => 'import_field' 
+		),
+		'import_field105' => array(
+			'field' => 'rural_health_extension_workers',
+			'type' => 'import_field' 
+		),
+		'import_field106' => array(
+			'field' => 'rural_health_centre_data',
+			'type' => 'import_field' 
+		),
+		'import_field107' => array(
+			'field' => 'institutional_profile_data',
+			'type' => 'import_field' 
+		),
+		'import_field108' => array(
+			'field' => 'coc_centers_data',
+			'type' => 'import_field' 
+		),
+		'import_field109' => array(
+			'field' => 'instructor_data',
+			'type' => 'import_field' 
+		),
+		'import_field110' => array(
+			'field' => 'trainees_data',
+			'type' => 'import_field' 
+		),
+		'import_field111' => array(
+			'field' => 'attrition_data',
+			'type' => 'import_field' 
+		),
+		'import_field112' => array(
+			'field' => 'attitude_data',
+			'type' => 'import_field' 
+		),
+		'import_field113' => array(
+			'field' => 'phem_all_hews_data',
+			'type' => 'import_field' 
+		),
+		'import_field114' => array(
+			'field' => 'phem_hew_head_health_post',
+			'type' => 'import_field' 
+		),
+		'import_field115' => array(
+			'field' => 'phem_health_center_data',
+			'type' => 'import_field' 
+		),
+		'import_field116' => array(
+			'field' => 'phem_woreda_level_data',
+			'type' => 'import_field' 
+		),
+		'import_field117' => array(
+			'field' => 'urban_hep_hh_characteristics',
+			'type' => 'import_field' 
+		),
+		'import_field118' => array(
+			'field' => 'urban_hep_hew_professionals',
+			'type' => 'import_field' 
+		),
+		'import_field119' => array(
+			'field' => 'urban_hep_hc_assessment',
+			'type' => 'import_field' 
+		),
+		'import_field120' => array(
+			'field' => 'me_system_functionality_hc_ph',
+			'type' => 'import_field' 
+		),
+		'import_field121' => array(
+			'field' => 'me_system_functionality_health_posts',
+			'type' => 'import_field' 
+		),
+		'import_field122' => array(
+			'field' => 'network_care_documentation',
+			'type' => 'import_field' 
+		),
+		'import_field123' => array(
+			'field' => 'network_care_maturity_assessment',
 			'type' => 'import_field' 
 		) 
 	),

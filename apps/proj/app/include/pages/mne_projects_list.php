@@ -351,7 +351,6 @@
 			'contract_type_id',
 			'currency_id',
 			'total_value',
-			'reason_for_extension',
 			'date_extended',
 			'end_date_original',
 			'start_date',
@@ -1332,7 +1331,6 @@
 				'search_panel_field6',
 				'search_panel_field7',
 				'search_panel_field8',
-				'search_panel_field9',
 				'search_panel_field10',
 				'search_panel_field11',
 				'search_panel_field12',
@@ -5106,7 +5104,6 @@
 				'search_panel_field12',
 				'search_panel_field11',
 				'search_panel_field10',
-				'search_panel_field9',
 				'search_panel_field8',
 				'search_panel_field7',
 				'search_panel_field6',
@@ -5173,10 +5170,6 @@
 		),
 		'search_panel_field8' => array(
 			'field' => 'date_extended',
-			'type' => 'search_panel_field' 
-		),
-		'search_panel_field9' => array(
-			'field' => 'reason_for_extension',
 			'type' => 'search_panel_field' 
 		),
 		'search_panel_field10' => array(
@@ -6041,7 +6034,7 @@
 	'imagePosition' => 'right',
 	'listTotals' => 1,
 	'title' => array(
-		'English' => 'Extended Projects' 
+		 
 	) 
 );
 		?>

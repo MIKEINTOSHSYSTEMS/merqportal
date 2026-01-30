@@ -9,6 +9,9 @@
 		),
 		'mne_projects' => array(
 			'preview' => true 
+		),
+		'mne_data_collection' => array(
+			'preview' => true 
 		) 
 	),
 	'totals' => array(
@@ -3947,6 +3950,7 @@
 		'master_info' => array(
 			'type' => 'master_info',
 			'tables' => array(
+				'13660' => 'true',
 				'13852' => 'true',
 				'15086' => 'true' 
 			) 

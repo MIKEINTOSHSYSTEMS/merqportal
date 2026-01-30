@@ -25,6 +25,15 @@ class eventclass_mne_projects  extends TableEventsBase {
 		'project_code' => array(
 			'edit' => true 
 		),
+		'start_date' => array(
+			'edit' => true 
+		),
+		'end_date_original' => array(
+			'edit' => true 
+		),
+		'total_value' => array(
+			'edit' => true 
+		),
 		'created_by' => array(
 			'edit' => true 
 		),
@@ -33,6 +42,12 @@ class eventclass_mne_projects  extends TableEventsBase {
 		) 
 	),
 	'autoUpdateValue' => array(
+		'start_date' => array(
+			'edit' => true 
+		),
+		'end_date_original' => array(
+			'edit' => true 
+		),
 		'updated_at' => array(
 			'edit' => true 
 		),
@@ -54,6 +69,31 @@ class eventclass_mne_projects  extends TableEventsBase {
 	
 	public function default_project_code_efedit(  ) {
 	$defaultValue = date("Y-m-d H:i:s");
+return $defaultValue;
+}
+
+public function default_start_date_efedit(  ) {
+	$defaultValue = date("Y-m-d");
+return $defaultValue;
+}
+
+public function autoupdate_start_date_efedit(  ) {
+	$defaultValue = date("Y-m-d");
+return $defaultValue;
+}
+
+public function default_end_date_original_efedit(  ) {
+	$defaultValue = date("Y-m-d");
+return $defaultValue;
+}
+
+public function autoupdate_end_date_original_efedit(  ) {
+	$defaultValue = date("Y-m-d");
+return $defaultValue;
+}
+
+public function default_total_value_efedit(  ) {
+	$defaultValue = 0;
 return $defaultValue;
 }
 

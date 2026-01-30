@@ -6,6 +6,9 @@
 		),
 		'mne_projects' => array(
 			'preview' => false 
+		),
+		'mne_data_collection' => array(
+			'preview' => false 
 		) 
 	),
 	'captcha' => array(
@@ -56,7 +59,41 @@
 			 
 		),
 		'updateOnEditFields' => array( 
-			 
+			'project_id',
+			'data_activity',
+			'target_count',
+			'datasets_generated_target',
+			'datasets_generated_actual',
+			'datasets_status',
+			'datasets_location',
+			'data_dictionaries_target',
+			'data_dictionaries_location',
+			'data_dictionaries_actual',
+			'publications_target',
+			'publications_status',
+			'publications_actual',
+			'publications_reference',
+			'respondents_reached_target',
+			'respondents_reached_actual',
+			'respondents_breakdown',
+			'job_opportunities_target',
+			'job_opportunities_actual',
+			'job_opportunities_details',
+			'social_media_posts_planned',
+			'social_media_posts_done',
+			'social_media_platform',
+			'social_media_link',
+			'website_updates_planned',
+			'website_link',
+			'website_updates_done',
+			'events_planned',
+			'events_done',
+			'events_details',
+			'respondent_type',
+			'method_id',
+			'achieved_count',
+			'created_at',
+			'updated_at' 
 		),
 		'fieldItems' => array(
 			'project_id' => array( 
@@ -180,6 +217,7 @@
 				),
 				'below-grid' => array( 
 					'edit_save',
+					'update_records',
 					'edit_back_list',
 					'edit_close',
 					'prev',
@@ -263,6 +301,7 @@
 			'itemForms' => array(
 				'edit_message' => 'above-grid',
 				'edit_save' => 'below-grid',
+				'update_records' => 'below-grid',
 				'edit_back_list' => 'below-grid',
 				'edit_close' => 'below-grid',
 				'prev' => 'below-grid',
@@ -564,6 +603,9 @@
 			),
 			'adminarea_link' => array( 
 				'adminarea_link' 
+			),
+			'update_records' => array( 
+				'update_records' 
 			),
 			'expand_button' => array( 
 				'expand_button' 
@@ -1613,7 +1655,10 @@
 		'verticalBar' => true,
 		'labeledButtons' => array(
 			'update_records' => array(
-				 
+				'update_records' => array(
+					'tag' => 'UPDATE_N_RECORDS',
+					'type' => 2 
+				) 
 			),
 			'print_pages' => array(
 				 
@@ -1662,7 +1707,7 @@
 		) 
 	),
 	'edit' => array(
-		'updateSelected' => false 
+		'updateSelected' => true 
 	) 
 );
 			$pageArray = array(
@@ -1717,6 +1762,7 @@
 					'model' => 'c1',
 					'items' => array( 
 						'edit_save',
+						'update_records',
 						'edit_back_list',
 						'edit_close' 
 					) 
@@ -2685,17 +2731,20 @@
 		'integrated_edit_field' => array(
 			'field' => 'project_id',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field1' => array(
 			'field' => 'data_activity',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field4' => array(
 			'field' => 'target_count',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'tabs' => array(
 			'type' => 'tabs',
@@ -2749,162 +2798,194 @@
 		'integrated_edit_field6' => array(
 			'field' => 'datasets_generated_target',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field7' => array(
 			'field' => 'datasets_generated_actual',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field8' => array(
 			'field' => 'datasets_status',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field9' => array(
 			'field' => 'datasets_location',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field10' => array(
 			'field' => 'data_dictionaries_target',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field12' => array(
 			'field' => 'data_dictionaries_location',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field11' => array(
 			'field' => 'data_dictionaries_actual',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field13' => array(
 			'field' => 'publications_target',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field15' => array(
 			'field' => 'publications_status',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field14' => array(
 			'field' => 'publications_actual',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field16' => array(
 			'field' => 'publications_reference',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field17' => array(
 			'field' => 'respondents_reached_target',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field18' => array(
 			'field' => 'respondents_reached_actual',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field19' => array(
 			'field' => 'respondents_breakdown',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field20' => array(
 			'field' => 'job_opportunities_target',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field21' => array(
 			'field' => 'job_opportunities_actual',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field22' => array(
 			'field' => 'job_opportunities_details',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field23' => array(
 			'field' => 'social_media_posts_planned',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field24' => array(
 			'field' => 'social_media_posts_done',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field25' => array(
 			'field' => 'social_media_platform',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field26' => array(
 			'field' => 'social_media_link',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field27' => array(
 			'field' => 'website_updates_planned',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field29' => array(
 			'field' => 'website_link',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field28' => array(
 			'field' => 'website_updates_done',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field30' => array(
 			'field' => 'events_planned',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field31' => array(
 			'field' => 'events_done',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field32' => array(
 			'field' => 'events_details',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field3' => array(
 			'field' => 'respondent_type',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field2' => array(
 			'field' => 'method_id',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field5' => array(
 			'field' => 'achieved_count',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field33' => array(
 			'field' => 'created_at',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field34' => array(
 			'field' => 'updated_at',
 			'type' => 'integrated_edit_field',
-			'orientation' => 0 
+			'orientation' => 0,
+			'updateOnEdit' => true 
 		),
 		'next' => array(
 			'type' => 'next' 
@@ -2936,6 +3017,9 @@
 		),
 		'adminarea_link' => array(
 			'type' => 'adminarea_link' 
+		),
+		'update_records' => array(
+			'type' => 'update_records' 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

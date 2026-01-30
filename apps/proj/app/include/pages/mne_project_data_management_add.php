@@ -6,6 +6,9 @@
 		),
 		'mne_projects' => array(
 			'preview' => false 
+		),
+		'mne_data_collection' => array(
+			'preview' => false 
 		) 
 	),
 	'captcha' => array(

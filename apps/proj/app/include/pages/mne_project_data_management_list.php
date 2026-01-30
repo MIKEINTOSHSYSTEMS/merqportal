@@ -3,10 +3,10 @@
 	'list' => array(
 		'inlineAdd' => false,
 		'detailsAdd' => true,
-		'inlineEdit' => false,
+		'inlineEdit' => true,
 		'addToBottom' => false,
 		'delete' => true,
-		'updateSelected' => false,
+		'updateSelected' => true,
 		'clickSort' => true,
 		'sortDropdown' => false,
 		'showHideFields' => false,
@@ -19,6 +19,9 @@
 			'preview' => true 
 		),
 		'mne_projects' => array(
+			'preview' => true 
+		),
+		'mne_data_collection' => array(
 			'preview' => true 
 		) 
 	),
@@ -228,7 +231,41 @@
 			 
 		),
 		'inlineEditFields' => array( 
-			 
+			'project_id',
+			'data_activity',
+			'method_id',
+			'respondent_type',
+			'target_count',
+			'achieved_count',
+			'datasets_generated_target',
+			'datasets_generated_actual',
+			'datasets_status',
+			'datasets_location',
+			'data_dictionaries_target',
+			'data_dictionaries_actual',
+			'data_dictionaries_location',
+			'publications_target',
+			'publications_actual',
+			'publications_status',
+			'publications_reference',
+			'respondents_reached_target',
+			'respondents_reached_actual',
+			'respondents_breakdown',
+			'job_opportunities_target',
+			'job_opportunities_actual',
+			'job_opportunities_details',
+			'social_media_posts_planned',
+			'social_media_posts_done',
+			'social_media_platform',
+			'social_media_link',
+			'website_updates_planned',
+			'website_updates_done',
+			'website_link',
+			'events_planned',
+			'events_done',
+			'events_details',
+			'created_at',
+			'updated_at' 
 		),
 		'fieldItems' => array(
 			'data_id' => array( 
@@ -395,7 +432,10 @@
 				'above-grid' => array( 
 					'add',
 					'inline_add',
+					'inline_save_all',
+					'inline_cancel_all',
 					'delete',
+					'update_selected',
 					'details_found',
 					'page_size',
 					'print_panel' 
@@ -497,6 +537,8 @@
 					'grid_checkbox_head',
 					'grid_checkbox',
 					'grid_edit',
+					'grid_inline_edit',
+					'grid_inline_save',
 					'grid_inline_cancel',
 					'grid_view' 
 				) 
@@ -505,7 +547,10 @@
 				'above-grid' => array( 
 					'add_link',
 					'inlineadd_link',
+					'saveall_link',
+					'cancelall_link',
 					'deleteselected_link',
+					'updateselected_link',
 					'details_found',
 					'recsPerPage',
 					'print_friendly' 
@@ -520,7 +565,10 @@
 			'itemForms' => array(
 				'add' => 'above-grid',
 				'inline_add' => 'above-grid',
+				'inline_save_all' => 'above-grid',
+				'inline_cancel_all' => 'above-grid',
 				'delete' => 'above-grid',
+				'update_selected' => 'above-grid',
 				'details_found' => 'above-grid',
 				'page_size' => 'above-grid',
 				'print_panel' => 'above-grid',
@@ -612,6 +660,8 @@
 				'grid_checkbox_head' => 'grid',
 				'grid_checkbox' => 'grid',
 				'grid_edit' => 'grid',
+				'grid_inline_edit' => 'grid',
+				'grid_inline_save' => 'grid',
 				'grid_inline_cancel' => 'grid',
 				'grid_view' => 'grid' 
 			),
@@ -916,6 +966,14 @@
 					'location' => 'grid',
 					'cellId' => 'cell_icons' 
 				),
+				'grid_inline_edit' => array(
+					'location' => 'grid',
+					'cellId' => 'cell_icons' 
+				),
+				'grid_inline_save' => array(
+					'location' => 'grid',
+					'cellId' => 'cell_icons' 
+				),
 				'grid_inline_cancel' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_icons' 
@@ -1067,6 +1125,18 @@
 			'adminarea_link' => array( 
 				'adminarea_link' 
 			),
+			'update_selected' => array( 
+				'update_selected' 
+			),
+			'edit_selected' => array( 
+				'edit_selected' 
+			),
+			'inline_save_all' => array( 
+				'inline_save_all' 
+			),
+			'inline_cancel_all' => array( 
+				'inline_cancel_all' 
+			),
 			'grid_field' => array( 
 				'simple_grid_field',
 				'simple_grid_field1',
@@ -1155,14 +1225,20 @@
 			'grid_view' => array( 
 				'grid_view' 
 			),
+			'grid_inline_edit' => array( 
+				'grid_inline_edit' 
+			),
+			'grid_inline_save' => array( 
+				'grid_inline_save' 
+			),
+			'grid_inline_cancel' => array( 
+				'grid_inline_cancel' 
+			),
 			'expand_button' => array( 
 				'expand_button' 
 			),
 			'inline_add' => array( 
 				'inline_add' 
-			),
-			'grid_inline_cancel' => array( 
-				'grid_inline_cancel' 
 			) 
 		),
 		'cellMaps' => array(
@@ -1785,11 +1861,15 @@
 						),
 						'tags' => array( 
 							'edit_column',
+							'inlineedit_column',
+							'inline_save',
 							'inline_cancel',
 							'view_column' 
 						),
 						'items' => array( 
 							'grid_edit',
+							'grid_inline_edit',
+							'grid_inline_save',
 							'grid_inline_cancel',
 							'grid_view' 
 						),
@@ -3095,7 +3175,10 @@
 					'items' => array( 
 						'add',
 						'inline_add',
-						'delete' 
+						'inline_save_all',
+						'inline_cancel_all',
+						'delete',
+						'update_selected' 
 					) 
 				),
 				'c2' => array(
@@ -4424,6 +4507,8 @@
 					'model' => 'cell_icons',
 					'items' => array( 
 						'grid_edit',
+						'grid_inline_edit',
+						'grid_inline_save',
 						'grid_inline_cancel',
 						'grid_view' 
 					) 
@@ -4508,6 +4593,7 @@
 		'list_options' => array(
 			'type' => 'list_options',
 			'items' => array( 
+				'edit_selected',
 				'export_selected',
 				'delete_selected',
 				'-3',
@@ -4722,6 +4808,7 @@
 		'master_info' => array(
 			'type' => 'master_info',
 			'tables' => array(
+				'13660' => 'true',
 				'13852' => 'true',
 				'15086' => 'true' 
 			) 
@@ -4751,6 +4838,18 @@
 		'adminarea_link' => array(
 			'type' => 'adminarea_link' 
 		),
+		'update_selected' => array(
+			'type' => 'update_selected' 
+		),
+		'edit_selected' => array(
+			'type' => 'edit_selected' 
+		),
+		'inline_save_all' => array(
+			'type' => 'inline_save_all' 
+		),
+		'inline_cancel_all' => array(
+			'type' => 'inline_cancel_all' 
+		),
 		'-3' => array(
 			'type' => '-' 
 		),
@@ -4768,7 +4867,7 @@
 			'field' => 'project_id',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field37' => array(
 			'type' => 'grid_field_label',
@@ -4778,7 +4877,7 @@
 			'field' => 'data_activity',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field38' => array(
 			'type' => 'grid_field_label',
@@ -4788,7 +4887,7 @@
 			'field' => 'method_id',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field39' => array(
 			'type' => 'grid_field_label',
@@ -4798,7 +4897,7 @@
 			'field' => 'respondent_type',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field40' => array(
 			'type' => 'grid_field_label',
@@ -4808,7 +4907,7 @@
 			'field' => 'target_count',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field41' => array(
 			'type' => 'grid_field_label',
@@ -4818,7 +4917,7 @@
 			'field' => 'achieved_count',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field42' => array(
 			'type' => 'grid_field_label',
@@ -4828,7 +4927,7 @@
 			'field' => 'datasets_generated_target',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field43' => array(
 			'type' => 'grid_field_label',
@@ -4838,7 +4937,7 @@
 			'field' => 'datasets_generated_actual',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field44' => array(
 			'type' => 'grid_field_label',
@@ -4848,7 +4947,7 @@
 			'field' => 'datasets_status',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field45' => array(
 			'type' => 'grid_field_label',
@@ -4858,7 +4957,7 @@
 			'field' => 'datasets_location',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field46' => array(
 			'type' => 'grid_field_label',
@@ -4868,7 +4967,7 @@
 			'field' => 'data_dictionaries_target',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field47' => array(
 			'type' => 'grid_field_label',
@@ -4878,7 +4977,7 @@
 			'field' => 'data_dictionaries_actual',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field48' => array(
 			'type' => 'grid_field_label',
@@ -4888,7 +4987,7 @@
 			'field' => 'data_dictionaries_location',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field49' => array(
 			'type' => 'grid_field_label',
@@ -4898,7 +4997,7 @@
 			'field' => 'publications_target',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field50' => array(
 			'type' => 'grid_field_label',
@@ -4908,7 +5007,7 @@
 			'field' => 'publications_actual',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field51' => array(
 			'type' => 'grid_field_label',
@@ -4918,7 +5017,7 @@
 			'field' => 'publications_status',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field52' => array(
 			'type' => 'grid_field_label',
@@ -4928,7 +5027,7 @@
 			'field' => 'publications_reference',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field53' => array(
 			'type' => 'grid_field_label',
@@ -4938,7 +5037,7 @@
 			'field' => 'respondents_reached_target',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field54' => array(
 			'type' => 'grid_field_label',
@@ -4948,7 +5047,7 @@
 			'field' => 'respondents_reached_actual',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field55' => array(
 			'type' => 'grid_field_label',
@@ -4958,7 +5057,7 @@
 			'field' => 'respondents_breakdown',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field56' => array(
 			'type' => 'grid_field_label',
@@ -4968,7 +5067,7 @@
 			'field' => 'job_opportunities_target',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field57' => array(
 			'type' => 'grid_field_label',
@@ -4978,7 +5077,7 @@
 			'field' => 'job_opportunities_actual',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field58' => array(
 			'type' => 'grid_field_label',
@@ -4988,7 +5087,7 @@
 			'field' => 'job_opportunities_details',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field59' => array(
 			'type' => 'grid_field_label',
@@ -4998,7 +5097,7 @@
 			'field' => 'social_media_posts_planned',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field60' => array(
 			'type' => 'grid_field_label',
@@ -5008,7 +5107,7 @@
 			'field' => 'social_media_posts_done',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field61' => array(
 			'type' => 'grid_field_label',
@@ -5018,7 +5117,7 @@
 			'field' => 'social_media_platform',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field62' => array(
 			'type' => 'grid_field_label',
@@ -5028,7 +5127,7 @@
 			'field' => 'social_media_link',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field63' => array(
 			'type' => 'grid_field_label',
@@ -5038,7 +5137,7 @@
 			'field' => 'website_updates_planned',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field64' => array(
 			'type' => 'grid_field_label',
@@ -5048,7 +5147,7 @@
 			'field' => 'website_updates_done',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field65' => array(
 			'type' => 'grid_field_label',
@@ -5058,7 +5157,7 @@
 			'field' => 'website_link',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field66' => array(
 			'type' => 'grid_field_label',
@@ -5068,7 +5167,7 @@
 			'field' => 'events_planned',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field67' => array(
 			'type' => 'grid_field_label',
@@ -5078,7 +5177,7 @@
 			'field' => 'events_done',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field68' => array(
 			'type' => 'grid_field_label',
@@ -5088,7 +5187,7 @@
 			'field' => 'events_details',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field69' => array(
 			'type' => 'grid_field_label',
@@ -5098,7 +5197,7 @@
 			'field' => 'created_at',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field70' => array(
 			'type' => 'grid_field_label',
@@ -5108,7 +5207,7 @@
 			'field' => 'updated_at',
 			'type' => 'grid_field',
 			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineEdit' => true 
 		),
 		'simple_grid_field71' => array(
 			'type' => 'grid_field_label',
@@ -5126,15 +5225,21 @@
 		'grid_view' => array(
 			'type' => 'grid_view' 
 		),
+		'grid_inline_edit' => array(
+			'type' => 'grid_inline_edit' 
+		),
+		'grid_inline_save' => array(
+			'type' => 'grid_inline_save' 
+		),
+		'grid_inline_cancel' => array(
+			'type' => 'grid_inline_cancel' 
+		),
 		'expand_button' => array(
 			'type' => 'expand_button' 
 		),
 		'inline_add' => array(
 			'type' => 'inline_add',
 			'detailsOnly' => true 
-		),
-		'grid_inline_cancel' => array(
-			'type' => 'grid_inline_cancel' 
 		) 
 	),
 	'dbProps' => array(

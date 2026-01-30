@@ -637,10 +637,8 @@ pdfDocument = {
 	
 			"stack": [
 		
-				
-			{"hidden":"{$item_hide_integrated_edit_field11}","stack":[{"text":"{$jslabel mne_projects contract_type_id }","bold":true},{"text":{$contract_type_id_pdfvalue}}],"margin":[0,0,0,15]},
-				
-		  ],
+				'',
+	  ],
   "border": [ false, false, false, false ],
               "alignment": 'left',
      
@@ -723,7 +721,7 @@ pdfDocument = {
 			"stack": [
 		
 				
-			{"hidden":"{$item_hide_integrated_edit_field32}","stack":[{"text":"{$jslabel mne_projects profit_margins }","bold":true},{"text":{$profit_margins_pdfvalue}}],"margin":[0,0,0,15]},
+			{"hidden":"{$item_hide_integrated_edit_field11}","stack":[{"text":"{$jslabel mne_projects contract_type_id }","bold":true},{"text":{$contract_type_id_pdfvalue}}],"margin":[0,0,0,15]},
 				
 		  ],
   "border": [ false, false, false, false ],
@@ -780,10 +778,8 @@ pdfDocument = {
 	
 			"stack": [
 		
-				
-			{"hidden":"{$item_hide_integrated_edit_field20}","stack":[{"text":"{$jslabel mne_projects current_status_id }","bold":true},{"text":{$current_status_id_pdfvalue}}],"margin":[0,0,0,15]},
-				
-		  ],
+				'',
+	  ],
   "border": [ false, false, false, false ],
               "alignment": 'left',
      
@@ -807,8 +803,10 @@ pdfDocument = {
 	
 			"stack": [
 		
-				'',
-	  ],
+				
+			{"hidden":"{$item_hide_integrated_edit_field20}","stack":[{"text":"{$jslabel mne_projects current_status_id }","bold":true},{"text":{$current_status_id_pdfvalue}}],"margin":[0,0,0,15]},
+				
+		  ],
   "border": [ false, false, false, false ],
               "alignment": 'left',
      
@@ -1119,7 +1117,7 @@ pdfDocument = {
 			"stack": [
 		
 				
-			{"hidden":"{$item_hide_integrated_edit_field16}","stack":[{"text":"{$jslabel mne_projects sector_id }","bold":true},{"text":{$sector_id_pdfvalue}}],"margin":[0,0,0,15]},
+			{"hidden":"{$item_hide_integrated_edit_field13}","stack":[{"text":"{$jslabel mne_projects major_project_type_id }","bold":true},{"text":{$major_project_type_id_pdfvalue}}],"margin":[0,0,0,15]},
 				
 		  ],
   "border": [ false, false, false, false ],
@@ -1145,10 +1143,8 @@ pdfDocument = {
 	
 			"stack": [
 		
-				
-			{"hidden":"{$item_hide_integrated_edit_field13}","stack":[{"text":"{$jslabel mne_projects major_project_type_id }","bold":true},{"text":{$major_project_type_id_pdfvalue}}],"margin":[0,0,0,15]},
-				
-		  ],
+				'',
+	  ],
   "border": [ false, false, false, false ],
               "alignment": 'left',
      
@@ -1218,6 +1214,62 @@ pdfDocument = {
 				{END row_section6_1}
 						{BEGIN row_section6_2}
 				[
+																{BEGIN cellblock_section6_c16}
+{
+	cellId: 'c16',
+	col:0,
+	row:0,
+			
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"stack": [
+		
+				
+			{"hidden":"{$item_hide_integrated_edit_field16}","stack":[{"text":"{$jslabel mne_projects sector_id }","bold":true},{"text":{$sector_id_pdfvalue}}],"margin":[0,0,0,15]},
+				
+		  ],
+  "border": [ false, false, false, false ],
+              "alignment": 'left',
+     
+      
+      },
+
+{END cellblock_section6_c16}
+																							{BEGIN cellblock_section6_c17}
+{
+	cellId: 'c17',
+	col:0,
+	row:0,
+			
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"stack": [
+		
+				'',
+	  ],
+  "border": [ false, false, false, false ],
+              "alignment": 'left',
+     
+      
+      },
+
+{END cellblock_section6_c17}
+											],
+				{END row_section6_2}
+						{BEGIN row_section6_3}
+				[
 																{BEGIN cellblock_section6_c1}
 {
 	cellId: 'c1',
@@ -1273,8 +1325,8 @@ pdfDocument = {
 
 {END cellblock_section6_c4}
 											],
-				{END row_section6_2}
-						{BEGIN row_section6_3}
+				{END row_section6_3}
+						{BEGIN row_section6_4}
 				[
 																{BEGIN cellblock_section6_c3}
 {
@@ -1293,7 +1345,7 @@ pdfDocument = {
 			"stack": [
 		
 				
-			{"hidden":"{$item_hide_integrated_edit_field21}","stack":[{"text":"{$jslabel mne_projects project_description }","bold":true},{"text":{$project_description_pdfvalue}}],"margin":[0,0,0,15]},
+			{"hidden":"{$item_hide_integrated_edit_field19}","stack":[{"text":"{$jslabel mne_projects technical_area_others }","bold":true},{"text":{$technical_area_others_pdfvalue}}],"margin":[0,0,0,15]},
 				
 		  ],
   "border": [ false, false, false, false ],
@@ -1320,7 +1372,7 @@ pdfDocument = {
 			"stack": [
 		
 				
-			{"hidden":"{$item_hide_integrated_edit_field19}","stack":[{"text":"{$jslabel mne_projects technical_area_others }","bold":true},{"text":{$technical_area_others_pdfvalue}}],"margin":[0,0,0,15]},
+			{"hidden":"{$item_hide_integrated_edit_field21}","stack":[{"text":"{$jslabel mne_projects project_description }","bold":true},{"text":{$project_description_pdfvalue}}],"margin":[0,0,0,15]},
 				
 		  ],
   "border": [ false, false, false, false ],
@@ -1331,8 +1383,8 @@ pdfDocument = {
 
 {END cellblock_section6_c5}
 											],
-				{END row_section6_3}
-						{BEGIN row_section6_4}
+				{END row_section6_4}
+						{BEGIN row_section6_5}
 				[
 																{BEGIN cellblock_section6_c2}
 {
@@ -1385,8 +1437,8 @@ pdfDocument = {
 
 {END cellblock_section6_c6}
 											],
-				{END row_section6_4}
-						{BEGIN row_section6_5}
+				{END row_section6_5}
+						{BEGIN row_section6_6}
 				[
 																{BEGIN cellblock_section6_c}
 {
@@ -1439,8 +1491,8 @@ pdfDocument = {
 
 {END cellblock_section6_c7}
 											],
-				{END row_section6_5}
-						{BEGIN row_section6_6}
+				{END row_section6_6}
+						{BEGIN row_section6_7}
 				[
 																{BEGIN cellblock_section6_c14}
 {
@@ -1493,8 +1545,8 @@ pdfDocument = {
 
 {END cellblock_section6_c15}
 											],
-				{END row_section6_6}
-						{BEGIN row_section6_7}
+				{END row_section6_7}
+						{BEGIN row_section6_8}
 				[
 																{BEGIN cellblock_section6_c12}
 {
@@ -1547,7 +1599,7 @@ pdfDocument = {
 
 {END cellblock_section6_c13}
 											],
-				{END row_section6_7}
+				{END row_section6_8}
 		
 						]
 					}
@@ -2674,7 +2726,7 @@ pdfDocument = {
 				
 		  ],
   "border": [ false, false, false, false ],
-              "alignment": 'left',
+              "alignment": 'center',
      
       
       },
@@ -2846,7 +2898,7 @@ pdfDocument = {
 				
 		  ],
   "border": [ false, false, false, false ],
-              "alignment": 'left',
+              "alignment": 'center',
      
       
       },
@@ -2935,10 +2987,69 @@ pdfDocument = {
 	
 			"stack": [
 		
+						 
+		{
+		layout: 'panel',
+		
+		table: {
+			tableForm: true,
+			location: 'section13',
+			widths: ['*'],
+			body: [
+				[{text: 'Extended Project Information', style: 'tableHeader'}],
+				[{
+					table: {
+						tableForm: true,
+						widths: [
+															{BEGIN col_section13_0}
+									"*", 
+								{END col_section13_0}
+							 						
+						],
+						body: [
+								
+				{BEGIN row_section13_0}
+				[
+																{BEGIN cellblock_section13_c1}
+{
+	cellId: 'c1',
+	col:0,
+	row:0,
+			
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"stack": [
+		
 				
 			 {BEGIN details_mne_extended_projects}
 			{$displayDetailTable_mne_extended_projects }
 		{END details_mne_extended_projects},
+				
+		  ],
+  "border": [ false, false, false, false ],
+              "alignment": 'left',
+     
+      
+      },
+
+{END cellblock_section13_c1}
+											],
+				{END row_section13_0}
+		
+						]
+					}
+				}]
+
+			]
+		},
+		margin: [0,0,0,15],
+	},
 				
 		  ],
   "border": [ false, false, false, false ],
@@ -3031,10 +3142,130 @@ pdfDocument = {
 	
 			"stack": [
 		
+						 
+		{
+		layout: 'panel',
+		
+		table: {
+			tableForm: true,
+			location: 'section11',
+			widths: ['*'],
+			body: [
+				[{text: 'Project Financials', style: 'tableHeader'}],
+				[{
+					table: {
+						tableForm: true,
+						widths: [
+															{BEGIN col_section11_0}
+									"*", 
+								{END col_section11_0}
+							 						
+						],
+						body: [
+								
+				{BEGIN row_section11_0}
+				[
+																{BEGIN cellblock_section11_c1}
+{
+	cellId: 'c1',
+	col:0,
+	row:0,
+			
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"stack": [
+		
 				
 			 {BEGIN details_mne_project_financials}
 			{$displayDetailTable_mne_project_financials }
 		{END details_mne_project_financials},
+				
+		  ],
+  "border": [ false, false, false, false ],
+              "alignment": 'left',
+     
+      
+      },
+
+{END cellblock_section11_c1}
+											],
+				{END row_section11_0}
+		
+						]
+					}
+				}]
+
+			]
+		},
+		margin: [0,0,0,15],
+	},
+ 
+		{
+		layout: 'panel',
+		
+		table: {
+			tableForm: true,
+			location: 'section12',
+			widths: ['*'],
+			body: [
+				[{text: 'Margins', style: 'tableHeader'}],
+				[{
+					table: {
+						tableForm: true,
+						widths: [
+															{BEGIN col_section12_0}
+									"*", 
+								{END col_section12_0}
+							 						
+						],
+						body: [
+								
+				{BEGIN row_section12_0}
+				[
+																{BEGIN cellblock_section12_c1}
+{
+	cellId: 'c1',
+	col:0,
+	row:0,
+			
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"stack": [
+		
+				
+			{"hidden":"{$item_hide_integrated_edit_field32}","stack":[{"text":"{$jslabel mne_projects profit_margins }","bold":true},{"text":{$profit_margins_pdfvalue}}],"margin":[0,0,0,15]},
+				
+		  ],
+  "border": [ false, false, false, false ],
+              "alignment": 'left',
+     
+      
+      },
+
+{END cellblock_section12_c1}
+											],
+				{END row_section12_0}
+		
+						]
+					}
+				}]
+
+			]
+		},
+		margin: [0,0,0,15],
+	},
 				
 		  ],
   "border": [ false, false, false, false ],

@@ -1,87 +1,38 @@
-<!doctype html>
-<html  {$html_attrs}>
-	<head>
-						<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{$pagetitle}</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<base href="{$projectPath}">
-		{BEGIN styleCSSFiles}
-<link REL="stylesheet" href="{$stylepath}" type="text/css">
-{END styleCSSFiles}
-			
-	</head>
-
-	<body class="{$stylename} function-print" >
-	{BEGIN body}
-		{$header}
-		<style>
-			{$containerCss}
-		</style>
-		{$locking}
-		<div class="r-small-page" 
-			data-body-align="left"
-			data-body-width="standard"
-		>
-							{BEGIN top_block}
-<div class="r-form" data-location="top" id="form_top_{$pageid}" data-makeup="small" {$form_top} data-pageid="{$pageid}" >		
+<div class="panel panel-primary">
+		<div class="panel-heading">
+						{BEGIN top_block}
+<div class="panel-title r-panel-top row" data-location="top" id="form_top_{$pageid}" data-makeup="panel-only" {$form_top} data-pageid="{$pageid}" >		
 	 
-				<div class="row">
-			 
-				<div 
-	data-cellId="top_c2" data-pageid="{$pageid}"	{$cell_top_c2}
-	class=" r-ori-vert			col-md-12
+		 
+			<div 
+	data-cellId="top_c1" data-pageid="{$pageid}"	{$cell_top_c1}
+	class="			col-md-12
 	
 ">
 		 
-		<h2 data-itemtype="print_header" data-itemid="print_header" {$item_print_header} data-pageid="{$pageid}" >{$pagetitlelabel mne_data_collection print}</h2>
-	 
-		{BEGIN printtabheader}
-<span data-itemtype="print_subheader" data-itemid="print_subheader" {$item_print_subheader} data-pageid="{$pageid}" >
-{$printtabheader_text}
+		<span data-itemtype="back_master" data-itemid="back_master" {$item_back_master} data-pageid="{$pageid}" data-small data-button-item>
+	<a type="button" title="" class="btn btn-link  btn-xs 
+	" {$backtomasterlink_attrs} >
+							{mlang_message BACK_TO_MASTER}			</a>
 </span>
-{END printtabheader}
-		</div>					</div>
-			 
-				<div class="row">
-			 
-				<div 
-	data-cellId="top_c4" data-pageid="{$pageid}"	{$cell_top_c4}
-	class=" r-ori-vert			col-md-12
-	
-">
-		 
-		{BEGIN mastertable_block}
-<div data-itemtype="master_info" data-itemid="master_info" {$item_master_info} data-pageid="{$pageid}">
-	{$showmasterfile}
-</div>
-{END mastertable_block}		</div>					</div>
-			</div>		
+	 
+		<h3 class="panel-title" data-itemtype="masterlist_header" data-itemid="masterlist_header" {$item_masterlist_header} data-pageid="{$pageid}" >{$pagetitlelabel mne_data_collection masterlist}</h3>
+		</div>			</div>		
 {END top_block}
-									{BEGIN above-grid_block}
-<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="small" {$form_above-grid} data-pageid="{$pageid}" >		
+			</div>
+		<div class="panel-body">
+							{BEGIN above-grid_block}
+<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="panel-only" {$form_above-grid} data-pageid="{$pageid}" >		
 	 
 				<div class="row">
 			 
 				<div 
 	data-cellId="above-grid_c1" data-pageid="{$pageid}"	{$cell_above-grid_c1}
-	class="			col-md-12
+	class=" r-ori-vert			col-md-12
 	
 ">
 		{BEGIN firstAboveGridCell}
 		 
-		<span data-itemtype="print_pages" data-itemid="print_pages" {$item_print_pages} data-pageid="{$pageid}" >
-	{$print_pages_labelprint_pages}
-</span>	 
-		{BEGIN inline_cancel}
-<span data-itemtype="grid_inline_cancel" data-itemid="grid_inline_cancel" {$item_grid_inline_cancel} data-pageid="{$pageid}" data-small data-button-item>
-	<a type="button" title="{mlang_message CANCEL}" class="btn-link   
-	 glyphicon glyphicon-remove" {$inlinerevertlink_attrs} title="{mlang_message CANCEL}" >		
-				
-								</a>
-</span>
-{END inline_cancel}
-	 
 		{BEGIN inlineadd_link}
 <span data-itemtype="inline_add" data-itemid="inline_add" {$item_inline_add} data-pageid="{$pageid}" data-small data-button-item>
 	<a type="button" title="" class="btn btn-primary   
@@ -93,21 +44,37 @@
 	</div>					</div>
 			</div>		
 {END above-grid_block}
-									{BEGIN grid_block}
+								{BEGIN grid_block}
 {BEGIN message_block}
 <div data-grid-message data-pageid="{$pageid}" class="alert {$message_class}" role="alert" {$grid_message_attrs}>{$message}</div>
-{END message_block}<table data-location="grid" id="form_grid_{$pageid}" data-makeup="small" {$form_grid} data-pageid="{$pageid}" class=" table table-condensed table-striped table-hover table-bordered r-horizontal-grid  rnr-b-grid rnr-gridtable"
+{END message_block}<table data-location="grid" id="form_grid_{$pageid}" data-makeup="panel-only" {$form_grid} data-pageid="{$pageid}" class=" table table-condensed table-striped table-hover table-bordered r-horizontal-grid  rnr-b-grid rnr-gridtable"
 	cellpadding="0"
-	data-body-height="2"
+	data-body-height="1"
 >
 						<thead>
 			{BEGIN grid_header}
 			
-																														<tr {$rowattrs} {$row_grid_0} class="{$rowclass}
+																									<tr {$rowattrs} {$row_grid_0} class="{$rowclass}
 									{$gridHeader_class}
 					
 								r-gridrow
 							">
+									{BEGIN cellblock_grid_headcell_icons}
+	<th
+	
+	{$cell_grid_headcell_icons}
+	{$recordattrs}
+	class="
+		 r-ori-vert			"
+
+	
+	data-cellId="grid_headcell_icons" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"		data-control-cell
+	
+	>
+
+	
+	</th>
+	{END cellblock_grid_headcell_icons}
 									{BEGIN cellblock_grid_headcell_field}
 	<th
 	
@@ -3829,16 +3796,41 @@
 	</th>
 	{END cellblock_grid_headcell_field123}
 							</tr>
-																				
+															
 					{END grid_header}
 			</thead>
-															{BEGIN grid_row}
-					<tbody>
+															<tbody>
+					{BEGIN grid_row}
 							
-																																			<tr {$rowattrs} {$row_grid_1} class="{$rowclass}
+																														<tr {$rowattrs} {$row_grid_1} class="{$rowclass}
 				
 								r-gridrow
 							">
+									{BEGIN cellblock_grid_cell_icons}
+	<td
+	
+	{$cell_grid_cell_icons}
+	{$recordattrs}
+	class="
+		 r-ori-vert			"
+
+	
+	data-cellId="grid_cell_icons" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"		data-control-cell
+	
+	>
+
+	 
+		{BEGIN inline_cancel}
+<span data-itemtype="grid_inline_cancel" data-itemid="grid_inline_cancel" {$item_grid_inline_cancel} data-pageid="{$pageid}" data-record-id="{$recId}" data-small data-button-item>
+	<a type="button" title="{mlang_message CANCEL}" class="btn-link   
+	 glyphicon glyphicon-remove" {$inlinerevertlink_attrs} title="{mlang_message CANCEL}" >		
+				
+								</a>
+</span>
+{END inline_cancel}
+	
+	</td>
+	{END cellblock_grid_cell_icons}
 									{BEGIN cellblock_grid_cell_field}
 	<td
 	
@@ -6444,39 +6436,31 @@
 	</td>
 	{END cellblock_grid_cell_field123}
 							</tr>
-											<tr {$rowattrs} {$row_grid_2} class="{$rowclass}
-				
+										
+											{END grid_row}
+					</tbody>
+													<tfoot>
+			
+																																			<tr {$rowattrs} {$row_grid_2} class="{$rowclass}
+									{$gridFooter_class}
+					
+								r-gridrow
 							">
-									{BEGIN cellblock_grid_cell_dpreview}
+									{BEGIN cellblock_grid_footcell_icons}
 	<td
 	
-	{$cell_grid_cell_dpreview}
+	{$cell_grid_footcell_icons}
 	{$recordattrs}
 	class="
 		 r-ori-vert			"
 
 	
-	data-cellId="grid_cell_dpreview" data-pageid="{$pageid}" data-record-id="{$recId}"	
+	data-cellId="grid_footcell_icons" data-pageid="{$pageid}" data-record-id="{$recId}"	
 	>
 
-	 
-		{BEGIN details_mne_project_data_management}
-{$displayDetailTable_mne_project_data_management}
-{END details_mne_project_data_management}
 	
 	</td>
-	{END cellblock_grid_cell_dpreview}
-							</tr>
-										
-											</tbody>
-					{END grid_row}
-													<tfoot>
-			
-																																													<tr {$rowattrs} {$row_grid_3} class="{$rowclass}
-									{$gridFooter_class}
-					
-								r-gridrow
-							">
+	{END cellblock_grid_footcell_icons}
 									{BEGIN cellblock_grid_footcell_field}
 	<td
 	
@@ -6486,7 +6470,7 @@
 		 r-ori-vert		 {$collection_id_class}	"
 
 	
-	data-cellId="grid_footcell_field" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6501,7 +6485,7 @@
 		 r-ori-vert		 {$project_id_class}	"
 
 	
-	data-cellId="grid_footcell_field1" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field1" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6516,7 +6500,7 @@
 		 r-ori-vert		 {$project_name_class}	"
 
 	
-	data-cellId="grid_footcell_field2" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field2" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6531,7 +6515,7 @@
 		 r-ori-vert		 {$client_class}	"
 
 	
-	data-cellId="grid_footcell_field3" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field3" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6546,7 +6530,7 @@
 		 r-ori-vert		 {$start_date_class}	"
 
 	
-	data-cellId="grid_footcell_field4" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field4" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6561,7 +6545,7 @@
 		 r-ori-vert		 {$end_date_class}	"
 
 	
-	data-cellId="grid_footcell_field5" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field5" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6576,7 +6560,7 @@
 		 r-ori-vert		 {$number_of_days_class}	"
 
 	
-	data-cellId="grid_footcell_field6" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field6" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6591,7 +6575,7 @@
 		 r-ori-vert		 {$number_of_rounds_class}	"
 
 	
-	data-cellId="grid_footcell_field7" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field7" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6606,7 +6590,7 @@
 		 r-ori-vert		 {$number_separate_activities_class}	"
 
 	
-	data-cellId="grid_footcell_field8" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field8" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6621,7 +6605,7 @@
 		 r-ori-vert		 {$data_collection_activity_class}	"
 
 	
-	data-cellId="grid_footcell_field9" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field9" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6636,7 +6620,7 @@
 		 r-ori-vert		 {$data_collectors_count_class}	"
 
 	
-	data-cellId="grid_footcell_field10" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field10" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6651,7 +6635,7 @@
 		 r-ori-vert		 {$supervisors_count_class}	"
 
 	
-	data-cellId="grid_footcell_field11" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field11" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6666,7 +6650,7 @@
 		 r-ori-vert		 {$field_guides_count_class}	"
 
 	
-	data-cellId="grid_footcell_field12" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field12" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6681,7 +6665,7 @@
 		 r-ori-vert		 {$site_coordinators_count_class}	"
 
 	
-	data-cellId="grid_footcell_field13" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field13" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6696,7 +6680,7 @@
 		 r-ori-vert		 {$others_count_class}	"
 
 	
-	data-cellId="grid_footcell_field14" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field14" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6711,7 +6695,7 @@
 		 r-ori-vert		 {$household_survey_count_class}	"
 
 	
-	data-cellId="grid_footcell_field15" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field15" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6726,7 +6710,7 @@
 		 r-ori-vert		 {$facility_assessment_count_class}	"
 
 	
-	data-cellId="grid_footcell_field16" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field16" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6741,7 +6725,7 @@
 		 r-ori-vert		 {$oca_count_class}	"
 
 	
-	data-cellId="grid_footcell_field17" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field17" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6756,7 +6740,7 @@
 		 r-ori-vert		 {$mapping_count_class}	"
 
 	
-	data-cellId="grid_footcell_field18" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field18" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6771,7 +6755,7 @@
 		 r-ori-vert		 {$profiling_count_class}	"
 
 	
-	data-cellId="grid_footcell_field19" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field19" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6786,7 +6770,7 @@
 		 r-ori-vert		 {$quant_others_count_class}	"
 
 	
-	data-cellId="grid_footcell_field20" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field20" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6801,7 +6785,7 @@
 		 r-ori-vert		 {$kii_idi_count_class}	"
 
 	
-	data-cellId="grid_footcell_field21" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field21" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6816,7 +6800,7 @@
 		 r-ori-vert		 {$fgd_count_class}	"
 
 	
-	data-cellId="grid_footcell_field22" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field22" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6831,7 +6815,7 @@
 		 r-ori-vert		 {$workshops_count_class}	"
 
 	
-	data-cellId="grid_footcell_field23" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field23" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6846,7 +6830,7 @@
 		 r-ori-vert		 {$observation_count_class}	"
 
 	
-	data-cellId="grid_footcell_field24" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field24" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6861,7 +6845,7 @@
 		 r-ori-vert		 {$qual_others_count_class}	"
 
 	
-	data-cellId="grid_footcell_field25" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field25" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6876,7 +6860,7 @@
 		 r-ori-vert		 {$reviews_count_class}	"
 
 	
-	data-cellId="grid_footcell_field26" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field26" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6891,7 +6875,7 @@
 		 r-ori-vert		 {$hh_women_count_class}	"
 
 	
-	data-cellId="grid_footcell_field27" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field27" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6906,7 +6890,7 @@
 		 r-ori-vert		 {$hh_men_count_class}	"
 
 	
-	data-cellId="grid_footcell_field28" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field28" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6921,7 +6905,7 @@
 		 r-ori-vert		 {$hh_youth_count_class}	"
 
 	
-	data-cellId="grid_footcell_field29" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field29" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6936,7 +6920,7 @@
 		 r-ori-vert		 {$hh_others_count_class}	"
 
 	
-	data-cellId="grid_footcell_field30" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field30" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6951,7 +6935,7 @@
 		 r-ori-vert		 {$fac_hospital_count_class}	"
 
 	
-	data-cellId="grid_footcell_field31" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field31" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6966,7 +6950,7 @@
 		 r-ori-vert		 {$fac_hc_count_class}	"
 
 	
-	data-cellId="grid_footcell_field32" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field32" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6981,7 +6965,7 @@
 		 r-ori-vert		 {$fac_hp_count_class}	"
 
 	
-	data-cellId="grid_footcell_field33" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field33" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -6996,7 +6980,7 @@
 		 r-ori-vert		 {$oca_target_count_class}	"
 
 	
-	data-cellId="grid_footcell_field34" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field34" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7011,7 +6995,7 @@
 		 r-ori-vert		 {$mapping_orgs_count_class}	"
 
 	
-	data-cellId="grid_footcell_field35" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field35" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7026,7 +7010,7 @@
 		 r-ori-vert		 {$mapping_structures_count_class}	"
 
 	
-	data-cellId="grid_footcell_field36" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field36" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7041,7 +7025,7 @@
 		 r-ori-vert		 {$mapping_others_count_class}	"
 
 	
-	data-cellId="grid_footcell_field37" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field37" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7056,7 +7040,7 @@
 		 r-ori-vert		 {$profiling_target_count_class}	"
 
 	
-	data-cellId="grid_footcell_field38" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field38" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7071,7 +7055,7 @@
 		 r-ori-vert		 {$quant_other_target_count_class}	"
 
 	
-	data-cellId="grid_footcell_field39" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field39" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7086,7 +7070,7 @@
 		 r-ori-vert		 {$kii_target_count_class}	"
 
 	
-	data-cellId="grid_footcell_field40" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field40" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7101,7 +7085,7 @@
 		 r-ori-vert		 {$fgd_session_count_class}	"
 
 	
-	data-cellId="grid_footcell_field41" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field41" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7116,7 +7100,7 @@
 		 r-ori-vert		 {$fgd_participant_count_class}	"
 
 	
-	data-cellId="grid_footcell_field42" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field42" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7131,7 +7115,7 @@
 		 r-ori-vert		 {$workshop_session_count_class}	"
 
 	
-	data-cellId="grid_footcell_field43" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field43" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7146,7 +7130,7 @@
 		 r-ori-vert		 {$workshop_participant_count_class}	"
 
 	
-	data-cellId="grid_footcell_field44" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field44" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7161,7 +7145,7 @@
 		 r-ori-vert		 {$observation_session_count_class}	"
 
 	
-	data-cellId="grid_footcell_field45" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field45" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7176,7 +7160,7 @@
 		 r-ori-vert		 {$qual_other_target_count_class}	"
 
 	
-	data-cellId="grid_footcell_field46" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field46" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7191,7 +7175,7 @@
 		 r-ori-vert		 {$technical_assistance_targets_class}	"
 
 	
-	data-cellId="grid_footcell_field47" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field47" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7206,7 +7190,7 @@
 		 r-ori-vert		 {$technical_assistance_rounds_class}	"
 
 	
-	data-cellId="grid_footcell_field48" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field48" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7221,7 +7205,7 @@
 		 r-ori-vert		 {$training_sessions_class}	"
 
 	
-	data-cellId="grid_footcell_field49" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field49" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7236,7 +7220,7 @@
 		 r-ori-vert		 {$training_participants_class}	"
 
 	
-	data-cellId="grid_footcell_field50" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field50" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7251,7 +7235,7 @@
 		 r-ori-vert		 {$datasets_count_class}	"
 
 	
-	data-cellId="grid_footcell_field51" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field51" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7266,7 +7250,7 @@
 		 r-ori-vert		 {$datasets_with_description_class}	"
 
 	
-	data-cellId="grid_footcell_field52" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field52" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7281,7 +7265,7 @@
 		 r-ori-vert		 {$languages_count_class}	"
 
 	
-	data-cellId="grid_footcell_field53" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field53" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7296,7 +7280,7 @@
 		 r-ori-vert		 {$audio_records_count_class}	"
 
 	
-	data-cellId="grid_footcell_field54" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field54" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7311,7 +7295,7 @@
 		 r-ori-vert		 {$summary_notes_count_class}	"
 
 	
-	data-cellId="grid_footcell_field55" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field55" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7326,7 +7310,7 @@
 		 r-ori-vert		 {$code_reports_count_class}	"
 
 	
-	data-cellId="grid_footcell_field56" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field56" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7341,7 +7325,7 @@
 		 r-ori-vert		 {$created_at_class}	"
 
 	
-	data-cellId="grid_footcell_field57" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field57" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7356,7 +7340,7 @@
 		 r-ori-vert		 {$updated_at_class}	"
 
 	
-	data-cellId="grid_footcell_field58" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field58" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7371,7 +7355,7 @@
 		 r-ori-vert		 {$ownership_class}	"
 
 	
-	data-cellId="grid_footcell_field59" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field59" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7386,7 +7370,7 @@
 		 r-ori-vert		 {$data_access_class}	"
 
 	
-	data-cellId="grid_footcell_field60" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field60" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7401,7 +7385,7 @@
 		 r-ori-vert		 {$method_class}	"
 
 	
-	data-cellId="grid_footcell_field61" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field61" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7416,7 +7400,7 @@
 		 r-ori-vert		 {$doc_review_class}	"
 
 	
-	data-cellId="grid_footcell_field62" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field62" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7431,7 +7415,7 @@
 		 r-ori-vert		 {$other_specify_class}	"
 
 	
-	data-cellId="grid_footcell_field63" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field63" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7446,7 +7430,7 @@
 		 r-ori-vert		 {$hh_listing_class}	"
 
 	
-	data-cellId="grid_footcell_field64" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field64" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7461,7 +7445,7 @@
 		 r-ori-vert		 {$children_zero_to_five_months_class}	"
 
 	
-	data-cellId="grid_footcell_field65" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field65" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7476,7 +7460,7 @@
 		 r-ori-vert		 {$children_six_to_23_months_class}	"
 
 	
-	data-cellId="grid_footcell_field66" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field66" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7491,7 +7475,7 @@
 		 r-ori-vert		 {$children_24_to_59_months_class}	"
 
 	
-	data-cellId="grid_footcell_field67" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field67" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7506,7 +7490,7 @@
 		 r-ori-vert		 {$children_under_five_age_class}	"
 
 	
-	data-cellId="grid_footcell_field68" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field68" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7521,7 +7505,7 @@
 		 r-ori-vert		 {$adolescent_class}	"
 
 	
-	data-cellId="grid_footcell_field69" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field69" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7536,7 +7520,7 @@
 		 r-ori-vert		 {$pregnant_women_class}	"
 
 	
-	data-cellId="grid_footcell_field70" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field70" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7551,7 +7535,7 @@
 		 r-ori-vert		 {$lactating_women_class}	"
 
 	
-	data-cellId="grid_footcell_field71" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field71" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7566,7 +7550,7 @@
 		 r-ori-vert		 {$non_pregnant_women_class}	"
 
 	
-	data-cellId="grid_footcell_field72" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field72" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7581,7 +7565,7 @@
 		 r-ori-vert		 {$health_workers_class}	"
 
 	
-	data-cellId="grid_footcell_field73" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field73" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7596,7 +7580,7 @@
 		 r-ori-vert		 {$task_recording_class}	"
 
 	
-	data-cellId="grid_footcell_field74" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field74" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7611,7 +7595,7 @@
 		 r-ori-vert		 {$youth_centre_assessment_class}	"
 
 	
-	data-cellId="grid_footcell_field75" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field75" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7626,7 +7610,7 @@
 		 r-ori-vert		 {$private_hospital_class}	"
 
 	
-	data-cellId="grid_footcell_field76" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field76" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7641,7 +7625,7 @@
 		 r-ori-vert		 {$private_clinic_class}	"
 
 	
-	data-cellId="grid_footcell_field77" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field77" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7656,7 +7640,7 @@
 		 r-ori-vert		 {$federal_level_class}	"
 
 	
-	data-cellId="grid_footcell_field78" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field78" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7671,7 +7655,7 @@
 		 r-ori-vert		 {$rhb_class}	"
 
 	
-	data-cellId="grid_footcell_field79" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field79" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7686,7 +7670,7 @@
 		 r-ori-vert		 {$zonal_health_dept_class}	"
 
 	
-	data-cellId="grid_footcell_field80" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field80" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7701,7 +7685,7 @@
 		 r-ori-vert		 {$woreda_ho_class}	"
 
 	
-	data-cellId="grid_footcell_field81" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field81" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7716,7 +7700,7 @@
 		 r-ori-vert		 {$woreda_other_sector_class}	"
 
 	
-	data-cellId="grid_footcell_field82" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field82" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7731,7 +7715,7 @@
 		 r-ori-vert		 {$kebele_class}	"
 
 	
-	data-cellId="grid_footcell_field83" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field83" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7746,7 +7730,7 @@
 		 r-ori-vert		 {$city_class}	"
 
 	
-	data-cellId="grid_footcell_field84" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field84" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7761,7 +7745,7 @@
 		 r-ori-vert		 {$university_class}	"
 
 	
-	data-cellId="grid_footcell_field85" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field85" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7776,7 +7760,7 @@
 		 r-ori-vert		 {$school_class}	"
 
 	
-	data-cellId="grid_footcell_field86" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field86" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7791,7 +7775,7 @@
 		 r-ori-vert		 {$school_youth_class}	"
 
 	
-	data-cellId="grid_footcell_field87" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field87" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7806,7 +7790,7 @@
 		 r-ori-vert		 {$communal_water_source_class}	"
 
 	
-	data-cellId="grid_footcell_field88" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field88" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7821,7 +7805,7 @@
 		 r-ori-vert		 {$employer_class}	"
 
 	
-	data-cellId="grid_footcell_field89" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field89" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7836,7 +7820,7 @@
 		 r-ori-vert		 {$faculty_audit_attrition_rates_class}	"
 
 	
-	data-cellId="grid_footcell_field90" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field90" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7851,7 +7835,7 @@
 		 r-ori-vert		 {$department_heads_survey_class}	"
 
 	
-	data-cellId="grid_footcell_field91" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field91" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7866,7 +7850,7 @@
 		 r-ori-vert		 {$skills_lab_inventory_class}	"
 
 	
-	data-cellId="grid_footcell_field92" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field92" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7881,7 +7865,7 @@
 		 r-ori-vert		 {$clinical_practice_site_inventory_class}	"
 
 	
-	data-cellId="grid_footcell_field93" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field93" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7896,7 +7880,7 @@
 		 r-ori-vert		 {$curriculum_review_class}	"
 
 	
-	data-cellId="grid_footcell_field94" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field94" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7911,7 +7895,7 @@
 		 r-ori-vert		 {$faculty_survey_class}	"
 
 	
-	data-cellId="grid_footcell_field95" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field95" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7926,7 +7910,7 @@
 		 r-ori-vert		 {$provider_graduate_tracer_survey_class}	"
 
 	
-	data-cellId="grid_footcell_field96" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field96" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7941,7 +7925,7 @@
 		 r-ori-vert		 {$family_planning_facility_audit_class}	"
 
 	
-	data-cellId="grid_footcell_field97" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field97" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7956,7 +7940,7 @@
 		 r-ori-vert		 {$comprehensive_abortion_care_facility_class}	"
 
 	
-	data-cellId="grid_footcell_field98" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field98" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7971,7 +7955,7 @@
 		 r-ori-vert		 {$researcher_survey_class}	"
 
 	
-	data-cellId="grid_footcell_field99" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field99" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -7986,7 +7970,7 @@
 		 r-ori-vert		 {$rural_hep_hh_characteristics_class}	"
 
 	
-	data-cellId="grid_footcell_field100" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field100" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8001,7 +7985,7 @@
 		 r-ori-vert		 {$rural_hep_women_data_class}	"
 
 	
-	data-cellId="grid_footcell_field101" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field101" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8016,7 +8000,7 @@
 		 r-ori-vert		 {$rural_hep_men_data_class}	"
 
 	
-	data-cellId="grid_footcell_field102" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field102" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8031,7 +8015,7 @@
 		 r-ori-vert		 {$rural_hep_adolescents_data_class}	"
 
 	
-	data-cellId="grid_footcell_field103" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field103" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8046,7 +8030,7 @@
 		 r-ori-vert		 {$rural_health_post_assessment_class}	"
 
 	
-	data-cellId="grid_footcell_field104" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field104" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8061,7 +8045,7 @@
 		 r-ori-vert		 {$rural_health_extension_workers_class}	"
 
 	
-	data-cellId="grid_footcell_field105" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field105" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8076,7 +8060,7 @@
 		 r-ori-vert		 {$rural_health_centre_data_class}	"
 
 	
-	data-cellId="grid_footcell_field106" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field106" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8091,7 +8075,7 @@
 		 r-ori-vert		 {$institutional_profile_data_class}	"
 
 	
-	data-cellId="grid_footcell_field107" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field107" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8106,7 +8090,7 @@
 		 r-ori-vert		 {$coc_centers_data_class}	"
 
 	
-	data-cellId="grid_footcell_field108" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field108" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8121,7 +8105,7 @@
 		 r-ori-vert		 {$instructor_data_class}	"
 
 	
-	data-cellId="grid_footcell_field109" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field109" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8136,7 +8120,7 @@
 		 r-ori-vert		 {$trainees_data_class}	"
 
 	
-	data-cellId="grid_footcell_field110" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field110" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8151,7 +8135,7 @@
 		 r-ori-vert		 {$attrition_data_class}	"
 
 	
-	data-cellId="grid_footcell_field111" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field111" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8166,7 +8150,7 @@
 		 r-ori-vert		 {$attitude_data_class}	"
 
 	
-	data-cellId="grid_footcell_field112" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field112" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8181,7 +8165,7 @@
 		 r-ori-vert		 {$phem_all_hews_data_class}	"
 
 	
-	data-cellId="grid_footcell_field113" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field113" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8196,7 +8180,7 @@
 		 r-ori-vert		 {$phem_hew_head_health_post_class}	"
 
 	
-	data-cellId="grid_footcell_field114" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field114" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8211,7 +8195,7 @@
 		 r-ori-vert		 {$phem_health_center_data_class}	"
 
 	
-	data-cellId="grid_footcell_field115" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field115" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8226,7 +8210,7 @@
 		 r-ori-vert		 {$phem_woreda_level_data_class}	"
 
 	
-	data-cellId="grid_footcell_field116" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field116" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8241,7 +8225,7 @@
 		 r-ori-vert		 {$urban_hep_hh_characteristics_class}	"
 
 	
-	data-cellId="grid_footcell_field117" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field117" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8256,7 +8240,7 @@
 		 r-ori-vert		 {$urban_hep_hew_professionals_class}	"
 
 	
-	data-cellId="grid_footcell_field118" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field118" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8271,7 +8255,7 @@
 		 r-ori-vert		 {$urban_hep_hc_assessment_class}	"
 
 	
-	data-cellId="grid_footcell_field119" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field119" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8286,7 +8270,7 @@
 		 r-ori-vert		 {$me_system_functionality_hc_ph_class}	"
 
 	
-	data-cellId="grid_footcell_field120" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field120" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8301,7 +8285,7 @@
 		 r-ori-vert		 {$me_system_functionality_health_posts_class}	"
 
 	
-	data-cellId="grid_footcell_field121" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field121" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8316,7 +8300,7 @@
 		 r-ori-vert		 {$network_care_documentation_class}	"
 
 	
-	data-cellId="grid_footcell_field122" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field122" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8331,7 +8315,7 @@
 		 r-ori-vert		 {$network_care_maturity_assessment_class}	"
 
 	
-	data-cellId="grid_footcell_field123" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_print"	
+	data-cellId="grid_footcell_field123" data-pageid="{$pageid}" data-record-id="{$recId}" data-page="mne_data_collection_masterlist"	
 	>
 
 	
@@ -8342,21 +8326,5 @@
 					</tfoot>
 				</table>
 {END grid_block}
-									{BEGIN below-grid_block}
-<div class="r-form" data-location="below-grid" id="form_below-grid_{$pageid}" data-makeup="small" {$form_below-grid} data-pageid="{$pageid}" >		
-	 
-				<div class="row">
-			 
-				<div 
-	data-cellId="below-grid_c1" data-pageid="{$pageid}"	{$cell_below-grid_c1}
-	class=" r-ori-vert			col-md-12
-	
-">
-			</div>					</div>
-			</div>		
-{END below-grid_block}
-			</div>
-		{$footer}
-	{END body}
-	</body>
-</html>
+								</div>
+</div>

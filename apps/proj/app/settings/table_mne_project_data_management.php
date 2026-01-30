@@ -52,7 +52,7 @@ $runnerTableSettings['mne_project_data_management'] = array(
 	'audit' => true,
 	'afterEditDetails' => 'mne_project_data_management',
 	'afterAddDetail' => 'mne_project_data_management',
-	'detailsBadgeColor' => '00c2c5',
+	'detailsBadgeColor' => '000',
 	'displayLoading' => true,
 	'warnLeavingEdit' => true,
 	'sql' => 'SELECT
@@ -145,7 +145,7 @@ FROM
 					'lookupTable' => 'mne_projects',
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'project_id',
-					'lookupDisplayField' => 'project_code' 
+					'lookupDisplayField' => 'project_name' 
 				) 
 			),
 			'tableName' => 'mne_project_data_management' 
@@ -819,6 +819,15 @@ FROM
 		),
 		array(
 			'table' => 'mne_projects',
+			'detailsKeys' => array( 
+				'project_id' 
+			),
+			'masterKeys' => array( 
+				'project_id' 
+			) 
+		),
+		array(
+			'table' => 'mne_data_collection',
 			'detailsKeys' => array( 
 				'project_id' 
 			),

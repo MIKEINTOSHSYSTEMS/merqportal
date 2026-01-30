@@ -271,7 +271,9 @@ FROM
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Date',
-					'dateEditType' => 11 
+					'defaultValue' => 'date("Y-m-d")',
+					'autoUpdateValue' => 'date("Y-m-d")',
+					'dateEditType' => 13 
 				) 
 			),
 			'tableName' => 'mne_projects' 
@@ -291,7 +293,9 @@ FROM
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Date',
-					'dateEditType' => 11 
+					'defaultValue' => 'date("Y-m-d")',
+					'autoUpdateValue' => 'date("Y-m-d")',
+					'dateEditType' => 13 
 				) 
 			),
 			'tableName' => 'mne_projects' 
@@ -349,6 +353,7 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
+					'defaultValue' => '0',
 					'validateAs' => 'Currency' 
 				) 
 			),
@@ -564,7 +569,6 @@ FROM
 					'lookupDisplayField' => 'sector_name',
 					'lookupAllowAdd' => true,
 					'lookupAddPage' => 'add',
-					'lookupDependent' => true,
 					'lookupDependentFields' => array( 
 						array(
 							'masterField' => 'sector_id',
@@ -2347,7 +2351,7 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'updated_by' => '' 
 	),
 	'pageTitles' => array(
-		'list' => 'Extended Projects' 
+		 
 	) 
 );
 }

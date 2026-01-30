@@ -310,6 +310,7 @@ $this->settings["preferredCountries"] = "us";           // Preferred Country
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Date',
+					'defaultValue' => 'date("Y-m-d H:i:s")',
 					'dateEditType' => 11 
 				) 
 			),
@@ -329,7 +330,8 @@ $this->settings["preferredCountries"] = "us";           // Preferred Country
 			),
 			'editFormats' => array(
 				'edit' => array(
-					'format' => 'Checkbox' 
+					'format' => 'Checkbox',
+					'defaultValue' => '1' 
 				) 
 			),
 			'tableName' => 'tblclients' 
@@ -440,6 +442,7 @@ $this->settings["preferredCountries"] = "us";           // Preferred Country
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Lookup wizard',
+					'defaultValue' => '0',
 					'lookupType' => 2,
 					'lookupTable' => 'tblcountries',
 					'lookupTableConnection' => 'conn',
@@ -481,7 +484,13 @@ $this->settings["preferredCountries"] = "us";           // Preferred Country
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'format' => 'Lookup wizard',
+					'defaultValue' => '0',
+					'lookupType' => 2,
+					'lookupTable' => 'tblcountries',
+					'lookupTableConnection' => 'conn',
+					'lookupLinkField' => 'country_id',
+					'lookupDisplayField' => 'short_name' 
 				) 
 			),
 			'tableName' => 'tblclients' 
@@ -616,6 +625,7 @@ $this->settings["preferredCountries"] = "us";           // Preferred Country
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Lookup wizard',
+					'defaultValue' => '0',
 					'lookupType' => 2,
 					'lookupTable' => 'tblcurrencies',
 					'lookupTableConnection' => 'conn',
@@ -639,7 +649,8 @@ $this->settings["preferredCountries"] = "us";           // Preferred Country
 			),
 			'editFormats' => array(
 				'edit' => array(
-					 
+					'format' => 'Checkbox',
+					'defaultValue' => '0' 
 				) 
 			),
 			'tableName' => 'tblclients' 
@@ -676,7 +687,8 @@ $this->settings["preferredCountries"] = "us";           // Preferred Country
 			),
 			'editFormats' => array(
 				'edit' => array(
-					'format' => 'Checkbox' 
+					'format' => 'Checkbox',
+					'defaultValue' => '1' 
 				) 
 			),
 			'tableName' => 'tblclients' 
@@ -1731,7 +1743,7 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'state' => 'State',
 		'address' => 'Address',
 		'website' => 'Website',
-		'datecreated' => 'Datecreated',
+		'datecreated' => 'Date Created',
 		'active' => 'Active',
 		'leadid' => 'Leadid',
 		'billing_street' => 'Billing Street',

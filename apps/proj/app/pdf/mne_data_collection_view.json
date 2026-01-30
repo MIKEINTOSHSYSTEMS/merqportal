@@ -352,6 +352,194 @@ pdfDocument = {
 				
 			{"hidden":"{$item_hide_integrated_edit_field57}","stack":[{"text":"{$jslabel mne_data_collection updated_at }","bold":true},{"text":{$updated_at_pdfvalue}}],"margin":[0,0,0,15]},
 				
+				
+			{"hidden":"{$item_hide_integrated_edit_field62}","stack":[{"text":"{$jslabel mne_data_collection other_specify }","bold":true},{"text":{$other_specify_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field63}","stack":[{"text":"{$jslabel mne_data_collection hh_listing }","bold":true},{"text":{$hh_listing_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field64}","stack":[{"text":"{$jslabel mne_data_collection children_zero_to_five_months }","bold":true},{"text":{$children_zero_to_five_months_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field65}","stack":[{"text":"{$jslabel mne_data_collection children_six_to_23_months }","bold":true},{"text":{$children_six_to_23_months_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field66}","stack":[{"text":"{$jslabel mne_data_collection children_24_to_59_months }","bold":true},{"text":{$children_24_to_59_months_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field67}","stack":[{"text":"{$jslabel mne_data_collection children_under_five_age }","bold":true},{"text":{$children_under_five_age_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field68}","stack":[{"text":"{$jslabel mne_data_collection adolescent }","bold":true},{"text":{$adolescent_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field69}","stack":[{"text":"{$jslabel mne_data_collection pregnant_women }","bold":true},{"text":{$pregnant_women_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field70}","stack":[{"text":"{$jslabel mne_data_collection lactating_women }","bold":true},{"text":{$lactating_women_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field71}","stack":[{"text":"{$jslabel mne_data_collection non_pregnant_women }","bold":true},{"text":{$non_pregnant_women_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field72}","stack":[{"text":"{$jslabel mne_data_collection health_workers }","bold":true},{"text":{$health_workers_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field73}","stack":[{"text":"{$jslabel mne_data_collection task_recording }","bold":true},{"text":{$task_recording_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field74}","stack":[{"text":"{$jslabel mne_data_collection youth_centre_assessment }","bold":true},{"text":{$youth_centre_assessment_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field75}","stack":[{"text":"{$jslabel mne_data_collection private_hospital }","bold":true},{"text":{$private_hospital_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field76}","stack":[{"text":"{$jslabel mne_data_collection private_clinic }","bold":true},{"text":{$private_clinic_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field77}","stack":[{"text":"{$jslabel mne_data_collection federal_level }","bold":true},{"text":{$federal_level_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field78}","stack":[{"text":"{$jslabel mne_data_collection rhb }","bold":true},{"text":{$rhb_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field79}","stack":[{"text":"{$jslabel mne_data_collection zonal_health_dept }","bold":true},{"text":{$zonal_health_dept_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field80}","stack":[{"text":"{$jslabel mne_data_collection woreda_ho }","bold":true},{"text":{$woreda_ho_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field81}","stack":[{"text":"{$jslabel mne_data_collection woreda_other_sector }","bold":true},{"text":{$woreda_other_sector_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field82}","stack":[{"text":"{$jslabel mne_data_collection kebele }","bold":true},{"text":{$kebele_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field83}","stack":[{"text":"{$jslabel mne_data_collection city }","bold":true},{"text":{$city_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field84}","stack":[{"text":"{$jslabel mne_data_collection university }","bold":true},{"text":{$university_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field85}","stack":[{"text":"{$jslabel mne_data_collection school }","bold":true},{"text":{$school_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field86}","stack":[{"text":"{$jslabel mne_data_collection school_youth }","bold":true},{"text":{$school_youth_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field87}","stack":[{"text":"{$jslabel mne_data_collection communal_water_source }","bold":true},{"text":{$communal_water_source_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field88}","stack":[{"text":"{$jslabel mne_data_collection employer }","bold":true},{"text":{$employer_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field89}","stack":[{"text":"{$jslabel mne_data_collection faculty_audit_attrition_rates }","bold":true},{"text":{$faculty_audit_attrition_rates_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field90}","stack":[{"text":"{$jslabel mne_data_collection department_heads_survey }","bold":true},{"text":{$department_heads_survey_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field91}","stack":[{"text":"{$jslabel mne_data_collection skills_lab_inventory }","bold":true},{"text":{$skills_lab_inventory_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field92}","stack":[{"text":"{$jslabel mne_data_collection clinical_practice_site_inventory }","bold":true},{"text":{$clinical_practice_site_inventory_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field93}","stack":[{"text":"{$jslabel mne_data_collection curriculum_review }","bold":true},{"text":{$curriculum_review_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field94}","stack":[{"text":"{$jslabel mne_data_collection faculty_survey }","bold":true},{"text":{$faculty_survey_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field95}","stack":[{"text":"{$jslabel mne_data_collection provider_graduate_tracer_survey }","bold":true},{"text":{$provider_graduate_tracer_survey_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field96}","stack":[{"text":"{$jslabel mne_data_collection family_planning_facility_audit }","bold":true},{"text":{$family_planning_facility_audit_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field97}","stack":[{"text":"{$jslabel mne_data_collection comprehensive_abortion_care_facility }","bold":true},{"text":{$comprehensive_abortion_care_facility_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field98}","stack":[{"text":"{$jslabel mne_data_collection researcher_survey }","bold":true},{"text":{$researcher_survey_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field99}","stack":[{"text":"{$jslabel mne_data_collection rural_hep_hh_characteristics }","bold":true},{"text":{$rural_hep_hh_characteristics_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field100}","stack":[{"text":"{$jslabel mne_data_collection rural_hep_women_data }","bold":true},{"text":{$rural_hep_women_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field101}","stack":[{"text":"{$jslabel mne_data_collection rural_hep_men_data }","bold":true},{"text":{$rural_hep_men_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field102}","stack":[{"text":"{$jslabel mne_data_collection rural_hep_adolescents_data }","bold":true},{"text":{$rural_hep_adolescents_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field103}","stack":[{"text":"{$jslabel mne_data_collection rural_health_post_assessment }","bold":true},{"text":{$rural_health_post_assessment_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field104}","stack":[{"text":"{$jslabel mne_data_collection rural_health_extension_workers }","bold":true},{"text":{$rural_health_extension_workers_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field105}","stack":[{"text":"{$jslabel mne_data_collection rural_health_centre_data }","bold":true},{"text":{$rural_health_centre_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field106}","stack":[{"text":"{$jslabel mne_data_collection institutional_profile_data }","bold":true},{"text":{$institutional_profile_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field107}","stack":[{"text":"{$jslabel mne_data_collection coc_centers_data }","bold":true},{"text":{$coc_centers_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field108}","stack":[{"text":"{$jslabel mne_data_collection instructor_data }","bold":true},{"text":{$instructor_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field109}","stack":[{"text":"{$jslabel mne_data_collection trainees_data }","bold":true},{"text":{$trainees_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field110}","stack":[{"text":"{$jslabel mne_data_collection attrition_data }","bold":true},{"text":{$attrition_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field111}","stack":[{"text":"{$jslabel mne_data_collection attitude_data }","bold":true},{"text":{$attitude_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field112}","stack":[{"text":"{$jslabel mne_data_collection phem_all_hews_data }","bold":true},{"text":{$phem_all_hews_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field113}","stack":[{"text":"{$jslabel mne_data_collection phem_hew_head_health_post }","bold":true},{"text":{$phem_hew_head_health_post_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field114}","stack":[{"text":"{$jslabel mne_data_collection phem_health_center_data }","bold":true},{"text":{$phem_health_center_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field115}","stack":[{"text":"{$jslabel mne_data_collection phem_woreda_level_data }","bold":true},{"text":{$phem_woreda_level_data_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field116}","stack":[{"text":"{$jslabel mne_data_collection urban_hep_hh_characteristics }","bold":true},{"text":{$urban_hep_hh_characteristics_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field117}","stack":[{"text":"{$jslabel mne_data_collection urban_hep_hew_professionals }","bold":true},{"text":{$urban_hep_hew_professionals_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field118}","stack":[{"text":"{$jslabel mne_data_collection urban_hep_hc_assessment }","bold":true},{"text":{$urban_hep_hc_assessment_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field119}","stack":[{"text":"{$jslabel mne_data_collection me_system_functionality_hc_ph }","bold":true},{"text":{$me_system_functionality_hc_ph_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field120}","stack":[{"text":"{$jslabel mne_data_collection me_system_functionality_health_posts }","bold":true},{"text":{$me_system_functionality_health_posts_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field121}","stack":[{"text":"{$jslabel mne_data_collection network_care_documentation }","bold":true},{"text":{$network_care_documentation_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			{"hidden":"{$item_hide_integrated_edit_field122}","stack":[{"text":"{$jslabel mne_data_collection network_care_maturity_assessment }","bold":true},{"text":{$network_care_maturity_assessment_pdfvalue}}],"margin":[0,0,0,15]},
+				
+				
+			 {BEGIN details_mne_project_data_management}
+			{$displayDetailTable_mne_project_data_management }
+		{END details_mne_project_data_management},
+				
 		  ],
   "border": [ false, false, false, false ],
               "alignment": 'left',

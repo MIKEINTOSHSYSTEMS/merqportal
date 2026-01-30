@@ -32,7 +32,7 @@ pdfDocument = {
 		{END embedded_grid_caption}
 		{BEGIN embedded_page_title}
 			{
-				text: '{$jspagetitlelabel mne_data_collection list1}',
+				text: '{$jspagetitlelabel mne_data_collection masterprint}',
 			},
 		{END embedded_page_title}		
 		{ 
@@ -439,9 +439,6 @@ pdfDocument = {
 										{BEGIN col_grid_124}
 					"%",
 					{END col_grid_124}
-										{BEGIN col_grid_125}
-					"%",
-					{END col_grid_125}
 															],
 											heights: [ // first height for header part
 					"%",
@@ -483,7 +480,7 @@ pdfDocument = {
 				
 				[
 																{
-	cellId: 'c2',
+	cellId: 'c1',
 	col:0,
 	row:0,
 			
@@ -496,9 +493,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{BEGIN mastertable_block}
-			{$showmasterfile}
-		{END mastertable_block},
+			{"text":"{$jspagetitlelabel mne_data_collection masterprint}","hidden":"{$item_hide_masterprint_header}","fontSize":30},
 				
 		  ],
   "border": [ false, false, false, false ],
@@ -524,7 +519,6 @@ pdfDocument = {
 		
 		widths: [
 								"*", 
-											"*", 
 					 ],	
 		
 	
@@ -545,49 +539,11 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"","hidden":"{$item_hide_add}"},
-				
-				
 			{"text":"","hidden":"{$item_hide_inline_add}"},
-				
-				
-			{"text":"","hidden":"{$item_hide_delete}"},
-				
-				
-			{"text":"","hidden":"{$item_hide_update_selected}"},
 				
 		  ],
   "border": [ false, false, false, false ],
               "alignment": 'left',
-     
-      
-      },
-
-																							{
-	cellId: 'c2',
-	col:0,
-	row:0,
-			
-		
-	//	static colspan/rowspan
-		
-			
-			
-	
-			"text": [
-		
-				
-			{"text":"{mlang_message DISPLAYING}","hidden":"{$item_hide_details_found}","isHtml":true,"page_indicator":true},
-				
-				
-			{"text":"","hidden":"{$item_hide_page_size}"},
-				
-				
-			{"text":"","hidden":"{$item_hide_print_panel}"},
-				
-		  ],
-  "border": [ false, false, false, false ],
-              "alignment": 'right',
      
       
       },
@@ -634,34 +590,6 @@ pdfDocument = {
       },
 
 {END cellblock_grid_headcell_icons}
-																							{BEGIN cellblock_grid_headcell_checkbox}
-{
-	cellId: 'headcell_checkbox',
-	col:0,
-	row:0,
-				style: 'headcell',
-		
-		
-	//	dynamic colspan/rowspan
-
-		
-		
-	
-			
-	
-			"text": [
-		
-				
-			{"text":"","hidden":"{$item_hide_grid_checkbox_head}"},
-				
-		  ],
-  "border": [ true, true, true, true ],
-              "alignment": 'left',
-     
-      
-      },
-
-{END cellblock_grid_headcell_checkbox}
 																							{BEGIN cellblock_grid_headcell_field}
 {
 	cellId: 'headcell_field',
@@ -4285,13 +4213,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"","hidden":"{$item_hide_grid_edit}"},
-				
-				
 			{"text":"","hidden":"{$item_hide_grid_inline_cancel}"},
-				
-				
-			{"text":"","hidden":"{$item_hide_grid_view}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -4301,34 +4223,6 @@ pdfDocument = {
       },
 
 {END cellblock_grid_cell_icons}
-																							{BEGIN cellblock_grid_cell_checkbox}
-{
-	cellId: 'cell_checkbox',
-	col:0,
-	row:0,
-				style: 'bodycell',
-		
-		
-	//	dynamic colspan/rowspan
-
-		
-		
-	
-			
-	
-			"text": [
-		
-				
-			{"text":"","hidden":"{$item_hide_grid_checkbox}"},
-				
-		  ],
-  "border": [ true, true, true, true ],
-              "alignment": 'left',
-     
-      
-      },
-
-{END cellblock_grid_cell_checkbox}
 																							{BEGIN cellblock_grid_cell_field}
 {
 	cellId: 'cell_field',
@@ -7960,32 +7854,6 @@ pdfDocument = {
       },
 
 {END cellblock_grid_footcell_icons}
-																							{BEGIN cellblock_grid_footcell_checkbox}
-{
-	cellId: 'footcell_checkbox',
-	col:0,
-	row:0,
-				style: 'footcell',
-		
-		
-	//	dynamic colspan/rowspan
-
-		
-		
-	
-			
-	
-			"text": [
-		
-				'',
-	  ],
-  "border": [ true, true, true, true ],
-              "alignment": 'left',
-     
-      
-      },
-
-{END cellblock_grid_footcell_checkbox}
 																							{BEGIN cellblock_grid_footcell_field}
 {
 	cellId: 'footcell_field',
@@ -11250,12 +11118,10 @@ pdfDocument = {
 	
 			"text": [
 		
-				
-			{"text":"","hidden":"{$item_hide_pagination}"},
-				
-		  ],
+				'',
+	  ],
   "border": [ false, false, false, false ],
-              "alignment": 'center',
+              "alignment": 'left',
      
       
       },
