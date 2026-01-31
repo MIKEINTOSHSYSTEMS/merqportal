@@ -1,0 +1,69 @@
+#version: '3.8'
+
+# docker-compose -p merqportal up -d
+# docker-compose -p merqportal -f docker-compose.yml up -d
+# docker-compose -p merqportal down --volumes
+# docker-compose -p merqportal down --volumes --rmi all
+# docker-compose -p merqportal -f docker-compose.yml down --volumes --rmi all
+##########################################################################
+# docker-compose -p merqportal logs -f
+# docker-compose -p merqportal exec -it merqportal_pgadmin bash
+# docker-compose -p merqportal exec -it merqportal_pgadmin python3 /pgadmin4/servers.py
+# docker-compose -p merqportal exec -it merqportal_pgadmin python3 /pgadmin4/servers.py --load-servers /pgadmin4/servers.json
+
+# docker-compose up -d
+# docker-compose down --volumes --rmi all
+
+# rm -rf ./data/pgadmin-data
+# mkdir -p ./data/pgadmin-data
+
+
+services:
+  merqportal_postgres:
+    image: postgres:15
+    container_name: merqportal_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: merqportalmeta
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mikeintosh
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    ports:
+      - "5445:5432"
+    networks:
+      merqportalnet:
+        ipv4_address: 192.168.44.10
+
+  merqportal_metabase:
+    image: metabase/metabase:latest
+    container_name: merqportal_metabase
+    restart: unless-stopped
+    depends_on:
+      - merqportal_postgres
+    ports:
+      - "0.0.0.0:4004:3000"
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: merqportalmeta
+      MB_DB_PORT: 5432
+      MB_DB_USER: postgres
+      MB_DB_PASS: mikeintosh
+
+      # You can use either the service name OR the static IP
+      MB_DB_HOST: 192.168.44.10
+
+      MB_ADMIN_EMAIL: admin@merqconsultancy.org
+      MB_ADMIN_FIRST_NAME: MERQPORTAL
+      MB_ADMIN_PASSWORD: merqapp_portal7
+    networks:
+      merqportalnet:
+        ipv4_address: 192.168.44.20
+
+networks:
+  merqportalnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.44.0/24
+

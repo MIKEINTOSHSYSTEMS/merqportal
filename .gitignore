@@ -15,6 +15,8 @@ apps/internal/install/
 apps/internal/application/logs/
 apps/internal/temp/
 #apps/proj/app/
+apps/proj/i.php
+apps/proj/index.php
 apps/proj/notes/
 apps/proj/sql/
 apps/proj/temp/
@@ -23,4 +25,4 @@ apps/ussd/
 apps/ts/vendor/
 apps/ts/templates/MERQ_TIMESHEET_ETH-CAL_TEMPLATE_BAK.xlsx
 apps/timesheet/desktop/
-docker/
+docker/pgadmin-servers.json

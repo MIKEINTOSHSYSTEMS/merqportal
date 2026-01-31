@@ -131,7 +131,41 @@
 			 
 		),
 		'updateOnEditFields' => array( 
-			 
+			'technical_area_primary_id',
+			'technical_area_others',
+			'technical_area_secondary_id',
+			'project_description',
+			'major_project_type_id',
+			'specific_type_primary_id',
+			'specific_type_secondary_id',
+			'sector_id',
+			'project_manager_id',
+			'technical_lead_id',
+			'project_coordinator_id',
+			'project_members',
+			'mel_lead_id',
+			'date_extended',
+			'reason_for_extension',
+			'profit_margins',
+			'is_active',
+			'client_id',
+			'client_name',
+			'agreement_reference_no',
+			'start_date',
+			'end_date_original',
+			'total_value',
+			'currency_id',
+			'contract_type_id',
+			'grantee_contracted_unit',
+			'current_status_id',
+			'updated_by',
+			'updated_at',
+			'created_by',
+			'created_at',
+			'project_shortname',
+			'project_code',
+			'opportunity_id',
+			'project_name' 
 		),
 		'fieldItems' => array(
 			'technical_area_primary_id' => array( 
@@ -3964,91 +3998,91 @@
 			'field' => 'technical_area_primary_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field19' => array(
 			'field' => 'technical_area_others',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field18' => array(
 			'field' => 'technical_area_secondary_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field21' => array(
 			'field' => 'project_description',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field13' => array(
 			'field' => 'major_project_type_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field14' => array(
 			'field' => 'specific_type_primary_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field15' => array(
 			'field' => 'specific_type_secondary_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field16' => array(
 			'field' => 'sector_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field22' => array(
 			'field' => 'project_manager_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field23' => array(
 			'field' => 'technical_lead_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field25' => array(
 			'field' => 'project_coordinator_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field33' => array(
 			'field' => 'project_members',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field24' => array(
 			'field' => 'mel_lead_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field7' => array(
 			'field' => 'date_extended',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field8' => array(
 			'field' => 'reason_for_extension',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'details_preview7' => array(
 			'type' => 'details_preview',
@@ -4100,13 +4134,13 @@
 			'field' => 'profit_margins',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field29' => array(
 			'field' => 'is_active',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'tabs1' => array(
 			'type' => 'tabs',
@@ -4221,109 +4255,109 @@
 			'field' => 'client_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field4' => array(
 			'field' => 'client_name',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field1' => array(
 			'field' => 'agreement_reference_no',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field5' => array(
 			'field' => 'start_date',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field6' => array(
 			'field' => 'end_date_original',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field9' => array(
 			'field' => 'total_value',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field10' => array(
 			'field' => 'currency_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field11' => array(
 			'field' => 'contract_type_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field12' => array(
 			'field' => 'grantee_contracted_unit',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field20' => array(
 			'field' => 'current_status_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field34' => array(
 			'field' => 'updated_by',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field28' => array(
 			'field' => 'updated_at',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field26' => array(
 			'field' => 'created_by',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field27' => array(
 			'field' => 'created_at',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field31' => array(
 			'field' => 'project_shortname',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field' => array(
 			'field' => 'project_code',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field30' => array(
 			'field' => 'opportunity_id',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'integrated_edit_field2' => array(
 			'field' => 'project_name',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0,
-			'updateOnEdit' => false 
+			'updateOnEdit' => true 
 		),
 		'section' => array(
 			'type' => 'section',

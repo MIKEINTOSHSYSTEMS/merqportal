@@ -271,8 +271,6 @@ FROM
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Date',
-					'defaultValue' => 'date("Y-m-d")',
-					'autoUpdateValue' => 'date("Y-m-d")',
 					'dateEditType' => 13 
 				) 
 			),
@@ -293,8 +291,6 @@ FROM
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Date',
-					'defaultValue' => 'date("Y-m-d")',
-					'autoUpdateValue' => 'date("Y-m-d")',
 					'dateEditType' => 13 
 				) 
 			),
