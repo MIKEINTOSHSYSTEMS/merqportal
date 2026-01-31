@@ -26,3 +26,4 @@ apps/ts/vendor/
 apps/ts/templates/MERQ_TIMESHEET_ETH-CAL_TEMPLATE_BAK.xlsx
 apps/timesheet/desktop/
 docker/pgadmin-servers.json
+docker/data/
