@@ -16,7 +16,7 @@ apps/internal/application/logs/
 apps/internal/temp/
 #apps/proj/app/
 apps/proj/i.php
-apps/proj/index.php
+#apps/proj/index.php
 apps/proj/notes/
 apps/proj/sql/
 apps/proj/temp/
