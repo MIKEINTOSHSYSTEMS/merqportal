@@ -48,6 +48,7 @@ $base64UrlSignature = base64url_encode($signature);
 $token = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
 
 $iframeUrl = $siteUrl . "/embed/dashboard/" . $token . "#background=false&bordered=true&titled=true";
+//$iframeUrl = $siteUrl . "/embed/dashboard/" . $token . "#background=false&bordered=true&titled=true";
 //$iframeUrl = $siteUrl . "/embed/dashboard/" . $token . "#bordered=true&titled=true";
 //$iframeUrl = $siteUrl . "/embed/dashboard/" . $token . "#bordered=true&titled=true&background=transparent&theme=night";
 ?>

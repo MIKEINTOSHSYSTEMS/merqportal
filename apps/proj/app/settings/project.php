@@ -2,6 +2,13 @@
 $runnerProjectSettings = array(
 	'restAPIReturnEncodedBinary' => true,
 	'restAPIAuthType' => 'basic',
+	'landingSettings' => array(
+		'type' => 1,
+		'table' => 'Dashboard',
+		'pageId' => 'dashboard',
+		'page' => 'dashboard',
+		'url' => 'Dashboard_dashboard.php?page=dashboard' 
+	),
 	'menuIds' => array( 
 		'main',
 		'adminarea' 
@@ -222,6 +229,9 @@ $runnerProjectSettings = array(
 		),
 		'tblhr_job_position' => array(
 			'table' => 17936 
+		),
+		'Dashboard' => array(
+			'table' => 18627 
 		) 
 	),
 	'userTableKeys' => array( 
@@ -2000,6 +2010,18 @@ $runnerProjectSettings = array(
 			'connId' => 'conn',
 			'color' => 'dc143c',
 			'originalTable' => 'tblhr_job_position' 
+		),
+		'Dashboard' => array(
+			'gid' => 18627,
+			'name' => 'Dashboard',
+			'shortName' => 'Dashboard',
+			'type' => 4,
+			'caption' => array(
+				'English' => 'Dashboard' 
+			),
+			'connId' => '',
+			'color' => 'd2691e',
+			'originalTable' => '' 
 		) 
 	),
 	'tablesByShort' => array(
@@ -2074,7 +2096,8 @@ $runnerProjectSettings = array(
 		'departments' => 'departments',
 		'tbldepartments' => 'tbldepartments',
 		'tblstaff_departments' => 'tblstaff_departments',
-		'tblhr_job_position' => 'tblhr_job_position' 
+		'tblhr_job_position' => 'tblhr_job_position',
+		'Dashboard' => 'Dashboard' 
 	),
 	'tablesByGood' => array(
 		'mne_analysis_by_source' => 'mne_analysis_by_source',
@@ -2148,7 +2171,8 @@ $runnerProjectSettings = array(
 		'departments' => 'departments',
 		'tbldepartments' => 'tbldepartments',
 		'tblstaff_departments' => 'tblstaff_departments',
-		'tblhr_job_position' => 'tblhr_job_position' 
+		'tblhr_job_position' => 'tblhr_job_position',
+		'Dashboard' => 'Dashboard' 
 	),
 	'events' => array( 
 		 
@@ -2175,7 +2199,7 @@ $runnerProjectSettings = array(
 		'table' => '' 
 	),
 	'wizardBuild' => '43785',
-	'projectBuild' => '7ZY7QLl0hFXT',
+	'projectBuild' => 'YzErrBktnOf3',
 	'projectTheme' => 'flatly',
 	'projectSize' => 'normal',
 	'customErrorMsg' => array(

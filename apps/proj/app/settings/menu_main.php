@@ -9,14 +9,14 @@ $runnerMenus['main'] = array(
 		'parent' => '',
 		'children' => array( 
 			array(
-				'id' => '14',
+				'id' => '90',
 				'parent' => '',
 				'children' => array( 
 					 
 				),
 				'data' => array(
 					'name' => array(
-						'table' => 'mne_executive_dashboard',
+						'table' => 'Dashboard',
 						'type' => 6 
 					),
 					'comments' => array(
@@ -31,12 +31,12 @@ $runnerMenus['main'] = array(
 					'linkType' => 0,
 					'openType' => 0,
 					'iconType' => 3,
-					'iconName' => 'fa-dashcube',
-					'iconStyle' => 2,
+					'iconName' => 'fa-dashboard',
+					'iconStyle' => 3,
 					'showIconType' => 1,
 					'linkToAnotherApp' => false,
-					'table' => 13957,
-					'pageType' => 'list' 
+					'table' => 18627,
+					'pageType' => 'dashboard' 
 				) 
 			),
 			array(
@@ -167,6 +167,37 @@ $runnerMenus['main'] = array(
 				'id' => '46',
 				'parent' => '',
 				'children' => array( 
+					array(
+						'id' => '14',
+						'parent' => '46',
+						'children' => array( 
+							 
+						),
+						'data' => array(
+							'name' => array(
+								'table' => 'mne_executive_dashboard',
+								'type' => 6 
+							),
+							'comments' => array(
+								'text' => '',
+								'type' => 0 
+							),
+							'style' => '',
+							'href' => '',
+							'params' => '',
+							'pageId' => '',
+							'itemType' => 2,
+							'linkType' => 0,
+							'openType' => 0,
+							'iconType' => 3,
+							'iconName' => 'fa-dashcube',
+							'iconStyle' => 2,
+							'showIconType' => 1,
+							'linkToAnotherApp' => false,
+							'table' => 13957,
+							'pageType' => 'list' 
+						) 
+					),
 					array(
 						'id' => '6',
 						'parent' => '46',

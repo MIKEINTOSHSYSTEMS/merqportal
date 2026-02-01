@@ -591,6 +591,14 @@
 				'items' => null,
 				'table' => 'tblhr_job_position',
 				'page' => 'list' 
+			),
+			'welcome_item71' => array(
+				'menutItem' => true,
+				'group' => false,
+				'linkType' => 0,
+				'items' => null,
+				'table' => 'Dashboard',
+				'page' => 'dashboard' 
 			) 
 		) 
 	),
@@ -696,7 +704,8 @@
 					'welcome_item67',
 					'welcome_item68',
 					'welcome_item69',
-					'welcome_item70' 
+					'welcome_item70',
+					'welcome_item71' 
 				) 
 			),
 			'formXtTags' => array(
@@ -782,7 +791,8 @@
 				'welcome_item67' => 'grid',
 				'welcome_item68' => 'grid',
 				'welcome_item69' => 'grid',
-				'welcome_item70' => 'grid' 
+				'welcome_item70' => 'grid',
+				'welcome_item71' => 'grid' 
 			),
 			'itemLocations' => array(
 				 
@@ -864,7 +874,8 @@
 				'welcome_item67',
 				'welcome_item68',
 				'welcome_item69',
-				'welcome_item70' 
+				'welcome_item70',
+				'welcome_item71' 
 			),
 			'logo' => array( 
 				'logo' 
@@ -1149,7 +1160,8 @@
 						'welcome_item67',
 						'welcome_item68',
 						'welcome_item69',
-						'welcome_item70' 
+						'welcome_item70',
+						'welcome_item71' 
 					) 
 				) 
 			),
@@ -2094,6 +2106,18 @@
 				'type' => 6 
 			),
 			'background' => '#dc143c',
+			'linkType' => 0 
+		),
+		'welcome_item71' => array(
+			'type' => 'welcome_item',
+			'linkUrl' => '',
+			'linkTable' => 'Dashboard',
+			'linkPage' => 'dashboard',
+			'linkText' => array(
+				'table' => 'Dashboard',
+				'type' => 6 
+			),
+			'background' => '#d2691e',
 			'linkType' => 0 
 		),
 		'expand_button' => array(
