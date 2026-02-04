@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
                         <?php if ($ceoFeedbackCount > 0): ?>
                             <div class="mt-2">
                                 <span class="badge bg-warning text-dark ceo-feedback-pulse">
-                                    <i class="fas fa-user-tie me-1"></i>View Feedback
+                                    <a href="feedback.php?employee_id=<?= $userId ?>" class="text-decoration-none text-dark">View feedback!</a>
                                 </span>
                             </div>
                         <?php endif; ?>

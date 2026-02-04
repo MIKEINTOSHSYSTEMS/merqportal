@@ -36,6 +36,7 @@ $canAccessSupervisorDashboard = hasPermission($userId, 'supervisor_dashboard');
 $canAccessSupervisorReport = hasPermission($userId, 'supervisor_report');
 $canAccessAdminDashboard = hasPermission($userId, 'admin_dashboard');
 $canAccessReport = hasPermission($userId, 'report');
+$canAccessSummary = hasPermission($userId, 'summary');
 $canAccessFeedback = hasPermission($userId, 'feedback');
 $canAccessPermissions = hasPermission($userId, 'permissions');
 $canAccessHelp = hasPermission($userId, 'help');
@@ -262,7 +263,7 @@ if (!$isAdmin && isset($_SESSION['user_id'])) {
 
 
             <!-- Administration Menu -->
-            <?php if (($isAdmin || $currentUserId == 35 || $currentUserId == 15) && ($canAccessAdminDashboard || $canAccessReport || $canAccessPermissions)): ?>
+            <?php if (($isAdmin || $currentUserId == 35 || $currentUserId == 15) && ($canAccessAdminDashboard || $canAccessReport || $canAccessSummary || $canAccessPermissions)): ?>
                 <li class="sys-sidebar-header">HR & Administration</li>
 
                 <?php if ($canAccessAdminDashboard): ?>
@@ -279,6 +280,15 @@ if (!$isAdmin && isset($_SESSION['user_id'])) {
                         <a href="report.php" class="<?= $currentPage == 'report.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
                             <i class="fas fa-users"></i>
                             <span>All Employees Reports</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ($canAccessSummary): ?>
+                    <li>
+                        <a href="summary.php" class="<?= $currentPage == 'summary.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                            <i class="fas fa-file-excel"></i>
+                            <span>Performance Summary</span>
                         </a>
                     </li>
                 <?php endif; ?>
