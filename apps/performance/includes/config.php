@@ -866,6 +866,10 @@ function saveFeedbackResponse($feedbackId, $employeeId, $responseText)
         $responseId = $conn->insert_id;
         $stmt->close();
         $conn->close();
+
+        // Send email notification to CEO
+        sendResponseNotification($feedbackId, $responseText, $employeeId);
+
         return ['success' => true, 'id' => $responseId];
     } else {
         $error = $stmt->error;
@@ -1182,6 +1186,16 @@ function canManagePermissions($userId)
 }
 
 /**
+ * Check if user can manage system settings (only user_id 1)
+ * @param int $userId User ID to check
+ * @return bool True if user can manage system settings
+ */
+function canManageSystemSettings($userId)
+{
+    return $userId == 1; // Only the main admin can access system settings
+}
+
+/**
  * Initialize default permissions for a new user
  * @param int $userId User ID to initialize permissions for
  * @return bool True if successful
@@ -1338,3 +1352,60 @@ function isCacheWorking()
     $retrieved = getFromCache($testKey);
     return $retrieved !== false && $retrieved['test'] === 'data';
 }
+
+// =============================================================================
+// EMAIL NOTIFICATION FUNCTIONS
+// =============================================================================
+
+/**
+ * Send performance report email to employee
+ */
+function sendPerformanceReportEmail($employeeId)
+{
+    require_once __DIR__ . '/EmailSender.php';
+    $emailSender = new EmailSender();
+    return $emailSender->sendPerformanceReport($employeeId);
+}
+
+/**
+ * Send CEO feedback notification
+ */
+function sendCEOFeedbackNotification($employeeId, $feedbackId)
+{
+    require_once __DIR__ . '/EmailSender.php';
+    $emailSender = new EmailSender();
+    return $emailSender->sendCEOFeedbackNotification($employeeId, $feedbackId);
+}
+
+/**
+ * Send response notification
+ */
+function sendResponseNotification($feedbackId, $responseText, $respondentId)
+{
+    require_once __DIR__ . '/EmailSender.php';
+    $emailSender = new EmailSender();
+    return $emailSender->sendResponseNotification($feedbackId, $responseText, $respondentId);
+}
+
+/**
+ * Check if email notifications are enabled
+ */
+function areEmailNotificationsEnabled()
+{
+    require_once __DIR__ . '/SettingsManager.php';
+    $settingsManager = new SettingsManager();
+    $smtpSettings = $settingsManager->getSmtpSettings();
+    return !empty($smtpSettings['host']) && !empty($smtpSettings['from_email']);
+}
+
+/**
+ * Send test email
+ */
+function sendTestEmail($toEmail)
+{
+    require_once __DIR__ . '/EmailSender.php';
+    $emailSender = new EmailSender();
+    return $emailSender->testEmailConfig($toEmail);
+}
+
+?>

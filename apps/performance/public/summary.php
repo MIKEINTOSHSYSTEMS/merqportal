@@ -2,6 +2,7 @@
 // summary.php - Comprehensive performance evaluation summary with CEO feedback and responses
 require_once '../includes/config.php';
 require_once '../includes/auth_check.php';
+require_once '../includes/EmailTemplates.php';
 //require_once '../includes/header.php';
 
 // Check if user has permission to access this summary
@@ -686,6 +687,16 @@ require_once '../includes/header.php';
                                             class="btn btn-sm btn-info mb-1" title="View Detailed Report">
                                             <i class="fas fa-eye"></i> Report
                                         </a>
+
+                                        <!-- Send Email Button -->
+                                        <button type="button" class="btn btn-sm btn-success mb-1 send-email-btn"
+                                            data-employee-id="<?= $employeeId ?>"
+                                            data-employee-name="<?= htmlspecialchars($employee['full_name'] ?? 'Employee') ?>"
+                                            data-employee-email="<?= htmlspecialchars($employee['email'] ?? '') ?>"
+                                            title="Send performance report via email">
+                                            <i class="fas fa-envelope"></i> Email
+                                        </button>
+
                                         <?php if (!empty($ceoFeedback)): ?>
                                             <a href="feedback.php?employee=<?= htmlspecialchars($employeeId) ?>"
                                                 class="btn btn-sm btn-warning mb-1" title="View CEO Feedback">
@@ -714,7 +725,47 @@ require_once '../includes/header.php';
     <script>
         $(document).ready(function() {
             // Initialize DataTable with export capabilities
-            $('#summaryTable').DataTable({
+            /*
+
+                        $('#summaryTable').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: [
+                                'copy', 'csv', 'excel', 'pdf', 'print'
+                            ],
+                            responsive: true,
+                            pageLength: 25,
+                            order: [
+                                [0, 'asc']
+                            ],
+                            language: {
+                                search: "Search:",
+                                lengthMenu: "Show _MENU_ entries",
+                                info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                                paginate: {
+                                    first: "First",
+                                    last: "Last",
+                                    next: "Next",
+                                    previous: "Previous"
+                                }
+                            }
+                        });
+            */
+            // Add responsive data-label attributes for mobile
+            $('#summaryTable tbody td').each(function() {
+                var cellIndex = $(this).index();
+                var headerText = $('#summaryTable thead th').eq(cellIndex).text();
+                $(this).attr('data-label', headerText);
+            });
+        });
+    </script>
+    <script>
+        // Email sending functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track if email is being sent to prevent duplicates
+            let isSendingEmail = false;
+
+            // Initialize DataTable
+            const table = $('#summaryTable').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
@@ -734,8 +785,118 @@ require_once '../includes/header.php';
                         next: "Next",
                         previous: "Previous"
                     }
+                },
+                drawCallback: function() {
+                    // Remove old event listeners first to prevent duplicates
+                    $('.send-email-btn').off('click');
+                    // Re-attach event listeners after table redraw
+                    attachEmailButtonListeners();
                 }
             });
+
+            // Attach event listeners to email buttons
+            function attachEmailButtonListeners() {
+                $('.send-email-btn').on('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Prevent multiple clicks while sending
+                    if (isSendingEmail) {
+                        return;
+                    }
+
+                    const employeeId = $(this).data('employee-id');
+                    const employeeName = $(this).data('employee-name');
+                    const employeeEmail = $(this).data('employee-email');
+
+                    sendEmailToEmployee(employeeId, employeeName, employeeEmail, $(this));
+                });
+            }
+
+            // Initial attachment
+            attachEmailButtonListeners();
+
+            // Function to send email
+            function sendEmailToEmployee(employeeId, employeeName, employeeEmail, $button) {
+                if (!employeeEmail) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'No Email Address',
+                        text: `${employeeName} does not have an email address configured.`,
+                        confirmButtonColor: '#3085d6'
+                    });
+                    return;
+                }
+
+                const originalText = $button.html();
+                const originalClass = $button.attr('class');
+
+                // Set sending flag and update button
+                isSendingEmail = true;
+                $button.html('<i class="fas fa-spinner fa-spin"></i>');
+                $button.removeClass('btn-success').addClass('btn-secondary');
+                $button.prop('disabled', true);
+
+                // Send AJAX request
+                fetch('sendreport.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: 'action=send_single&employee_id=' + employeeId
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok: ' + response.status);
+                        }
+
+                        // Always try to parse as JSON
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Email Sent!',
+                                html: `Performance report has been sent to:<br><strong>${employeeName}</strong><br>${employeeEmail}`,
+                                confirmButtonColor: '#3085d6',
+                                timer: 3000,
+                                timerProgressBar: true
+                            });
+
+                            // Update button to show success
+                            $button.html('<i class="fas fa-check"></i>');
+                            $button.removeClass('btn-secondary').addClass('btn-success');
+
+                            // Reset after 3 seconds
+                            setTimeout(() => {
+                                $button.html(originalText);
+                                $button.attr('class', originalClass);
+                                $button.prop('disabled', false);
+                                isSendingEmail = false;
+                            }, 3000);
+                        } else {
+                            throw new Error(data.message || 'Failed to send email');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+
+                        // Restore button
+                        $button.html(originalText);
+                        $button.attr('class', originalClass);
+                        $button.prop('disabled', false);
+                        isSendingEmail = false;
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to Send Email',
+                            html: `Could not send email to <strong>${employeeName}</strong>.<br>Error: ${error.message}`,
+                            confirmButtonColor: '#3085d6'
+                        });
+                    });
+            }
 
             // Add responsive data-label attributes for mobile
             $('#summaryTable tbody td').each(function() {
@@ -743,6 +904,9 @@ require_once '../includes/header.php';
                 var headerText = $('#summaryTable thead th').eq(cellIndex).text();
                 $(this).attr('data-label', headerText);
             });
+
+            // Remove any duplicate event listeners on page load
+            $(document).off('click', '.send-email-btn');
         });
     </script>
 </body>

@@ -130,6 +130,9 @@ if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
                 $result = saveCEOFeedback($employeeId, $_SESSION['user_id'], $feedbackData);
 
                 if ($result['success']) {
+                    // Send email notification to employee
+                    sendCEOFeedbackNotification($employeeId, $result['id']);
+                    
                     $employeeName = htmlspecialchars($employeeDetails['full_name'] ?? 'the employee');
                     $alertScript = "
                     <script>
@@ -137,6 +140,7 @@ if (isset($_SESSION['user_id']) && isCEO($_SESSION['user_id'])) {
                         Swal.fire({
                             icon: 'success',
                             title: 'Successfully Added CEO Feedback for {$employeeName}!',
+                            text: 'An email notification has been sent to the employee.',
                             showConfirmButton: true,
                             confirmButtonText: 'OK',
                             confirmButtonColor: '#3085d6',

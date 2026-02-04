@@ -106,6 +106,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
                         <p>Supervisor: <b><?= htmlspecialchars($employeeDetails['supervisor_name'] ?? '') ?> </b></p>
                     </div>
                     <div class="d-flex mt-2 mt-md-0">
+                        <!-- Send Email Button -->
+                        <button onclick="sendEmailReport()" class="btn btn-primary me-2 no-print" id="sendEmailBtn">
+                            <i class="fas fa-envelope me-1"></i> Send me via email
+                        </button>
+
+                        <!-- Print Button (if you want to keep it) -->
                         <!--
                         <button onclick="window.print()" class="btn btn-light me-2 no-print">
                             <i class="fas fa-print me-1"></i> Print Report
@@ -646,6 +652,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
                     });
                 });
             </script>
+
+            <script>
+                // Send email report function
+                function sendEmailReport() {
+                    const sendBtn = document.getElementById('sendEmailBtn');
+                    const originalText = sendBtn.innerHTML;
+
+                    // Show loading state
+                    sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Sending...';
+                    sendBtn.disabled = true;
+
+                    // Send AJAX request
+                    fetch('sendreport.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: 'action=send_single&employee_id=<?= $userId ?>'
+                        })
+                        .then(response => {
+                            // First check if response is OK
+                            if (!response.ok) {
+                                if (response.status === 403) {
+                                    return Promise.reject(new Error('You are not authorized to send this report.'));
+                                }
+                                throw new Error('Network response was not ok: ' + response.status);
+                            }
+
+                            // Always try to parse as JSON
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Email Sent!',
+                                    html: `Your performance report has been sent to:<br><strong><?= htmlspecialchars($employeeDetails['email'] ?? 'your email') ?></strong>`,
+                                    confirmButtonColor: '#3085d6',
+                                    timer: 3000,
+                                    timerProgressBar: true
+                                });
+                            } else {
+                                throw new Error(data.message || 'Failed to send email.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: error.message || 'An error occurred while sending the email.',
+                                confirmButtonColor: '#3085d6'
+                            });
+                        })
+                        .finally(() => {
+                            // Restore button state
+                            sendBtn.innerHTML = originalText;
+                            sendBtn.disabled = false;
+                        });
+                }
+            </script>
+
         <?php else: ?>
             <div class="alert alert-info">
                 <h4 class="alert-heading">No Evaluation Data Available</h4>

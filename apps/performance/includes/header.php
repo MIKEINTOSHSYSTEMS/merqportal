@@ -37,6 +37,7 @@ $canAccessSupervisorReport = hasPermission($userId, 'supervisor_report');
 $canAccessAdminDashboard = hasPermission($userId, 'admin_dashboard');
 $canAccessReport = hasPermission($userId, 'report');
 $canAccessSummary = hasPermission($userId, 'summary');
+$canAccessSystemSettings = hasPermission($userId, 'system_settings');
 $canAccessFeedback = hasPermission($userId, 'feedback');
 $canAccessPermissions = hasPermission($userId, 'permissions');
 $canAccessHelp = hasPermission($userId, 'help');
@@ -302,6 +303,18 @@ if (!$isAdmin && isset($_SESSION['user_id'])) {
                     </li>
                 <?php endif; ?>
             <?php endif; ?>
+
+            <!-- Settings Menu -->
+            <?php if (canManageSystemSettings($currentUserId)): ?>
+                <li>
+                    <a href="settings.php" class="<?= $currentPage == 'settings.php' && !$isEvaluationActive ? 'sys-active' : '' ?>">
+                        <i class="fas fa-cog"></i>
+                        <span>System Settings</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
+            <!-- Account Section -->
 
             <li class="sys-sidebar-header">Account</li>
             <li>
