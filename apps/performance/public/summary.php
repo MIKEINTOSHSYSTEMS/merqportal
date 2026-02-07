@@ -148,6 +148,7 @@ require_once '../includes/header.php';
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #003366;
@@ -721,50 +722,11 @@ require_once '../includes/header.php';
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function() {
             // Initialize DataTable with export capabilities
-            /*
-
-                        $('#summaryTable').DataTable({
-                            dom: 'Bfrtip',
-                            buttons: [
-                                'copy', 'csv', 'excel', 'pdf', 'print'
-                            ],
-                            responsive: true,
-                            pageLength: 25,
-                            order: [
-                                [0, 'asc']
-                            ],
-                            language: {
-                                search: "Search:",
-                                lengthMenu: "Show _MENU_ entries",
-                                info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                                paginate: {
-                                    first: "First",
-                                    last: "Last",
-                                    next: "Next",
-                                    previous: "Previous"
-                                }
-                            }
-                        });
-            */
-            // Add responsive data-label attributes for mobile
-            $('#summaryTable tbody td').each(function() {
-                var cellIndex = $(this).index();
-                var headerText = $('#summaryTable thead th').eq(cellIndex).text();
-                $(this).attr('data-label', headerText);
-            });
-        });
-    </script>
-    <script>
-        // Email sending functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Track if email is being sent to prevent duplicates
-            let isSendingEmail = false;
-
-            // Initialize DataTable
             const table = $('#summaryTable').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
@@ -791,8 +753,38 @@ require_once '../includes/header.php';
                     $('.send-email-btn').off('click');
                     // Re-attach event listeners after table redraw
                     attachEmailButtonListeners();
+
+                    // Add responsive data-label attributes for mobile
+                    $('#summaryTable tbody td').each(function() {
+                        var cellIndex = $(this).index();
+                        var headerText = $('#summaryTable thead th').eq(cellIndex).text();
+                        $(this).attr('data-label', headerText);
+                    });
                 }
             });
+
+            // Export button enhancement - SIMPLIFIED VERSION
+            $('.btn-export').on('click', function(e) {
+                e.preventDefault();
+                const exportUrl = $(this).attr('href');
+
+                Swal.fire({
+                    title: 'Preparing Excel Export',
+                    html: 'Generating comprehensive report with multiple sheets...<br><br><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    timer: 1500,
+                    timerProgressBar: true,
+                    willClose: () => {
+                        // Simple redirect - this will trigger the download
+                        window.location.href = exportUrl;
+                    }
+                });
+            });
+
+            // Email sending functionality
+            // Track if email is being sent to prevent duplicates
+            let isSendingEmail = false;
 
             // Attach event listeners to email buttons
             function attachEmailButtonListeners() {
@@ -838,23 +830,15 @@ require_once '../includes/header.php';
                 $button.prop('disabled', true);
 
                 // Send AJAX request
-                fetch('sendreport.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: 'action=send_single&employee_id=' + employeeId
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok: ' + response.status);
-                        }
-
-                        // Always try to parse as JSON
-                        return response.json();
-                    })
-                    .then(data => {
+                $.ajax({
+                    url: 'sendreport.php',
+                    method: 'POST',
+                    data: {
+                        action: 'send_single',
+                        employee_id: employeeId
+                    },
+                    dataType: 'json',
+                    success: function(data) {
                         if (data.success) {
                             Swal.fire({
                                 icon: 'success',
@@ -879,8 +863,8 @@ require_once '../includes/header.php';
                         } else {
                             throw new Error(data.message || 'Failed to send email');
                         }
-                    })
-                    .catch(error => {
+                    },
+                    error: function(xhr, status, error) {
                         console.error('Error:', error);
 
                         // Restore button
@@ -892,21 +876,19 @@ require_once '../includes/header.php';
                         Swal.fire({
                             icon: 'error',
                             title: 'Failed to Send Email',
-                            html: `Could not send email to <strong>${employeeName}</strong>.<br>Error: ${error.message}`,
+                            html: `Could not send email to <strong>${employeeName}</strong>.<br>Error: ${error}`,
                             confirmButtonColor: '#3085d6'
                         });
-                    });
+                    }
+                });
             }
 
-            // Add responsive data-label attributes for mobile
+            // Initial data-label setup
             $('#summaryTable tbody td').each(function() {
                 var cellIndex = $(this).index();
                 var headerText = $('#summaryTable thead th').eq(cellIndex).text();
                 $(this).attr('data-label', headerText);
             });
-
-            // Remove any duplicate event listeners on page load
-            $(document).off('click', '.send-email-btn');
         });
     </script>
 </body>
@@ -914,49 +896,195 @@ require_once '../includes/header.php';
 </html>
 
 <?php
-// Function to export data to Excel using the same approach as export.php
+// Function to export data to Excel with proper multiple sheets structure
 function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFeedbackResponses)
 {
-    // Prepare the data for export in HTML table format
-    $html = '<!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Performance Evaluation Summary Report</title>
-        <style>
-            body { font-family: Arial, sans-serif; }
-            table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-            th { background-color: #003366; color: white; font-weight: bold; }
-            .summary-row { background-color: #f2f2f2; font-weight: bold; }
-            .section-header { background-color: #20c997; color: white; font-size: 16px; font-weight: bold; padding: 10px; }
-            .sub-header { background-color: #f8f9fa; font-weight: bold; }
-        </style>
-    </head>
-    <body>';
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
 
-    // Report Header
-    $html .= '<h1 style="text-align: center; color: #003366;">MERQ Consultancy - Performance Evaluation Summary Report</h1>';
-    $html .= '<h3 style="text-align: center; color: #666;">Generated on: ' . date('F j, Y \a\t g:i A') . '</h3>';
-    $html .= '<hr>';
+    $filename = "MERQ_performance_summary_" . date('Y-m-d_His') . ".xls";
 
-    // Summary Statistics
+    // Set proper headers for Excel XML
+    header("Content-Type: application/vnd.ms-excel");
+    header("Content-Disposition: attachment; filename=\"$filename\"");
+    header("Cache-Control: max-age=0");
+    header("Pragma: no-cache");
+    header("Expires: 0");
+
+    // Start XML output
+    echo '<?xml version="1.0" encoding="UTF-8"?>';
+    echo '<?mso-application progid="Excel.Sheet"?>';
+    echo '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:v="urn:schemas-microsoft-com:vml">';
+
+    // Styles
+    echo '<Styles>';
+    echo '<Style ss:ID="Default" ss:Name="Normal">
+            <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#000000"/>
+          </Style>';
+    echo '<Style ss:ID="Title">
+            <Font ss:FontName="Calibri" ss:Size="16" ss:Color="#003377" ss:Bold="1"/>
+            <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+          </Style>';
+    echo '<Style ss:ID="Subtitle">
+            <Font ss:FontName="Calibri" ss:Size="12" ss:Color="#777777"/>
+            <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+          </Style>';
+    echo '<Style ss:ID="Header">
+            <Font ss:FontName="Calibri" ss:Size="12" ss:Color="#FFFFFF" ss:Bold="1"/>
+            <Interior ss:Color="#20c997" ss:Pattern="Solid"/>
+            <Borders>
+              <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+              <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+              <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+              <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+            </Borders>
+            <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+          </Style>';
+    echo '<Style ss:ID="SubHeader">
+            <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#000000" ss:Bold="1"/>
+            <Interior ss:Color="#E0E0E0" ss:Pattern="Solid"/>
+            <Borders>
+              <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+              <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+              <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+              <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+            </Borders>
+          </Style>';
+    echo '<Style ss:ID="Excellent"><Interior ss:Color="#D4EDDA" ss:Pattern="Solid"/></Style>';
+    echo '<Style ss:ID="Good"><Interior ss:Color="#D1ECF1" ss:Pattern="Solid"/></Style>';
+    echo '<Style ss:ID="Average"><Interior ss:Color="#FFF3CD" ss:Pattern="Solid"/></Style>';
+    echo '<Style ss:ID="Poor"><Interior ss:Color="#F8D7DA" ss:Pattern="Solid"/></Style>';
+    echo '<Style ss:ID="NeedsImprovement"><Interior ss:Color="#F5C6CB" ss:Pattern="Solid"/></Style>';
+    echo '<Style ss:ID="TextWrap">
+            <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+          </Style>';
+    echo '<Style ss:ID="Bold">
+            <Font ss:FontName="Calibri" ss:Size="11" ss:Bold="1"/>
+          </Style>';
+
+    echo '<Style ss:ID="RespAll">
+            <Interior ss:Color="#D4EDDA" ss:Pattern="Solid"/>
+            <Font ss:Bold="1"/>
+          </Style>';
+
+    echo '<Style ss:ID="RespPartial">
+            <Interior ss:Color="#FFF3CD" ss:Pattern="Solid"/>
+          </Style>';
+
+    echo '<Style ss:ID="RespNone">
+            <Interior ss:Color="#F8D7DA" ss:Pattern="Solid"/>
+          </Style>';
+
+    echo '<Style ss:ID="DeadAllInTime">
+            <Interior ss:Color="#C3E6CB" ss:Pattern="Solid"/>
+            <Font ss:Bold="1"/>
+          </Style>';
+
+    echo '<Style ss:ID="DeadPending">
+            <Interior ss:Color="#FFE8A1" ss:Pattern="Solid"/>
+          </Style>';
+
+    echo '<Style ss:ID="DeadOverdue">
+            <Interior ss:Color="#F5C6CB" ss:Pattern="Solid"/>
+            <Font ss:Bold="1"/>
+          </Style>';
+
+    echo '<Style ss:ID="DeadSomeLate">
+            <Interior ss:Color="#FFD6A5" ss:Pattern="Solid"/>
+          </Style>';
+
+    echo '</Styles>';
+
+    // ============================================
+    // WORKSHEET 1: SUMMARY REPORT
+    // ============================================
+    echo '<Worksheet ss:Name="Summary Report">';
+    echo '<Table>';
+
+    // Set column widths
+    echo '<Column ss:Width="80"/>';
+    echo '<Column ss:Width="150"/>';
+    echo '<Column ss:Width="120"/>';
+    echo '<Column ss:Width="150"/>';
+    echo '<Column ss:Width="120"/>';
+    echo '<Column ss:Width="80"/>';
+    echo '<Column ss:Width="150"/>';
+    echo '<Column ss:Width="100"/>';
+    echo '<Column ss:Width="100"/>';
+    echo '<Column ss:Width="100"/>';
+    echo '<Column ss:Width="80"/>';
+    echo '<Column ss:Width="120"/>';
+    echo '<Column ss:Width="120"/>';
+
+    // Logo Row
+    echo '<Row ss:Height="60">';
+    echo '<Cell ss:MergeAcross="2">';
+    //echo '<Data ss:Type="String">=IMAGE("https://app.merqconsultancy.org/assets/images/merq-logo.png", "merq",3,200,140)</Data>';
+
+    echo '<ss:Data ss:Type="String">';
+    echo '<html:img src="https://app.merqconsultancy.org/assets/images/merq-logo.png" width="140" height="60" align="left"/>';
+    echo '</ss:Data>';
+
+    echo '</Cell>';
+    echo '<Cell ss:MergeAcross="6" ss:StyleID="Title">';
+    echo '<Data ss:Type="String">MERQ CONSULTANCY</Data>';
+    echo '</Cell>';
+    echo '</Row>';
+
+   // echo '<Row>';
+   // echo '<Cell ss:MergeAcross="12" ss:StyleID="Title"><Data ss:Type="String">MERQ CONSULTANCY</Data></Cell>';
+   // echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell ss:MergeAcross="12" ss:StyleID="Title"><Data ss:Type="String">PERFORMANCE EVALUATION SUMMARY REPORT</Data></Cell>';
+    echo '</Row>';
+
+
+    echo '<Row>';
+    echo '<Cell ss:MergeAcross="12" ss:StyleID="Subtitle"><Data ss:Type="String">Generated on: ' . date('F j, Y \a\t g:i A') . '</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>';
+
+    // Calculate summary statistics
     $totalEmployees = count($employees);
     $totalEvaluations = 0;
     $employeesWithFeedback = 0;
     $totalFeedbackCount = 0;
     $totalResponses = 0;
 
+    $performanceDistribution = [
+        'Outstanding' => 0,
+        'Exceeds Expectations' => 0,
+        'Meets Expectations' => 0,
+        'Developing' => 0,
+        'Needs Significant Improvement' => 0,
+        'Not Rated' => 0
+    ];
+
     foreach ($employees as $employeeId => $employee) {
         if (isset($employeeEvaluations[$employeeId])) {
             $totalEvaluations += array_sum($employeeEvaluations[$employeeId]['perspective_counts']);
+            $category = $employeeEvaluations[$employeeId]['performance_category'];
+            if (isset($performanceDistribution[$category])) {
+                $performanceDistribution[$category]++;
+            }
+        } else {
+            $performanceDistribution['Not Rated']++;
         }
+
         if (!empty($allCEOFeedback[$employeeId])) {
             $employeesWithFeedback++;
             $totalFeedbackCount += count($allCEOFeedback[$employeeId]);
             foreach ($allCEOFeedback[$employeeId] as $feedback) {
                 if (isset($allFeedbackResponses[$feedback['id']])) {
-                    $totalResponses += count($allFeedbackResponses[$feedback['id']]);
+                    $responseCount += count($allFeedbackResponses[$feedback['id']]);
                 }
             }
         }
@@ -970,185 +1098,726 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
             $scoreCount++;
         }
     }
-    $averageScore = $scoreCount > 0 ? $averageScore / $scoreCount : 0;
+    $averageScore = $scoreCount > 0 ? round($averageScore / $scoreCount, 2) : 0;
 
-    $html .= '<table>
-        <tr class="summary-row">
-            <td>Total Employees</td>
-            <td>' . $totalEmployees . '</td>
-            <td>Average Score</td>
-            <td>' . round($averageScore, 2) . '%</td>
-        </tr>
-        <tr class="summary-row">
-            <td>Total Evaluations</td>
-            <td>' . $totalEvaluations . '</td>
-            <td>Employees with CEO Feedback</td>
-            <td>' . $employeesWithFeedback . ' (' . round(($employeesWithFeedback / $totalEmployees) * 100, 1) . '%)</td>
-        </tr>
-        <tr class="summary-row">
-            <td>Total CEO Feedback Items</td>
-            <td>' . $totalFeedbackCount . '</td>
-            <td>Total Feedback Responses</td>
-            <td>' . $totalResponses . '</td>
-        </tr>
-    </table>';
+    // Detailed Employee Performance
+    echo '<Row>';
+    echo '<Cell ss:MergeAcross="12" ss:StyleID="Header"><Data ss:Type="String">DETAILED EMPLOYEE PERFORMANCE SUMMARY</Data></Cell>';
+    echo '</Row>';
 
-    // Main Data Table
-    $html .= '<h2 class="section-header">Detailed Employee Performance Summary</h2>';
-    $html .= '<table>
-        <thead>
-            <tr>
-                <th>Employee ID</th>
-                <th>Full Name</th>
-                <th>Position</th>
-                <th>Department</th>
-                <th>Supervisor</th>
-                <th>Weighted Score</th>
-                <th>Performance Category</th>
-                <th>Self Eval</th>
-                <th>Supervisor</th>
-                <th>Subordinate</th>
-                <th>Colleague</th>
-                <th>Other</th>
-                <th>Total Eval</th>
-                <th>CEO Feedback</th>
-                <th>Priority Levels</th>
-                <th>Target Dates</th>
-                <th>Categories</th>
-                <th>Feedback Responses</th>
-            </tr>
-        </thead>
-        <tbody>';
+    // Column headers
+    $headers = [
+        'Employee ID',
+        'Full Name',
+        'Position',
+        'Department',
+        'Supervisor',
+        'Weighted Score',
+        'Performance Category',
+        'Total Evaluations',
+        'CEO Feedback Items',
+        'Feedback Responses',
+        'Response Rate',
+        'Response Status',
+        'Deadline Status'
+    ];
 
+    echo '<Row>';
+    foreach ($headers as $header) {
+        echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">' . $header . '</Data></Cell>';
+    }
+    echo '</Row>';
+
+    // Employee data rows
     foreach ($employees as $employeeId => $employee) {
         $evaluationData = isset($employeeEvaluations[$employeeId]) ? $employeeEvaluations[$employeeId] : null;
         $ceoFeedback = isset($allCEOFeedback[$employeeId]) ? $allCEOFeedback[$employeeId] : [];
 
-        // Prepare feedback details
-        $priorityLevels = [];
-        $targetDates = [];
-        $categories = [];
+        $totalEvals = $evaluationData ? array_sum($evaluationData['perspective_counts']) : 0;
         $feedbackCount = count($ceoFeedback);
+
+        // Calculate responses
         $responseCount = 0;
-
         foreach ($ceoFeedback as $feedback) {
-            $priorityLevels[] = ucfirst($feedback['priority']);
-            if (!empty($feedback['target_completion_date'])) {
-                $targetDates[] = date('M d, Y', strtotime($feedback['target_completion_date']));
-            }
-            $categories[] = $feedback['category_name'] ?? 'General';
-
             if (isset($allFeedbackResponses[$feedback['id']])) {
                 $responseCount += count($allFeedbackResponses[$feedback['id']]);
             }
         }
 
-        $perspectives = $evaluationData ? $evaluationData['perspective_counts'] : [
-            'Self-evaluation' => 0,
-            'Supervisor' => 0,
-            'Subordinate' => 0,
-            'Colleague' => 0,
-            'Other' => 0
-        ];
+        $responseRate = $feedbackCount > 0 ? round(($responseCount / $feedbackCount) * 100, 0) . '%' : 'N/A';
+        $responseStatus = 'No Feedback';
+        $deadlineStatus = 'No Feedback';
 
-        $html .= '<tr>';
-        $html .= '<td>' . $employeeId . '</td>';
-        $html .= '<td>' . htmlspecialchars($employee['full_name'] ?? 'N/A') . '</td>';
-        $html .= '<td>' . htmlspecialchars($employee['position_title'] ?? 'N/A') . '</td>';
-        $html .= '<td>' . htmlspecialchars($employee['department_name'] ?? 'N/A') . '</td>';
-        $html .= '<td>' . htmlspecialchars($employee['supervisor_name'] ?? 'N/A') . '</td>';
-        $html .= '<td>' . ($evaluationData ? round($evaluationData['weighted_score'], 2) . '%' : 'N/A') . '</td>';
-        $html .= '<td>' . ($evaluationData ? htmlspecialchars($evaluationData['performance_category']) : 'Not Evaluated') . '</td>';
-        $html .= '<td>' . $perspectives['Self-evaluation'] . '</td>';
-        $html .= '<td>' . $perspectives['Supervisor'] . '</td>';
-        $html .= '<td>' . $perspectives['Subordinate'] . '</td>';
-        $html .= '<td>' . $perspectives['Colleague'] . '</td>';
-        $html .= '<td>' . $perspectives['Other'] . '</td>';
-        $html .= '<td>' . array_sum($perspectives) . '</td>';
-        $html .= '<td>' . $feedbackCount . '</td>';
-        $html .= '<td>' . implode(', ', array_unique($priorityLevels)) . '</td>';
-        $html .= '<td>' . implode(', ', $targetDates) . '</td>';
-        $html .= '<td>' . implode(', ', array_unique($categories)) . '</td>';
-        $html .= '<td>' . $responseCount . '</td>';
-        $html .= '</tr>';
+        if ($feedbackCount > 0) {
+            if ($responseCount == 0) {
+                $responseStatus = 'No Responses';
+            } elseif ($responseCount == $feedbackCount) {
+                $responseStatus = 'All Responded';
+            } else {
+                $responseStatus = 'Partial (' . $responseCount . '/' . $feedbackCount . ')';
+            }
+
+            // Calculate deadline status
+            $allResponded = true;
+            $anyOverdue = false;
+            $anyOnTime = false;
+
+            foreach ($ceoFeedback as $feedback) {
+                $hasResponse = isset($allFeedbackResponses[$feedback['id']]) && !empty($allFeedbackResponses[$feedback['id']]);
+
+                if (!$hasResponse && !empty($feedback['target_completion_date'])) {
+                    $allResponded = false;
+                    $targetDate = new DateTime($feedback['target_completion_date']);
+                    $today = new DateTime();
+
+                    if ($today > $targetDate) {
+                        $anyOverdue = true;
+                    }
+                } elseif ($hasResponse && !empty($feedback['target_completion_date'])) {
+                    $targetDate = new DateTime($feedback['target_completion_date']);
+                    $lastResponse = new DateTime($allFeedbackResponses[$feedback['id']][0]['submitted_at']);
+
+                    if ($lastResponse <= $targetDate) {
+                        $anyOnTime = true;
+                    } else {
+                        $anyOverdue = true;
+                    }
+                }
+            }
+
+            if ($allResponded && !$anyOverdue) {
+                $deadlineStatus = 'All In Time';
+            } elseif ($allResponded && $anyOverdue) {
+                $deadlineStatus = 'Some Late';
+            } elseif (!$allResponded && $anyOverdue) {
+                $deadlineStatus = 'Overdue';
+            } elseif (!$allResponded && !$anyOverdue) {
+                $deadlineStatus = 'Pending';
+            }
+        }
+
+        // Determine score style
+        $scoreStyle = 'Default';
+        $score = $evaluationData ? $evaluationData['weighted_score'] : 0;
+        if ($score >= 90) {
+            $scoreStyle = 'Excellent';
+        } elseif ($score >= 75) {
+            $scoreStyle = 'Good';
+        } elseif ($score >= 60) {
+            $scoreStyle = 'Average';
+        } elseif ($score >= 30) {
+            $scoreStyle = 'Poor';
+        } elseif ($score > 0) {
+            $scoreStyle = 'NeedsImprovement';
+        }
+
+        echo '<Row>';
+        echo '<Cell><Data ss:Type="String">' . $employeeId . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['full_name'] ?? 'N/A') . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['position_title'] ?? 'N/A') . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['department_name'] ?? 'N/A') . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['supervisor_name'] ?? 'N/A') . '</Data></Cell>';
+        echo '<Cell ss:StyleID="' . $scoreStyle . '"><Data ss:Type="Number">' . ($evaluationData ? round($evaluationData['weighted_score'], 2) : 0) . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . ($evaluationData ? $evaluationData['performance_category'] : 'Not Evaluated') . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="Number">' . $totalEvals . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="Number">' . $feedbackCount . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="Number">' . $responseCount . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . $responseRate . '</Data></Cell>';
+
+        // Response status style
+        $responseStyle = 'Default';
+        if ($responseStatus === 'All Responded') {
+            $responseStyle = 'RespAll';
+        } elseif ($responseStatus === 'No Responses' || $responseStatus === 'No Feedback') {
+            $responseStyle = 'RespNone';
+        } else {
+            $responseStyle = 'RespPartial';
+        }
+
+        // Deadline status style
+        $deadlineStyle = 'Default';
+        if ($deadlineStatus === 'All In Time') {
+            $deadlineStyle = 'DeadAllInTime';
+        } elseif ($deadlineStatus === 'Overdue') {
+            $deadlineStyle = 'DeadOverdue';
+        } elseif ($deadlineStatus === 'Some Late') {
+            $deadlineStyle = 'DeadSomeLate';
+        } elseif ($deadlineStatus === 'Pending') {
+            $deadlineStyle = 'DeadPending';
+        }
+
+        echo '<Cell ss:StyleID="' . $responseStyle . '"><Data ss:Type="String">' . $responseStatus . '</Data></Cell>';
+        echo '<Cell ss:StyleID="' . $deadlineStyle . '"><Data ss:Type="String">' . $deadlineStatus . '</Data></Cell>';
+
+        echo '</Row>';
     }
 
-    $html .= '</tbody></table>';
+    echo '<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>';
 
-    // Detailed CEO Feedback Section
-    $html .= '<h2 class="section-header">Detailed CEO Feedback and Responses</h2>';
 
+    echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+
+    // Performance Distribution
+    echo '<Row>';
+    echo '<Cell ss:MergeAcross="2" ss:StyleID="Header"><Data ss:Type="String">PERFORMANCE DISTRIBUTION</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Performance Category</Data></Cell>';
+    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Employee Count</Data></Cell>';
+    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Percentage</Data></Cell>';
+    echo '</Row>';
+
+    foreach ($performanceDistribution as $category => $count) {
+        $percentage = $totalEmployees > 0 ? round(($count / $totalEmployees) * 100, 1) : 0;
+        echo '<Row>';
+        echo '<Cell><Data ss:Type="String">' . $category . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="Number">' . $count . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="Number">' . $percentage . '</Data></Cell>';
+        echo '</Row>';
+    }
+
+    echo '<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>';
+
+
+    // Summary Statistics Section
+    echo '<Row>';
+    echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">SUMMARY STATISTICS</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Metric</Data></Cell>';
+    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Count</Data></Cell>';
+    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Metric</Data></Cell>';
+    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Value</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell><Data ss:Type="String">Total Employees</Data></Cell>';
+    echo '<Cell><Data ss:Type="Number">' . $totalEmployees . '</Data></Cell>';
+    echo '<Cell><Data ss:Type="String">Average Performance Score</Data></Cell>';
+    echo '<Cell><Data ss:Type="Number">' . $averageScore . '</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell><Data ss:Type="String">Total Evaluations</Data></Cell>';
+    echo '<Cell><Data ss:Type="Number">' . $totalEvaluations . '</Data></Cell>';
+    echo '<Cell><Data ss:Type="String">Employees with CEO Feedback</Data></Cell>';
+    echo '<Cell><Data ss:Type="String">' . $employeesWithFeedback . ' (' . round(($employeesWithFeedback / max(1, $totalEmployees)) * 100, 1) . '%)</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell><Data ss:Type="String">Total CEO Feedback Items</Data></Cell>';
+    echo '<Cell><Data ss:Type="Number">' . $totalFeedbackCount . '</Data></Cell>';
+    echo '<Cell><Data ss:Type="String">Total Feedback Responses</Data></Cell>';
+    echo '<Cell><Data ss:Type="Number">' . $totalResponses . '</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+
+    // -------------------------------------------------
+    // LEGEND – Response & Deadline Status Colors
+    // -------------------------------------------------
+    echo '<Row>';
+    echo '<Cell ss:MergeAcross="4" ss:StyleID="Header"><Data ss:Type="String">STATUS COLOR LEGEND</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Type</Data></Cell>';
+    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Status</Data></Cell>';
+    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Meaning</Data></Cell>';
+    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Color</Data></Cell>';
+    echo '</Row>';
+
+    // Response status legend
+    echo '<Row>';
+    echo '<Cell><Data ss:Type="String">Response Status</Data></Cell>';
+    echo '<Cell ss:StyleID="RespAll"><Data ss:Type="String">All Responded</Data></Cell>';
+    echo '<Cell><Data ss:Type="String">Employee responded to all CEO feedback items</Data></Cell>';
+    echo '<Cell ss:StyleID="RespAll"><Data ss:Type="String">Green</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell><Data ss:Type="String">Response Status</Data></Cell>';
+    echo '<Cell ss:StyleID="RespPartial"><Data ss:Type="String">Partial</Data></Cell>';
+    echo '<Cell><Data ss:Type="String">Some feedback items have responses</Data></Cell>';
+    echo '<Cell ss:StyleID="RespPartial"><Data ss:Type="String">Yellow</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell><Data ss:Type="String">Response Status</Data></Cell>';
+    echo '<Cell ss:StyleID="RespNone"><Data ss:Type="String">No Responses / No Feedback</Data></Cell>';
+    echo '<Cell><Data ss:Type="String">No response submitted yet or no feedback assigned</Data></Cell>';
+    echo '<Cell ss:StyleID="RespNone"><Data ss:Type="String">Red</Data></Cell>';
+    echo '</Row>';
+
+    // Deadline status legend
+    echo '<Row>';
+    echo '<Cell><Data ss:Type="String">Deadline Status</Data></Cell>';
+    echo '<Cell ss:StyleID="DeadAllInTime"><Data ss:Type="String">All In Time</Data></Cell>';
+    echo '<Cell><Data ss:Type="String">All feedback items were responded to before the deadline</Data></Cell>';
+    echo '<Cell ss:StyleID="DeadAllInTime"><Data ss:Type="String">Green</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell><Data ss:Type="String">Deadline Status</Data></Cell>';
+    echo '<Cell ss:StyleID="DeadSomeLate"><Data ss:Type="String">Some Late</Data></Cell>';
+    echo '<Cell><Data ss:Type="String">Some feedback responses were submitted after the deadline</Data></Cell>';
+    echo '<Cell ss:StyleID="DeadSomeLate"><Data ss:Type="String">Orange</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell><Data ss:Type="String">Deadline Status</Data></Cell>';
+    echo '<Cell ss:StyleID="DeadOverdue"><Data ss:Type="String">Overdue</Data></Cell>';
+    echo '<Cell><Data ss:Type="String">At least one feedback item is overdue without a response</Data></Cell>';
+    echo '<Cell ss:StyleID="DeadOverdue"><Data ss:Type="String">Red</Data></Cell>';
+    echo '</Row>';
+
+    echo '<Row>';
+    echo '<Cell><Data ss:Type="String">Deadline Status</Data></Cell>';
+    echo '<Cell ss:StyleID="DeadPending"><Data ss:Type="String">Pending</Data></Cell>';
+    echo '<Cell><Data ss:Type="String">Responses are still within the allowed deadline</Data></Cell>';
+    echo '<Cell ss:StyleID="DeadPending"><Data ss:Type="String">Yellow</Data></Cell>';
+    echo '</Row>';
+
+
+    echo '</Table>';
+    echo '<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+            <PageSetup>
+                <Header x:Margin="0.3"/>
+                <Footer x:Margin="0.3"/>
+                <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+            </PageSetup>
+            <Print>
+                <ValidPrinterInfo/>
+                <HorizontalResolution>600</HorizontalResolution>
+                <VerticalResolution>600</VerticalResolution>
+            </Print>
+            <Selected/>
+            <ProtectObjects>False</ProtectObjects>
+            <ProtectScenarios>False</ProtectScenarios>
+          </WorksheetOptions>';
+    echo '</Worksheet>';
+
+    // ============================================
+    // INDIVIDUAL EMPLOYEE SHEETS
+    // ============================================
+    $sheetCount = 0;
     foreach ($employees as $employeeId => $employee) {
+        $sheetCount++;
+        if ($sheetCount > 50) break; // Limit to 50 sheets for performance
+
+        $evaluationData = isset($employeeEvaluations[$employeeId]) ? $employeeEvaluations[$employeeId] : null;
         $ceoFeedback = isset($allCEOFeedback[$employeeId]) ? $allCEOFeedback[$employeeId] : [];
+        $sheetName = createValidSheetName($employee['full_name'] ?? 'Employee', $employeeId);
+
+        echo '<Worksheet ss:Name="' . $sheetName . '">';
+        echo '<Table>';
+        echo '<Column ss:Width="150"/>';
+        echo '<Column ss:Width="300"/>';
+        echo '<Column ss:Width="150"/>';
+        echo '<Column ss:Width="300"/>';
+
+        // Logo and Title Row for individual sheets
+        echo '<Row ss:Height="60">';
+        //echo '<Cell ss:MergeAcross="1">';
+        echo '<Cell ss:MergeAcross="0">';
+        //echo '<Data ss:Type="String">=IMAGE("https://app.merqconsultancy.org/assets/images/merq-logo.png", "merq",3,200,140)</Data>';
+
+        echo '<ss:Data ss:Type="String">';
+        echo '<html:img src="https://app.merqconsultancy.org/assets/images/merq-logo.png" width="140" height="60" align="left"/>';
+        echo '</ss:Data>';
+
+        echo '</Cell>';
+        //echo '<Cell ss:MergeAcross="1" ss:StyleID="Title">';
+        echo '<Cell ss:MergeAcross="1" ss:StyleID="Title">';
+        echo '<Data ss:Type="String">INDIVIDUAL PERFORMANCE REPORT</Data>';
+        echo '</Cell>';
+        echo '</Row>';
+
+        echo '<Row>';
+        echo '<Cell ss:MergeAcross="3" ss:StyleID="Title"><Data ss:Type="String">' . htmlspecialchars($employee['full_name']) . '</Data></Cell>';
+        echo '</Row>';
+
+        echo '<Row>';
+        echo '<Cell ss:MergeAcross="3" ss:StyleID="Subtitle"><Data ss:Type="String">Employee ID: ' . $employeeId . ' | Generated: ' . date('F j, Y') . '</Data></Cell>';
+        echo '</Row>';
+
+        echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+
+        // Employee Information
+        echo '<Row>';
+        echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">EMPLOYEE INFORMATION</Data></Cell>';
+        echo '</Row>';
+
+        echo '<Row>';
+        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Full Name:</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['full_name']) . '</Data></Cell>';
+        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Position:</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['position_title'] ?? 'N/A') . '</Data></Cell>';
+        echo '</Row>';
+
+        echo '<Row>';
+        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Department:</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['department_name'] ?? 'N/A') . '</Data></Cell>';
+        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Supervisor:</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['supervisor_name'] ?? 'N/A') . '</Data></Cell>';
+        echo '</Row>';
+
+        echo '<Row>';
+        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Employee ID:</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . $employeeId . '</Data></Cell>';
+        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Email:</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['email'] ?? 'N/A') . '</Data></Cell>';
+        echo '</Row>';
+
+        echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+
+        // Performance Overview
+        echo '<Row>';
+        echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">PERFORMANCE OVERVIEW</Data></Cell>';
+        echo '</Row>';
+
+        if ($evaluationData) {
+            echo '<Row>';
+            echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Overall Weighted Score:</Data></Cell>';
+            $score = $evaluationData['weighted_score'];
+            $scoreStyle = 'Default';
+
+            if ($score >= 90) {
+                $scoreStyle = 'Excellent';
+            } elseif ($score >= 75) {
+                $scoreStyle = 'Good';
+            } elseif ($score >= 60) {
+                $scoreStyle = 'Average';
+            } elseif ($score >= 30) {
+                $scoreStyle = 'Poor';
+            } elseif ($score > 0) {
+                $scoreStyle = 'NeedsImprovement';
+            }
+
+            echo '<Cell ss:StyleID="' . $scoreStyle . '"><Data ss:Type="Number">' . round($score, 2) . '</Data></Cell>';
+
+            echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Performance Category:</Data></Cell>';
+            echo '<Cell><Data ss:Type="String">' . $evaluationData['performance_category'] . '</Data></Cell>';
+            echo '</Row>';
+
+            echo '<Row>';
+            echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Total Evaluations:</Data></Cell>';
+            echo '<Cell><Data ss:Type="Number">' . array_sum($evaluationData['perspective_counts']) . '</Data></Cell>';
+            echo '<Cell/><Cell/>';
+            echo '</Row>';
+
+            echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+
+            // Evaluation Perspectives
+            if (!empty($evaluationData['perspective_counts'])) {
+                echo '<Row>';
+                echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">EVALUATION PERSPECTIVES</Data></Cell>';
+                echo '</Row>';
+
+                foreach ($evaluationData['perspective_counts'] as $perspective => $count) {
+                    if ($count > 0) {
+                        echo '<Row>';
+                        echo '<Cell><Data ss:Type="String">' . $perspective . ':</Data></Cell>';
+                        echo '<Cell><Data ss:Type="Number">' . $count . '</Data></Cell>';
+                        echo '<Cell/><Cell/>';
+                        echo '</Row>';
+                    }
+                }
+
+                echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+            }
+
+            // Category Scores
+            if (!empty($evaluationData['category_scores'])) {
+                echo '<Row>';
+                echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">CATEGORY PERFORMANCE SCORES</Data></Cell>';
+                echo '</Row>';
+
+                echo '<Row>';
+                echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Category</Data></Cell>';
+                echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Average Score (1-5)</Data></Cell>';
+                echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Percentage</Data></Cell>';
+                echo '<Cell/>';
+                echo '</Row>';
+
+                foreach ($evaluationData['category_scores'] as $category => $scoreData) {
+                    if (($scoreData['count'] ?? 0) > 0) {
+                        $average = round($scoreData['average'] ?? 0, 2);
+                        $percentage = round($scoreData['percentage'] ?? 0, 1);
+
+                        echo '<Row>';
+                        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($category, ENT_XML1) . '</Data></Cell>';
+                        echo '<Cell><Data ss:Type="Number">' . $average . '</Data></Cell>';
+                        echo '<Cell><Data ss:Type="Number">' . $percentage . '</Data></Cell>';
+                        echo '<Cell/>';
+                        echo '</Row>';
+                    }
+                }
+
+                echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+            }
+        } else {
+            echo '<Row>';
+            echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">No performance evaluation data available for this employee.</Data></Cell>';
+            echo '</Row>';
+            echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+        }
+
+
+        // CEO Feedback Section
+        echo '<Row>';
+        echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">CEO FEEDBACK</Data></Cell>';
+        echo '</Row>';
 
         if (!empty($ceoFeedback)) {
-            $html .= '<h3>' . htmlspecialchars($employee['full_name'] ?? 'Employee ' . $employeeId) . ' - ' . count($ceoFeedback) . ' Feedback Item(s)</h3>';
+            $totalResponses = 0;
+            foreach ($ceoFeedback as $feedback) {
+                if (isset($allFeedbackResponses[$feedback['id']])) {
+                    $totalResponses += count($allFeedbackResponses[$feedback['id']]);
+                }
+            }
+
+            echo '<Row>';
+            echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">' . count($ceoFeedback) . ' Feedback Items, ' . $totalResponses . ' Responses</Data></Cell>';
+            echo '</Row>';
 
             foreach ($ceoFeedback as $index => $feedback) {
                 $responses = isset($allFeedbackResponses[$feedback['id']]) ? $allFeedbackResponses[$feedback['id']] : [];
 
-                $html .= '<table style="margin-bottom: 15px;">
-                    <tr class="sub-header">
-                        <td colspan="2">Feedback #' . ($index + 1) . ' - ' . htmlspecialchars($feedback['category_name'] ?? 'General') . '</td>
-                    </tr>
-                    <tr>
-                        <td width="20%"><strong>Priority:</strong></td>
-                        <td>' . ucfirst($feedback['priority']) . '</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Created:</strong></td>
-                        <td>' . date('F j, Y \a\t g:i A', strtotime($feedback['created_at'])) . '</td>
-                    </tr>';
+                echo '<Row>';
+                echo '<Cell ss:MergeAcross="3" ss:StyleID="SubHeader"><Data ss:Type="String">Feedback #' . ($index + 1) . ' - ' . ($feedback['category_name'] ?? 'General Feedback') . ' (' . ucfirst($feedback['priority']) . ' Priority)</Data></Cell>';
+                echo '</Row>';
+
+                echo '<Row>';
+                echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">From CEO:</Data></Cell>';
+                echo '<Cell><Data ss:Type="String">' . $feedback['ceo_name'] . '</Data></Cell>';
+                echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Date Given:</Data></Cell>';
+                echo '<Cell><Data ss:Type="String">' . date('F j, Y \a\t g:i A', strtotime($feedback['created_at'])) . '</Data></Cell>';
+                echo '</Row>';
 
                 if (!empty($feedback['target_completion_date'])) {
-                    $html .= '<tr>
-                        <td><strong>Target Date:</strong></td>
-                        <td>' . date('F j, Y', strtotime($feedback['target_completion_date'])) . '</td>
-                    </tr>';
+                    echo '<Row>';
+                    echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Target Completion:</Data></Cell>';
+                    echo '<Cell><Data ss:Type="String">' . date('F j, Y', strtotime($feedback['target_completion_date'])) . '</Data></Cell>';
+                    echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Status:</Data></Cell>';
+
+                    $statusText = '';
+                    $today = new DateTime();
+                    $targetDate = new DateTime($feedback['target_completion_date']);
+
+                    if (!empty($responses)) {
+                        $lastResponse = new DateTime($responses[0]['submitted_at']);
+                        if ($lastResponse <= $targetDate) {
+                            $statusText = 'Responded In Time';
+                        } else {
+                            $daysLate = $lastResponse->diff($targetDate)->days;
+                            $statusText = 'Responded Late by ' . $daysLate . ' days';
+                        }
+                    } else {
+                        if ($today > $targetDate) {
+                            $daysOverdue = $today->diff($targetDate)->days;
+                            $statusText = 'Overdue by ' . $daysOverdue . ' days';
+                        } else {
+                            $daysRemaining = $targetDate->diff($today)->days;
+                            $statusText = $daysRemaining . ' days remaining';
+                        }
+                    }
+
+                    $statusStyle = 'Default';
+
+                    if (strpos($statusText, 'Responded In Time') !== false) {
+                        $statusStyle = 'DeadAllInTime';
+                    } elseif (strpos($statusText, 'Responded Late') !== false) {
+                        $statusStyle = 'DeadSomeLate';
+                    } elseif (strpos($statusText, 'Overdue') !== false) {
+                        $statusStyle = 'DeadOverdue';
+                    } elseif (strpos($statusText, 'days remaining') !== false) {
+                        $statusStyle = 'DeadPending';
+                    }
+
+                    echo '<Cell ss:StyleID="' . $statusStyle . '"><Data ss:Type="String">' . htmlspecialchars($statusText, ENT_XML1) . '</Data></Cell>';
+
+                    echo '</Row>';
                 }
 
-                $html .= '<tr>
-                        <td><strong>From CEO:</strong></td>
-                        <td>' . htmlspecialchars($feedback['ceo_name']) . '</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Feedback:</strong></td>
-                        <td>' . nl2br(htmlspecialchars($feedback['feedback_text'])) . '</td>
-                    </tr>';
+                // Feedback text with 12 merged rows for better display
+                echo '<Row>';
+                echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Feedback:</Data></Cell>';
+                echo '<Cell ss:MergeAcross="2" ss:MergeDown="11" ss:StyleID="TextWrap"><Data ss:Type="String">' . htmlspecialchars($feedback['feedback_text']) . '</Data></Cell>';
+                echo '</Row>';
 
+                // Add empty rows to complete the 12 rows for the merged cell
+                for ($i = 1; $i < 12; $i++) {
+                    echo '<Row/>';
+                }
+
+                // Responses
                 if (!empty($responses)) {
-                    $html .= '<tr class="sub-header">
-                        <td colspan="2">' . count($responses) . ' Response(s)</td>
-                    </tr>';
+                    echo '<Row>';
+                    echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Responses (' . count($responses) . '):</Data></Cell>';
+                    echo '<Cell ss:MergeAcross="2"/>';
+                    echo '</Row>';
 
                     foreach ($responses as $responseIndex => $response) {
-                        $html .= '<tr>
-                            <td><strong>Response #' . ($responseIndex + 1) . ':</strong></td>
-                            <td>
-                                ' . nl2br(htmlspecialchars($response['response_text'])) . '<br>
-                                <small><em>By: ' . htmlspecialchars($response['employee_name']) . ' on ' . date('F j, Y \a\t g:i A', strtotime($response['submitted_at'])) . '</em></small>
-                            </td>
-                        </tr>';
+                        // Response text with 6 merged rows
+                        echo '<Row>';
+                        echo '<Cell><Data ss:Type="String">Response #' . ($responseIndex + 1) . ':</Data></Cell>';
+                        echo '<Cell ss:MergeAcross="2" ss:MergeDown="5" ss:StyleID="TextWrap"><Data ss:Type="String">' . htmlspecialchars($response['response_text']) . '</Data></Cell>';
+                        echo '</Row>';
+
+                        // Add empty rows to complete the 6 rows for the response cell
+                        for ($i = 1; $i < 6; $i++) {
+                            echo '<Row/>';
+                        }
+
+                        echo '<Row>';
+                        echo '<Cell><Data ss:Type="String">Submitted:</Data></Cell>';
+                        echo '<Cell ss:MergeAcross="2"><Data ss:Type="String">' . date('F j, Y \a\t g:i A', strtotime($response['submitted_at'])) . '</Data></Cell>';
+                        echo '</Row>';
                     }
                 } else {
-                    $html .= '<tr>
-                        <td><strong>Responses:</strong></td>
-                        <td>No responses yet</td>
-                    </tr>';
+                    echo '<Row>';
+                    echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Responses:</Data></Cell>';
+                    echo '<Cell ss:MergeAcross="2"><Data ss:Type="String">No responses yet from the employee.</Data></Cell>';
+                    echo '</Row>';
                 }
 
-                $html .= '</table>';
+                echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
             }
+        } else {
+            echo '<Row>';
+            echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">No CEO feedback available for this employee.</Data></Cell>';
+            echo '</Row>';
         }
+
+        echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+
+        // Summary and Recommendations
+        echo '<Row>';
+        echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">SUMMARY & RECOMMENDATIONS</Data></Cell>';
+        echo '</Row>';
+
+        // Helper to print one bullet row
+        $printBullet = function ($text) {
+            echo '<Row>';
+            echo '<Cell ss:MergeAcross="3" ss:StyleID="TextWrap"><Data ss:Type="String">• ' . htmlspecialchars($text, ENT_XML1) . '</Data></Cell>';
+            echo '</Row>';
+        };
+
+        if ($evaluationData) {
+
+            $score = $evaluationData['weighted_score'];
+            $feedbackCount = count($ceoFeedback);
+            $responseCount = 0;
+
+            if ($feedbackCount > 0) {
+                foreach ($ceoFeedback as $feedback) {
+                    if (isset($allFeedbackResponses[$feedback['id']])) {
+                        $responseCount += count($allFeedbackResponses[$feedback['id']]);
+                    }
+                }
+                $responseRate = $feedbackCount > 0
+                    ? round(($responseCount / $feedbackCount) * 100, 0)
+                    : 0;
+            }
+
+            if ($score >= 90) {
+                $printBullet('Outstanding Performance: Demonstrates exceptional performance across all categories.');
+                $printBullet('Recommendation: Consider for leadership roles, special projects, or recognition awards.');
+            } elseif ($score >= 75) {
+                $printBullet('Exceeds Expectations: Consistently performs above job requirements.');
+                $printBullet('Recommendation: Provide opportunities for growth and increased responsibility.');
+            } elseif ($score >= 60) {
+                $printBullet('Meets Expectations: Meets all job requirements satisfactorily.');
+                $printBullet('Recommendation: Continue current development plan, focus on specific skill enhancements.');
+            } elseif ($score >= 30) {
+                $printBullet('Developing: Shows potential but needs improvement in some areas.');
+                $printBullet('Recommendation: Create targeted development plan with regular check-ins.');
+            } else {
+                $printBullet('Needs Significant Improvement: Immediate attention required for performance improvement.');
+                $printBullet('Recommendation: Implement performance improvement plan with clear milestones.');
+            }
+
+            if ($feedbackCount > 0) {
+
+                $printBullet(
+                    'Feedback Engagement: ' .
+                        $responseCount . ' response(s) to ' .
+                        $feedbackCount . ' feedback item(s) (' .
+                        $responseRate . '% response rate).'
+                );
+
+                if ($responseCount == 0) {
+                    $printBullet('Action Required: Employee needs to respond to CEO feedback.');
+                } elseif ($responseCount < $feedbackCount) {
+                    $printBullet('Action Required: Employee needs to respond to remaining feedback items.');
+                }
+            }
+        } else {
+
+            $printBullet('No evaluation data available.');
+            $printBullet('Recommendation: Ensure employee completes self-evaluation and receives evaluations from others.');
+        }
+
+        echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+
+        // Footer
+        echo '<Row>';
+        echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">Report Generated: ' . date('F j, Y \a\t g:i A') . '</Data></Cell>';
+        echo '</Row>';
+
+        echo '<Row>';
+        echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">Confidential: This report contains sensitive performance information.</Data></Cell>';
+        echo '</Row>';
+
+        echo '<Row>';
+        echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">System: MERQ Consultancy Performance Management System</Data></Cell>';
+        echo '</Row>';
+
+        echo '</Table>';
+        echo '<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+                <PageSetup>
+                    <Header x:Margin="0.3"/>
+                    <Footer x:Margin="0.3"/>
+                    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+                </PageSetup>
+                <Print>
+                    <ValidPrinterInfo/>
+                    <HorizontalResolution>600</HorizontalResolution>
+                    <VerticalResolution>600</VerticalResolution>
+                </Print>
+                <Selected/>
+                <ProtectObjects>False</ProtectObjects>
+                <ProtectScenarios>False</ProtectScenarios>
+              </WorksheetOptions>';
+        echo '</Worksheet>';
     }
 
-    $html .= '</body></html>';
-
-    // Set headers for Excel download
-    header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment; filename="performance_summary_' . date('Y-m-d_His') . '.xls"');
-    header('Cache-Control: max-age=0');
-
-    echo $html;
+    echo '</Workbook>';
     exit;
 }
+
+// Helper function to create valid Excel sheet names
+function createValidSheetName($employeeName, $employeeId)
+{
+    if (empty($employeeName)) {
+        $employeeName = 'Employee';
+    }
+
+    // Remove invalid characters
+    $invalidChars = ['\\', '/', '*', '?', ':', '[', ']'];
+    $sheetName = str_replace($invalidChars, '', $employeeName);
+
+    // Normalize spaces
+    $sheetName = preg_replace('/\s+/', ' ', $sheetName);
+    $sheetName = trim($sheetName);
+
+    // Always append employee id to avoid duplicates
+    $sheetName = $sheetName . '_' . $employeeId;
+
+    // Excel limit
+    return substr($sheetName, 0, 31);
+}
+//#####################-MIKEINTOSH-SYSTEMS-##############################//

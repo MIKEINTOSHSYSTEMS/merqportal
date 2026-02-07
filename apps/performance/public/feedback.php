@@ -900,11 +900,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
                                                         $targetDate = new DateTime($feedback['target_completion_date']);
                                                         $daysRemaining = $today->diff($targetDate)->days;
                                                         $isOverdue = $today > $targetDate;
+
+                                                        // Check if employee has responded
+                                                        $hasResponded = !empty($responses);
+                                                        $lastResponseDate = null;
+                                                        if ($hasResponded && !empty($responses[0]['submitted_at'])) {
+                                                            $lastResponseDate = new DateTime($responses[0]['submitted_at']);
+                                                        }
+
+                                                        // Determine status
+                                                        $statusClass = 'bg-success';
+                                                        $statusText = '';
+
+                                                        if ($hasResponded && $lastResponseDate && $lastResponseDate <= $targetDate) {
+                                                            $statusText = 'Responded In Time';
+                                                        } elseif ($hasResponded && $lastResponseDate && $lastResponseDate > $targetDate) {
+                                                            $statusText = 'Responded Late by ' . $lastResponseDate->diff($targetDate)->days . ' days';
+                                                            $statusClass = 'bg-warning text-dark';
+                                                        } elseif (!$hasResponded && $isOverdue) {
+                                                            $statusText = 'Overdue by ' . $daysRemaining . ' days';
+                                                            $statusClass = 'bg-danger';
+                                                        } elseif (!$hasResponded && !$isOverdue) {
+                                                            $statusText = $daysRemaining . ' days remaining';
+                                                            $statusClass = 'bg-success';
+                                                        }
                                                         ?>
-                                                        <?php if ($isOverdue): ?>
-                                                            <span class="badge bg-danger ms-2">Overdue by <?= $daysRemaining ?> days</span>
-                                                        <?php else: ?>
-                                                            <span class="badge bg-success ms-2"><?= $daysRemaining ?> days remaining</span>
+                                                        <?php if (!empty($statusText)): ?>
+                                                            <span class="badge <?= $statusClass ?> ms-2"><?= $statusText ?></span>
                                                         <?php endif; ?>
                                                     </div>
                                                 </div>

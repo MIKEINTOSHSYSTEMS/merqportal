@@ -149,14 +149,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_response']))
                 </div>
                 <div class="col-md-3">
                     <div class="stats-card">
-                        <?php $ceoFeedbackCount = getCEOFeedbackCount($userId); ?>
+                        <?php
+                        $ceoFeedbackCount = getCEOFeedbackCount($userId);
+                        $totalResponseCount = 0;
+                        $ceoFeedbackItems = getCEOFeedback($userId, false);
+                        foreach ($ceoFeedbackItems as $feedback) {
+                            $responses = getFeedbackResponses($feedback['id']);
+                            $totalResponseCount += count($responses);
+                        }
+                        ?>
                         <div class="stats-number"><?= $ceoFeedbackCount ?></div>
                         <div class="stats-label">CEO Feedback</div>
                         <?php if ($ceoFeedbackCount > 0): ?>
                             <div class="mt-2">
-                                <span class="badge bg-warning text-dark ceo-feedback-pulse">
-                                    <a href="feedback.php?employee_id=<?= $userId ?>" class="text-decoration-none text-dark">View feedback!</a>
-                                </span>
+                                <div class="d-flex flex-column gap-1 align-items-center">
+                                    <span class="badge bg-warning text-dark ceo-feedback-pulse">
+                                        <a href="feedback.php?employee_id=<?= $userId ?>" class="text-decoration-none text-dark">View feedback!</a>
+                                    </span>
+                                    <?php if ($totalResponseCount > 0): ?>
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-reply me-1"></i><?= $totalResponseCount ?> Response(s)
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-clock me-1"></i>Awaiting Response
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         <?php endif; ?>
                     </div>

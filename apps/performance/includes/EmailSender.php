@@ -34,17 +34,24 @@ class EmailSender
         if (!$employeeData) {
             $employeeData = getEmployeeDetails($employeeId);
         }
-        
+
         if (!$reportData) {
             $submissions = getSubmissions();
             $allReports = calculateWeightedScores($submissions);
             $reportData = $allReports[$employeeId] ?? null;
         }
-        
+
         if (!$ceoFeedback) {
             $ceoFeedback = getCEOFeedback($employeeId, false);
         }
-        
+
+        // Get all responses for the CEO feedback
+        $allResponses = [];
+        foreach ($ceoFeedback as $feedback) {
+            $responses = getFeedbackResponses($feedback['id']);
+            $allResponses[$feedback['id']] = $responses;
+        }
+
         if (!$employeeData || !$reportData) {
             return ['success' => false, 'message' => 'Employee data or report data not found'];
         }
@@ -58,11 +65,12 @@ class EmailSender
         // Generate login URL
         $loginUrl = $this->generateLoginUrl($employeeId);
 
-        // Get email template
-        $template = $this->emailTemplates->getPerformanceReportTemplate(
+        // Get enhanced email template with responses
+        $template = $this->emailTemplates->getEnhancedPerformanceReportTemplate(
             $employeeData,
             $reportData,
             $ceoFeedback,
+            $allResponses,
             $loginUrl
         );
 

@@ -179,6 +179,248 @@ HTML;
         ];
     }
 
+    // Enhanced performance report template with CEO feedback and employee responses
+    public function getEnhancedPerformanceReportTemplate($employee, $reportData, $ceoFeedback = [], $allResponses = [], $loginUrl = '')
+    {
+        $employeeName = $employee['full_name'] ?? 'Employee';
+        $position = $employee['position_title'] ?? '';
+        $department = $employee['department_name'] ?? '';
+        $supervisorName = $employee['supervisor_name'] ?? '';
+
+        $overallScore = $reportData['weighted_score'] ?? 0;
+        $category = $reportData['performance_category'] ?? 'Not Rated';
+
+        // Prepare category scores
+        $categoryScoresHtml = '';
+        if (isset($reportData['category_scores'])) {
+            foreach ($reportData['category_scores'] as $catName => $scoreData) {
+                if (($scoreData['count'] ?? 0) > 0) {
+                    $percentage = round($scoreData['percentage'] ?? 0, 1);
+                    $categoryScoresHtml .= "<tr>
+                    <td style='padding: 8px; border-bottom: 1px solid #eee;'>{$catName}</td>
+                    <td style='padding: 8px; border-bottom: 1px solid #eee; text-align: center;'>
+                        <div style='background: #e9ecef; height: 10px; border-radius: 5px; margin: 5px 0;'>
+                            <div style='background: #007bff; width: {$percentage}%; height: 100%; border-radius: 5px;'></div>
+                        </div>
+                        {$percentage}%
+                    </td>
+                </tr>";
+                }
+            }
+        }
+
+        // Prepare CEO feedback with responses
+        $ceoFeedbackHtml = '';
+        if (!empty($ceoFeedback)) {
+            foreach ($ceoFeedback as $index => $feedback) {
+                $priority = ucfirst($feedback['priority'] ?? 'medium');
+                $categoryName = $feedback['category_name'] ?? 'General Feedback';
+                $feedbackText = nl2br(htmlspecialchars($feedback['feedback_text'] ?? ''));
+                $targetDate = !empty($feedback['target_completion_date']) ?
+                    date('F j, Y', strtotime($feedback['target_completion_date'])) : 'No deadline';
+                $createdDate = date('F j, Y', strtotime($feedback['created_at']));
+
+                $priorityColor = $this->getPriorityColor($feedback['priority'] ?? 'medium');
+
+                // Check for responses for this feedback
+                $responseHtml = '';
+                if (!empty($allResponses[$feedback['id']])) {
+                    $responseHtml .= '<div style="margin-top: 15px; padding: 10px; background: #f0f8ff; border-radius: 5px; border-left: 3px solid #007bff;">';
+                    $responseHtml .= '<strong style="color: #007bff;">Your Response(s):</strong>';
+                    foreach ($allResponses[$feedback['id']] as $response) {
+                        $responseDate = date('F j, Y \a\t g:i A', strtotime($response['submitted_at']));
+                        $responseHtml .= '<div style="margin-top: 10px; padding: 10px; background: white; border-radius: 3px;">';
+                        $responseHtml .= '<p style="margin: 0 0 5px 0;">' . nl2br(htmlspecialchars($response['response_text'])) . '</p>';
+                        $responseHtml .= '<small style="color: #666;">Submitted on ' . $responseDate . '</small>';
+                        $responseHtml .= '</div>';
+                    }
+                    $responseHtml .= '</div>';
+                }
+
+                $ceoFeedbackHtml .= "<div style='margin-bottom: 20px; padding: 15px; border-left: 4px solid {$priorityColor}; background: #f8f9fa; border-radius: 4px;'>
+                <div style='margin-bottom: 10px;'>
+                    <strong style='color: {$priorityColor};'>{$priority} Priority</strong> • 
+                    <strong>{$categoryName}</strong> • 
+                    Created: {$createdDate}
+                </div>
+                <div style='margin-bottom: 10px;'>{$feedbackText}</div>
+                <div style='margin-bottom: 10px;'>
+                    <strong>Target Completion:</strong> {$targetDate}
+                </div>
+                {$responseHtml}
+            </div>";
+            }
+        }
+
+        $subject = "Your Performance Evaluation Report with Responses - {$employeeName} CONFIDENTIAL";
+
+        $html = <<<HTML
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$subject}</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #003366 0%, #004080 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+        .content { background: #fff; padding: 30px; border: 1px solid #ddd; border-top: none; border-radius: 0 0 10px 10px; }
+        .card { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .score-badge { display: inline-block; padding: 10px 20px; border-radius: 20px; font-weight: bold; color: white; margin: 10px 0; }
+        .btn-primary { background: #30E0FF; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 10px 0; }
+        .btn-secondary { background: #FF9500; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 10px 0; }
+        .table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .table th { background: #f8f9fa; padding: 10px; text-align: left; border-bottom: 2px solid #dee2e6; }
+        .table td { padding: 10px; border-bottom: 1px solid #dee2e6; }
+        .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #6c757d; font-size: 0.9em; }
+        .category-progress { background: #e9ecef; height: 10px; border-radius: 5px; margin: 5px 0; }
+        .category-bar { background: #007bff; height: 100%; border-radius: 5px; }
+        .response-section { background: #f0f8ff; border: 1px solid #d1e7ff; border-radius: 5px; padding: 15px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 style="margin: 0; font-size: 24px;">Performance Evaluation Report with Responses</h1>
+            <p style="margin: 10px 0 0; opacity: 0.9;">MERQ Consultancy Employee Performance Management System</p>
+        </div>
+        
+        <div class="content">
+            <p>Dear <strong>{$employeeName}</strong>,</p>
+            
+            <p>Your performance evaluation for the current period has been completed. Below is a summary of your results including your responses to CEO feedback:</p>
+            
+            <div class="card">
+                <h3 style="margin-top: 0; color: #003366;">Employee Information</h3>
+                <p><strong>Position:</strong> {$position}</p>
+                <p><strong>Department:</strong> {$department}</p>
+                <p><strong>Supervisor:</strong> {$supervisorName}</p>
+                <p><strong>Evaluation Period:</strong> Current Performance Cycle</p>
+            </div>
+            
+            <div class="card">
+                <h3 style="margin-top: 0; color: #003366;">Overall Performance Score</h3>
+                <div style="text-align: center;">
+                    <div class="score-badge" style="background: {$this->getCategoryColor($category)};">
+                        {$overallScore}%
+                    </div>
+                    <h2 style="margin: 10px 0;">{$category}</h2>
+                    <div style="background: #e9ecef; height: 20px; border-radius: 10px; margin: 20px 0;">
+                        <div style="background: {$this->getScoreColor($overallScore)}; width: {$overallScore}%; height: 100%; border-radius: 10px;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 style="margin-top: 0; color: #003366;">Category Performance Details</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th style="text-align: center;">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {$categoryScoresHtml}
+                    </tbody>
+                </table>
+            </div>
+
+HTML;
+
+        if (!empty($ceoFeedbackHtml)) {
+            $html .= <<<HTML
+            <div class="card">
+                <h3 style="margin-top: 0; color: #003366;">CEO Feedback & Your Responses</h3>
+                <p>You have received feedback from the CEO. Below are the feedback items with your responses:</p>
+                {$ceoFeedbackHtml}
+            </div>
+HTML;
+        }
+
+        $html .= <<<HTML
+            <div style="text-align: center; margin: 30px 0;">
+                <h3>Access Your Full Report</h3>
+                <p>For complete details, interactive charts, and to respond to feedback:</p>
+                <a href="{$loginUrl}" class="btn-primary">View Full Report Dashboard</a>
+                <br>
+                <a href="{$loginUrl}?page=feedback" class="btn-secondary">Go to Feedback Section</a>
+            </div>
+            
+            <div class="footer">
+                <p>This is an automated message from MERQ Consultancy Performance Management System.</p>
+                <p>Please do not reply to this email. For questions, contact HR Department. <a href="mailto:hr@merqconsultancy.org">(hr@merqconsultancy.org)</a></p>
+                <p>© <?= date('Y') ?> MERQ Consultancy. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+HTML;
+
+        return [
+            'subject' => $subject,
+            'html' => $html,
+            'text' => $this->generateEnhancedTextVersion($employee, $reportData, $ceoFeedback, $allResponses, $loginUrl)
+        ];
+    }
+
+    private function generateEnhancedTextVersion($employee, $reportData, $ceoFeedback, $allResponses, $loginUrl)
+    {
+        $text = "PERFORMANCE EVALUATION REPORT WITH RESPONSES\n";
+        $text .= "===========================================\n\n";
+        $text .= "Employee: {$employee['full_name']}\n";
+        $text .= "Position: {$employee['position_title']}\n";
+        $text .= "Department: {$employee['department_name']}\n\n";
+
+        $text .= "OVERALL SCORE: {$reportData['weighted_score']}%\n";
+        $text .= "Performance Category: {$reportData['performance_category']}\n\n";
+
+        $text .= "CATEGORY SCORES:\n";
+        if (isset($reportData['category_scores'])) {
+            foreach ($reportData['category_scores'] as $catName => $scoreData) {
+                if (($scoreData['count'] ?? 0) > 0) {
+                    $percentage = round($scoreData['percentage'] ?? 0, 1);
+                    $text .= "- {$catName}: {$percentage}%\n";
+                }
+            }
+        }
+
+        if (!empty($ceoFeedback)) {
+            $text .= "\nCEO FEEDBACK & YOUR RESPONSES:\n";
+            foreach ($ceoFeedback as $feedback) {
+                $text .= "- {$feedback['category_name']} ({$feedback['priority']} priority)\n";
+                $text .= "  Feedback: {$feedback['feedback_text']}\n";
+                if (!empty($feedback['target_completion_date'])) {
+                    $text .= "  Target Date: " . date('F j, Y', strtotime($feedback['target_completion_date'])) . "\n";
+                }
+
+                // Add responses
+                if (!empty($allResponses[$feedback['id']])) {
+                    $text .= "  Your Response(s):\n";
+                    foreach ($allResponses[$feedback['id']] as $response) {
+                        $responseDate = date('F j, Y \a\t g:i A', strtotime($response['submitted_at']));
+                        $text .= "    - " . $response['response_text'] . "\n";
+                        $text .= "      Submitted: " . $responseDate . "\n";
+                    }
+                }
+                $text .= "\n";
+            }
+        }
+
+        $text .= "\nVIEW FULL REPORT:\n";
+        $text .= "Login to the performance system to view interactive charts and respond to feedback:\n";
+        $text .= $loginUrl . "\n\n";
+
+        $text .= "---\n";
+        $text .= "MERQ Consultancy Performance Management System\n";
+        $text .= "This is an automated message. Please do not reply.\n";
+
+        return $text;
+    }
+
+
+
     // CEO feedback notification template
     public function getCEOFeedbackTemplate($employee, $feedback, $ceoName)
     {

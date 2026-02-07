@@ -410,12 +410,36 @@ require_once '../includes/header.php';
                                                     <?php endforeach; ?>
                                                 </td>
                                                 <td>
+                                                    <?php
+                                                    $feedbackCount = getCEOFeedbackCount($employeeId);
+                                                    $responseCount = 0;
+                                                    $ceoFeedbackItems = getCEOFeedback($employeeId, false);
+                                                    foreach ($ceoFeedbackItems as $feedback) {
+                                                        $responses = getFeedbackResponses($feedback['id']);
+                                                        $responseCount += count($responses);
+                                                    }
+                                                    ?>
                                                     <?php if ($feedbackCount > 0): ?>
-                                                        <span class="badge bg-warning text-dark ceo-feedback-badge"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-title="<?= $feedbackCount ?> CEO Feedback item(s)">
-                                                            <i class="fas fa-user-tie me-1"></i><?= $feedbackCount ?>
-                                                        </span>
+                                                        <div class="d-flex flex-column gap-1">
+                                                            <span class="badge bg-warning text-dark ceo-feedback-badge"
+                                                                data-bs-toggle="tooltip"
+                                                                data-bs-title="<?= $feedbackCount ?> CEO Feedback item(s)">
+                                                                <i class="fas fa-user-tie me-1"></i><?= $feedbackCount ?> Feedback
+                                                            </span>
+                                                            <?php if ($responseCount > 0): ?>
+                                                                <span class="badge bg-success response-badge"
+                                                                    data-bs-toggle="tooltip"
+                                                                    data-bs-title="<?= $responseCount ?> Response(s)">
+                                                                    <i class="fas fa-reply me-1"></i><?= $responseCount ?> Response(s)
+                                                                </span>
+                                                            <?php else: ?>
+                                                                <span class="badge bg-secondary response-badge"
+                                                                    data-bs-toggle="tooltip"
+                                                                    data-bs-title="No responses yet">
+                                                                    <i class="fas fa-clock me-1"></i>Awaiting
+                                                                </span>
+                                                            <?php endif; ?>
+                                                        </div>
                                                     <?php else: ?>
                                                         <span class="badge bg-secondary">None</span>
                                                     <?php endif; ?>
