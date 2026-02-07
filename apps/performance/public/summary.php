@@ -999,6 +999,15 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
             <Interior ss:Color="#FFD6A5" ss:Pattern="Solid"/>
           </Style>';
 
+    echo '<Style ss:ID="Hyperlink">
+        <Font ss:FontName="Calibri" ss:Size="12" ss:Color="#047FC1" ss:Bold="1" ss:Underline="Single"/>
+      </Style>';
+
+    echo '<Style ss:ID="HintStyle">
+        <Font ss:FontName="Calibri" ss:Size="12" ss:Bold="1"/>
+        <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
+      </Style>';
+
     echo '</Styles>';
 
     // ============================================
@@ -1130,10 +1139,11 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
 
     // Employee data rows
     foreach ($employees as $employeeId => $employee) {
-        $evaluationData = isset($employeeEvaluations[$employeeId]) ? $employeeEvaluations[$employeeId] : null;
-        $ceoFeedback = isset($allCEOFeedback[$employeeId]) ? $allCEOFeedback[$employeeId] : [];
 
-        $totalEvals = $evaluationData ? array_sum($evaluationData['perspective_counts']) : 0;
+        $evaluationData = isset($employeeEvaluations[$employeeId]) ? $employeeEvaluations[$employeeId] : null;
+        $ceoFeedback    = isset($allCEOFeedback[$employeeId]) ? $allCEOFeedback[$employeeId] : [];
+
+        $totalEvals   = $evaluationData ? array_sum($evaluationData['perspective_counts']) : 0;
         $feedbackCount = count($ceoFeedback);
 
         // Calculate responses
@@ -1144,11 +1154,15 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
             }
         }
 
-        $responseRate = $feedbackCount > 0 ? round(($responseCount / $feedbackCount) * 100, 0) . '%' : 'N/A';
+        $responseRate   = $feedbackCount > 0
+            ? round(($responseCount / $feedbackCount) * 100, 0) . '%'
+            : 'N/A';
+
         $responseStatus = 'No Feedback';
         $deadlineStatus = 'No Feedback';
 
         if ($feedbackCount > 0) {
+
             if ($responseCount == 0) {
                 $responseStatus = 'No Responses';
             } elseif ($responseCount == $feedbackCount) {
@@ -1157,29 +1171,30 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
                 $responseStatus = 'Partial (' . $responseCount . '/' . $feedbackCount . ')';
             }
 
-            // Calculate deadline status
+            // Deadline calculation
             $allResponded = true;
-            $anyOverdue = false;
-            $anyOnTime = false;
+            $anyOverdue   = false;
 
             foreach ($ceoFeedback as $feedback) {
-                $hasResponse = isset($allFeedbackResponses[$feedback['id']]) && !empty($allFeedbackResponses[$feedback['id']]);
+
+                $hasResponse = isset($allFeedbackResponses[$feedback['id']])
+                    && !empty($allFeedbackResponses[$feedback['id']]);
 
                 if (!$hasResponse && !empty($feedback['target_completion_date'])) {
+
                     $allResponded = false;
-                    $targetDate = new DateTime($feedback['target_completion_date']);
-                    $today = new DateTime();
+                    $targetDate  = new DateTime($feedback['target_completion_date']);
+                    $today       = new DateTime();
 
                     if ($today > $targetDate) {
                         $anyOverdue = true;
                     }
                 } elseif ($hasResponse && !empty($feedback['target_completion_date'])) {
-                    $targetDate = new DateTime($feedback['target_completion_date']);
+
+                    $targetDate   = new DateTime($feedback['target_completion_date']);
                     $lastResponse = new DateTime($allFeedbackResponses[$feedback['id']][0]['submitted_at']);
 
-                    if ($lastResponse <= $targetDate) {
-                        $anyOnTime = true;
-                    } else {
+                    if ($lastResponse > $targetDate) {
                         $anyOverdue = true;
                     }
                 }
@@ -1191,14 +1206,15 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
                 $deadlineStatus = 'Some Late';
             } elseif (!$allResponded && $anyOverdue) {
                 $deadlineStatus = 'Overdue';
-            } elseif (!$allResponded && !$anyOverdue) {
+            } else {
                 $deadlineStatus = 'Pending';
             }
         }
 
-        // Determine score style
+        // Score style
         $scoreStyle = 'Default';
         $score = $evaluationData ? $evaluationData['weighted_score'] : 0;
+
         if ($score >= 90) {
             $scoreStyle = 'Excellent';
         } elseif ($score >= 75) {
@@ -1211,20 +1227,37 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
             $scoreStyle = 'NeedsImprovement';
         }
 
+        // Sheet name for hyperlink (MUST match individual worksheet)
+        $sheetName = createValidSheetName($employee['full_name'] ?? 'Employee', $employeeId);
+
         echo '<Row>';
+
         echo '<Cell><Data ss:Type="String">' . $employeeId . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['full_name'] ?? 'N/A') . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['position_title'] ?? 'N/A') . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['department_name'] ?? 'N/A') . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['supervisor_name'] ?? 'N/A') . '</Data></Cell>';
-        echo '<Cell ss:StyleID="' . $scoreStyle . '"><Data ss:Type="Number">' . ($evaluationData ? round($evaluationData['weighted_score'], 2) : 0) . '</Data></Cell>';
+
+        // 🔗 FULL NAME → clickable hyperlink to employee sheet
+        echo '<Cell ss:StyleID="Hyperlink" ss:HRef="#\''
+            . $sheetName
+            . '\'!A1">';
+        echo '<Data ss:Type="String">'
+            . htmlspecialchars($employee['full_name'] ?? 'N/A', ENT_XML1)
+            . '</Data>';
+        echo '</Cell>';
+
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['position_title'] ?? 'N/A', ENT_XML1) . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['department_name'] ?? 'N/A', ENT_XML1) . '</Data></Cell>';
+        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['supervisor_name'] ?? 'N/A', ENT_XML1) . '</Data></Cell>';
+
+        echo '<Cell ss:StyleID="' . $scoreStyle . '">
+            <Data ss:Type="Number">' . ($evaluationData ? round($evaluationData['weighted_score'], 2) : 0) . '</Data>
+          </Cell>';
+
         echo '<Cell><Data ss:Type="String">' . ($evaluationData ? $evaluationData['performance_category'] : 'Not Evaluated') . '</Data></Cell>';
         echo '<Cell><Data ss:Type="Number">' . $totalEvals . '</Data></Cell>';
         echo '<Cell><Data ss:Type="Number">' . $feedbackCount . '</Data></Cell>';
         echo '<Cell><Data ss:Type="Number">' . $responseCount . '</Data></Cell>';
         echo '<Cell><Data ss:Type="String">' . $responseRate . '</Data></Cell>';
 
-        // Response status style
+        // Response style
         $responseStyle = 'Default';
         if ($responseStatus === 'All Responded') {
             $responseStyle = 'RespAll';
@@ -1234,7 +1267,7 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
             $responseStyle = 'RespPartial';
         }
 
-        // Deadline status style
+        // Deadline style
         $deadlineStyle = 'Default';
         if ($deadlineStatus === 'All In Time') {
             $deadlineStyle = 'DeadAllInTime';
@@ -1254,6 +1287,16 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
 
     echo '<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>';
 
+    // Hint rows
+    echo '<Row ss:StyleID="HintStyle">
+            <Cell/><Cell><Data ss:Type="String">HINT:</Data></Cell><Cell/>
+        </Row>';
+    echo '<Row ss:StyleID="HintStyle">
+            <Cell/><Cell><Data ss:Type="String">Click on the Names to go to Individual Employee Sheets</Data></Cell><Cell/>
+        </Row>';
+    echo '<Row ss:StyleID="HintStyle">
+            <Cell/><Cell><Data ss:Type="String">Click on Back to Summary</Data></Cell><Cell/>
+        </Row>';
 
     echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
 
@@ -1417,6 +1460,15 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
         echo '<Column ss:Width="300"/>';
         echo '<Column ss:Width="150"/>';
         echo '<Column ss:Width="300"/>';
+
+        // ⬅ BACK TO SUMMARY LINK
+        echo '<Row>';
+        echo '<Cell ss:MergeAcross="3" ss:StyleID="Hyperlink" ss:HRef="#\'Summary Report\'!A1">';
+        echo '<Data ss:Type="String">⬅ Back to Summary Report</Data>';
+        echo '</Cell>';
+        echo '</Row>';
+
+        //echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
 
         // Logo and Title Row for individual sheets
         echo '<Row ss:Height="60">';
