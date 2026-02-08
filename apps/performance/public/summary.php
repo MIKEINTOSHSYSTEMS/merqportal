@@ -1,9 +1,39 @@
 <?php
+
+// Increase PHP limits for Excel generation
+ini_set('memory_limit', '512M');
+ini_set('max_execution_time', 300); // 5 minutes
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Add this to help with memory management
+gc_enable();
+
+// Temporarily disable platform check
+//putenv('COMPOSER_PLATFORM_CHECK=0');
+
 // summary.php - Comprehensive performance evaluation summary with CEO feedback and responses
 require_once '../includes/config.php';
 require_once '../includes/auth_check.php';
 require_once '../includes/EmailTemplates.php';
 //require_once '../includes/header.php';
+
+// Load PHPSpreadsheet classes
+//require_once '../vendor/autoload.php'; // Using Standalone if it's installed here, but we will use Timesheet's autoload to avoid conflicts to install use composer require PhpOffice/PhpSpreadsheet in the root of the performance director and then use that autoload here
+require_once '../../ts/vendor/autoload.php'; // Using Timesheet's already installed PHPSpreadsheet to avoid conflicts and ensure compatibility
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 // Check if user has permission to access this summary
 //if (!hasPermission($_SESSION['user_id'], 'admin_dashboard')) {
@@ -364,10 +394,10 @@ require_once '../includes/header.php';
             <div class="row align-items-center">
                 <div class="col-md-8">
                     <h1 class="display-5 fw-bold mb-3">
-                        <i class="fas fa-chart-pie me-3"></i>Performance Evaluation Summary Report
+                        <i class="fas fa-clipboard-list me-3"></i>Summary Report
                     </h1>
                     <p class="lead mb-0">
-                        Comprehensive overview of all employee evaluations with CEO feedback and responses
+                        Comprehensive overview of all employee performance evaluations with CEO feedback and responses
                     </p>
                 </div>
                 <div class="col-md-4 text-md-end">
@@ -518,7 +548,7 @@ require_once '../includes/header.php';
                 <small class="text-muted ms-2">(<?= count($filteredEmployees) ?> employees)</small>
             </h4>
             <a href="summary.php?export=excel&<?= http_build_query($_GET) ?>" class="btn-export">
-                <i class="fas fa-file-excel me-2"></i>Export to Excel
+                <i class="fas fa-file-excel me-2"></i>Generate Report & Export To Excel
             </a>
         </div>
 
@@ -770,10 +800,10 @@ require_once '../includes/header.php';
 
                 Swal.fire({
                     title: 'Preparing Excel Export',
-                    html: 'Generating comprehensive report with multiple sheets...<br><br><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>',
+                    html: 'Generating Evaluation Summary Report with multiple sheets PLEASE WAIT UNTIL IT DOWNLOADS...<br><br><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>',
                     showConfirmButton: false,
                     allowOutsideClick: false,
-                    timer: 1500,
+                    timer: 4700,
                     timerProgressBar: true,
                     willClose: () => {
                         // Simple redirect - this will trigger the download
@@ -896,178 +926,375 @@ require_once '../includes/header.php';
 </html>
 
 <?php
-// Function to export data to Excel with proper multiple sheets structure
+// Function to export data to Excel with proper multiple sheets structure using PHPSpreadsheet
 function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFeedbackResponses)
 {
-    while (ob_get_level()) {
-        ob_end_clean();
-    }
-
-    $filename = "MERQ_performance_summary_" . date('Y-m-d_His') . ".xls";
-
-    // Set proper headers for Excel XML
-    header("Content-Type: application/vnd.ms-excel");
-    header("Content-Disposition: attachment; filename=\"$filename\"");
-    header("Cache-Control: max-age=0");
-    header("Pragma: no-cache");
-    header("Expires: 0");
-
-    // Start XML output
-    echo '<?xml version="1.0" encoding="UTF-8"?>';
-    echo '<?mso-application progid="Excel.Sheet"?>';
-    echo '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-          xmlns:x="urn:schemas-microsoft-com:office:excel"
-          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
-          xmlns:html="http://www.w3.org/TR/REC-html40"
-          xmlns:o="urn:schemas-microsoft-com:office:office"
-          xmlns:v="urn:schemas-microsoft-com:vml">';
-
-    // Styles
-    echo '<Styles>';
-    echo '<Style ss:ID="Default" ss:Name="Normal">
-            <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#000000"/>
-          </Style>';
-    echo '<Style ss:ID="Title">
-            <Font ss:FontName="Calibri" ss:Size="16" ss:Color="#003377" ss:Bold="1"/>
-            <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
-          </Style>';
-    echo '<Style ss:ID="Subtitle">
-            <Font ss:FontName="Calibri" ss:Size="12" ss:Color="#777777"/>
-            <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
-          </Style>';
-    echo '<Style ss:ID="Header">
-            <Font ss:FontName="Calibri" ss:Size="12" ss:Color="#FFFFFF" ss:Bold="1"/>
-            <Interior ss:Color="#20c997" ss:Pattern="Solid"/>
-            <Borders>
-              <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-              <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-              <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-              <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-            </Borders>
-            <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
-          </Style>';
-    echo '<Style ss:ID="SubHeader">
-            <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#000000" ss:Bold="1"/>
-            <Interior ss:Color="#E0E0E0" ss:Pattern="Solid"/>
-            <Borders>
-              <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-              <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-              <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-              <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-            </Borders>
-          </Style>';
-    echo '<Style ss:ID="Excellent"><Interior ss:Color="#D4EDDA" ss:Pattern="Solid"/></Style>';
-    echo '<Style ss:ID="Good"><Interior ss:Color="#D1ECF1" ss:Pattern="Solid"/></Style>';
-    echo '<Style ss:ID="Average"><Interior ss:Color="#FFF3CD" ss:Pattern="Solid"/></Style>';
-    echo '<Style ss:ID="Poor"><Interior ss:Color="#F8D7DA" ss:Pattern="Solid"/></Style>';
-    echo '<Style ss:ID="NeedsImprovement"><Interior ss:Color="#F5C6CB" ss:Pattern="Solid"/></Style>';
-    echo '<Style ss:ID="TextWrap">
-            <Alignment ss:Vertical="Top" ss:WrapText="1"/>
-          </Style>';
-    echo '<Style ss:ID="Bold">
-            <Font ss:FontName="Calibri" ss:Size="11" ss:Bold="1"/>
-          </Style>';
-
-    echo '<Style ss:ID="RespAll">
-            <Interior ss:Color="#D4EDDA" ss:Pattern="Solid"/>
-            <Font ss:Bold="1"/>
-          </Style>';
-
-    echo '<Style ss:ID="RespPartial">
-            <Interior ss:Color="#FFF3CD" ss:Pattern="Solid"/>
-          </Style>';
-
-    echo '<Style ss:ID="RespNone">
-            <Interior ss:Color="#F8D7DA" ss:Pattern="Solid"/>
-          </Style>';
-
-    echo '<Style ss:ID="DeadAllInTime">
-            <Interior ss:Color="#C3E6CB" ss:Pattern="Solid"/>
-            <Font ss:Bold="1"/>
-          </Style>';
-
-    echo '<Style ss:ID="DeadPending">
-            <Interior ss:Color="#FFE8A1" ss:Pattern="Solid"/>
-          </Style>';
-
-    echo '<Style ss:ID="DeadOverdue">
-            <Interior ss:Color="#F5C6CB" ss:Pattern="Solid"/>
-            <Font ss:Bold="1"/>
-          </Style>';
-
-    echo '<Style ss:ID="DeadSomeLate">
-            <Interior ss:Color="#FFD6A5" ss:Pattern="Solid"/>
-          </Style>';
-
-    echo '<Style ss:ID="Hyperlink">
-        <Font ss:FontName="Calibri" ss:Size="12" ss:Color="#047FC1" ss:Bold="1" ss:Underline="Single"/>
-      </Style>';
-
-    echo '<Style ss:ID="HintStyle">
-        <Font ss:FontName="Calibri" ss:Size="12" ss:Bold="1"/>
-        <Interior ss:Color="#F2F2F2" ss:Pattern="Solid"/>
-      </Style>';
-
-    echo '</Styles>';
-
+    
+    // Create new Spreadsheet
+    $spreadsheet = new Spreadsheet();
+    
+    // Set document properties
+    $spreadsheet->getProperties()
+        ->setCreator("MERQ Consultancy")
+        ->setLastModifiedBy("MERQ Performance System")
+        ->setTitle("Performance Evaluation Summary Report")
+        ->setSubject("Performance Evaluation Summary")
+        ->setDescription("Comprehensive performance evaluation report with CEO feedback")
+        ->setKeywords("performance evaluation CEO feedback MERQ")
+        ->setCategory("Performance Report");
+    
     // ============================================
     // WORKSHEET 1: SUMMARY REPORT
     // ============================================
-    echo '<Worksheet ss:Name="Summary Report">';
-    echo '<Table>';
+    $summarySheet = $spreadsheet->getActiveSheet();
+    $summarySheet->setTitle('Summary Report');
+    
+    // Set default column widths
+    $summarySheet->getColumnDimension('A')->setWidth(12);
+    $summarySheet->getColumnDimension('B')->setWidth(25);
+    $summarySheet->getColumnDimension('C')->setWidth(20);
+    $summarySheet->getColumnDimension('D')->setWidth(25);
+    $summarySheet->getColumnDimension('E')->setWidth(20);
+    $summarySheet->getColumnDimension('F')->setWidth(15);
+    $summarySheet->getColumnDimension('G')->setWidth(25);
+    $summarySheet->getColumnDimension('H')->setWidth(20);
+    $summarySheet->getColumnDimension('I')->setWidth(20);
+    $summarySheet->getColumnDimension('J')->setWidth(20);
+    $summarySheet->getColumnDimension('K')->setWidth(15);
+    $summarySheet->getColumnDimension('L')->setWidth(20);
+    $summarySheet->getColumnDimension('M')->setWidth(20);
+    
+    // Define styles - RESTORED FROM OLD VERSION
+    $titleStyle = [
+        'font' => [
+            'bold' => true,
+            'color' => ['rgb' => '003377'],
+            'size' => 16,
+        ],
+        'alignment' => [
+            'horizontal' => Alignment::HORIZONTAL_CENTER,
+            'vertical' => Alignment::VERTICAL_CENTER,
+        ],
+    ];
+    
+    $subtitleStyle = [
+        'font' => [
+            'size' => 12,
+            'color' => ['rgb' => '777777']
+        ],
+        'alignment' => [
+            'horizontal' => Alignment::HORIZONTAL_CENTER,
+            'vertical' => Alignment::VERTICAL_CENTER,
+        ],
+    ];
+    
+    $headerStyle = [
+        'font' => [
+            'bold' => true,
+            'color' => ['rgb' => 'FFFFFF'],
+            'size' => 12,
+        ],
+        'fill' => [
+            'fillType' => Fill::FILL_SOLID,
+            'color' => ['rgb' => '20c997'] // Green from old version
+        ],
+        'alignment' => [
+            'horizontal' => Alignment::HORIZONTAL_CENTER,
+            'vertical' => Alignment::VERTICAL_CENTER,
+        ],
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => Border::BORDER_THIN,
+                'color' => ['rgb' => '000000'],
+            ],
+        ],
+    ];
+    
+    $subHeaderStyle = [
+        'font' => [
+            'bold' => true,
+            'size' => 11,
+        ],
+        'fill' => [
+            'fillType' => Fill::FILL_SOLID,
+            'color' => ['rgb' => 'E0E0E0']
+        ],
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => Border::BORDER_THIN,
+                'color' => ['rgb' => '000000'],
+            ],
+        ],
+    ];
+    
+    $hyperlinkStyle = [
+        'font' => [
+            'color' => ['rgb' => '047FC1'],
+            'underline' => Font::UNDERLINE_SINGLE,
+            'bold' => true,
+        ],
+    ];
+    
+    $hintStyle = [
+        'font' => [
+            'bold' => true,
+            'size' => 12,
+        ],
+        'fill' => [
+            'fillType' => Fill::FILL_SOLID,
+            'color' => ['rgb' => 'F2F2F2']
+        ],
+    ];
+    
+    // PERFORMANCE CATEGORY STYLES - EXACT COLORS FROM OLD VERSION
+    $performanceCategoryStyles = [
+        'Outstanding' => [
+            'fill' => [
+                'fillType' => Fill::FILL_GRADIENT_LINEAR,
+                'rotation' => 90,
+                'startColor' => ['rgb' => '198754'],
+                'endColor' => ['rgb' => '136b3f']
+            ],
+            'font' => [
+                'color' => ['rgb' => 'FFFFFF'],
+                'bold' => true
+            ]
+        ],
+        'Exceeds Expectations' => [
+            'fill' => [
+                'fillType' => Fill::FILL_GRADIENT_LINEAR,
+                'rotation' => 90,
+                'startColor' => ['rgb' => '20c997'],
+                'endColor' => ['rgb' => '19a97d']
+            ],
+            'font' => [
+                'color' => ['rgb' => 'FFFFFF'],
+                'bold' => true
+            ]
+        ],
+        'Meets Expectations' => [
+            'fill' => [
+                'fillType' => Fill::FILL_GRADIENT_LINEAR,
+                'rotation' => 90,
+                'startColor' => ['rgb' => 'ffc107'],
+                'endColor' => ['rgb' => 'e6ac00']
+            ],
+            'font' => [
+                'color' => ['rgb' => '000000'],
+                'bold' => true
+            ]
+        ],
+        'Developing' => [
+            'fill' => [
+                'fillType' => Fill::FILL_GRADIENT_LINEAR,
+                'rotation' => 90,
+                'startColor' => ['rgb' => 'fd7e14'],
+                'endColor' => ['rgb' => 'e76505']
+            ],
+            'font' => [
+                'color' => ['rgb' => 'FFFFFF'],
+                'bold' => true
+            ]
+        ],
+        'Needs Significant Improvement' => [
+            'fill' => [
+                'fillType' => Fill::FILL_GRADIENT_LINEAR,
+                'rotation' => 90,
+                'startColor' => ['rgb' => 'dc3545'],
+                'endColor' => ['rgb' => 'c82333']
+            ],
+            'font' => [
+                'color' => ['rgb' => 'FFFFFF'],
+                'bold' => true
+            ]
+        ],
+        'Not Rated' => [
+            'fill' => [
+                'fillType' => Fill::FILL_GRADIENT_LINEAR,
+                'rotation' => 90,
+                'startColor' => ['rgb' => '6c757d'],
+                'endColor' => ['rgb' => '5a6268']
+            ],
+            'font' => [
+                'color' => ['rgb' => 'FFFFFF'],
+                'bold' => true
+            ]
+        ]
+    ];
+    
+    // SCORE STYLES (for weighted score column)
+    $scoreStyles = [
+        'Excellent' => ['fill' => ['color' => ['rgb' => 'D4EDDA']]], // Light green
+        'Good' => ['fill' => ['color' => ['rgb' => 'D1ECF1']]],      // Light cyan
+        'Average' => ['fill' => ['color' => ['rgb' => 'FFF3CD']]],   // Light yellow
+        'Poor' => ['fill' => ['color' => ['rgb' => 'F8D7DA']]],      // Light red
+        'NeedsImprovement' => ['fill' => ['color' => ['rgb' => 'F5C6CB']]], // Darker red
+    ];
+    
+    // RESPONSE STATUS STYLES - EXACT COLORS FROM OLD VERSION
+    $responseStyles = [
+        'RespAll' => [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'color' => ['rgb' => 'D4EDDA']
+            ],
+            'font' => ['bold' => true]
+        ],
+        'RespPartial' => [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'color' => ['rgb' => 'FFF3CD']
+            ]
+        ],
+        'RespNone' => [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'color' => ['rgb' => 'F8D7DA']
+            ]
+        ],
+    ];
+    
+    // DEADLINE STATUS STYLES - EXACT COLORS FROM OLD VERSION
+    $deadlineStyles = [
+        'DeadAllInTime' => [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'color' => ['rgb' => 'C3E6CB']
+            ],
+            'font' => ['bold' => true]
+        ],
+        'DeadSomeLate' => [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'color' => ['rgb' => 'FFD6A5']
+            ]
+        ],
+        'DeadOverdue' => [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'color' => ['rgb' => 'F5C6CB']
+            ],
+            'font' => ['bold' => true]
+        ],
+        'DeadPending' => [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'color' => ['rgb' => 'FFE8A1']
+            ]
+        ],
+    ];
+    
+    // PRIORITY BADGE STYLES (for individual sheets)
+    $priorityStyles = [
+        'low' => [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'color' => ['rgb' => '28a745'] // Green
+            ],
+            'font' => [
+                'color' => ['rgb' => 'FFFFFF'],
+                'bold' => true
+            ]
+        ],
+        'medium' => [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'color' => ['rgb' => 'ffc107'] // Yellow
+            ],
+            'font' => [
+                'color' => ['rgb' => '000000'],
+                'bold' => true
+            ]
+        ],
+        'high' => [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'color' => ['rgb' => 'dc3545'] // Red
+            ],
+            'font' => [
+                'color' => ['rgb' => 'FFFFFF'],
+                'bold' => true
+            ]
+        ],
+        'critical' => [
+            'fill' => [
+                'fillType' => Fill::FILL_GRADIENT_LINEAR,
+                'rotation' => 90,
+                'startColor' => ['rgb' => '721c24'],
+                'endColor' => ['rgb' => '490c12']
+            ],
+            'font' => [
+                'color' => ['rgb' => 'FFFFFF'],
+                'bold' => true
+            ]
+        ]
+    ];
+    
+    // Text wrap style
+    $textWrapStyle = [
+        'alignment' => [
+            'wrapText' => true,
+            'vertical' => Alignment::VERTICAL_TOP,
+        ],
+    ];
 
-    // Set column widths
-    echo '<Column ss:Width="80"/>';
-    echo '<Column ss:Width="150"/>';
-    echo '<Column ss:Width="120"/>';
-    echo '<Column ss:Width="150"/>';
-    echo '<Column ss:Width="120"/>';
-    echo '<Column ss:Width="80"/>';
-    echo '<Column ss:Width="150"/>';
-    echo '<Column ss:Width="100"/>';
-    echo '<Column ss:Width="100"/>';
-    echo '<Column ss:Width="100"/>';
-    echo '<Column ss:Width="80"/>';
-    echo '<Column ss:Width="120"/>';
-    echo '<Column ss:Width="120"/>';
+    // Current row counter
+    $currentRow = 1;
 
-    // Logo Row
-    echo '<Row ss:Height="60">';
-    echo '<Cell ss:MergeAcross="2">';
-    //echo '<Data ss:Type="String">=IMAGE("https://app.merqconsultancy.org/assets/images/merq-logo.png", "merq",3,200,140)</Data>';
+    // MERQ LOGO Section - Add actual logo image
+    $logoPath = __DIR__ . '/merqg.jpg'; // Adjust path if needed
 
-    echo '<ss:Data ss:Type="String">';
-    echo '<html:img src="https://app.merqconsultancy.org/assets/images/merq-logo.png" width="140" height="60" align="left"/>';
-    echo '</ss:Data>';
+    if (file_exists($logoPath)) {
+        // Add logo to cells A1:C3 (3 rows high, 3 columns wide)
+        $drawing = new Drawing();
+        $drawing->setName('MERQ Logo');
+        $drawing->setDescription('MERQ Consultancy Logo');
+        $drawing->setPath($logoPath);
+        $drawing->setHeight(47); // 150px height
+        $drawing->setWidth(47);  // 150px width
+        $drawing->setCoordinates('A1');
+        $drawing->setOffsetX(10);
+        $drawing->setOffsetY(10);
+        $drawing->setWorksheet($summarySheet);
 
-    echo '</Cell>';
-    echo '<Cell ss:MergeAcross="6" ss:StyleID="Title">';
-    echo '<Data ss:Type="String">MERQ CONSULTANCY</Data>';
-    echo '</Cell>';
-    echo '</Row>';
+        // Merge cells for logo area (A1:C3)
+        $summarySheet->mergeCells('A1:C3');
 
-   // echo '<Row>';
-   // echo '<Cell ss:MergeAcross="12" ss:StyleID="Title"><Data ss:Type="String">MERQ CONSULTANCY</Data></Cell>';
-   // echo '</Row>';
+        // Title next to logo (D1:M3)
+        $summarySheet->mergeCells('D1:M3');
+        $summarySheet->setCellValue('D1', "MERQ CONSULTANCY PLC - PERIODIC EMPLOYEES PERFORMANCE EVALUATION SUMMARY REPORT");
+        $summarySheet->getStyle('D1')->applyFromArray($titleStyle);
+        $summarySheet->getStyle('D1')->getAlignment()->setWrapText(true);
 
-    echo '<Row>';
-    echo '<Cell ss:MergeAcross="12" ss:StyleID="Title"><Data ss:Type="String">PERFORMANCE EVALUATION SUMMARY REPORT</Data></Cell>';
-    echo '</Row>';
+        $currentRow = 4; // Start after logo area
+    } else {
+        // Fallback if logo doesn't exist
+        $summarySheet->mergeCells('A1:D3');
+        $summarySheet->setCellValue('A1', 'MERQ CONSULTANCY');
+        $summarySheet->getStyle('A1')->applyFromArray($titleStyle);
 
-
-    echo '<Row>';
-    echo '<Cell ss:MergeAcross="12" ss:StyleID="Subtitle"><Data ss:Type="String">Generated on: ' . date('F j, Y \a\t g:i A') . '</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>';
-
+        // Title
+        $currentRow = 4;
+        $summarySheet->mergeCells("A{$currentRow}:M{$currentRow}");
+        $summarySheet->setCellValue("A{$currentRow}", 'PERIODIC EMPLOYEES PERFORMANCE EVALUATION SUMMARY REPORT');
+        $summarySheet->getStyle("A{$currentRow}")->applyFromArray($titleStyle);
+        $currentRow++;
+    }
+    
+    // Date Row
+    $summarySheet->mergeCells("A{$currentRow}:M{$currentRow}");
+    $summarySheet->setCellValue("A{$currentRow}", 'Generated on: ' . date('F j, Y \a\t g:i A'));
+    $summarySheet->getStyle("A{$currentRow}")->applyFromArray($subtitleStyle);
+    
+    $currentRow += 2;
+    
     // Calculate summary statistics
     $totalEmployees = count($employees);
     $totalEvaluations = 0;
     $employeesWithFeedback = 0;
     $totalFeedbackCount = 0;
     $totalResponses = 0;
-
+    
     $performanceDistribution = [
         'Outstanding' => 0,
         'Exceeds Expectations' => 0,
@@ -1076,7 +1303,8 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
         'Needs Significant Improvement' => 0,
         'Not Rated' => 0
     ];
-
+    
+    // First pass to calculate statistics
     foreach ($employees as $employeeId => $employee) {
         if (isset($employeeEvaluations[$employeeId])) {
             $totalEvaluations += array_sum($employeeEvaluations[$employeeId]['perspective_counts']);
@@ -1087,65 +1315,55 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
         } else {
             $performanceDistribution['Not Rated']++;
         }
-
+        
         if (!empty($allCEOFeedback[$employeeId])) {
             $employeesWithFeedback++;
             $totalFeedbackCount += count($allCEOFeedback[$employeeId]);
             foreach ($allCEOFeedback[$employeeId] as $feedback) {
                 if (isset($allFeedbackResponses[$feedback['id']])) {
-                    $responseCount += count($allFeedbackResponses[$feedback['id']]);
+                    $totalResponses += count($allFeedbackResponses[$feedback['id']]);
                 }
             }
         }
     }
-
-    $averageScore = 0;
-    $scoreCount = 0;
-    foreach ($employees as $employeeId => $employee) {
-        if (isset($employeeEvaluations[$employeeId])) {
-            $averageScore += $employeeEvaluations[$employeeId]['weighted_score'];
-            $scoreCount++;
-        }
-    }
-    $averageScore = $scoreCount > 0 ? round($averageScore / $scoreCount, 2) : 0;
-
-    // Detailed Employee Performance
-    echo '<Row>';
-    echo '<Cell ss:MergeAcross="12" ss:StyleID="Header"><Data ss:Type="String">DETAILED EMPLOYEE PERFORMANCE SUMMARY</Data></Cell>';
-    echo '</Row>';
-
+    
+    // Detailed Employee Performance Section
+    $summarySheet->mergeCells("A{$currentRow}:M{$currentRow}");
+    $summarySheet->setCellValue("A{$currentRow}", 'DETAILED EMPLOYEE PERFORMANCE SUMMARY');
+    $summarySheet->getStyle("A{$currentRow}")->applyFromArray($headerStyle);
+    $currentRow++;
+    
     // Column headers
     $headers = [
-        'Employee ID',
-        'Full Name',
-        'Position',
-        'Department',
-        'Supervisor',
-        'Weighted Score',
-        'Performance Category',
-        'Total Evaluations',
-        'CEO Feedback Items',
-        'Feedback Responses',
-        'Response Rate',
-        'Response Status',
-        'Deadline Status'
+        'A' => 'Employee ID',
+        'B' => 'Full Name',
+        'C' => 'Position',
+        'D' => 'Department',
+        'E' => 'Supervisor',
+        'F' => 'Weighted Score',
+        'G' => 'Performance Category',
+        'H' => 'Total Evaluations',
+        'I' => 'CEO Feedback Items',
+        'J' => 'Feedback Responses',
+        'K' => 'Response Rate',
+        'L' => 'Response Status',
+        'M' => 'Deadline Status'
     ];
-
-    echo '<Row>';
-    foreach ($headers as $header) {
-        echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">' . $header . '</Data></Cell>';
+    
+    foreach ($headers as $col => $header) {
+        $summarySheet->setCellValue($col . $currentRow, $header);
     }
-    echo '</Row>';
-
+    $summarySheet->getStyle("A{$currentRow}:M{$currentRow}")->applyFromArray($subHeaderStyle);
+    $currentRow++;
+    
     // Employee data rows
     foreach ($employees as $employeeId => $employee) {
-
         $evaluationData = isset($employeeEvaluations[$employeeId]) ? $employeeEvaluations[$employeeId] : null;
-        $ceoFeedback    = isset($allCEOFeedback[$employeeId]) ? $allCEOFeedback[$employeeId] : [];
-
-        $totalEvals   = $evaluationData ? array_sum($evaluationData['perspective_counts']) : 0;
+        $ceoFeedback = isset($allCEOFeedback[$employeeId]) ? $allCEOFeedback[$employeeId] : [];
+        
+        $totalEvals = $evaluationData ? array_sum($evaluationData['perspective_counts']) : 0;
         $feedbackCount = count($ceoFeedback);
-
+        
         // Calculate responses
         $responseCount = 0;
         foreach ($ceoFeedback as $feedback) {
@@ -1153,16 +1371,15 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
                 $responseCount += count($allFeedbackResponses[$feedback['id']]);
             }
         }
-
-        $responseRate   = $feedbackCount > 0
+        
+        $responseRate = $feedbackCount > 0 
             ? round(($responseCount / $feedbackCount) * 100, 0) . '%'
             : 'N/A';
-
+        
         $responseStatus = 'No Feedback';
         $deadlineStatus = 'No Feedback';
-
+        
         if ($feedbackCount > 0) {
-
             if ($responseCount == 0) {
                 $responseStatus = 'No Responses';
             } elseif ($responseCount == $feedbackCount) {
@@ -1170,36 +1387,33 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
             } else {
                 $responseStatus = 'Partial (' . $responseCount . '/' . $feedbackCount . ')';
             }
-
+            
             // Deadline calculation
             $allResponded = true;
-            $anyOverdue   = false;
-
+            $anyOverdue = false;
+            
             foreach ($ceoFeedback as $feedback) {
-
-                $hasResponse = isset($allFeedbackResponses[$feedback['id']])
+                $hasResponse = isset($allFeedbackResponses[$feedback['id']]) 
                     && !empty($allFeedbackResponses[$feedback['id']]);
-
+                
                 if (!$hasResponse && !empty($feedback['target_completion_date'])) {
-
                     $allResponded = false;
-                    $targetDate  = new DateTime($feedback['target_completion_date']);
-                    $today       = new DateTime();
-
+                    $targetDate = new DateTime($feedback['target_completion_date']);
+                    $today = new DateTime();
+                    
                     if ($today > $targetDate) {
                         $anyOverdue = true;
                     }
                 } elseif ($hasResponse && !empty($feedback['target_completion_date'])) {
-
-                    $targetDate   = new DateTime($feedback['target_completion_date']);
+                    $targetDate = new DateTime($feedback['target_completion_date']);
                     $lastResponse = new DateTime($allFeedbackResponses[$feedback['id']][0]['submitted_at']);
-
+                    
                     if ($lastResponse > $targetDate) {
                         $anyOverdue = true;
                     }
                 }
             }
-
+            
             if ($allResponded && !$anyOverdue) {
                 $deadlineStatus = 'All In Time';
             } elseif ($allResponded && $anyOverdue) {
@@ -1210,238 +1424,245 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
                 $deadlineStatus = 'Pending';
             }
         }
-
-        // Score style
-        $scoreStyle = 'Default';
-        $score = $evaluationData ? $evaluationData['weighted_score'] : 0;
-
-        if ($score >= 90) {
-            $scoreStyle = 'Excellent';
-        } elseif ($score >= 75) {
-            $scoreStyle = 'Good';
-        } elseif ($score >= 60) {
-            $scoreStyle = 'Average';
-        } elseif ($score >= 30) {
-            $scoreStyle = 'Poor';
-        } elseif ($score > 0) {
-            $scoreStyle = 'NeedsImprovement';
-        }
-
-        // Sheet name for hyperlink (MUST match individual worksheet)
+        
+        // Set row data
+        $summarySheet->setCellValue('A' . $currentRow, $employeeId);
+        
+        // Employee name with sheet reference
         $sheetName = createValidSheetName($employee['full_name'] ?? 'Employee', $employeeId);
-
-        echo '<Row>';
-
-        echo '<Cell><Data ss:Type="String">' . $employeeId . '</Data></Cell>';
-
-        // 🔗 FULL NAME → clickable hyperlink to employee sheet
-        echo '<Cell ss:StyleID="Hyperlink" ss:HRef="#\''
-            . $sheetName
-            . '\'!A1">';
-        echo '<Data ss:Type="String">'
-            . htmlspecialchars($employee['full_name'] ?? 'N/A', ENT_XML1)
-            . '</Data>';
-        echo '</Cell>';
-
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['position_title'] ?? 'N/A', ENT_XML1) . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['department_name'] ?? 'N/A', ENT_XML1) . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['supervisor_name'] ?? 'N/A', ENT_XML1) . '</Data></Cell>';
-
-        echo '<Cell ss:StyleID="' . $scoreStyle . '">
-            <Data ss:Type="Number">' . ($evaluationData ? round($evaluationData['weighted_score'], 2) : 0) . '</Data>
-          </Cell>';
-
-        echo '<Cell><Data ss:Type="String">' . ($evaluationData ? $evaluationData['performance_category'] : 'Not Evaluated') . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="Number">' . $totalEvals . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="Number">' . $feedbackCount . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="Number">' . $responseCount . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . $responseRate . '</Data></Cell>';
-
-        // Response style
-        $responseStyle = 'Default';
+        $summarySheet->setCellValue('B' . $currentRow, $employee['full_name'] ?? 'N/A');
+        $summarySheet->getCell('B' . $currentRow)->getHyperlink()->setUrl("#'{$sheetName}'!A1");
+        
+        $summarySheet->setCellValue('C' . $currentRow, $employee['position_title'] ?? 'N/A');
+        $summarySheet->setCellValue('D' . $currentRow, $employee['department_name'] ?? 'N/A');
+        $summarySheet->setCellValue('E' . $currentRow, $employee['supervisor_name'] ?? 'N/A');
+        
+        $score = $evaluationData ? round($evaluationData['weighted_score'], 2) : 0;
+        $summarySheet->setCellValue('F' . $currentRow, $score);
+        $summarySheet->getStyle('F' . $currentRow)->getNumberFormat()->setFormatCode('0.00');
+        
+        $performanceCategory = $evaluationData ? $evaluationData['performance_category'] : 'Not Rated';
+        $summarySheet->setCellValue('G' . $currentRow, $performanceCategory);
+        
+        $summarySheet->setCellValue('H' . $currentRow, $totalEvals);
+        $summarySheet->setCellValue('I' . $currentRow, $feedbackCount);
+        $summarySheet->setCellValue('J' . $currentRow, $responseCount);
+        $summarySheet->setCellValue('K' . $currentRow, $responseRate);
+        $summarySheet->setCellValue('L' . $currentRow, $responseStatus);
+        $summarySheet->setCellValue('M' . $currentRow, $deadlineStatus);
+        
+        // Apply hyperlink style to name
+        $summarySheet->getStyle('B' . $currentRow)->applyFromArray($hyperlinkStyle);
+        
+        // Apply score style (background color based on score)
+        if ($evaluationData) {
+            $score = $evaluationData['weighted_score'];
+            if ($score >= 90) {
+                $summarySheet->getStyle('F' . $currentRow)->applyFromArray($scoreStyles['Excellent']);
+            } elseif ($score >= 75) {
+                $summarySheet->getStyle('F' . $currentRow)->applyFromArray($scoreStyles['Good']);
+            } elseif ($score >= 60) {
+                $summarySheet->getStyle('F' . $currentRow)->applyFromArray($scoreStyles['Average']);
+            } elseif ($score >= 30) {
+                $summarySheet->getStyle('F' . $currentRow)->applyFromArray($scoreStyles['Poor']);
+            } elseif ($score > 0) {
+                $summarySheet->getStyle('F' . $currentRow)->applyFromArray($scoreStyles['NeedsImprovement']);
+            }
+        }
+        
+        // Apply PERFORMANCE CATEGORY style with gradient
+        if (isset($performanceCategoryStyles[$performanceCategory])) {
+            $summarySheet->getStyle('G' . $currentRow)->applyFromArray($performanceCategoryStyles[$performanceCategory]);
+        }
+        
+        // Apply response status style
         if ($responseStatus === 'All Responded') {
-            $responseStyle = 'RespAll';
+            $summarySheet->getStyle('L' . $currentRow)->applyFromArray($responseStyles['RespAll']);
         } elseif ($responseStatus === 'No Responses' || $responseStatus === 'No Feedback') {
-            $responseStyle = 'RespNone';
+            $summarySheet->getStyle('L' . $currentRow)->applyFromArray($responseStyles['RespNone']);
         } else {
-            $responseStyle = 'RespPartial';
+            $summarySheet->getStyle('L' . $currentRow)->applyFromArray($responseStyles['RespPartial']);
         }
-
-        // Deadline style
-        $deadlineStyle = 'Default';
+        
+        // Apply deadline status style
         if ($deadlineStatus === 'All In Time') {
-            $deadlineStyle = 'DeadAllInTime';
+            $summarySheet->getStyle('M' . $currentRow)->applyFromArray($deadlineStyles['DeadAllInTime']);
         } elseif ($deadlineStatus === 'Overdue') {
-            $deadlineStyle = 'DeadOverdue';
+            $summarySheet->getStyle('M' . $currentRow)->applyFromArray($deadlineStyles['DeadOverdue']);
         } elseif ($deadlineStatus === 'Some Late') {
-            $deadlineStyle = 'DeadSomeLate';
+            $summarySheet->getStyle('M' . $currentRow)->applyFromArray($deadlineStyles['DeadSomeLate']);
         } elseif ($deadlineStatus === 'Pending') {
-            $deadlineStyle = 'DeadPending';
+            $summarySheet->getStyle('M' . $currentRow)->applyFromArray($deadlineStyles['DeadPending']);
         }
-
-        echo '<Cell ss:StyleID="' . $responseStyle . '"><Data ss:Type="String">' . $responseStatus . '</Data></Cell>';
-        echo '<Cell ss:StyleID="' . $deadlineStyle . '"><Data ss:Type="String">' . $deadlineStatus . '</Data></Cell>';
-
-        echo '</Row>';
+        
+        // Add thin borders to all cells in this row
+        $summarySheet->getStyle("A{$currentRow}:M{$currentRow}")->applyFromArray([
+            'borders' => [
+                'outline' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['rgb' => 'DDDDDD'],
+                ],
+                'inside' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['rgb' => 'DDDDDD'],
+                ],
+            ],
+        ]);
+        
+        $currentRow++;
     }
-
-    echo '<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>';
-
-    // Hint rows
-    echo '<Row ss:StyleID="HintStyle">
-            <Cell/><Cell><Data ss:Type="String">HINT:</Data></Cell><Cell/>
-        </Row>';
-    echo '<Row ss:StyleID="HintStyle">
-            <Cell/><Cell><Data ss:Type="String">Click on the Names to go to Individual Employee Sheets</Data></Cell><Cell/>
-        </Row>';
-    echo '<Row ss:StyleID="HintStyle">
-            <Cell/><Cell><Data ss:Type="String">Click on Back to Summary</Data></Cell><Cell/>
-        </Row>';
-
-    echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
-
+    
+    $currentRow += 2;
+    
+    // Hint section
+    $summarySheet->setCellValue('B' . $currentRow, 'HINT:');
+    $summarySheet->getStyle('B' . $currentRow)->applyFromArray($hintStyle);
+    $currentRow++;
+    
+    $summarySheet->setCellValue('B' . $currentRow, 'Click on the Names to go to Individual Employee Sheets');
+    $summarySheet->getStyle('B' . $currentRow)->applyFromArray($hintStyle);
+    $currentRow++;
+    
+    $summarySheet->setCellValue('B' . $currentRow, 'Click on Back to Summary to return to main summary');
+    $summarySheet->getStyle('B' . $currentRow)->applyFromArray($hintStyle);
+    
+    $currentRow += 2;
+    
     // Performance Distribution
-    echo '<Row>';
-    echo '<Cell ss:MergeAcross="2" ss:StyleID="Header"><Data ss:Type="String">PERFORMANCE DISTRIBUTION</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row>';
-    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Performance Category</Data></Cell>';
-    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Employee Count</Data></Cell>';
-    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Percentage</Data></Cell>';
-    echo '</Row>';
-
+    $summarySheet->mergeCells("A{$currentRow}:C{$currentRow}");
+    $summarySheet->setCellValue("A{$currentRow}", 'PERFORMANCE DISTRIBUTION');
+    $summarySheet->getStyle("A{$currentRow}")->applyFromArray($headerStyle);
+    $currentRow++;
+    
+    $summarySheet->setCellValue('A' . $currentRow, 'Performance Category');
+    $summarySheet->setCellValue('B' . $currentRow, 'Employee Count');
+    $summarySheet->setCellValue('C' . $currentRow, 'Percentage');
+    $summarySheet->getStyle("A{$currentRow}:C{$currentRow}")->applyFromArray($subHeaderStyle);
+    $currentRow++;
+    
     foreach ($performanceDistribution as $category => $count) {
         $percentage = $totalEmployees > 0 ? round(($count / $totalEmployees) * 100, 1) : 0;
-        echo '<Row>';
-        echo '<Cell><Data ss:Type="String">' . $category . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="Number">' . $count . '</Data></Cell>';
-        echo '<Cell><Data ss:Type="Number">' . $percentage . '</Data></Cell>';
-        echo '</Row>';
+        $summarySheet->setCellValue('A' . $currentRow, $category);
+        $summarySheet->setCellValue('B' . $currentRow, $count);
+        $summarySheet->setCellValue('C' . $currentRow, $percentage);
+        
+        // Apply the same performance category styles
+        if (isset($performanceCategoryStyles[$category])) {
+            $summarySheet->getStyle('A' . $currentRow)->applyFromArray($performanceCategoryStyles[$category]);
+        }
+        
+        $currentRow++;
     }
-
-    echo '<Row><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/><Cell/></Row>';
-
-
-    // Summary Statistics Section
-    echo '<Row>';
-    echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">SUMMARY STATISTICS</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row>';
-    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Metric</Data></Cell>';
-    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Count</Data></Cell>';
-    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Metric</Data></Cell>';
-    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Value</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row>';
-    echo '<Cell><Data ss:Type="String">Total Employees</Data></Cell>';
-    echo '<Cell><Data ss:Type="Number">' . $totalEmployees . '</Data></Cell>';
-    echo '<Cell><Data ss:Type="String">Average Performance Score</Data></Cell>';
-    echo '<Cell><Data ss:Type="Number">' . $averageScore . '</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row>';
-    echo '<Cell><Data ss:Type="String">Total Evaluations</Data></Cell>';
-    echo '<Cell><Data ss:Type="Number">' . $totalEvaluations . '</Data></Cell>';
-    echo '<Cell><Data ss:Type="String">Employees with CEO Feedback</Data></Cell>';
-    echo '<Cell><Data ss:Type="String">' . $employeesWithFeedback . ' (' . round(($employeesWithFeedback / max(1, $totalEmployees)) * 100, 1) . '%)</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row>';
-    echo '<Cell><Data ss:Type="String">Total CEO Feedback Items</Data></Cell>';
-    echo '<Cell><Data ss:Type="Number">' . $totalFeedbackCount . '</Data></Cell>';
-    echo '<Cell><Data ss:Type="String">Total Feedback Responses</Data></Cell>';
-    echo '<Cell><Data ss:Type="Number">' . $totalResponses . '</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
-
-    // -------------------------------------------------
-    // LEGEND – Response & Deadline Status Colors
-    // -------------------------------------------------
-    echo '<Row>';
-    echo '<Cell ss:MergeAcross="4" ss:StyleID="Header"><Data ss:Type="String">STATUS COLOR LEGEND</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row>';
-    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Type</Data></Cell>';
-    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Status</Data></Cell>';
-    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Meaning</Data></Cell>';
-    echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Color</Data></Cell>';
-    echo '</Row>';
-
+    
+    $currentRow += 2;
+    
+    // Summary Statistics
+    $summarySheet->mergeCells("A{$currentRow}:D{$currentRow}");
+    $summarySheet->setCellValue("A{$currentRow}", 'SUMMARY STATISTICS');
+    $summarySheet->getStyle("A{$currentRow}")->applyFromArray($headerStyle);
+    $currentRow++;
+    
+    $summarySheet->setCellValue('A' . $currentRow, 'Metric');
+    $summarySheet->setCellValue('B' . $currentRow, 'Count');
+    $summarySheet->setCellValue('C' . $currentRow, 'Metric');
+    $summarySheet->setCellValue('D' . $currentRow, 'Value');
+    $summarySheet->getStyle("A{$currentRow}:D{$currentRow}")->applyFromArray($subHeaderStyle);
+    $currentRow++;
+    
+    $averageScore = 0;
+    $scoreCount = 0;
+    foreach ($employees as $employeeId => $employee) {
+        if (isset($employeeEvaluations[$employeeId])) {
+            $averageScore += $employeeEvaluations[$employeeId]['weighted_score'];
+            $scoreCount++;
+        }
+    }
+    $averageScore = $scoreCount > 0 ? round($averageScore / $scoreCount, 2) : 0;
+    
+    $summarySheet->setCellValue('A' . $currentRow, 'Total Employees');
+    $summarySheet->setCellValue('B' . $currentRow, $totalEmployees);
+    $summarySheet->setCellValue('C' . $currentRow, 'Average Performance Score');
+    $summarySheet->setCellValue('D' . $currentRow, $averageScore);
+    $summarySheet->getStyle('D' . $currentRow)->getNumberFormat()->setFormatCode('0.00');
+    $currentRow++;
+    
+    $summarySheet->setCellValue('A' . $currentRow, 'Total Evaluations');
+    $summarySheet->setCellValue('B' . $currentRow, $totalEvaluations);
+    $summarySheet->setCellValue('C' . $currentRow, 'Employees with CEO Feedback');
+    $employeesWithFeedbackPct = round(($employeesWithFeedback / max(1, $totalEmployees)) * 100, 1);
+    $summarySheet->setCellValue('D' . $currentRow, $employeesWithFeedback . ' (' . $employeesWithFeedbackPct . '%)');
+    $currentRow++;
+    
+    $summarySheet->setCellValue('A' . $currentRow, 'Total CEO Feedback Items');
+    $summarySheet->setCellValue('B' . $currentRow, $totalFeedbackCount);
+    $summarySheet->setCellValue('C' . $currentRow, 'Total Feedback Responses');
+    $summarySheet->setCellValue('D' . $currentRow, $totalResponses);
+    
+    $currentRow += 3;
+    
+    // Legend Section
+    $summarySheet->mergeCells("A{$currentRow}:D{$currentRow}");
+    $summarySheet->setCellValue("A{$currentRow}", 'STATUS COLOR LEGEND');
+    $summarySheet->getStyle("A{$currentRow}")->applyFromArray($headerStyle);
+    $currentRow++;
+    
+    $summarySheet->setCellValue('A' . $currentRow, 'Type');
+    $summarySheet->setCellValue('B' . $currentRow, 'Status');
+    $summarySheet->setCellValue('C' . $currentRow, 'Meaning');
+    $summarySheet->setCellValue('D' . $currentRow, 'Color');
+    $summarySheet->getStyle("A{$currentRow}:D{$currentRow}")->applyFromArray($subHeaderStyle);
+    $currentRow++;
+    
     // Response status legend
-    echo '<Row>';
-    echo '<Cell><Data ss:Type="String">Response Status</Data></Cell>';
-    echo '<Cell ss:StyleID="RespAll"><Data ss:Type="String">All Responded</Data></Cell>';
-    echo '<Cell><Data ss:Type="String">Employee responded to all CEO feedback items</Data></Cell>';
-    echo '<Cell ss:StyleID="RespAll"><Data ss:Type="String">Green</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row>';
-    echo '<Cell><Data ss:Type="String">Response Status</Data></Cell>';
-    echo '<Cell ss:StyleID="RespPartial"><Data ss:Type="String">Partial</Data></Cell>';
-    echo '<Cell><Data ss:Type="String">Some feedback items have responses</Data></Cell>';
-    echo '<Cell ss:StyleID="RespPartial"><Data ss:Type="String">Yellow</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row>';
-    echo '<Cell><Data ss:Type="String">Response Status</Data></Cell>';
-    echo '<Cell ss:StyleID="RespNone"><Data ss:Type="String">No Responses / No Feedback</Data></Cell>';
-    echo '<Cell><Data ss:Type="String">No response submitted yet or no feedback assigned</Data></Cell>';
-    echo '<Cell ss:StyleID="RespNone"><Data ss:Type="String">Red</Data></Cell>';
-    echo '</Row>';
-
+    $summarySheet->setCellValue('A' . $currentRow, 'Response Status');
+    $summarySheet->setCellValue('B' . $currentRow, 'All Responded');
+    $summarySheet->getStyle('B' . $currentRow)->applyFromArray($responseStyles['RespAll']);
+    $summarySheet->setCellValue('C' . $currentRow, 'Employee responded to all CEO feedback items');
+    $summarySheet->setCellValue('D' . $currentRow, 'Green');
+    $currentRow++;
+    
+    $summarySheet->setCellValue('A' . $currentRow, 'Response Status');
+    $summarySheet->setCellValue('B' . $currentRow, 'Partial');
+    $summarySheet->getStyle('B' . $currentRow)->applyFromArray($responseStyles['RespPartial']);
+    $summarySheet->setCellValue('C' . $currentRow, 'Some feedback items have responses');
+    $summarySheet->setCellValue('D' . $currentRow, 'Yellow');
+    $currentRow++;
+    
+    $summarySheet->setCellValue('A' . $currentRow, 'Response Status');
+    $summarySheet->setCellValue('B' . $currentRow, 'No Responses / No Feedback');
+    $summarySheet->getStyle('B' . $currentRow)->applyFromArray($responseStyles['RespNone']);
+    $summarySheet->setCellValue('C' . $currentRow, 'No response submitted yet or no feedback assigned');
+    $summarySheet->setCellValue('D' . $currentRow, 'Red');
+    $currentRow++;
+    
     // Deadline status legend
-    echo '<Row>';
-    echo '<Cell><Data ss:Type="String">Deadline Status</Data></Cell>';
-    echo '<Cell ss:StyleID="DeadAllInTime"><Data ss:Type="String">All In Time</Data></Cell>';
-    echo '<Cell><Data ss:Type="String">All feedback items were responded to before the deadline</Data></Cell>';
-    echo '<Cell ss:StyleID="DeadAllInTime"><Data ss:Type="String">Green</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row>';
-    echo '<Cell><Data ss:Type="String">Deadline Status</Data></Cell>';
-    echo '<Cell ss:StyleID="DeadSomeLate"><Data ss:Type="String">Some Late</Data></Cell>';
-    echo '<Cell><Data ss:Type="String">Some feedback responses were submitted after the deadline</Data></Cell>';
-    echo '<Cell ss:StyleID="DeadSomeLate"><Data ss:Type="String">Orange</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row>';
-    echo '<Cell><Data ss:Type="String">Deadline Status</Data></Cell>';
-    echo '<Cell ss:StyleID="DeadOverdue"><Data ss:Type="String">Overdue</Data></Cell>';
-    echo '<Cell><Data ss:Type="String">At least one feedback item is overdue without a response</Data></Cell>';
-    echo '<Cell ss:StyleID="DeadOverdue"><Data ss:Type="String">Red</Data></Cell>';
-    echo '</Row>';
-
-    echo '<Row>';
-    echo '<Cell><Data ss:Type="String">Deadline Status</Data></Cell>';
-    echo '<Cell ss:StyleID="DeadPending"><Data ss:Type="String">Pending</Data></Cell>';
-    echo '<Cell><Data ss:Type="String">Responses are still within the allowed deadline</Data></Cell>';
-    echo '<Cell ss:StyleID="DeadPending"><Data ss:Type="String">Yellow</Data></Cell>';
-    echo '</Row>';
-
-
-    echo '</Table>';
-    echo '<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-            <PageSetup>
-                <Header x:Margin="0.3"/>
-                <Footer x:Margin="0.3"/>
-                <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-            </PageSetup>
-            <Print>
-                <ValidPrinterInfo/>
-                <HorizontalResolution>600</HorizontalResolution>
-                <VerticalResolution>600</VerticalResolution>
-            </Print>
-            <Selected/>
-            <ProtectObjects>False</ProtectObjects>
-            <ProtectScenarios>False</ProtectScenarios>
-          </WorksheetOptions>';
-    echo '</Worksheet>';
-
+    $summarySheet->setCellValue('A' . $currentRow, 'Deadline Status');
+    $summarySheet->setCellValue('B' . $currentRow, 'All In Time');
+    $summarySheet->getStyle('B' . $currentRow)->applyFromArray($deadlineStyles['DeadAllInTime']);
+    $summarySheet->setCellValue('C' . $currentRow, 'All feedback items were responded to before the deadline');
+    $summarySheet->setCellValue('D' . $currentRow, 'Green');
+    $currentRow++;
+    
+    $summarySheet->setCellValue('A' . $currentRow, 'Deadline Status');
+    $summarySheet->setCellValue('B' . $currentRow, 'Some Late');
+    $summarySheet->getStyle('B' . $currentRow)->applyFromArray($deadlineStyles['DeadSomeLate']);
+    $summarySheet->setCellValue('C' . $currentRow, 'Some feedback responses were submitted after the deadline');
+    $summarySheet->setCellValue('D' . $currentRow, 'Orange');
+    $currentRow++;
+    
+    $summarySheet->setCellValue('A' . $currentRow, 'Deadline Status');
+    $summarySheet->setCellValue('B' . $currentRow, 'Overdue');
+    $summarySheet->getStyle('B' . $currentRow)->applyFromArray($deadlineStyles['DeadOverdue']);
+    $summarySheet->setCellValue('C' . $currentRow, 'At least one feedback item is overdue without a response');
+    $summarySheet->setCellValue('D' . $currentRow, 'Red');
+    $currentRow++;
+    
+    $summarySheet->setCellValue('A' . $currentRow, 'Deadline Status');
+    $summarySheet->setCellValue('B' . $currentRow, 'Pending');
+    $summarySheet->getStyle('B' . $currentRow)->applyFromArray($deadlineStyles['DeadPending']);
+    $summarySheet->setCellValue('C' . $currentRow, 'Responses are still within the allowed deadline');
+    $summarySheet->setCellValue('D' . $currentRow, 'Yellow');
+    
     // ============================================
     // INDIVIDUAL EMPLOYEE SHEETS
     // ============================================
@@ -1449,180 +1670,215 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
     foreach ($employees as $employeeId => $employee) {
         $sheetCount++;
         if ($sheetCount > 50) break; // Limit to 50 sheets for performance
-
+        
         $evaluationData = isset($employeeEvaluations[$employeeId]) ? $employeeEvaluations[$employeeId] : null;
         $ceoFeedback = isset($allCEOFeedback[$employeeId]) ? $allCEOFeedback[$employeeId] : [];
         $sheetName = createValidSheetName($employee['full_name'] ?? 'Employee', $employeeId);
+        
+        // Create new worksheet
+        $employeeSheet = $spreadsheet->createSheet();
+        $employeeSheet->setTitle($sheetName);
+        
+        // Set column widths
+        $employeeSheet->getColumnDimension('A')->setWidth(25);
+        $employeeSheet->getColumnDimension('B')->setWidth(40);
+        $employeeSheet->getColumnDimension('C')->setWidth(25);
+        $employeeSheet->getColumnDimension('D')->setWidth(40);
+        
+        $currentEmployeeRow = 1;
+        
+        // Back to summary link
+        $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+        $employeeSheet->setCellValue("A{$currentEmployeeRow}", '⬅ Back to Summary Report');
+        $employeeSheet->getCell("A{$currentEmployeeRow}")->getHyperlink()->setUrl("#'Summary Report'!A1");
+        $employeeSheet->getStyle("A{$currentEmployeeRow}")->applyFromArray($hyperlinkStyle);
+        $currentEmployeeRow += 2;
 
-        echo '<Worksheet ss:Name="' . $sheetName . '">';
-        echo '<Table>';
-        echo '<Column ss:Width="150"/>';
-        echo '<Column ss:Width="300"/>';
-        echo '<Column ss:Width="150"/>';
-        echo '<Column ss:Width="300"/>';
+        // MERQ Logo
+        $logoPath = __DIR__ . '/merqg.jpg';
 
-        // ⬅ BACK TO SUMMARY LINK
-        echo '<Row>';
-        echo '<Cell ss:MergeAcross="3" ss:StyleID="Hyperlink" ss:HRef="#\'Summary Report\'!A1">';
-        echo '<Data ss:Type="String">⬅ Back to Summary Report</Data>';
-        echo '</Cell>';
-        echo '</Row>';
+        if (file_exists($logoPath)) {
+            // Add logo to cells A1:C3
+            $drawing = new Drawing();
+            $drawing->setName('MERQ Logo');
+            $drawing->setDescription('MERQ Consultancy Logo');
+            $drawing->setPath($logoPath);
+            $drawing->setHeight(47);
+            $drawing->setWidth(47);
+            $drawing->setCoordinates('A' . $currentEmployeeRow);
+            $drawing->setOffsetX(10);
+            $drawing->setOffsetY(10);
+            $drawing->setWorksheet($employeeSheet);
 
-        //echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+            // TEST OF Title above logo 
+          //  $employeeSheet->mergeCells("B{$currentEmployeeRow}:C{$currentEmployeeRow}");
+          //  $employeeSheet->setCellValue("B{$currentEmployeeRow}", 'MERQ CONSULTANCY');
+          //  $employeeSheet->getStyle("B{$currentEmployeeRow}")->applyFromArray($titleStyle);
+          //  $currentEmployeeRow++;
+            // END OF IT
 
-        // Logo and Title Row for individual sheets
-        echo '<Row ss:Height="60">';
-        //echo '<Cell ss:MergeAcross="1">';
-        echo '<Cell ss:MergeAcross="0">';
-        //echo '<Data ss:Type="String">=IMAGE("https://app.merqconsultancy.org/assets/images/merq-logo.png", "merq",3,200,140)</Data>';
+            // Merge cells for logo area
+            $employeeSheet->mergeCells("A{$currentEmployeeRow}:C" . ($currentEmployeeRow + 2));
 
-        echo '<ss:Data ss:Type="String">';
-        echo '<html:img src="https://app.merqconsultancy.org/assets/images/merq-logo.png" width="140" height="60" align="left"/>';
-        echo '</ss:Data>';
+            // Title next to logo
+            $employeeSheet->mergeCells("D{$currentEmployeeRow}:D" . ($currentEmployeeRow + 2));
+            $employeeSheet->setCellValue("D{$currentEmployeeRow}", 'INDIVIDUAL PERFORMANCE REPORT');
+            $employeeSheet->getStyle("D{$currentEmployeeRow}")->applyFromArray($titleStyle);
+            $employeeSheet->getStyle("D{$currentEmployeeRow}")->getAlignment()
+                ->setWrapText(true)
+                ->setVertical(Alignment::VERTICAL_CENTER);
 
-        echo '</Cell>';
-        //echo '<Cell ss:MergeAcross="1" ss:StyleID="Title">';
-        echo '<Cell ss:MergeAcross="1" ss:StyleID="Title">';
-        echo '<Data ss:Type="String">INDIVIDUAL PERFORMANCE REPORT</Data>';
-        echo '</Cell>';
-        echo '</Row>';
-
-        echo '<Row>';
-        echo '<Cell ss:MergeAcross="3" ss:StyleID="Title"><Data ss:Type="String">' . htmlspecialchars($employee['full_name']) . '</Data></Cell>';
-        echo '</Row>';
-
-        echo '<Row>';
-        echo '<Cell ss:MergeAcross="3" ss:StyleID="Subtitle"><Data ss:Type="String">Employee ID: ' . $employeeId . ' | Generated: ' . date('F j, Y') . '</Data></Cell>';
-        echo '</Row>';
-
-        echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
-
+            $currentEmployeeRow += 3;
+        } else {
+            // Fallback if logo doesn't exist
+            $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+            $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'MERQ CONSULTANCY');
+            $employeeSheet->getStyle("A{$currentEmployeeRow}")->applyFromArray($titleStyle);
+            $currentEmployeeRow++;
+        }
+        
+        $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+        $employeeSheet->setCellValue("A{$currentEmployeeRow}", htmlspecialchars($employee['full_name'] ?? 'Employee'));
+        $employeeSheet->getStyle("A{$currentEmployeeRow}")->applyFromArray($titleStyle);
+        $currentEmployeeRow++;
+        
+        $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+        $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'Employee ID: ' . $employeeId . ' | Generated: ' . date('F j, Y'));
+        $employeeSheet->getStyle("A{$currentEmployeeRow}")->applyFromArray($subtitleStyle);
+        $currentEmployeeRow += 2;
+        
         // Employee Information
-        echo '<Row>';
-        echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">EMPLOYEE INFORMATION</Data></Cell>';
-        echo '</Row>';
-
-        echo '<Row>';
-        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Full Name:</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['full_name']) . '</Data></Cell>';
-        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Position:</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['position_title'] ?? 'N/A') . '</Data></Cell>';
-        echo '</Row>';
-
-        echo '<Row>';
-        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Department:</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['department_name'] ?? 'N/A') . '</Data></Cell>';
-        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Supervisor:</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['supervisor_name'] ?? 'N/A') . '</Data></Cell>';
-        echo '</Row>';
-
-        echo '<Row>';
-        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Employee ID:</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . $employeeId . '</Data></Cell>';
-        echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Email:</Data></Cell>';
-        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($employee['email'] ?? 'N/A') . '</Data></Cell>';
-        echo '</Row>';
-
-        echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
-
+        $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+        $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'EMPLOYEE INFORMATION');
+        $employeeSheet->getStyle("A{$currentEmployeeRow}")->applyFromArray($headerStyle);
+        $currentEmployeeRow++;
+        
+        $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Full Name:');
+        $employeeSheet->getStyle('A' . $currentEmployeeRow)->getFont()->setBold(true);
+        $employeeSheet->setCellValue('B' . $currentEmployeeRow, htmlspecialchars($employee['full_name'] ?? 'N/A'));
+        $employeeSheet->setCellValue('C' . $currentEmployeeRow, 'Position:');
+        $employeeSheet->getStyle('C' . $currentEmployeeRow)->getFont()->setBold(true);
+        $employeeSheet->setCellValue('D' . $currentEmployeeRow, htmlspecialchars($employee['position_title'] ?? 'N/A'));
+        $currentEmployeeRow++;
+        
+        $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Department:');
+        $employeeSheet->getStyle('A' . $currentEmployeeRow)->getFont()->setBold(true);
+        $employeeSheet->setCellValue('B' . $currentEmployeeRow, htmlspecialchars($employee['department_name'] ?? 'N/A'));
+        $employeeSheet->setCellValue('C' . $currentEmployeeRow, 'Supervisor:');
+        $employeeSheet->getStyle('C' . $currentEmployeeRow)->getFont()->setBold(true);
+        $employeeSheet->setCellValue('D' . $currentEmployeeRow, htmlspecialchars($employee['supervisor_name'] ?? 'N/A'));
+        $currentEmployeeRow++;
+        
+        $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Employee ID:');
+        $employeeSheet->getStyle('A' . $currentEmployeeRow)->getFont()->setBold(true);
+        $employeeSheet->setCellValue('B' . $currentEmployeeRow, $employeeId);
+        $employeeSheet->setCellValue('C' . $currentEmployeeRow, 'Email:');
+        $employeeSheet->getStyle('C' . $currentEmployeeRow)->getFont()->setBold(true);
+        $employeeSheet->setCellValue('D' . $currentEmployeeRow, htmlspecialchars($employee['email'] ?? 'N/A'));
+        $currentEmployeeRow += 2;
+        
         // Performance Overview
-        echo '<Row>';
-        echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">PERFORMANCE OVERVIEW</Data></Cell>';
-        echo '</Row>';
-
+        $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+        $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'PERFORMANCE OVERVIEW');
+        $employeeSheet->getStyle("A{$currentEmployeeRow}")->applyFromArray($headerStyle);
+        $currentEmployeeRow++;
+        
         if ($evaluationData) {
-            echo '<Row>';
-            echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Overall Weighted Score:</Data></Cell>';
+            $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Overall Weighted Score:');
+            $employeeSheet->getStyle('A' . $currentEmployeeRow)->getFont()->setBold(true);
+            
             $score = $evaluationData['weighted_score'];
-            $scoreStyle = 'Default';
-
+            $employeeSheet->setCellValue('B' . $currentEmployeeRow, round($score, 2));
+            $employeeSheet->getStyle('B' . $currentEmployeeRow)->getNumberFormat()->setFormatCode('0.00');
+            
+            // Apply score style
             if ($score >= 90) {
-                $scoreStyle = 'Excellent';
+                $employeeSheet->getStyle('B' . $currentEmployeeRow)->applyFromArray($scoreStyles['Excellent']);
             } elseif ($score >= 75) {
-                $scoreStyle = 'Good';
+                $employeeSheet->getStyle('B' . $currentEmployeeRow)->applyFromArray($scoreStyles['Good']);
             } elseif ($score >= 60) {
-                $scoreStyle = 'Average';
+                $employeeSheet->getStyle('B' . $currentEmployeeRow)->applyFromArray($scoreStyles['Average']);
             } elseif ($score >= 30) {
-                $scoreStyle = 'Poor';
+                $employeeSheet->getStyle('B' . $currentEmployeeRow)->applyFromArray($scoreStyles['Poor']);
             } elseif ($score > 0) {
-                $scoreStyle = 'NeedsImprovement';
+                $employeeSheet->getStyle('B' . $currentEmployeeRow)->applyFromArray($scoreStyles['NeedsImprovement']);
             }
-
-            echo '<Cell ss:StyleID="' . $scoreStyle . '"><Data ss:Type="Number">' . round($score, 2) . '</Data></Cell>';
-
-            echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Performance Category:</Data></Cell>';
-            echo '<Cell><Data ss:Type="String">' . $evaluationData['performance_category'] . '</Data></Cell>';
-            echo '</Row>';
-
-            echo '<Row>';
-            echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Total Evaluations:</Data></Cell>';
-            echo '<Cell><Data ss:Type="Number">' . array_sum($evaluationData['perspective_counts']) . '</Data></Cell>';
-            echo '<Cell/><Cell/>';
-            echo '</Row>';
-
-            echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
-
+            
+            $employeeSheet->setCellValue('C' . $currentEmployeeRow, 'Performance Category:');
+            $employeeSheet->getStyle('C' . $currentEmployeeRow)->getFont()->setBold(true);
+            
+            $performanceCategory = $evaluationData['performance_category'];
+            $employeeSheet->setCellValue('D' . $currentEmployeeRow, $performanceCategory);
+            
+            // Apply performance category style with gradient
+            if (isset($performanceCategoryStyles[$performanceCategory])) {
+                $employeeSheet->getStyle('D' . $currentEmployeeRow)->applyFromArray($performanceCategoryStyles[$performanceCategory]);
+            }
+            
+            $currentEmployeeRow++;
+            
+            $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Total Evaluations:');
+            $employeeSheet->getStyle('A' . $currentEmployeeRow)->getFont()->setBold(true);
+            $employeeSheet->setCellValue('B' . $currentEmployeeRow, array_sum($evaluationData['perspective_counts']));
+            $currentEmployeeRow += 2;
+            
             // Evaluation Perspectives
             if (!empty($evaluationData['perspective_counts'])) {
-                echo '<Row>';
-                echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">EVALUATION PERSPECTIVES</Data></Cell>';
-                echo '</Row>';
-
+                $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+                $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'EVALUATION PERSPECTIVES');
+                $employeeSheet->getStyle("A{$currentEmployeeRow}")->applyFromArray($headerStyle);
+                $currentEmployeeRow++;
+                
                 foreach ($evaluationData['perspective_counts'] as $perspective => $count) {
                     if ($count > 0) {
-                        echo '<Row>';
-                        echo '<Cell><Data ss:Type="String">' . $perspective . ':</Data></Cell>';
-                        echo '<Cell><Data ss:Type="Number">' . $count . '</Data></Cell>';
-                        echo '<Cell/><Cell/>';
-                        echo '</Row>';
+                        $employeeSheet->setCellValue('A' . $currentEmployeeRow, $perspective . ':');
+                        $employeeSheet->setCellValue('B' . $currentEmployeeRow, $count);
+                        $currentEmployeeRow++;
                     }
                 }
-
-                echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+                $currentEmployeeRow++;
             }
-
+            
             // Category Scores
             if (!empty($evaluationData['category_scores'])) {
-                echo '<Row>';
-                echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">CATEGORY PERFORMANCE SCORES</Data></Cell>';
-                echo '</Row>';
-
-                echo '<Row>';
-                echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Category</Data></Cell>';
-                echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Average Score (1-5)</Data></Cell>';
-                echo '<Cell ss:StyleID="SubHeader"><Data ss:Type="String">Percentage</Data></Cell>';
-                echo '<Cell/>';
-                echo '</Row>';
-
+                $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+                $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'CATEGORY PERFORMANCE SCORES');
+                $employeeSheet->getStyle("A{$currentEmployeeRow}")->applyFromArray($headerStyle);
+                $currentEmployeeRow++;
+                
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Category');
+                $employeeSheet->setCellValue('B' . $currentEmployeeRow, 'Average Score (1-5)');
+                $employeeSheet->setCellValue('C' . $currentEmployeeRow, 'Percentage');
+                $employeeSheet->getStyle("A{$currentEmployeeRow}:C{$currentEmployeeRow}")->applyFromArray($subHeaderStyle);
+                $currentEmployeeRow++;
+                
                 foreach ($evaluationData['category_scores'] as $category => $scoreData) {
                     if (($scoreData['count'] ?? 0) > 0) {
                         $average = round($scoreData['average'] ?? 0, 2);
                         $percentage = round($scoreData['percentage'] ?? 0, 1);
-
-                        echo '<Row>';
-                        echo '<Cell><Data ss:Type="String">' . htmlspecialchars($category, ENT_XML1) . '</Data></Cell>';
-                        echo '<Cell><Data ss:Type="Number">' . $average . '</Data></Cell>';
-                        echo '<Cell><Data ss:Type="Number">' . $percentage . '</Data></Cell>';
-                        echo '<Cell/>';
-                        echo '</Row>';
+                        
+                        $employeeSheet->setCellValue('A' . $currentEmployeeRow, htmlspecialchars($category));
+                        $employeeSheet->setCellValue('B' . $currentEmployeeRow, $average);
+                        $employeeSheet->getStyle('B' . $currentEmployeeRow)->getNumberFormat()->setFormatCode('0.00');
+                        $employeeSheet->setCellValue('C' . $currentEmployeeRow, $percentage);
+                        $employeeSheet->getStyle('C' . $currentEmployeeRow)->getNumberFormat()->setFormatCode('0.0');
+                        $currentEmployeeRow++;
                     }
                 }
-
-                echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+                $currentEmployeeRow++;
             }
         } else {
-            echo '<Row>';
-            echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">No performance evaluation data available for this employee.</Data></Cell>';
-            echo '</Row>';
-            echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+            $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+            $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'No performance evaluation data available for this employee.');
+            $currentEmployeeRow += 2;
         }
-
-
+        
         // CEO Feedback Section
-        echo '<Row>';
-        echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">CEO FEEDBACK</Data></Cell>';
-        echo '</Row>';
-
+        $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+        $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'CEO FEEDBACK');
+        $employeeSheet->getStyle("A{$currentEmployeeRow}")->applyFromArray($headerStyle);
+        $currentEmployeeRow++;
+        
         if (!empty($ceoFeedback)) {
             $totalResponses = 0;
             foreach ($ceoFeedback as $feedback) {
@@ -1630,35 +1886,44 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
                     $totalResponses += count($allFeedbackResponses[$feedback['id']]);
                 }
             }
-
-            echo '<Row>';
-            echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">' . count($ceoFeedback) . ' Feedback Items, ' . $totalResponses . ' Responses</Data></Cell>';
-            echo '</Row>';
-
+            
+            $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+            $employeeSheet->setCellValue("A{$currentEmployeeRow}", count($ceoFeedback) . ' Feedback Items, ' . $totalResponses . ' Responses');
+            $currentEmployeeRow++;
+            
             foreach ($ceoFeedback as $index => $feedback) {
                 $responses = isset($allFeedbackResponses[$feedback['id']]) ? $allFeedbackResponses[$feedback['id']] : [];
-
-                echo '<Row>';
-                echo '<Cell ss:MergeAcross="3" ss:StyleID="SubHeader"><Data ss:Type="String">Feedback #' . ($index + 1) . ' - ' . ($feedback['category_name'] ?? 'General Feedback') . ' (' . ucfirst($feedback['priority']) . ' Priority)</Data></Cell>';
-                echo '</Row>';
-
-                echo '<Row>';
-                echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">From CEO:</Data></Cell>';
-                echo '<Cell><Data ss:Type="String">' . $feedback['ceo_name'] . '</Data></Cell>';
-                echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Date Given:</Data></Cell>';
-                echo '<Cell><Data ss:Type="String">' . date('F j, Y \a\t g:i A', strtotime($feedback['created_at'])) . '</Data></Cell>';
-                echo '</Row>';
-
+                
+                $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+                $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'Feedback #' . ($index + 1) . ' - ' . ($feedback['category_name'] ?? 'General Feedback'));
+                
+                // Add priority badge
+                $priority = strtolower($feedback['priority'] ?? 'medium');
+                $priorityStyle = $priorityStyles[$priority] ?? $priorityStyles['medium'];
+                $employeeSheet->getStyle("A{$currentEmployeeRow}")->applyFromArray($priorityStyle);
+                $employeeSheet->getStyle("A{$currentEmployeeRow}")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                
+                $currentEmployeeRow++;
+                
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'From CEO:');
+                $employeeSheet->getStyle('A' . $currentEmployeeRow)->getFont()->setBold(true);
+                $employeeSheet->setCellValue('B' . $currentEmployeeRow, $feedback['ceo_name']);
+                $employeeSheet->setCellValue('C' . $currentEmployeeRow, 'Date Given:');
+                $employeeSheet->getStyle('C' . $currentEmployeeRow)->getFont()->setBold(true);
+                $employeeSheet->setCellValue('D' . $currentEmployeeRow, date('F j, Y \a\t g:i A', strtotime($feedback['created_at'])));
+                $currentEmployeeRow++;
+                
                 if (!empty($feedback['target_completion_date'])) {
-                    echo '<Row>';
-                    echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Target Completion:</Data></Cell>';
-                    echo '<Cell><Data ss:Type="String">' . date('F j, Y', strtotime($feedback['target_completion_date'])) . '</Data></Cell>';
-                    echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Status:</Data></Cell>';
-
+                    $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Target Completion:');
+                    $employeeSheet->getStyle('A' . $currentEmployeeRow)->getFont()->setBold(true);
+                    $employeeSheet->setCellValue('B' . $currentEmployeeRow, date('F j, Y', strtotime($feedback['target_completion_date'])));
+                    $employeeSheet->setCellValue('C' . $currentEmployeeRow, 'Status:');
+                    $employeeSheet->getStyle('C' . $currentEmployeeRow)->getFont()->setBold(true);
+                    
                     $statusText = '';
                     $today = new DateTime();
                     $targetDate = new DateTime($feedback['target_completion_date']);
-
+                    
                     if (!empty($responses)) {
                         $lastResponse = new DateTime($responses[0]['submitted_at']);
                         if ($lastResponse <= $targetDate) {
@@ -1676,178 +1941,187 @@ function exportToExcel($employees, $employeeEvaluations, $allCEOFeedback, $allFe
                             $statusText = $daysRemaining . ' days remaining';
                         }
                     }
-
-                    $statusStyle = 'Default';
-
+                    
+                    $employeeSheet->setCellValue('D' . $currentEmployeeRow, $statusText);
+                    
+                    // Apply status style
                     if (strpos($statusText, 'Responded In Time') !== false) {
-                        $statusStyle = 'DeadAllInTime';
+                        $employeeSheet->getStyle('D' . $currentEmployeeRow)->applyFromArray($deadlineStyles['DeadAllInTime']);
                     } elseif (strpos($statusText, 'Responded Late') !== false) {
-                        $statusStyle = 'DeadSomeLate';
+                        $employeeSheet->getStyle('D' . $currentEmployeeRow)->applyFromArray($deadlineStyles['DeadSomeLate']);
                     } elseif (strpos($statusText, 'Overdue') !== false) {
-                        $statusStyle = 'DeadOverdue';
+                        $employeeSheet->getStyle('D' . $currentEmployeeRow)->applyFromArray($deadlineStyles['DeadOverdue']);
                     } elseif (strpos($statusText, 'days remaining') !== false) {
-                        $statusStyle = 'DeadPending';
+                        $employeeSheet->getStyle('D' . $currentEmployeeRow)->applyFromArray($deadlineStyles['DeadPending']);
                     }
-
-                    echo '<Cell ss:StyleID="' . $statusStyle . '"><Data ss:Type="String">' . htmlspecialchars($statusText, ENT_XML1) . '</Data></Cell>';
-
-                    echo '</Row>';
+                    
+                    $currentEmployeeRow++;
                 }
-
-                // Feedback text with 12 merged rows for better display
-                echo '<Row>';
-                echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Feedback:</Data></Cell>';
-                echo '<Cell ss:MergeAcross="2" ss:MergeDown="11" ss:StyleID="TextWrap"><Data ss:Type="String">' . htmlspecialchars($feedback['feedback_text']) . '</Data></Cell>';
-                echo '</Row>';
-
-                // Add empty rows to complete the 12 rows for the merged cell
-                for ($i = 1; $i < 12; $i++) {
-                    echo '<Row/>';
-                }
-
+                
+                // Feedback text with text wrap
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Feedback:');
+                $employeeSheet->getStyle('A' . $currentEmployeeRow)->getFont()->setBold(true);
+                $employeeSheet->mergeCells("B{$currentEmployeeRow}:D{$currentEmployeeRow}");
+                $employeeSheet->setCellValue('B' . $currentEmployeeRow, htmlspecialchars($feedback['feedback_text']));
+                $employeeSheet->getStyle('B' . $currentEmployeeRow)->applyFromArray($textWrapStyle);
+                
+                // Adjust row height for feedback text
+                $feedbackText = $feedback['feedback_text'];
+                $lineCount = ceil(strlen($feedbackText) / 100); // Approximate lines based on 100 chars per line
+                $rowHeight = max(30, $lineCount * 30); // Minimum 30, 30 per line but adjust as needed
+                $employeeSheet->getRowDimension($currentEmployeeRow)->setRowHeight($rowHeight);
+                
+                $currentEmployeeRow++;
+                
                 // Responses
                 if (!empty($responses)) {
-                    echo '<Row>';
-                    echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Responses (' . count($responses) . '):</Data></Cell>';
-                    echo '<Cell ss:MergeAcross="2"/>';
-                    echo '</Row>';
-
+                    $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Responses (' . count($responses) . '):');
+                    $employeeSheet->getStyle('A' . $currentEmployeeRow)->getFont()->setBold(true);
+                    $currentEmployeeRow++;
+                    
                     foreach ($responses as $responseIndex => $response) {
-                        // Response text with 6 merged rows
-                        echo '<Row>';
-                        echo '<Cell><Data ss:Type="String">Response #' . ($responseIndex + 1) . ':</Data></Cell>';
-                        echo '<Cell ss:MergeAcross="2" ss:MergeDown="5" ss:StyleID="TextWrap"><Data ss:Type="String">' . htmlspecialchars($response['response_text']) . '</Data></Cell>';
-                        echo '</Row>';
-
-                        // Add empty rows to complete the 6 rows for the response cell
-                        for ($i = 1; $i < 6; $i++) {
-                            echo '<Row/>';
-                        }
-
-                        echo '<Row>';
-                        echo '<Cell><Data ss:Type="String">Submitted:</Data></Cell>';
-                        echo '<Cell ss:MergeAcross="2"><Data ss:Type="String">' . date('F j, Y \a\t g:i A', strtotime($response['submitted_at'])) . '</Data></Cell>';
-                        echo '</Row>';
+                        $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Response #' . ($responseIndex + 1) . ':');
+                        $employeeSheet->mergeCells("B{$currentEmployeeRow}:D{$currentEmployeeRow}");
+                        $employeeSheet->setCellValue('B' . $currentEmployeeRow, htmlspecialchars($response['response_text']));
+                        $employeeSheet->getStyle('B' . $currentEmployeeRow)->applyFromArray($textWrapStyle);
+                        
+                        // Adjust row height for response text
+                        $responseText = $response['response_text'];
+                        $lineCount = ceil(strlen($responseText) / 100);
+                        $rowHeight = max(30, $lineCount * 30);
+                        $employeeSheet->getRowDimension($currentEmployeeRow)->setRowHeight($rowHeight);
+                        
+                        $currentEmployeeRow++;
+                        
+                        $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Submitted:');
+                        $employeeSheet->getStyle('A' . $currentEmployeeRow)->getFont()->setBold(true);
+                        $employeeSheet->mergeCells("B{$currentEmployeeRow}:D{$currentEmployeeRow}");
+                        $employeeSheet->setCellValue('B' . $currentEmployeeRow, date('F j, Y \a\t g:i A', strtotime($response['submitted_at'])));
+                        $currentEmployeeRow++;
                     }
                 } else {
-                    echo '<Row>';
-                    echo '<Cell ss:StyleID="Bold"><Data ss:Type="String">Responses:</Data></Cell>';
-                    echo '<Cell ss:MergeAcross="2"><Data ss:Type="String">No responses yet from the employee.</Data></Cell>';
-                    echo '</Row>';
+                    $employeeSheet->setCellValue('A' . $currentEmployeeRow, 'Responses:');
+                    $employeeSheet->getStyle('A' . $currentEmployeeRow)->getFont()->setBold(true);
+                    $employeeSheet->mergeCells("B{$currentEmployeeRow}:D{$currentEmployeeRow}");
+                    $employeeSheet->setCellValue('B' . $currentEmployeeRow, 'No responses yet from the employee.');
+                    $currentEmployeeRow++;
                 }
-
-                echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
+                
+                $currentEmployeeRow++;
             }
         } else {
-            echo '<Row>';
-            echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">No CEO feedback available for this employee.</Data></Cell>';
-            echo '</Row>';
+            $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+            $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'No CEO feedback available for this employee.');
+            $currentEmployeeRow += 2;
         }
-
-        echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
-
+        
         // Summary and Recommendations
-        echo '<Row>';
-        echo '<Cell ss:MergeAcross="3" ss:StyleID="Header"><Data ss:Type="String">SUMMARY & RECOMMENDATIONS</Data></Cell>';
-        echo '</Row>';
-
-        // Helper to print one bullet row
-        $printBullet = function ($text) {
-            echo '<Row>';
-            echo '<Cell ss:MergeAcross="3" ss:StyleID="TextWrap"><Data ss:Type="String">• ' . htmlspecialchars($text, ENT_XML1) . '</Data></Cell>';
-            echo '</Row>';
-        };
-
+        $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+        $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'SUMMARY & RECOMMENDATIONS');
+        $employeeSheet->getStyle("A{$currentEmployeeRow}")->applyFromArray($headerStyle);
+        $currentEmployeeRow++;
+        
         if ($evaluationData) {
-
             $score = $evaluationData['weighted_score'];
             $feedbackCount = count($ceoFeedback);
             $responseCount = 0;
-
+            
             if ($feedbackCount > 0) {
                 foreach ($ceoFeedback as $feedback) {
                     if (isset($allFeedbackResponses[$feedback['id']])) {
                         $responseCount += count($allFeedbackResponses[$feedback['id']]);
                     }
                 }
-                $responseRate = $feedbackCount > 0
+                $responseRate = $feedbackCount > 0 
                     ? round(($responseCount / $feedbackCount) * 100, 0)
                     : 0;
             }
-
+            
             if ($score >= 90) {
-                $printBullet('Outstanding Performance: Demonstrates exceptional performance across all categories.');
-                $printBullet('Recommendation: Consider for leadership roles, special projects, or recognition awards.');
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Outstanding Performance: Demonstrates exceptional performance across all categories.');
+                $currentEmployeeRow++;
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Recommendation: Consider for leadership roles, special projects, or recognition awards.');
+                $currentEmployeeRow++;
             } elseif ($score >= 75) {
-                $printBullet('Exceeds Expectations: Consistently performs above job requirements.');
-                $printBullet('Recommendation: Provide opportunities for growth and increased responsibility.');
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Exceeds Expectations: Consistently performs above job requirements.');
+                $currentEmployeeRow++;
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Recommendation: Provide opportunities for growth and increased responsibility.');
+                $currentEmployeeRow++;
             } elseif ($score >= 60) {
-                $printBullet('Meets Expectations: Meets all job requirements satisfactorily.');
-                $printBullet('Recommendation: Continue current development plan, focus on specific skill enhancements.');
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Meets Expectations: Meets all job requirements satisfactorily.');
+                $currentEmployeeRow++;
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Recommendation: Continue current development plan, focus on specific skill enhancements.');
+                $currentEmployeeRow++;
             } elseif ($score >= 30) {
-                $printBullet('Developing: Shows potential but needs improvement in some areas.');
-                $printBullet('Recommendation: Create targeted development plan with regular check-ins.');
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Developing: Shows potential but needs improvement in some areas.');
+                $currentEmployeeRow++;
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Recommendation: Create targeted development plan with regular check-ins.');
+                $currentEmployeeRow++;
             } else {
-                $printBullet('Needs Significant Improvement: Immediate attention required for performance improvement.');
-                $printBullet('Recommendation: Implement performance improvement plan with clear milestones.');
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Needs Significant Improvement: Immediate attention required for performance improvement.');
+                $currentEmployeeRow++;
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Recommendation: Implement performance improvement plan with clear milestones.');
+                $currentEmployeeRow++;
             }
-
+            
             if ($feedbackCount > 0) {
-
-                $printBullet(
-                    'Feedback Engagement: ' .
-                        $responseCount . ' response(s) to ' .
-                        $feedbackCount . ' feedback item(s) (' .
-                        $responseRate . '% response rate).'
-                );
-
+                $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Feedback Engagement: ' . 
+                    $responseCount . ' response(s) to ' . 
+                    $feedbackCount . ' feedback item(s) (' . 
+                    $responseRate . '% response rate).');
+                $currentEmployeeRow++;
+                
                 if ($responseCount == 0) {
-                    $printBullet('Action Required: Employee needs to respond to CEO feedback.');
+                    $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Action Required: Employee needs to respond to CEO feedback.');
+                    $currentEmployeeRow++;
                 } elseif ($responseCount < $feedbackCount) {
-                    $printBullet('Action Required: Employee needs to respond to remaining feedback items.');
+                    $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Action Required: Employee needs to respond to remaining feedback items.');
+                    $currentEmployeeRow++;
                 }
             }
         } else {
-
-            $printBullet('No evaluation data available.');
-            $printBullet('Recommendation: Ensure employee completes self-evaluation and receives evaluations from others.');
+            $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• No evaluation data available.');
+            $currentEmployeeRow++;
+            $employeeSheet->setCellValue('A' . $currentEmployeeRow, '• Recommendation: Ensure employee completes self-evaluation and receives evaluations from others.');
+            $currentEmployeeRow++;
         }
-
-        echo '<Row><Cell/><Cell/><Cell/><Cell/></Row>';
-
+        
+        $currentEmployeeRow += 2;
+        
         // Footer
-        echo '<Row>';
-        echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">Report Generated: ' . date('F j, Y \a\t g:i A') . '</Data></Cell>';
-        echo '</Row>';
-
-        echo '<Row>';
-        echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">Confidential: This report contains sensitive performance information.</Data></Cell>';
-        echo '</Row>';
-
-        echo '<Row>';
-        echo '<Cell ss:MergeAcross="3"><Data ss:Type="String">System: MERQ Consultancy Performance Management System</Data></Cell>';
-        echo '</Row>';
-
-        echo '</Table>';
-        echo '<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-                <PageSetup>
-                    <Header x:Margin="0.3"/>
-                    <Footer x:Margin="0.3"/>
-                    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-                </PageSetup>
-                <Print>
-                    <ValidPrinterInfo/>
-                    <HorizontalResolution>600</HorizontalResolution>
-                    <VerticalResolution>600</VerticalResolution>
-                </Print>
-                <Selected/>
-                <ProtectObjects>False</ProtectObjects>
-                <ProtectScenarios>False</ProtectScenarios>
-              </WorksheetOptions>';
-        echo '</Worksheet>';
+        $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+        $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'Report Generated: ' . date('F j, Y \a\t g:i A'));
+        $currentEmployeeRow++;
+        
+        $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+        $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'Confidential: This report contains sensitive performance information.');
+        $currentEmployeeRow++;
+        
+        $employeeSheet->mergeCells("A{$currentEmployeeRow}:D{$currentEmployeeRow}");
+        $employeeSheet->setCellValue("A{$currentEmployeeRow}", 'System: MERQ Consultancy Performance Management System');
     }
-
-    echo '</Workbook>';
+    
+    // Set the first sheet as active
+    $spreadsheet->setActiveSheetIndex(0);
+    
+    // Generate filename
+    $filename = "MERQ_Consultancy_Employees_Periodic_Evaluation_Summary_" . date('Y-m-d_His') . ".xlsx";
+    
+    // Clear any previous output
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+    
+    // Set headers for Excel download
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="' . $filename . '"');
+    header('Cache-Control: max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    
+    // Create writer and output
+    $writer = new Xlsx($spreadsheet);
+    $writer->save('php://output');
     exit;
 }
 
