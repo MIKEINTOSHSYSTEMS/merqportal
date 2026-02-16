@@ -140,6 +140,21 @@ class SettingsManager
         ];
     }
 
+
+    // Add this method to your SettingsManager class
+    public function saveSmtpSettings($settings)
+    {
+        try {
+            foreach ($settings as $key => $value) {
+                $this->updateSetting('smtp_' . $key, $value);
+            }
+            return true;
+        } catch (Exception $e) {
+            error_log("Failed to save SMTP settings: " . $e->getMessage());
+            return false;
+        }
+    }
+
     // Parse setting value based on type
     private function parseSettingValue($row)
     {
