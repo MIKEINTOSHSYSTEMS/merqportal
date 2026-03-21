@@ -1,5 +1,5 @@
 <?php
-header("Location: dashboard_dashboard.php");
+header("Location: Dashboard_dashboard.php");
 exit;
 
 @ini_set("display_errors","1");
