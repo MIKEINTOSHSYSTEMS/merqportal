@@ -3,6 +3,11 @@
 	'pdf' => array(
 		'pdfView' => false 
 	),
+	'details' => array(
+		'mne_project_deliverables' => array(
+			'displayPreview' => 1 
+		) 
+	),
 	'master' => array(
 		'mne_projects' => array(
 			'preview' => false 
@@ -113,7 +118,8 @@
 					'integrated_edit_field9',
 					'integrated_edit_field2',
 					'integrated_edit_field6',
-					'integrated_edit_field3' 
+					'integrated_edit_field3',
+					'details_preview' 
 				) 
 			),
 			'formXtTags' => array(
@@ -147,7 +153,8 @@
 				'integrated_edit_field9' => 'grid',
 				'integrated_edit_field2' => 'grid',
 				'integrated_edit_field6' => 'grid',
-				'integrated_edit_field3' => 'grid' 
+				'integrated_edit_field3' => 'grid',
+				'details_preview' => 'grid' 
 			),
 			'itemLocations' => array(
 				'integrated_edit_field4' => array(
@@ -193,6 +200,10 @@
 				'integrated_edit_field3' => array(
 					'location' => 'grid',
 					'cellId' => 'c22' 
+				),
+				'details_preview' => array(
+					'location' => 'grid',
+					'cellId' => 'c23' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -270,6 +281,9 @@
 			),
 			'adminarea_link' => array( 
 				'adminarea_link' 
+			),
+			'details_preview' => array( 
+				'details_preview' 
 			),
 			'expand_button' => array( 
 				'expand_button' 
@@ -613,10 +627,28 @@
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
+					),
+					'c23' => array(
+						'cols' => array( 
+							0,
+							1,
+							2 
+						),
+						'rows' => array( 
+							7 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'details_preview' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
 					) 
 				),
 				'width' => 3,
-				'height' => 7 
+				'height' => 8 
 			) 
 		) 
 	),
@@ -949,6 +981,15 @@
 							'cell' => 'c7' 
 						) 
 					) 
+				),
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c23',
+							'colspan' => 3 
+						) 
+					),
+					'section' => '' 
 				) 
 			),
 			'cells' => array(
@@ -1076,6 +1117,12 @@
 					'model' => 'c3',
 					'items' => array( 
 						'integrated_edit_field3' 
+					) 
+				),
+				'c23' => array(
+					'model' => 'c3',
+					'items' => array( 
+						'details_preview' 
 					) 
 				) 
 			),
@@ -1209,6 +1256,14 @@
 		),
 		'adminarea_link' => array(
 			'type' => 'adminarea_link' 
+		),
+		'details_preview' => array(
+			'type' => 'details_preview',
+			'table' => 14658,
+			'items' => array( 
+				 
+			),
+			'popup' => false 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

@@ -2540,11 +2540,11 @@
 		<ul class="nav nav-tabs" role="tablist">
 									<li role="presentation" class="active">
 				<a aria-controls="settings" role="tab" data-toggle="tab" href="#tab_section{$pageid}">
-					Deliverables				</a>
+					Milestones / Timelines				</a>
 			</li>
 										<li role="presentation" class="">
 				<a aria-controls="settings" role="tab" data-toggle="tab" href="#tab_section1{$pageid}">
-					Milestones / Timelines				</a>
+					Deliverables				</a>
 			</li>
 										<li role="presentation" class="">
 				<a aria-controls="settings" role="tab" data-toggle="tab" href="#tab_section4{$pageid}">
@@ -2560,35 +2560,6 @@
 		<div class="tab-content">
 							<div role="tabpanel" class="tab-pane active" id="tab_section{$pageid}"> 
 			{BEGIN section_block}
-
-
-
-
- 
-	 
-												
-{BEGIN details_mne_project_deliverables}
-<div data-itemtype="details_preview" data-itemid="details_preview" {$item_details_preview} data-pageid="{$pageid}" class="bs-details"> 
-	<div class="panel panel-info details-grid">
-		<div class="panel-heading">
-			<h4 class="panel-title">
-							{$details_pagetitle_mne_project_deliverables}			
-							<span>
-					{$detailslButtons_mne_project_deliverables}
-																				</span>
-			</h4>
-		</div>
-		<div class="panel-body">
-			{$displayDetailTable_mne_project_deliverables}
-		</div>
-	</div>
-</div>
-{END details_mne_project_deliverables}
-	
-				{END section_block}
-						</div>
-					<div role="tabpanel" class="tab-pane " id="tab_section1{$pageid}"> 
-			{BEGIN section1_block}
 
 
 
@@ -2613,6 +2584,35 @@
 	</div>
 </div>
 {END details_mne_project_timelines}
+	
+				{END section_block}
+						</div>
+					<div role="tabpanel" class="tab-pane " id="tab_section1{$pageid}"> 
+			{BEGIN section1_block}
+
+
+
+
+ 
+	 
+												
+{BEGIN details_mne_project_deliverables}
+<div data-itemtype="details_preview" data-itemid="details_preview" {$item_details_preview} data-pageid="{$pageid}" class="bs-details"> 
+	<div class="panel panel-info details-grid">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+							{$details_pagetitle_mne_project_deliverables}			
+							<span>
+					{$detailslButtons_mne_project_deliverables}
+																				</span>
+			</h4>
+		</div>
+		<div class="panel-body">
+			{$displayDetailTable_mne_project_deliverables}
+		</div>
+	</div>
+</div>
+{END details_mne_project_deliverables}
 	
 				{END section1_block}
 						</div>

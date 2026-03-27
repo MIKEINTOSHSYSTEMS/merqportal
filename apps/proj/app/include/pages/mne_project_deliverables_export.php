@@ -42,6 +42,9 @@
 		),
 		'ganttProgress' => array(
 			'totalsType' => '' 
+		),
+		'timeline_id' => array(
+			'totalsType' => '' 
 		) 
 	),
 	'fields' => array(
@@ -59,7 +62,8 @@
 			'created_at',
 			'updated_at',
 			'start_date',
-			'ganttProgress' 
+			'ganttProgress',
+			'timeline_id' 
 		),
 		'exportFields' => array( 
 			'deliverable_id',
@@ -75,7 +79,8 @@
 			'owner',
 			'notes',
 			'created_at',
-			'updated_at' 
+			'updated_at',
+			'timeline_id' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -125,6 +130,9 @@
 			),
 			'ganttProgress' => array( 
 				'export_field13' 
+			),
+			'timeline_id' => array( 
+				'export_field14' 
 			) 
 		) 
 	),
@@ -157,7 +165,8 @@
 					'export_field8',
 					'export_field9',
 					'export_field10',
-					'export_field11' 
+					'export_field11',
+					'export_field14' 
 				),
 				'footer' => array( 
 					'export_export',
@@ -185,6 +194,7 @@
 				'export_field9' => 'grid',
 				'export_field10' => 'grid',
 				'export_field11' => 'grid',
+				'export_field14' => 'grid',
 				'export_export' => 'footer',
 				'export_cancel' => 'footer' 
 			),
@@ -219,7 +229,8 @@
 				'export_field10',
 				'export_field11',
 				'export_field12',
-				'export_field13' 
+				'export_field13',
+				'export_field14' 
 			) 
 		),
 		'cellMaps' => array(
@@ -372,7 +383,8 @@
 						'export_field8',
 						'export_field9',
 						'export_field10',
-						'export_field11' 
+						'export_field11',
+						'export_field14' 
 					) 
 				) 
 			),
@@ -481,6 +493,10 @@
 		),
 		'export_field13' => array(
 			'field' => 'ganttProgress',
+			'type' => 'export_field' 
+		),
+		'export_field14' => array(
+			'field' => 'timeline_id',
 			'type' => 'export_field' 
 		) 
 	),

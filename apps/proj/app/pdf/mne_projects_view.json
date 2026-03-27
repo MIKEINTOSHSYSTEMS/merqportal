@@ -2480,7 +2480,7 @@ pdfDocument = {
 			location: 'section',
 			widths: ['*'],
 			body: [
-				[{text: 'Deliverables', style: 'tableHeader'}],
+				[{text: 'Milestones / Timelines', style: 'tableHeader'}],
 				[{
 					table: {
 						tableForm: true,
@@ -2511,9 +2511,9 @@ pdfDocument = {
 			"stack": [
 		
 				
-			 {BEGIN details_mne_project_deliverables}
-			{$displayDetailTable_mne_project_deliverables }
-		{END details_mne_project_deliverables},
+			 {BEGIN details_mne_project_timelines}
+			{$displayDetailTable_mne_project_timelines }
+		{END details_mne_project_timelines},
 				
 		  ],
   "border": [ false, false, false, false ],
@@ -2543,7 +2543,7 @@ pdfDocument = {
 			location: 'section1',
 			widths: ['*'],
 			body: [
-				[{text: 'Milestones / Timelines', style: 'tableHeader'}],
+				[{text: 'Deliverables', style: 'tableHeader'}],
 				[{
 					table: {
 						tableForm: true,
@@ -2574,9 +2574,9 @@ pdfDocument = {
 			"stack": [
 		
 				
-			 {BEGIN details_mne_project_timelines}
-			{$displayDetailTable_mne_project_timelines }
-		{END details_mne_project_timelines},
+			 {BEGIN details_mne_project_deliverables}
+			{$displayDetailTable_mne_project_deliverables }
+		{END details_mne_project_deliverables},
 				
 		  ],
   "border": [ false, false, false, false ],

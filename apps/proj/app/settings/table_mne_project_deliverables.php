@@ -57,12 +57,13 @@ $runnerTableSettings['mne_project_deliverables'] = array(
 	'audit' => true,
 	'afterEditDetails' => 'mne_project_deliverables',
 	'afterAddDetail' => 'mne_project_deliverables',
-	'detailsBadgeColor' => 'ff9c00',
+	'detailsBadgeColor' => '2746b9',
 	'displayLoading' => true,
 	'warnLeavingEdit' => true,
 	'sql' => 'SELECT
 	deliverable_id,
 	project_id,
+	timeline_id,
 	deliverable_name,
 	due_date,
 	status_id,
@@ -76,7 +77,8 @@ $runnerTableSettings['mne_project_deliverables'] = array(
 	updated_at,
 	ganttProgress
 FROM
-	mne_project_deliverables',
+	mne_project_deliverables
+',
 	'keyFields' => array( 
 		'deliverable_id' 
 	),
@@ -137,7 +139,7 @@ FROM
 			'name' => 'deliverable_name',
 			'goodName' => 'deliverable_name',
 			'strField' => 'deliverable_name',
-			'index' => 3,
+			'index' => 4,
 			'sqlExpression' => 'deliverable_name',
 			'viewFormats' => array(
 				'view' => array(
@@ -168,7 +170,9 @@ FROM
 					'lookupLinkField' => 'deliverable_id',
 					'lookupDisplayField' => 'deliverable_name',
 					'lookupAllowAdd' => true,
-					'lookupAddPage' => 'add' 
+					'lookupAllowEdit' => true,
+					'lookupAddPage' => 'add',
+					'lookupEditPage' => 'edit' 
 				) 
 			),
 			'tableName' => 'mne_project_deliverables' 
@@ -177,7 +181,7 @@ FROM
 			'name' => 'due_date',
 			'goodName' => 'due_date',
 			'strField' => 'due_date',
-			'index' => 4,
+			'index' => 5,
 			'type' => 7,
 			'sqlExpression' => 'due_date',
 			'viewFormats' => array(
@@ -197,7 +201,7 @@ FROM
 			'name' => 'status_id',
 			'goodName' => 'status_id',
 			'strField' => 'status_id',
-			'index' => 5,
+			'index' => 6,
 			'type' => 3,
 			'sqlExpression' => 'status_id',
 			'viewFormats' => array(
@@ -221,7 +225,7 @@ FROM
 			'name' => 'completed_date',
 			'goodName' => 'completed_date',
 			'strField' => 'completed_date',
-			'index' => 7,
+			'index' => 8,
 			'type' => 7,
 			'sqlExpression' => 'completed_date',
 			'viewFormats' => array(
@@ -241,7 +245,7 @@ FROM
 			'name' => 'quality_check',
 			'goodName' => 'quality_check',
 			'strField' => 'quality_check',
-			'index' => 8,
+			'index' => 9,
 			'sqlExpression' => 'quality_check',
 			'viewFormats' => array(
 				'view' => array(
@@ -264,7 +268,7 @@ FROM
 			'name' => 'client_acceptance',
 			'goodName' => 'client_acceptance',
 			'strField' => 'client_acceptance',
-			'index' => 9,
+			'index' => 10,
 			'sqlExpression' => 'client_acceptance',
 			'viewFormats' => array(
 				'view' => array(
@@ -282,7 +286,7 @@ FROM
 			'name' => 'owner',
 			'goodName' => 'owner',
 			'strField' => 'owner',
-			'index' => 10,
+			'index' => 11,
 			'sqlExpression' => 'owner',
 			'viewFormats' => array(
 				'view' => array(
@@ -300,7 +304,7 @@ FROM
 			'name' => 'notes',
 			'goodName' => 'notes',
 			'strField' => 'notes',
-			'index' => 11,
+			'index' => 12,
 			'type' => 201,
 			'sqlExpression' => 'notes',
 			'viewFormats' => array(
@@ -319,7 +323,7 @@ FROM
 			'name' => 'created_at',
 			'goodName' => 'created_at',
 			'strField' => 'created_at',
-			'index' => 12,
+			'index' => 13,
 			'type' => 135,
 			'sqlExpression' => 'created_at',
 			'viewFormats' => array(
@@ -340,7 +344,7 @@ FROM
 			'name' => 'updated_at',
 			'goodName' => 'updated_at',
 			'strField' => 'updated_at',
-			'index' => 13,
+			'index' => 14,
 			'type' => 135,
 			'sqlExpression' => 'updated_at',
 			'viewFormats' => array(
@@ -361,7 +365,7 @@ FROM
 			'name' => 'start_date',
 			'goodName' => 'start_date',
 			'strField' => 'start_date',
-			'index' => 6,
+			'index' => 7,
 			'type' => 7,
 			'sqlExpression' => 'start_date',
 			'viewFormats' => array(
@@ -381,7 +385,7 @@ FROM
 			'name' => 'ganttProgress',
 			'goodName' => 'ganttProgress',
 			'strField' => 'ganttProgress',
-			'index' => 14,
+			'index' => 15,
 			'type' => 3,
 			'sqlExpression' => 'ganttProgress',
 			'viewFormats' => array(
@@ -393,6 +397,55 @@ FROM
 				'edit' => array(
 					'validateAs' => 'Number',
 					'textHTML5Input' => 'Number' 
+				) 
+			),
+			'tableName' => 'mne_project_deliverables' 
+		),
+		'timeline_id' => array(
+			'name' => 'timeline_id',
+			'goodName' => 'timeline_id',
+			'strField' => 'timeline_id',
+			'index' => 3,
+			'type' => 3,
+			'sqlExpression' => 'timeline_id',
+			'viewFormats' => array(
+				'view' => array(
+					 
+				) 
+			),
+			'editFormats' => array(
+				'edit' => array(
+					'format' => 'Lookup wizard',
+					'required' => true,
+					'lookupType' => 2,
+					'lookupValues' => array( 
+						'21',
+						'22',
+						'23',
+						'24',
+						'25',
+						'26',
+						'27',
+						'28',
+						'29',
+						'30',
+						'31' 
+					),
+					'lookupTable' => 'mne_project_timelines',
+					'lookupTableConnection' => 'conn',
+					'lookupLinkField' => 'timeline_id',
+					'lookupDisplayField' => 'milestone_name',
+					'lookupAllowAdd' => true,
+					'lookupAllowEdit' => true,
+					'lookupAddPage' => 'add',
+					'lookupEditPage' => 'edit',
+					'lookupDependent' => true,
+					'lookupDependentFields' => array( 
+						array(
+							'masterField' => 'project_id',
+							'lookupField' => 'project_id' 
+						) 
+					) 
 				) 
 			),
 			'tableName' => 'mne_project_deliverables' 
@@ -425,12 +478,22 @@ FROM
 			'masterKeys' => array( 
 				'deliverable_id' 
 			) 
+		),
+		array(
+			'table' => 'mne_project_timelines',
+			'detailsKeys' => array( 
+				'timeline_id' 
+			),
+			'masterKeys' => array( 
+				'timeline_id' 
+			) 
 		) 
 	),
 	'query' => array(
 		'sql' => 'SELECT
 	deliverable_id,
 	project_id,
+	timeline_id,
 	deliverable_name,
 	due_date,
 	status_id,
@@ -444,7 +507,8 @@ FROM
 	updated_at,
 	ganttProgress
 FROM
-	mne_project_deliverables',
+	mne_project_deliverables
+',
 		'parsed' => true,
 		'type' => 'SQLQuery',
 		'fieldList' => array( 
@@ -477,6 +541,21 @@ FROM
 				),
 				'encrypted' => false,
 				'columnName' => 'project_id' 
+			),
+			array(
+				'sql' => 'timeline_id',
+				'parsed' => true,
+				'type' => 'FieldListItem',
+				'alias' => '',
+				'expression' => array(
+					'sql' => '',
+					'parsed' => true,
+					'type' => 'SQLField',
+					'table' => 'mne_project_deliverables',
+					'name' => 'timeline_id' 
+				),
+				'encrypted' => false,
+				'columnName' => 'timeline_id' 
 			),
 			array(
 				'sql' => 'deliverable_name',
@@ -671,6 +750,7 @@ FROM
 					'columns' => array( 
 						'deliverable_id',
 						'project_id',
+						'timeline_id',
 						'deliverable_name',
 						'due_date',
 						'status_id',
@@ -834,11 +914,19 @@ FROM
 				'groupByIndex' => -1,
 				'whereIndex' => -1,
 				'havingIndex' => -1 
+			),
+			array(
+				'fieldIndex' => 14,
+				'orderByIndex' => -1,
+				'groupByIndex' => -1,
+				'whereIndex' => -1,
+				'havingIndex' => -1 
 			) 
 		),
 		'headSql' => 'SELECT',
 		'fieldListSql' => 'deliverable_id,
 	project_id,
+	timeline_id,
 	deliverable_name,
 	due_date,
 	status_id,
@@ -924,7 +1012,8 @@ FROM
 			'created_at',
 			'updated_at',
 			'start_date',
-			'ganttProgress' 
+			'ganttProgress',
+			'timeline_id' 
 		),
 		'searchSuggest' => true,
 		'highlightSearchResults' => true,
@@ -944,7 +1033,8 @@ FROM
 			'created_at',
 			'updated_at',
 			'start_date',
-			'ganttProgress' 
+			'ganttProgress',
+			'timeline_id' 
 		) 
 	),
 	'connId' => 'conn',
@@ -1055,7 +1145,8 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'created_at' => 'Created At',
 		'updated_at' => 'Updated At',
 		'start_date' => 'Start Date',
-		'ganttProgress' => 'Current Progress(%)' 
+		'ganttProgress' => 'Current Progress(%)',
+		'timeline_id' => 'Milestone' 
 	),
 	'fieldTooltips' => array(
 		'deliverable_id' => '',
@@ -1071,7 +1162,8 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'created_at' => '',
 		'updated_at' => '',
 		'start_date' => '',
-		'ganttProgress' => '' 
+		'ganttProgress' => '',
+		'timeline_id' => '' 
 	),
 	'fieldPlaceholders' => array(
 		'deliverable_id' => '',
@@ -1087,7 +1179,8 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'created_at' => '',
 		'updated_at' => '',
 		'start_date' => '',
-		'ganttProgress' => '' 
+		'ganttProgress' => '',
+		'timeline_id' => '' 
 	),
 	'pageTitles' => array(
 		'add' => 'New task',

@@ -1456,7 +1456,7 @@ $runnerProjectSettings = array(
 				'English' => 'Project Deliverables' 
 			),
 			'connId' => 'conn',
-			'color' => 'ff9c00',
+			'color' => '2746b9',
 			'originalTable' => 'mne_project_deliverables' 
 		),
 		'mne_project_details' => array(
@@ -2199,7 +2199,7 @@ $runnerProjectSettings = array(
 		'table' => '' 
 	),
 	'wizardBuild' => '43785',
-	'projectBuild' => 'YzErrBktnOf3',
+	'projectBuild' => 'KuU9KPabPBxs',
 	'projectTheme' => 'flatly',
 	'projectSize' => 'normal',
 	'customErrorMsg' => array(

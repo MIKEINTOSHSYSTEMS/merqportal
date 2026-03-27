@@ -1,5 +1,10 @@
 <?php
 			$optionsArray = array(
+	'details' => array(
+		'mne_project_deliverables' => array(
+			'displayPreview' => 1 
+		) 
+	),
 	'master' => array(
 		'mne_projects' => array(
 			'preview' => false 
@@ -127,7 +132,8 @@
 					'integrated_edit_field9',
 					'integrated_edit_field2',
 					'integrated_edit_field4',
-					'integrated_edit_field3' 
+					'integrated_edit_field3',
+					'details_preview' 
 				) 
 			),
 			'formXtTags' => array(
@@ -164,7 +170,8 @@
 				'integrated_edit_field9' => 'grid',
 				'integrated_edit_field2' => 'grid',
 				'integrated_edit_field4' => 'grid',
-				'integrated_edit_field3' => 'grid' 
+				'integrated_edit_field3' => 'grid',
+				'details_preview' => 'grid' 
 			),
 			'itemLocations' => array(
 				'integrated_edit_field10' => array(
@@ -210,6 +217,10 @@
 				'integrated_edit_field3' => array(
 					'location' => 'grid',
 					'cellId' => 'c22' 
+				),
+				'details_preview' => array(
+					'location' => 'grid',
+					'cellId' => 'c8' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -299,6 +310,9 @@
 			),
 			'adminarea_link' => array( 
 				'adminarea_link' 
+			),
+			'details_preview' => array( 
+				'details_preview' 
 			),
 			'expand_button' => array( 
 				'expand_button' 
@@ -546,10 +560,28 @@
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
+					),
+					'c8' => array(
+						'cols' => array( 
+							0,
+							1,
+							2 
+						),
+						'rows' => array( 
+							5 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'details_preview' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
 					) 
 				),
 				'width' => 3,
-				'height' => 5 
+				'height' => 6 
 			) 
 		) 
 	),
@@ -861,6 +893,15 @@
 							'cell' => 'c7' 
 						) 
 					) 
+				),
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c8',
+							'colspan' => 3 
+						) 
+					),
+					'section' => '' 
 				) 
 			),
 			'cells' => array(
@@ -952,6 +993,12 @@
 					'model' => 'c3',
 					'items' => array( 
 						'integrated_edit_field3' 
+					) 
+				),
+				'c8' => array(
+					'model' => 'c3',
+					'items' => array( 
+						'details_preview' 
 					) 
 				) 
 			),
@@ -1119,6 +1166,14 @@
 		),
 		'adminarea_link' => array(
 			'type' => 'adminarea_link' 
+		),
+		'details_preview' => array(
+			'type' => 'details_preview',
+			'table' => 14658,
+			'items' => array( 
+				 
+			),
+			'popup' => false 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

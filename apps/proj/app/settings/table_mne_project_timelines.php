@@ -28,6 +28,12 @@ $runnerTableSettings['mne_project_timelines'] = array(
 		'gantt' => array( 
 			'gantt' 
 		),
+		'masterlist' => array( 
+			'masterlist' 
+		),
+		'masterprint' => array( 
+			'masterprint' 
+		),
 		'search' => array( 
 			'search' 
 		) 
@@ -41,6 +47,8 @@ $runnerTableSettings['mne_project_timelines'] = array(
 		'list' => 'list',
 		'print' => 'print',
 		'gantt' => 'gantt',
+		'masterlist' => 'masterlist',
+		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
 	'defaultPages' => array(
@@ -52,6 +60,8 @@ $runnerTableSettings['mne_project_timelines'] = array(
 		'list' => 'list',
 		'print' => 'print',
 		'gantt' => 'gantt',
+		'masterlist' => 'masterlist',
+		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
 	'audit' => true,
@@ -126,7 +136,7 @@ FROM
 					'lookupTable' => 'mne_projects',
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'project_id',
-					'lookupDisplayField' => 'project_code' 
+					'lookupDisplayField' => 'project_name' 
 				) 
 			),
 			'tableName' => 'mne_project_timelines' 
@@ -144,6 +154,8 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
+					'required' => true,
+					'textInsertNull' => true,
 					'lookupValues' => array( 
 						'Project Start',
 						'Milestone 1',
@@ -337,7 +349,7 @@ FROM
 					 
 				) 
 			),
-			'tableName' => '' 
+			'tableName' => 'mne_project_timelines' 
 		) 
 	),
 	'masterTables' => array( 
@@ -359,6 +371,9 @@ FROM
 				'status_id' 
 			) 
 		) 
+	),
+	'detailsTables' => array( 
+		'mne_project_deliverables' 
 	),
 	'query' => array(
 		'sql' => 'SELECT
@@ -766,6 +781,12 @@ FROM
 		'gantt' => array( 
 			'gantt' 
 		),
+		'masterlist' => array( 
+			'masterlist' 
+		),
+		'masterprint' => array( 
+			'masterprint' 
+		),
 		'search' => array( 
 			'search' 
 		) 
@@ -779,6 +800,8 @@ FROM
 		'list' => 'list',
 		'print' => 'print',
 		'gantt' => 'gantt',
+		'masterlist' => 'masterlist',
+		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
 	'originalDefaultPages' => array(
@@ -790,6 +813,8 @@ FROM
 		'list' => 'list',
 		'print' => 'print',
 		'gantt' => 'gantt',
+		'masterlist' => 'masterlist',
+		'masterprint' => 'masterprint',
 		'search' => 'search' 
 	),
 	'searchSettings' => array(

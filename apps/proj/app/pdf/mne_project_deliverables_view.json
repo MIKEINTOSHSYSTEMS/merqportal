@@ -177,11 +177,64 @@ pdfDocument = {
 			"%",
 						{END row_grid_6}
 			 
+								{BEGIN row_grid_7}
+						
+			"%",
+						{END row_grid_7}
+			 
+								{BEGIN row_grid_8}
+						
+			"%",
+						{END row_grid_8}
+			 
 				],
 	
 		body: [
 				
 				{BEGIN row_grid_0}
+				[
+																{BEGIN cellblock_grid_c17}
+{
+	cellId: 'c17',
+	col:0,
+	row:0,
+			
+		
+	//	dynamic colspan/rowspan
+
+					{BEGIN colspan_grid_c17}
+			colSpan: {$colspan_grid_c17},
+			{END colspan_grid_c17}
+		
+		
+	
+			
+	
+			"stack": [
+		
+				
+			{BEGIN mastertable_block}
+			{$showmasterfile}
+		{END mastertable_block},
+				
+		  ],
+  "border": [ false, false, false, false ],
+              "alignment": 'left',
+     
+      
+      },
+
+{END cellblock_grid_c17}
+																		{ 
+				cellId: 'c17',
+				row:  0,
+				col:  1,
+				text: '',
+				compensateColspan: true
+			},
+							],
+				{END row_grid_0}
+						{BEGIN row_grid_1}
 				[
 																{BEGIN cellblock_grid_c}
 {
@@ -226,6 +279,62 @@ pdfDocument = {
 	
 			"stack": [
 		
+				'',
+	  ],
+  "border": [ false, false, false, false ],
+              "alignment": 'left',
+     
+      
+      },
+
+{END cellblock_grid_c6}
+											],
+				{END row_grid_1}
+						{BEGIN row_grid_2}
+				[
+																{BEGIN cellblock_grid_c10}
+{
+	cellId: 'c10',
+	col:0,
+	row:0,
+			
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"stack": [
+		
+				
+			{"hidden":"{$item_hide_integrated_edit_field13}","stack":[{"text":"{$jslabel mne_project_deliverables timeline_id }","bold":true},{"text":{$timeline_id_pdfvalue}}],"margin":[0,0,0,15]},
+				
+		  ],
+  "border": [ false, false, false, false ],
+              "alignment": 'left',
+     
+      
+      },
+
+{END cellblock_grid_c10}
+																							{BEGIN cellblock_grid_c16}
+{
+	cellId: 'c16',
+	col:0,
+	row:0,
+			
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"stack": [
+		
 				
 			{"hidden":"{$item_hide_integrated_edit_field12}","stack":[{"text":"{$jslabel mne_project_deliverables ganttProgress }","bold":true},{"text":{$ganttProgress_pdfvalue}}],"margin":[0,0,0,15]},
 				
@@ -236,10 +345,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_c6}
+{END cellblock_grid_c16}
 											],
-				{END row_grid_0}
-						{BEGIN row_grid_1}
+				{END row_grid_2}
+						{BEGIN row_grid_3}
 				[
 																{BEGIN cellblock_grid_c5}
 {
@@ -296,8 +405,8 @@ pdfDocument = {
 
 {END cellblock_grid_c7}
 											],
-				{END row_grid_1}
-						{BEGIN row_grid_2}
+				{END row_grid_3}
+						{BEGIN row_grid_4}
 				[
 																{BEGIN cellblock_grid_c14}
 {
@@ -354,8 +463,8 @@ pdfDocument = {
 
 {END cellblock_grid_c15}
 											],
-				{END row_grid_2}
-						{BEGIN row_grid_3}
+				{END row_grid_4}
+						{BEGIN row_grid_5}
 				[
 																{BEGIN cellblock_grid_c12}
 {
@@ -412,8 +521,8 @@ pdfDocument = {
 
 {END cellblock_grid_c13}
 											],
-				{END row_grid_3}
-						{BEGIN row_grid_4}
+				{END row_grid_5}
+						{BEGIN row_grid_6}
 				[
 																{BEGIN cellblock_grid_c3}
 {
@@ -473,8 +582,8 @@ pdfDocument = {
 
 {END cellblock_grid_c11}
 											],
-				{END row_grid_4}
-						{BEGIN row_grid_5}
+				{END row_grid_6}
+						{BEGIN row_grid_7}
 				[
 											{ 
 				cellId: 'c3',
@@ -511,8 +620,8 @@ pdfDocument = {
 
 {END cellblock_grid_c8}
 											],
-				{END row_grid_5}
-						{BEGIN row_grid_6}
+				{END row_grid_7}
+						{BEGIN row_grid_8}
 				[
 																{BEGIN cellblock_grid_c4}
 {
@@ -569,7 +678,7 @@ pdfDocument = {
 
 {END cellblock_grid_c9}
 											],
-				{END row_grid_6}
+				{END row_grid_8}
 		
 		]
 	}

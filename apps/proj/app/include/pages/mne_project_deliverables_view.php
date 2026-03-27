@@ -12,6 +12,9 @@
 		),
 		'mne_deliverable_options' => array(
 			'preview' => false 
+		),
+		'mne_project_timelines' => array(
+			'preview' => true 
 		) 
 	),
 	'fields' => array(
@@ -20,7 +23,6 @@
 			'project_id',
 			'created_at',
 			'deliverable_name',
-			'ganttProgress',
 			'due_date',
 			'client_acceptance',
 			'updated_at',
@@ -28,7 +30,9 @@
 			'owner',
 			'completed_date',
 			'status_id',
-			'start_date' 
+			'start_date',
+			'timeline_id',
+			'ganttProgress' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -48,9 +52,6 @@
 			),
 			'deliverable_name' => array( 
 				'integrated_edit_field1' 
-			),
-			'ganttProgress' => array( 
-				'integrated_edit_field12' 
 			),
 			'due_date' => array( 
 				'integrated_edit_field2' 
@@ -75,6 +76,12 @@
 			),
 			'start_date' => array( 
 				'integrated_edit_field11' 
+			),
+			'timeline_id' => array( 
+				'integrated_edit_field13' 
+			),
+			'ganttProgress' => array( 
+				'integrated_edit_field12' 
 			) 
 		) 
 	),
@@ -118,7 +125,6 @@
 					'integrated_edit_field',
 					'integrated_edit_field9',
 					'integrated_edit_field1',
-					'integrated_edit_field12',
 					'integrated_edit_field2',
 					'integrated_edit_field6',
 					'integrated_edit_field10',
@@ -126,7 +132,10 @@
 					'integrated_edit_field7',
 					'integrated_edit_field4',
 					'integrated_edit_field3',
-					'integrated_edit_field11' 
+					'integrated_edit_field11',
+					'integrated_edit_field13',
+					'integrated_edit_field12',
+					'master_info' 
 				) 
 			),
 			'formXtTags' => array(
@@ -154,7 +163,6 @@
 				'integrated_edit_field' => 'grid',
 				'integrated_edit_field9' => 'grid',
 				'integrated_edit_field1' => 'grid',
-				'integrated_edit_field12' => 'grid',
 				'integrated_edit_field2' => 'grid',
 				'integrated_edit_field6' => 'grid',
 				'integrated_edit_field10' => 'grid',
@@ -162,7 +170,10 @@
 				'integrated_edit_field7' => 'grid',
 				'integrated_edit_field4' => 'grid',
 				'integrated_edit_field3' => 'grid',
-				'integrated_edit_field11' => 'grid' 
+				'integrated_edit_field11' => 'grid',
+				'integrated_edit_field13' => 'grid',
+				'integrated_edit_field12' => 'grid',
+				'master_info' => 'grid' 
 			),
 			'itemLocations' => array(
 				'integrated_edit_field8' => array(
@@ -180,10 +191,6 @@
 				'integrated_edit_field1' => array(
 					'location' => 'grid',
 					'cellId' => 'c5' 
-				),
-				'integrated_edit_field12' => array(
-					'location' => 'grid',
-					'cellId' => 'c6' 
 				),
 				'integrated_edit_field2' => array(
 					'location' => 'grid',
@@ -216,6 +223,18 @@
 				'integrated_edit_field11' => array(
 					'location' => 'grid',
 					'cellId' => 'c15' 
+				),
+				'integrated_edit_field13' => array(
+					'location' => 'grid',
+					'cellId' => 'c10' 
+				),
+				'integrated_edit_field12' => array(
+					'location' => 'grid',
+					'cellId' => 'c16' 
+				),
+				'master_info' => array(
+					'location' => 'grid',
+					'cellId' => 'c17' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -257,21 +276,6 @@
 			'prev' => array( 
 				'prev' 
 			),
-			'integrated_edit_field' => array( 
-				'integrated_edit_field8',
-				'integrated_edit_field',
-				'integrated_edit_field9',
-				'integrated_edit_field1',
-				'integrated_edit_field12',
-				'integrated_edit_field2',
-				'integrated_edit_field6',
-				'integrated_edit_field10',
-				'integrated_edit_field5',
-				'integrated_edit_field7',
-				'integrated_edit_field4',
-				'integrated_edit_field3',
-				'integrated_edit_field11' 
-			),
 			'gantt_delete' => array( 
 				'gantt_delete' 
 			),
@@ -296,6 +300,25 @@
 			'adminarea_link' => array( 
 				'adminarea_link' 
 			),
+			'integrated_edit_field' => array( 
+				'integrated_edit_field8',
+				'integrated_edit_field',
+				'integrated_edit_field9',
+				'integrated_edit_field1',
+				'integrated_edit_field2',
+				'integrated_edit_field6',
+				'integrated_edit_field10',
+				'integrated_edit_field5',
+				'integrated_edit_field7',
+				'integrated_edit_field4',
+				'integrated_edit_field3',
+				'integrated_edit_field11',
+				'integrated_edit_field13',
+				'integrated_edit_field12' 
+			),
+			'master_info' => array( 
+				'master_info' 
+			),
 			'expand_button' => array( 
 				'expand_button' 
 			) 
@@ -303,12 +326,29 @@
 		'cellMaps' => array(
 			'grid' => array(
 				'cells' => array(
+					'c17' => array(
+						'cols' => array( 
+							0,
+							1 
+						),
+						'rows' => array( 
+							0 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'master_info' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
 					'c' => array(
 						'cols' => array( 
 							0 
 						),
 						'rows' => array( 
-							0 
+							1 
 						),
 						'tags' => array( 
 							 
@@ -324,7 +364,39 @@
 							1 
 						),
 						'rows' => array( 
+							1 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
+					),
+					'c10' => array(
+						'cols' => array( 
 							0 
+						),
+						'rows' => array( 
+							2 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'integrated_edit_field13' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'c16' => array(
+						'cols' => array( 
+							1 
+						),
+						'rows' => array( 
+							2 
 						),
 						'tags' => array( 
 							 
@@ -340,7 +412,7 @@
 							0 
 						),
 						'rows' => array( 
-							1 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -356,7 +428,7 @@
 							1 
 						),
 						'rows' => array( 
-							1 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -372,7 +444,7 @@
 							0 
 						),
 						'rows' => array( 
-							2 
+							4 
 						),
 						'tags' => array( 
 							 
@@ -388,7 +460,7 @@
 							1 
 						),
 						'rows' => array( 
-							2 
+							4 
 						),
 						'tags' => array( 
 							 
@@ -404,7 +476,7 @@
 							0 
 						),
 						'rows' => array( 
-							3 
+							5 
 						),
 						'tags' => array( 
 							 
@@ -420,7 +492,7 @@
 							1 
 						),
 						'rows' => array( 
-							3 
+							5 
 						),
 						'tags' => array( 
 							 
@@ -436,8 +508,8 @@
 							0 
 						),
 						'rows' => array( 
-							4,
-							5 
+							6,
+							7 
 						),
 						'tags' => array( 
 							 
@@ -453,7 +525,7 @@
 							1 
 						),
 						'rows' => array( 
-							4 
+							6 
 						),
 						'tags' => array( 
 							 
@@ -469,7 +541,7 @@
 							1 
 						),
 						'rows' => array( 
-							5 
+							7 
 						),
 						'tags' => array( 
 							 
@@ -485,7 +557,7 @@
 							0 
 						),
 						'rows' => array( 
-							6 
+							8 
 						),
 						'tags' => array( 
 							 
@@ -501,7 +573,7 @@
 							1 
 						),
 						'rows' => array( 
-							6 
+							8 
 						),
 						'tags' => array( 
 							 
@@ -514,7 +586,7 @@
 					) 
 				),
 				'width' => 2,
-				'height' => 7 
+				'height' => 9 
 			) 
 		) 
 	),
@@ -751,6 +823,15 @@
 			'modelId' => 'simple-edit',
 			'grid' => array( 
 				array(
+					'cells' => array( 
+						array(
+							'cell' => 'c17',
+							'colspan' => 2 
+						) 
+					),
+					'section' => '' 
+				),
+				array(
 					'section' => '',
 					'cells' => array( 
 						array(
@@ -758,6 +839,17 @@
 						),
 						array(
 							'cell' => 'c6' 
+						) 
+					) 
+				),
+				array(
+					'section' => '',
+					'cells' => array( 
+						array(
+							'cell' => 'c10' 
+						),
+						array(
+							'cell' => 'c16' 
 						) 
 					) 
 				),
@@ -854,7 +946,7 @@
 				'c6' => array(
 					'model' => 'c3',
 					'items' => array( 
-						'integrated_edit_field12' 
+						 
 					) 
 				),
 				'c7' => array(
@@ -904,6 +996,24 @@
 					'items' => array( 
 						'integrated_edit_field11' 
 					) 
+				),
+				'c10' => array(
+					'model' => 'c3',
+					'items' => array( 
+						'integrated_edit_field13' 
+					) 
+				),
+				'c16' => array(
+					'model' => 'c3',
+					'items' => array( 
+						'integrated_edit_field12' 
+					) 
+				),
+				'c17' => array(
+					'model' => 'c3',
+					'items' => array( 
+						'master_info' 
+					) 
 				) 
 			),
 			'deferredItems' => array( 
@@ -951,6 +1061,37 @@
 		'prev' => array(
 			'type' => 'prev' 
 		),
+		'gantt_delete' => array(
+			'type' => 'gantt_delete' 
+		),
+		'gantt_add_child' => array(
+			'type' => 'gantt_add_child' 
+		),
+		'username_button' => array(
+			'type' => 'username_button',
+			'items' => array( 
+				'userinfo_link',
+				'logout_link',
+				'adminarea_link',
+				'changepassword_link' 
+			) 
+		),
+		'loginform_login' => array(
+			'type' => 'loginform_login',
+			'popup' => false 
+		),
+		'userinfo_link' => array(
+			'type' => 'userinfo_link' 
+		),
+		'logout_link' => array(
+			'type' => 'logout_link' 
+		),
+		'changepassword_link' => array(
+			'type' => 'changepassword_link' 
+		),
+		'adminarea_link' => array(
+			'type' => 'adminarea_link' 
+		),
 		'integrated_edit_field8' => array(
 			'field' => 'notes',
 			'type' => 'integrated_edit_field',
@@ -968,11 +1109,6 @@
 		),
 		'integrated_edit_field1' => array(
 			'field' => 'deliverable_name',
-			'type' => 'integrated_edit_field',
-			'orientation' => 0 
-		),
-		'integrated_edit_field12' => array(
-			'field' => 'ganttProgress',
 			'type' => 'integrated_edit_field',
 			'orientation' => 0 
 		),
@@ -1016,36 +1152,21 @@
 			'type' => 'integrated_edit_field',
 			'orientation' => 0 
 		),
-		'gantt_delete' => array(
-			'type' => 'gantt_delete' 
+		'integrated_edit_field13' => array(
+			'field' => 'timeline_id',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
 		),
-		'gantt_add_child' => array(
-			'type' => 'gantt_add_child' 
+		'integrated_edit_field12' => array(
+			'field' => 'ganttProgress',
+			'type' => 'integrated_edit_field',
+			'orientation' => 0 
 		),
-		'username_button' => array(
-			'type' => 'username_button',
-			'items' => array( 
-				'userinfo_link',
-				'logout_link',
-				'adminarea_link',
-				'changepassword_link' 
+		'master_info' => array(
+			'type' => 'master_info',
+			'tables' => array(
+				'14966' => 'true' 
 			) 
-		),
-		'loginform_login' => array(
-			'type' => 'loginform_login',
-			'popup' => false 
-		),
-		'userinfo_link' => array(
-			'type' => 'userinfo_link' 
-		),
-		'logout_link' => array(
-			'type' => 'logout_link' 
-		),
-		'changepassword_link' => array(
-			'type' => 'changepassword_link' 
-		),
-		'adminarea_link' => array(
-			'type' => 'adminarea_link' 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

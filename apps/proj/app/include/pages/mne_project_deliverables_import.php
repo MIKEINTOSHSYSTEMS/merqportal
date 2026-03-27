@@ -14,7 +14,8 @@
 			'notes',
 			'created_at',
 			'updated_at',
-			'start_date' 
+			'start_date',
+			'timeline_id' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -61,6 +62,9 @@
 			),
 			'start_date' => array( 
 				'import_field12' 
+			),
+			'timeline_id' => array( 
+				'import_field13' 
 			) 
 		) 
 	),
@@ -92,7 +96,8 @@
 					'import_field9',
 					'import_field10',
 					'import_field11',
-					'import_field12' 
+					'import_field12',
+					'import_field13' 
 				) 
 			),
 			'formXtTags' => array(
@@ -114,7 +119,8 @@
 				'import_field9' => 'grid',
 				'import_field10' => 'grid',
 				'import_field11' => 'grid',
-				'import_field12' => 'grid' 
+				'import_field12' => 'grid',
+				'import_field13' => 'grid' 
 			),
 			'itemLocations' => array(
 				 
@@ -140,7 +146,8 @@
 				'import_field9',
 				'import_field10',
 				'import_field11',
-				'import_field12' 
+				'import_field12',
+				'import_field13' 
 			) 
 		),
 		'cellMaps' => array(
@@ -280,7 +287,8 @@
 						'import_field9',
 						'import_field10',
 						'import_field11',
-						'import_field12' 
+						'import_field12',
+						'import_field13' 
 					) 
 				) 
 			),
@@ -344,6 +352,10 @@
 		),
 		'import_field12' => array(
 			'field' => 'start_date',
+			'type' => 'import_field' 
+		),
+		'import_field13' => array(
+			'field' => 'timeline_id',
 			'type' => 'import_field' 
 		) 
 	),

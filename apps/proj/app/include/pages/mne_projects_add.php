@@ -331,10 +331,10 @@
 					'details_preview4' 
 				),
 				'section' => array( 
-					'details_preview' 
+					'details_preview3' 
 				),
 				'section1' => array( 
-					'details_preview3' 
+					'details_preview' 
 				),
 				'section4' => array( 
 					'details_preview5' 
@@ -415,8 +415,8 @@
 				'details_preview8' => 'section10',
 				'details_preview1' => 'section2',
 				'details_preview4' => 'section3',
-				'details_preview' => 'section',
-				'details_preview3' => 'section1',
+				'details_preview3' => 'section',
+				'details_preview' => 'section1',
 				'details_preview5' => 'section4',
 				'details_preview6' => 'section5',
 				'details_preview2' => 'section11',
@@ -600,11 +600,11 @@
 					'location' => 'section3',
 					'cellId' => 'c1' 
 				),
-				'details_preview' => array(
+				'details_preview3' => array(
 					'location' => 'section',
 					'cellId' => 'c1' 
 				),
-				'details_preview3' => array(
+				'details_preview' => array(
 					'location' => 'section1',
 					'cellId' => 'c1' 
 				),
@@ -2166,7 +2166,7 @@
 							 
 						),
 						'items' => array( 
-							'details_preview' 
+							'details_preview3' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
@@ -2188,7 +2188,7 @@
 							 
 						),
 						'items' => array( 
-							'details_preview3' 
+							'details_preview' 
 						),
 						'fixedAtServer' => true,
 						'fixedAtClient' => false 
@@ -3635,7 +3635,7 @@
 				'c1' => array(
 					'model' => 'c1',
 					'items' => array( 
-						'details_preview' 
+						'details_preview3' 
 					) 
 				) 
 			),
@@ -3662,7 +3662,7 @@
 				'c1' => array(
 					'model' => 'c1',
 					'items' => array( 
-						'details_preview3' 
+						'details_preview' 
 					) 
 				) 
 			),
@@ -4063,11 +4063,11 @@
 			'type' => 'tabs',
 			'titles' => array( 
 				array(
-					'text' => 'Deliverables',
+					'text' => 'Milestones / Timelines',
 					'type' => 0 
 				),
 				array(
-					'text' => 'Milestones / Timelines',
+					'text' => 'Deliverables',
 					'type' => 0 
 				),
 				array(

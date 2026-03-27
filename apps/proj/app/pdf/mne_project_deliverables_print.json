@@ -106,6 +106,9 @@ pdfDocument = {
 										{BEGIN col_grid_13}
 					"%",
 					{END col_grid_13}
+										{BEGIN col_grid_14}
+					"%",
+					{END col_grid_14}
 															],
 											heights: [ // first height for header part
 					"%",
@@ -286,7 +289,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables deliverable_id }","hidden":"{$item_hide_simple_grid_field14}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables deliverable_id }","hidden":"{$item_hide_simple_grid_field15}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -315,7 +318,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables project_id }","hidden":"{$item_hide_simple_grid_field15}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables project_id }","hidden":"{$item_hide_simple_grid_field16}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -344,7 +347,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables deliverable_name }","hidden":"{$item_hide_simple_grid_field16}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables deliverable_name }","hidden":"{$item_hide_simple_grid_field17}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -373,7 +376,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables due_date }","hidden":"{$item_hide_simple_grid_field17}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables due_date }","hidden":"{$item_hide_simple_grid_field18}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -402,7 +405,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables status_id }","hidden":"{$item_hide_simple_grid_field18}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables status_id }","hidden":"{$item_hide_simple_grid_field19}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -431,7 +434,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables start_date }","hidden":"{$item_hide_simple_grid_field19}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables start_date }","hidden":"{$item_hide_simple_grid_field20}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -460,7 +463,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables completed_date }","hidden":"{$item_hide_simple_grid_field20}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables completed_date }","hidden":"{$item_hide_simple_grid_field21}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -489,7 +492,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables ganttProgress }","hidden":"{$item_hide_simple_grid_field21}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables ganttProgress }","hidden":"{$item_hide_simple_grid_field22}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -518,7 +521,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables quality_check }","hidden":"{$item_hide_simple_grid_field22}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables quality_check }","hidden":"{$item_hide_simple_grid_field23}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -547,7 +550,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables client_acceptance }","hidden":"{$item_hide_simple_grid_field23}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables client_acceptance }","hidden":"{$item_hide_simple_grid_field24}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -576,7 +579,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables owner }","hidden":"{$item_hide_simple_grid_field24}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables owner }","hidden":"{$item_hide_simple_grid_field25}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -605,7 +608,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables notes }","hidden":"{$item_hide_simple_grid_field25}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables notes }","hidden":"{$item_hide_simple_grid_field26}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -634,7 +637,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables created_at }","hidden":"{$item_hide_simple_grid_field26}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables created_at }","hidden":"{$item_hide_simple_grid_field27}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -663,7 +666,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_deliverables updated_at }","hidden":"{$item_hide_simple_grid_field27}","bold":true},
+			{"text":"{$jslabel mne_project_deliverables updated_at }","hidden":"{$item_hide_simple_grid_field28}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -673,6 +676,35 @@ pdfDocument = {
       },
 
 {END cellblock_grid_headcell_field13}
+																							{BEGIN cellblock_grid_headcell_field14}
+{
+	cellId: 'headcell_field14',
+	col:0,
+	row:0,
+			fieldName: 'timeline_id',
+				style: 'headcell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				
+			{"text":"{$jslabel mne_project_deliverables timeline_id }","hidden":"{$item_hide_simple_grid_field29}","bold":true},
+				
+		  ],
+  "border": [ true, true, true, true ],
+              "alignment": '{$timeline_id_align}',
+     
+      
+      },
+
+{END cellblock_grid_headcell_field14}
 											],
 				{END row_grid_0}
 		
@@ -1088,6 +1120,35 @@ pdfDocument = {
       },
 
 {END cellblock_grid_cell_field13}
+																							{BEGIN cellblock_grid_cell_field14}
+{
+	cellId: 'cell_field14',
+	col:0,
+	row:0,
+			fieldName: 'timeline_id',
+				style: 'bodycell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				
+			{"text":{$timeline_id_pdfvalue},"hidden":"{$item_hide_simple_grid_field14}"},
+				
+		  ],
+  "border": [ true, true, true, true ],
+              "alignment": '{$timeline_id_align}',
+     
+      
+      },
+
+{END cellblock_grid_cell_field14}
 											],
 				{END row_grid_1}
 		
@@ -1461,6 +1522,32 @@ pdfDocument = {
       },
 
 {END cellblock_grid_footcell_field13}
+																							{BEGIN cellblock_grid_footcell_field14}
+{
+	cellId: 'footcell_field14',
+	col:0,
+	row:0,
+				style: 'footcell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				'',
+	  ],
+  "border": [ true, true, true, true ],
+              "alignment": 'left',
+     
+      
+      },
+
+{END cellblock_grid_footcell_field14}
 											],
 				{END row_grid_2}
 		

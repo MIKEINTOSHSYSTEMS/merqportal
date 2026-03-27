@@ -3,6 +3,11 @@
 	'pdf' => array(
 		'pdfView' => false 
 	),
+	'details' => array(
+		'mne_project_deliverables' => array(
+			'displayPreview' => 1 
+		) 
+	),
 	'master' => array(
 		'mne_projects' => array(
 			'preview' => true 
@@ -170,7 +175,8 @@
 					'simple_grid_field22',
 					'simple_grid_field9',
 					'simple_grid_field23',
-					'simple_grid_field10' 
+					'simple_grid_field10',
+					'details_preview' 
 				) 
 			),
 			'formXtTags' => array(
@@ -213,7 +219,8 @@
 				'simple_grid_field22' => 'grid',
 				'simple_grid_field9' => 'grid',
 				'simple_grid_field23' => 'grid',
-				'simple_grid_field10' => 'grid' 
+				'simple_grid_field10' => 'grid',
+				'details_preview' => 'grid' 
 			),
 			'itemLocations' => array(
 				'simple_grid_field12' => array(
@@ -311,6 +318,10 @@
 				'simple_grid_field10' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field11' 
+				),
+				'details_preview' => array(
+					'location' => 'grid',
+					'cellId' => 'cell_dpreview' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -357,6 +368,9 @@
 				'simple_grid_field21',
 				'simple_grid_field22',
 				'simple_grid_field23' 
+			),
+			'details_preview' => array( 
+				'details_preview' 
 			),
 			'inline_add' => array( 
 				'inline_add' 
@@ -752,12 +766,39 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
+					'cell_dpreview' => array(
+						'cols' => array( 
+							0,
+							1,
+							2,
+							3,
+							4,
+							5,
+							6,
+							7,
+							8,
+							9,
+							10,
+							11 
+						),
+						'rows' => array( 
+							2 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'details_preview' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
 					'footcell_field' => array(
 						'cols' => array( 
 							0 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -773,7 +814,7 @@
 							1 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -789,7 +830,7 @@
 							2 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -805,7 +846,7 @@
 							3 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -821,7 +862,7 @@
 							4 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -837,7 +878,7 @@
 							5 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -853,7 +894,7 @@
 							6 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -869,7 +910,7 @@
 							7 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -885,7 +926,7 @@
 							8 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -901,7 +942,7 @@
 							9 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -917,7 +958,7 @@
 							10 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -933,7 +974,7 @@
 							11 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -946,7 +987,7 @@
 					) 
 				),
 				'width' => 12,
-				'height' => 3 
+				'height' => 4 
 			) 
 		) 
 	),
@@ -1195,6 +1236,15 @@
 							'cell' => 'cell_field11' 
 						) 
 					) 
+				),
+				array(
+					'cells' => array( 
+						array(
+							'cell' => 'cell_dpreview',
+							'colspan' => 12 
+						) 
+					),
+					'section' => 'body' 
 				),
 				array(
 					'section' => 'foot',
@@ -1502,6 +1552,12 @@
 					'items' => array( 
 						 
 					) 
+				),
+				'cell_dpreview' => array(
+					'model' => 'cell_dpreview',
+					'items' => array( 
+						'details_preview' 
+					) 
 				) 
 			),
 			'deferredItems' => array( 
@@ -1622,6 +1678,14 @@
 		'simple_grid_field23' => array(
 			'type' => 'grid_field_label',
 			'field' => 'start_date' 
+		),
+		'details_preview' => array(
+			'type' => 'details_preview',
+			'table' => 14658,
+			'items' => array( 
+				 
+			),
+			'popup' => false 
 		),
 		'inline_add' => array(
 			'type' => 'inline_add',

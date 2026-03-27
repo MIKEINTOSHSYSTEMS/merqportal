@@ -14,6 +14,20 @@
 		'fieldFilter' => false,
 		'hideNumberOfRecords' => false 
 	),
+	'allDetails' => array(
+		'linkType' => 0 
+	),
+	'details' => array(
+		'mne_project_deliverables' => array(
+			'displayPreview' => 1,
+			'previewPageId' => 'list',
+			'showCount' => true,
+			'hideEmptyChild' => false,
+			'hideEmptyPreview' => false,
+			'showProceedLink' => true,
+			'printDetails' => true 
+		) 
+	),
 	'master' => array(
 		'mne_projects' => array(
 			'preview' => true 
@@ -255,13 +269,16 @@
 					'simple_grid_field8',
 					'simple_grid_field23',
 					'simple_grid_field9',
+					'details_preview',
 					'grid_checkbox_head',
 					'grid_checkbox',
 					'grid_edit',
 					'grid_inline_edit',
 					'grid_inline_save',
 					'grid_inline_cancel',
-					'grid_view' 
+					'grid_view',
+					'grid_alldetails_link',
+					'grid_details_link' 
 				) 
 			),
 			'formXtTags' => array(
@@ -330,13 +347,16 @@
 				'simple_grid_field8' => 'grid',
 				'simple_grid_field23' => 'grid',
 				'simple_grid_field9' => 'grid',
+				'details_preview' => 'grid',
 				'grid_checkbox_head' => 'grid',
 				'grid_checkbox' => 'grid',
 				'grid_edit' => 'grid',
 				'grid_inline_edit' => 'grid',
 				'grid_inline_save' => 'grid',
 				'grid_inline_cancel' => 'grid',
-				'grid_view' => 'grid' 
+				'grid_view' => 'grid',
+				'grid_alldetails_link' => 'grid',
+				'grid_details_link' => 'grid' 
 			),
 			'itemLocations' => array(
 				'simple_grid_field12' => array(
@@ -435,6 +455,10 @@
 					'location' => 'grid',
 					'cellId' => 'cell_field11' 
 				),
+				'details_preview' => array(
+					'location' => 'grid',
+					'cellId' => 'cell_dpreview' 
+				),
 				'grid_checkbox_head' => array(
 					'location' => 'grid',
 					'cellId' => 'headcell_checkbox' 
@@ -462,6 +486,14 @@
 				'grid_view' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_icons' 
+				),
+				'grid_alldetails_link' => array(
+					'location' => 'grid',
+					'cellId' => 'cell_details' 
+				),
+				'grid_details_link' => array(
+					'location' => 'grid',
+					'cellId' => 'cell_details' 
 				) 
 			),
 			'itemVisiblity' => array(
@@ -597,6 +629,9 @@
 			'adminarea_link' => array( 
 				'adminarea_link' 
 			),
+			'print_details' => array( 
+				'print_details' 
+			),
 			'grid_field' => array( 
 				'simple_grid_field',
 				'simple_grid_field1',
@@ -625,6 +660,9 @@
 				'simple_grid_field22',
 				'simple_grid_field23' 
 			),
+			'details_preview' => array( 
+				'details_preview' 
+			),
 			'grid_checkbox' => array( 
 				'grid_checkbox' 
 			),
@@ -645,6 +683,12 @@
 			),
 			'grid_inline_cancel' => array( 
 				'grid_inline_cancel' 
+			),
+			'grid_alldetails_link' => array( 
+				'grid_alldetails_link' 
+			),
+			'grid_details_link' => array( 
+				'grid_details_link' 
 			),
 			'expand_button' => array( 
 				'expand_button' 
@@ -685,9 +729,25 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'headcell_field' => array(
+					'headcell_details' => array(
 						'cols' => array( 
 							2 
+						),
+						'rows' => array( 
+							0 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
+					),
+					'headcell_field' => array(
+						'cols' => array( 
+							3 
 						),
 						'rows' => array( 
 							0 
@@ -703,7 +763,7 @@
 					),
 					'headcell_field1' => array(
 						'cols' => array( 
-							3 
+							4 
 						),
 						'rows' => array( 
 							0 
@@ -719,7 +779,7 @@
 					),
 					'headcell_field2' => array(
 						'cols' => array( 
-							4 
+							5 
 						),
 						'rows' => array( 
 							0 
@@ -735,7 +795,7 @@
 					),
 					'headcell_field3' => array(
 						'cols' => array( 
-							5 
+							6 
 						),
 						'rows' => array( 
 							0 
@@ -751,7 +811,7 @@
 					),
 					'headcell_field4' => array(
 						'cols' => array( 
-							6 
+							7 
 						),
 						'rows' => array( 
 							0 
@@ -767,7 +827,7 @@
 					),
 					'headcell_field5' => array(
 						'cols' => array( 
-							7 
+							8 
 						),
 						'rows' => array( 
 							0 
@@ -783,7 +843,7 @@
 					),
 					'headcell_field6' => array(
 						'cols' => array( 
-							8 
+							9 
 						),
 						'rows' => array( 
 							0 
@@ -799,7 +859,7 @@
 					),
 					'headcell_field7' => array(
 						'cols' => array( 
-							9 
+							10 
 						),
 						'rows' => array( 
 							0 
@@ -815,7 +875,7 @@
 					),
 					'headcell_field8' => array(
 						'cols' => array( 
-							10 
+							11 
 						),
 						'rows' => array( 
 							0 
@@ -831,7 +891,7 @@
 					),
 					'headcell_field9' => array(
 						'cols' => array( 
-							11 
+							12 
 						),
 						'rows' => array( 
 							0 
@@ -847,7 +907,7 @@
 					),
 					'headcell_field10' => array(
 						'cols' => array( 
-							12 
+							13 
 						),
 						'rows' => array( 
 							0 
@@ -863,7 +923,7 @@
 					),
 					'headcell_field11' => array(
 						'cols' => array( 
-							13 
+							14 
 						),
 						'rows' => array( 
 							0 
@@ -917,9 +977,26 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
-					'cell_field' => array(
+					'cell_details' => array(
 						'cols' => array( 
 							2 
+						),
+						'rows' => array( 
+							1 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'grid_alldetails_link',
+							'grid_details_link' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
+					'cell_field' => array(
+						'cols' => array( 
+							3 
 						),
 						'rows' => array( 
 							1 
@@ -935,7 +1012,7 @@
 					),
 					'cell_field1' => array(
 						'cols' => array( 
-							3 
+							4 
 						),
 						'rows' => array( 
 							1 
@@ -951,7 +1028,7 @@
 					),
 					'cell_field2' => array(
 						'cols' => array( 
-							4 
+							5 
 						),
 						'rows' => array( 
 							1 
@@ -967,7 +1044,7 @@
 					),
 					'cell_field3' => array(
 						'cols' => array( 
-							5 
+							6 
 						),
 						'rows' => array( 
 							1 
@@ -983,7 +1060,7 @@
 					),
 					'cell_field4' => array(
 						'cols' => array( 
-							6 
+							7 
 						),
 						'rows' => array( 
 							1 
@@ -999,7 +1076,7 @@
 					),
 					'cell_field5' => array(
 						'cols' => array( 
-							7 
+							8 
 						),
 						'rows' => array( 
 							1 
@@ -1015,7 +1092,7 @@
 					),
 					'cell_field6' => array(
 						'cols' => array( 
-							8 
+							9 
 						),
 						'rows' => array( 
 							1 
@@ -1031,7 +1108,7 @@
 					),
 					'cell_field7' => array(
 						'cols' => array( 
-							9 
+							10 
 						),
 						'rows' => array( 
 							1 
@@ -1047,7 +1124,7 @@
 					),
 					'cell_field8' => array(
 						'cols' => array( 
-							10 
+							11 
 						),
 						'rows' => array( 
 							1 
@@ -1063,7 +1140,7 @@
 					),
 					'cell_field9' => array(
 						'cols' => array( 
-							11 
+							12 
 						),
 						'rows' => array( 
 							1 
@@ -1079,7 +1156,7 @@
 					),
 					'cell_field10' => array(
 						'cols' => array( 
-							12 
+							13 
 						),
 						'rows' => array( 
 							1 
@@ -1095,7 +1172,7 @@
 					),
 					'cell_field11' => array(
 						'cols' => array( 
-							13 
+							14 
 						),
 						'rows' => array( 
 							1 
@@ -1109,12 +1186,42 @@
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
 					),
+					'cell_dpreview' => array(
+						'cols' => array( 
+							0,
+							1,
+							2,
+							3,
+							4,
+							5,
+							6,
+							7,
+							8,
+							9,
+							10,
+							11,
+							12,
+							13,
+							14 
+						),
+						'rows' => array( 
+							2 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							'details_preview' 
+						),
+						'fixedAtServer' => true,
+						'fixedAtClient' => false 
+					),
 					'footcell_icons' => array(
 						'cols' => array( 
 							0 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1130,7 +1237,23 @@
 							1 
 						),
 						'rows' => array( 
+							3 
+						),
+						'tags' => array( 
+							 
+						),
+						'items' => array( 
+							 
+						),
+						'fixedAtServer' => false,
+						'fixedAtClient' => false 
+					),
+					'footcell_details' => array(
+						'cols' => array( 
 							2 
+						),
+						'rows' => array( 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1143,10 +1266,10 @@
 					),
 					'footcell_field' => array(
 						'cols' => array( 
-							2 
+							3 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1159,10 +1282,10 @@
 					),
 					'footcell_field1' => array(
 						'cols' => array( 
-							3 
+							4 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1175,10 +1298,10 @@
 					),
 					'footcell_field2' => array(
 						'cols' => array( 
-							4 
+							5 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1191,10 +1314,10 @@
 					),
 					'footcell_field3' => array(
 						'cols' => array( 
-							5 
+							6 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1207,10 +1330,10 @@
 					),
 					'footcell_field4' => array(
 						'cols' => array( 
-							6 
+							7 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1223,10 +1346,10 @@
 					),
 					'footcell_field5' => array(
 						'cols' => array( 
-							7 
+							8 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1239,10 +1362,10 @@
 					),
 					'footcell_field6' => array(
 						'cols' => array( 
-							8 
+							9 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1255,10 +1378,10 @@
 					),
 					'footcell_field7' => array(
 						'cols' => array( 
-							9 
+							10 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1271,10 +1394,10 @@
 					),
 					'footcell_field8' => array(
 						'cols' => array( 
-							10 
+							11 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1287,10 +1410,10 @@
 					),
 					'footcell_field9' => array(
 						'cols' => array( 
-							11 
+							12 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1303,10 +1426,10 @@
 					),
 					'footcell_field10' => array(
 						'cols' => array( 
-							12 
+							13 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1319,10 +1442,10 @@
 					),
 					'footcell_field11' => array(
 						'cols' => array( 
-							13 
+							14 
 						),
 						'rows' => array( 
-							2 
+							3 
 						),
 						'tags' => array( 
 							 
@@ -1334,8 +1457,8 @@
 						'fixedAtClient' => false 
 					) 
 				),
-				'width' => 14,
-				'height' => 3 
+				'width' => 15,
+				'height' => 4 
 			) 
 		) 
 	),
@@ -1595,6 +1718,9 @@
 							'cell' => 'headcell_checkbox' 
 						),
 						array(
+							'cell' => 'headcell_details' 
+						),
+						array(
 							'cell' => 'headcell_field' 
 						),
 						array(
@@ -1642,6 +1768,9 @@
 							'cell' => 'cell_checkbox' 
 						),
 						array(
+							'cell' => 'cell_details' 
+						),
+						array(
 							'cell' => 'cell_field' 
 						),
 						array(
@@ -1680,6 +1809,15 @@
 					) 
 				),
 				array(
+					'cells' => array( 
+						array(
+							'cell' => 'cell_dpreview',
+							'colspan' => 15 
+						) 
+					),
+					'section' => 'body' 
+				),
+				array(
 					'section' => 'foot',
 					'cells' => array( 
 						array(
@@ -1687,6 +1825,9 @@
 						),
 						array(
 							'cell' => 'footcell_checkbox' 
+						),
+						array(
+							'cell' => 'footcell_details' 
 						),
 						array(
 							'cell' => 'footcell_field' 
@@ -1992,6 +2133,12 @@
 						 
 					) 
 				),
+				'cell_dpreview' => array(
+					'model' => 'cell_dpreview',
+					'items' => array( 
+						'details_preview' 
+					) 
+				),
 				'headcell_checkbox' => array(
 					'model' => 'headcell_checkbox',
 					'items' => array( 
@@ -2028,6 +2175,25 @@
 				),
 				'footcell_icons' => array(
 					'model' => 'footcell_icons',
+					'items' => array( 
+						 
+					) 
+				),
+				'headcell_details' => array(
+					'model' => 'headcell_details',
+					'items' => array( 
+						 
+					) 
+				),
+				'cell_details' => array(
+					'model' => 'cell_details',
+					'items' => array( 
+						'grid_alldetails_link',
+						'grid_details_link' 
+					) 
+				),
+				'footcell_details' => array(
+					'model' => 'footcell_details',
 					'items' => array( 
 						 
 					) 
@@ -2191,6 +2357,7 @@
 			'type' => 'print_panel',
 			'items' => array( 
 				'print_scope',
+				'print_details',
 				'print_records',
 				'print_button' 
 			) 
@@ -2268,6 +2435,12 @@
 		),
 		'adminarea_link' => array(
 			'type' => 'adminarea_link' 
+		),
+		'print_details' => array(
+			'type' => 'print_details',
+			'tables' => array(
+				'14658' => true 
+			) 
 		),
 		'-3' => array(
 			'type' => '-' 
@@ -2392,6 +2565,17 @@
 			'type' => 'grid_field_label',
 			'field' => 'updated_at' 
 		),
+		'details_preview' => array(
+			'type' => 'details_preview',
+			'table' => 14658,
+			'items' => array( 
+				 
+			),
+			'proceedLink' => true,
+			'popup' => false,
+			'hideEmptyPreview' => false,
+			'pageId' => 'list' 
+		),
 		'grid_checkbox' => array(
 			'type' => 'grid_checkbox' 
 		),
@@ -2412,6 +2596,16 @@
 		),
 		'grid_inline_cancel' => array(
 			'type' => 'grid_inline_cancel' 
+		),
+		'grid_alldetails_link' => array(
+			'type' => 'grid_alldetails_link' 
+		),
+		'grid_details_link' => array(
+			'type' => 'grid_details_link',
+			'table' => 14658,
+			'badge' => true,
+			'hideIfNone' => false,
+			'showCount' => true 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 

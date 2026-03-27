@@ -4,6 +4,19 @@ $runnerDbTableInfo['mne_project_deliverables'] = array(
 	'type' => 0,
 	'foreignKeys' => array( 
 		array(
+			'name' => 'fk_deliverable_milestone',
+			'refTable' => 'mne_project_timelines',
+			'refSchema' => '',
+			'del_rule' => 2,
+			'upd_rule' => 1,
+			'columns' => array( 
+				array(
+					'column' => 'timeline_id',
+					'ref_column' => 'timeline_id' 
+				) 
+			) 
+		),
+		array(
 			'name' => 'fk_deliverable_project',
 			'refTable' => 'mne_projects',
 			'refSchema' => '',
@@ -46,6 +59,17 @@ $runnerDbTableInfo['mne_project_deliverables'] = array(
 			'scale' => 0,
 			'typeName' => 'int(11)',
 			'nullable' => false,
+			'autoinc' => false,
+			'defaultValueSQL' => null,
+			'defaultValue' => '' 
+		),
+		array(
+			'name' => 'timeline_id',
+			'type' => 3,
+			'size' => 11,
+			'scale' => 0,
+			'typeName' => 'int(11)',
+			'nullable' => true,
 			'autoinc' => false,
 			'defaultValueSQL' => null,
 			'defaultValue' => '' 

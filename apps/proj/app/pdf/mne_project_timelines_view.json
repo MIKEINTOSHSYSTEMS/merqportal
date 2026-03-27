@@ -180,6 +180,11 @@ pdfDocument = {
 			"%",
 						{END row_grid_6}
 			 
+								{BEGIN row_grid_7}
+						
+			"%",
+						{END row_grid_7}
+			 
 				],
 	
 		body: [
@@ -759,6 +764,56 @@ pdfDocument = {
 {END cellblock_grid_c7}
 											],
 				{END row_grid_6}
+						{BEGIN row_grid_7}
+				[
+																{BEGIN cellblock_grid_c23}
+{
+	cellId: 'c23',
+	col:0,
+	row:0,
+			
+		
+	//	dynamic colspan/rowspan
+
+					{BEGIN colspan_grid_c23}
+			colSpan: {$colspan_grid_c23},
+			{END colspan_grid_c23}
+		
+		
+	
+			
+	
+			"stack": [
+		
+				
+			 {BEGIN details_mne_project_deliverables}
+			{$displayDetailTable_mne_project_deliverables }
+		{END details_mne_project_deliverables},
+				
+		  ],
+  "border": [ false, false, false, false ],
+              "alignment": 'left',
+     
+      
+      },
+
+{END cellblock_grid_c23}
+																		{ 
+				cellId: 'c23',
+				row:  0,
+				col:  1,
+				text: '',
+				compensateColspan: true
+			},
+														{ 
+				cellId: 'c23',
+				row:  0,
+				col:  2,
+				text: '',
+				compensateColspan: true
+			},
+							],
+				{END row_grid_7}
 		
 		]
 	}

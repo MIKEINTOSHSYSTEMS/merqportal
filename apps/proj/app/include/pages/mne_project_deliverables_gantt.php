@@ -21,6 +21,7 @@
 		),
 		'searchPanelFields' => array( 
 			'deliverable_id',
+			'timeline_id',
 			'project_id',
 			'deliverable_name',
 			'start_date',
@@ -149,7 +150,8 @@
 				'search_panel_field10',
 				'search_panel_field11',
 				'search_panel_field12',
-				'search_panel_field13' 
+				'search_panel_field13',
+				'search_panel_field14' 
 			),
 			'expand_menu_button' => array( 
 				'expand_menu_button' 
@@ -515,6 +517,7 @@
 			'type' => 'search_panel',
 			'items' => array( 
 				'search_panel_field',
+				'search_panel_field14',
 				'search_panel_field1',
 				'search_panel_field2',
 				'search_panel_field12',
@@ -692,6 +695,10 @@
 		),
 		'adminarea_link' => array(
 			'type' => 'adminarea_link' 
+		),
+		'search_panel_field14' => array(
+			'field' => 'timeline_id',
+			'type' => 'search_panel_field' 
 		),
 		'expand_button' => array(
 			'type' => 'expand_button' 
