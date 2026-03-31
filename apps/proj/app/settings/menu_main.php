@@ -537,6 +537,96 @@ $runnerMenus['main'] = array(
 				'parent' => '',
 				'children' => array( 
 					array(
+						'id' => '93',
+						'parent' => '47',
+						'children' => array( 
+							array(
+								'id' => '92',
+								'parent' => '93',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => 'Project Tasks',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-tasks',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 20337,
+									'pageType' => 'gantt' 
+								) 
+							),
+							array(
+								'id' => '91',
+								'parent' => '93',
+								'children' => array( 
+									 
+								),
+								'data' => array(
+									'name' => array(
+										'text' => 'Deliverables & Milestones',
+										'type' => 0 
+									),
+									'comments' => array(
+										'text' => '',
+										'type' => 0 
+									),
+									'style' => '',
+									'href' => '',
+									'params' => '',
+									'pageId' => '',
+									'itemType' => 2,
+									'linkType' => 0,
+									'openType' => 0,
+									'iconType' => 3,
+									'iconName' => 'fa-check-double',
+									'iconStyle' => 0,
+									'showIconType' => 1,
+									'linkToAnotherApp' => false,
+									'table' => 20219,
+									'pageType' => 'list' 
+								) 
+							) 
+						),
+						'data' => array(
+							'name' => array(
+								'text' => 'To Do',
+								'type' => 0 
+							),
+							'comments' => array(
+								'text' => '',
+								'type' => 0 
+							),
+							'style' => '',
+							'href' => '',
+							'params' => '',
+							'pageId' => '',
+							'itemType' => 0,
+							'linkType' => 2,
+							'openType' => 0,
+							'iconType' => 3,
+							'iconName' => 'fa-history',
+							'iconStyle' => 0,
+							'showIconType' => 1,
+							'linkToAnotherApp' => false 
+						) 
+					),
+					array(
 						'id' => '26',
 						'parent' => '47',
 						'children' => array( 

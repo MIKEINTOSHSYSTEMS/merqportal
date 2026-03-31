@@ -232,6 +232,12 @@ $runnerProjectSettings = array(
 		),
 		'Dashboard' => array(
 			'table' => 18627 
+		),
+		'mne_project_deliverables_milestones' => array(
+			'table' => 20219 
+		),
+		'mne_project_tasks' => array(
+			'table' => 20337 
 		) 
 	),
 	'userTableKeys' => array( 
@@ -2022,6 +2028,30 @@ $runnerProjectSettings = array(
 			'connId' => '',
 			'color' => 'd2691e',
 			'originalTable' => '' 
+		),
+		'mne_project_deliverables_milestones' => array(
+			'gid' => 20219,
+			'name' => 'mne_project_deliverables_milestones',
+			'shortName' => 'mne_project_deliverables_milestones',
+			'type' => 6,
+			'caption' => array(
+				'English' => 'mne_project_deliverables_milestones' 
+			),
+			'connId' => 'conn',
+			'color' => 'dc143c',
+			'originalTable' => '' 
+		),
+		'mne_project_tasks' => array(
+			'gid' => 20337,
+			'name' => 'mne_project_tasks',
+			'shortName' => 'mne_project_tasks',
+			'type' => 0,
+			'caption' => array(
+				'English' => 'Mne Project Tasks' 
+			),
+			'connId' => 'conn',
+			'color' => 'cd5c5c',
+			'originalTable' => 'mne_project_tasks' 
 		) 
 	),
 	'tablesByShort' => array(
@@ -2097,7 +2127,9 @@ $runnerProjectSettings = array(
 		'tbldepartments' => 'tbldepartments',
 		'tblstaff_departments' => 'tblstaff_departments',
 		'tblhr_job_position' => 'tblhr_job_position',
-		'Dashboard' => 'Dashboard' 
+		'Dashboard' => 'Dashboard',
+		'mne_project_deliverables_milestones' => 'mne_project_deliverables_milestones',
+		'mne_project_tasks' => 'mne_project_tasks' 
 	),
 	'tablesByGood' => array(
 		'mne_analysis_by_source' => 'mne_analysis_by_source',
@@ -2172,7 +2204,9 @@ $runnerProjectSettings = array(
 		'tbldepartments' => 'tbldepartments',
 		'tblstaff_departments' => 'tblstaff_departments',
 		'tblhr_job_position' => 'tblhr_job_position',
-		'Dashboard' => 'Dashboard' 
+		'Dashboard' => 'Dashboard',
+		'mne_project_deliverables_milestones' => 'mne_project_deliverables_milestones',
+		'mne_project_tasks' => 'mne_project_tasks' 
 	),
 	'events' => array( 
 		 
@@ -2199,7 +2233,7 @@ $runnerProjectSettings = array(
 		'table' => '' 
 	),
 	'wizardBuild' => '43785',
-	'projectBuild' => 'KuU9KPabPBxs',
+	'projectBuild' => '7Vo82bsWi8NH',
 	'projectTheme' => 'flatly',
 	'projectSize' => 'normal',
 	'customErrorMsg' => array(

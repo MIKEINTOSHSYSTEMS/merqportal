@@ -39,6 +39,12 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
+		'table' => 'mne_audit_log',
+		'schema' => '',
+		'filename' => 'mne_audit_log' 
+	),
+	array(
+		'connId' => 'conn',
 		'table' => 'mne_data_methods',
 		'schema' => '',
 		'filename' => 'mne_data_methods' 
@@ -51,21 +57,33 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_business_performance',
-		'schema' => '',
-		'filename' => 'mne_business_performance' 
-	),
-	array(
-		'connId' => 'conn',
 		'table' => 'mne_budget_performance',
 		'schema' => '',
 		'filename' => 'mne_budget_performance' 
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_audit_log',
+		'table' => 'mne_currency_options',
 		'schema' => '',
-		'filename' => 'mne_audit_log' 
+		'filename' => 'mne_currency_options' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_business_performance',
+		'schema' => '',
+		'filename' => 'mne_business_performance' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_client_options',
+		'schema' => '',
+		'filename' => 'mne_client_options' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_business_opportunities',
+		'schema' => '',
+		'filename' => 'mne_business_opportunities' 
 	),
 	array(
 		'connId' => 'conn',
@@ -81,21 +99,9 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_business_opportunities',
+		'table' => 'mne_deliverable_status',
 		'schema' => '',
-		'filename' => 'mne_business_opportunities' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'mne_currency_options',
-		'schema' => '',
-		'filename' => 'mne_currency_options' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'mne_client_options',
-		'schema' => '',
-		'filename' => 'mne_client_options' 
+		'filename' => 'mne_deliverable_status' 
 	),
 	array(
 		'connId' => 'conn',
@@ -105,15 +111,9 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_deliverable_status',
+		'table' => 'mne_executive_dashboard',
 		'schema' => '',
-		'filename' => 'mne_deliverable_status' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'mne_knowledge_outputs',
-		'schema' => '',
-		'filename' => 'mne_knowledge_outputs' 
+		'filename' => 'mne_executive_dashboard' 
 	),
 	array(
 		'connId' => 'conn',
@@ -123,15 +123,21 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_indicator_matrix',
+		'table' => 'mne_knowledge_outputs',
 		'schema' => '',
-		'filename' => 'mne_indicator_matrix' 
+		'filename' => 'mne_knowledge_outputs' 
 	),
 	array(
 		'connId' => 'conn',
 		'table' => 'mne_opportunity_metrics',
 		'schema' => '',
 		'filename' => 'mne_opportunity_metrics' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_indicator_matrix',
+		'schema' => '',
+		'filename' => 'mne_indicator_matrix' 
 	),
 	array(
 		'connId' => 'conn',
@@ -144,12 +150,6 @@ $runnerDbTables = array(
 		'table' => 'mne_partnership_options',
 		'schema' => '',
 		'filename' => 'mne_partnership_options' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'mne_executive_dashboard',
-		'schema' => '',
-		'filename' => 'mne_executive_dashboard' 
 	),
 	array(
 		'connId' => 'conn',
@@ -177,27 +177,9 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_project_financials',
-		'schema' => '',
-		'filename' => 'mne_project_financials' 
-	),
-	array(
-		'connId' => 'conn',
 		'table' => 'mne_portfolio_snapshot',
 		'schema' => '',
 		'filename' => 'mne_portfolio_snapshot' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'mne_project_details',
-		'schema' => '',
-		'filename' => 'mne_project_details' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'mne_project_leads',
-		'schema' => '',
-		'filename' => 'mne_project_leads' 
 	),
 	array(
 		'connId' => 'conn',
@@ -207,21 +189,21 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
+		'table' => 'mne_project_leads',
+		'schema' => '',
+		'filename' => 'mne_project_leads' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_project_financials',
+		'schema' => '',
+		'filename' => 'mne_project_financials' 
+	),
+	array(
+		'connId' => 'conn',
 		'table' => 'mne_project_issues',
 		'schema' => '',
 		'filename' => 'mne_project_issues' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'mne_project_risks',
-		'schema' => '',
-		'filename' => 'mne_project_risks' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'mne_project_type_options',
-		'schema' => '',
-		'filename' => 'mne_project_type_options' 
 	),
 	array(
 		'connId' => 'conn',
@@ -231,15 +213,21 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_projects',
+		'table' => 'mne_project_risks',
 		'schema' => '',
-		'filename' => 'mne_projects' 
+		'filename' => 'mne_project_risks' 
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_risk_options',
+		'table' => 'mne_project_details',
 		'schema' => '',
-		'filename' => 'mne_risk_options' 
+		'filename' => 'mne_project_details' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_projects',
+		'schema' => '',
+		'filename' => 'mne_projects' 
 	),
 	array(
 		'connId' => 'conn',
@@ -249,9 +237,21 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_publication_types',
+		'table' => 'mne_project_type_options',
 		'schema' => '',
-		'filename' => 'mne_publication_types' 
+		'filename' => 'mne_project_type_options' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_resource_options',
+		'schema' => '',
+		'filename' => 'mne_resource_options' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_risk_options',
+		'schema' => '',
+		'filename' => 'mne_risk_options' 
 	),
 	array(
 		'connId' => 'conn',
@@ -261,9 +261,15 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_resource_options',
+		'table' => 'mne_publication_types',
 		'schema' => '',
-		'filename' => 'mne_resource_options' 
+		'filename' => 'mne_publication_types' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_win_loss_analysis',
+		'schema' => '',
+		'filename' => 'mne_win_loss_analysis' 
 	),
 	array(
 		'connId' => 'conn',
@@ -279,9 +285,9 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_win_loss_analysis',
+		'table' => 'mne_project_category',
 		'schema' => '',
-		'filename' => 'mne_win_loss_analysis' 
+		'filename' => 'mne_project_category' 
 	),
 	array(
 		'connId' => 'conn',
@@ -303,27 +309,9 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_grantee_contracted_unit',
-		'schema' => '',
-		'filename' => 'mne_grantee_contracted_unit' 
-	),
-	array(
-		'connId' => 'conn',
 		'table' => 'mne_sector_category',
 		'schema' => '',
 		'filename' => 'mne_sector_category' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'mne_deliverable_options',
-		'schema' => '',
-		'filename' => 'mne_deliverable_options' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'mne_project_category',
-		'schema' => '',
-		'filename' => 'mne_project_category' 
 	),
 	array(
 		'connId' => 'conn',
@@ -333,9 +321,21 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
+		'table' => 'mne_deliverable_options',
+		'schema' => '',
+		'filename' => 'mne_deliverable_options' 
+	),
+	array(
+		'connId' => 'conn',
 		'table' => 'mne_generic_options',
 		'schema' => '',
 		'filename' => 'mne_generic_options' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_grantee_contracted_unit',
+		'schema' => '',
+		'filename' => 'mne_grantee_contracted_unit' 
 	),
 	array(
 		'connId' => 'conn',
@@ -351,33 +351,9 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_thematic_areas',
-		'schema' => '',
-		'filename' => 'mne_thematic_areas' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'tblclients',
-		'schema' => '',
-		'filename' => 'tblclients' 
-	),
-	array(
-		'connId' => 'conn',
 		'table' => 'mne_data_sources',
 		'schema' => '',
 		'filename' => 'mne_data_sources' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'mne_indicator_groups',
-		'schema' => '',
-		'filename' => 'mne_indicator_groups' 
-	),
-	array(
-		'connId' => 'conn',
-		'table' => 'tblcountries',
-		'schema' => '',
-		'filename' => 'tblcountries' 
 	),
 	array(
 		'connId' => 'conn',
@@ -387,21 +363,45 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'mne_partner_types',
-		'schema' => '',
-		'filename' => 'mne_partner_types' 
-	),
-	array(
-		'connId' => 'conn',
 		'table' => 'mne_engagement_level',
 		'schema' => '',
 		'filename' => 'mne_engagement_level' 
 	),
 	array(
 		'connId' => 'conn',
+		'table' => 'mne_thematic_areas',
+		'schema' => '',
+		'filename' => 'mne_thematic_areas' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_partner_types',
+		'schema' => '',
+		'filename' => 'mne_partner_types' 
+	),
+	array(
+		'connId' => 'conn',
 		'table' => 'mne_budget_category',
 		'schema' => '',
 		'filename' => 'mne_budget_category' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_indicator_groups',
+		'schema' => '',
+		'filename' => 'mne_indicator_groups' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'tblclients',
+		'schema' => '',
+		'filename' => 'tblclients' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'tblcountries',
+		'schema' => '',
+		'filename' => 'tblcountries' 
 	),
 	array(
 		'connId' => 'conn',
@@ -423,12 +423,6 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
-		'table' => 'departments',
-		'schema' => '',
-		'filename' => 'departments' 
-	),
-	array(
-		'connId' => 'conn',
 		'table' => 'positions',
 		'schema' => '',
 		'filename' => 'positions' 
@@ -447,9 +441,21 @@ $runnerDbTables = array(
 	),
 	array(
 		'connId' => 'conn',
+		'table' => 'departments',
+		'schema' => '',
+		'filename' => 'departments' 
+	),
+	array(
+		'connId' => 'conn',
 		'table' => 'tblhr_job_position',
 		'schema' => '',
 		'filename' => 'tblhr_job_position' 
+	),
+	array(
+		'connId' => 'conn',
+		'table' => 'mne_project_tasks',
+		'schema' => '',
+		'filename' => 'mne_project_tasks' 
 	) 
 );
 ?>

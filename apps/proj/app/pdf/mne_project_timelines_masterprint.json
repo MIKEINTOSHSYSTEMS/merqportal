@@ -346,6 +346,35 @@ pdfDocument = {
 	cellId: 'headcell_field3',
 	col:0,
 	row:0,
+			fieldName: 'start_date',
+				style: 'headcell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				
+			{"text":"{$jslabel mne_project_timelines start_date }","hidden":"{$item_hide_simple_grid_field15}","bold":true},
+				
+		  ],
+  "border": [ true, true, true, true ],
+              "alignment": '{$start_date_align}',
+     
+      
+      },
+
+{END cellblock_grid_headcell_field3}
+																							{BEGIN cellblock_grid_headcell_field4}
+{
+	cellId: 'headcell_field4',
+	col:0,
+	row:0,
 			fieldName: 'planned_date',
 				style: 'headcell',
 		
@@ -360,7 +389,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_timelines planned_date }","hidden":"{$item_hide_simple_grid_field15}","bold":true},
+			{"text":"{$jslabel mne_project_timelines planned_date }","hidden":"{$item_hide_simple_grid_field16}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -369,10 +398,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field3}
-																							{BEGIN cellblock_grid_headcell_field4}
+{END cellblock_grid_headcell_field4}
+																							{BEGIN cellblock_grid_headcell_field5}
 {
-	cellId: 'headcell_field4',
+	cellId: 'headcell_field5',
 	col:0,
 	row:0,
 			fieldName: 'actual_date',
@@ -389,7 +418,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_timelines actual_date }","hidden":"{$item_hide_simple_grid_field16}","bold":true},
+			{"text":"{$jslabel mne_project_timelines actual_date }","hidden":"{$item_hide_simple_grid_field17}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -398,10 +427,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field4}
-																							{BEGIN cellblock_grid_headcell_field5}
+{END cellblock_grid_headcell_field5}
+																							{BEGIN cellblock_grid_headcell_field6}
 {
-	cellId: 'headcell_field5',
+	cellId: 'headcell_field6',
 	col:0,
 	row:0,
 			fieldName: 'variance_days',
@@ -418,7 +447,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_timelines variance_days }","hidden":"{$item_hide_simple_grid_field17}","bold":true},
+			{"text":"{$jslabel mne_project_timelines variance_days }","hidden":"{$item_hide_simple_grid_field18}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -427,10 +456,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field5}
-																							{BEGIN cellblock_grid_headcell_field6}
+{END cellblock_grid_headcell_field6}
+																							{BEGIN cellblock_grid_headcell_field7}
 {
-	cellId: 'headcell_field6',
+	cellId: 'headcell_field7',
 	col:0,
 	row:0,
 			fieldName: 'status_id',
@@ -447,7 +476,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_timelines status_id }","hidden":"{$item_hide_simple_grid_field18}","bold":true},
+			{"text":"{$jslabel mne_project_timelines status_id }","hidden":"{$item_hide_simple_grid_field19}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -456,10 +485,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field6}
-																							{BEGIN cellblock_grid_headcell_field7}
+{END cellblock_grid_headcell_field7}
+																							{BEGIN cellblock_grid_headcell_field8}
 {
-	cellId: 'headcell_field7',
+	cellId: 'headcell_field8',
 	col:0,
 	row:0,
 			fieldName: 'notes',
@@ -476,7 +505,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_timelines notes }","hidden":"{$item_hide_simple_grid_field19}","bold":true},
+			{"text":"{$jslabel mne_project_timelines notes }","hidden":"{$item_hide_simple_grid_field20}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -485,10 +514,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field7}
-																							{BEGIN cellblock_grid_headcell_field8}
+{END cellblock_grid_headcell_field8}
+																							{BEGIN cellblock_grid_headcell_field9}
 {
-	cellId: 'headcell_field8',
+	cellId: 'headcell_field9',
 	col:0,
 	row:0,
 			fieldName: 'created_at',
@@ -505,7 +534,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_timelines created_at }","hidden":"{$item_hide_simple_grid_field20}","bold":true},
+			{"text":"{$jslabel mne_project_timelines created_at }","hidden":"{$item_hide_simple_grid_field21}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -514,10 +543,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field8}
-																							{BEGIN cellblock_grid_headcell_field9}
+{END cellblock_grid_headcell_field9}
+																							{BEGIN cellblock_grid_headcell_field10}
 {
-	cellId: 'headcell_field9',
+	cellId: 'headcell_field10',
 	col:0,
 	row:0,
 			fieldName: 'updated_at',
@@ -534,40 +563,11 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_timelines updated_at }","hidden":"{$item_hide_simple_grid_field21}","bold":true},
+			{"text":"{$jslabel mne_project_timelines updated_at }","hidden":"{$item_hide_simple_grid_field22}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
               "alignment": '{$updated_at_align}',
-     
-      
-      },
-
-{END cellblock_grid_headcell_field9}
-																							{BEGIN cellblock_grid_headcell_field10}
-{
-	cellId: 'headcell_field10',
-	col:0,
-	row:0,
-			fieldName: 'start_date',
-				style: 'headcell',
-		
-		
-	//	dynamic colspan/rowspan
-
-		
-		
-	
-			
-	
-			"text": [
-		
-				
-			{"text":"{$jslabel mne_project_timelines start_date }","hidden":"{$item_hide_simple_grid_field22}","bold":true},
-				
-		  ],
-  "border": [ true, true, true, true ],
-              "alignment": '{$start_date_align}',
      
       
       },
@@ -731,6 +731,35 @@ pdfDocument = {
 	cellId: 'cell_field3',
 	col:0,
 	row:0,
+			fieldName: 'start_date',
+				style: 'bodycell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				
+			{"text":{$start_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field3}"},
+				
+		  ],
+  "border": [ true, true, true, true ],
+              "alignment": '{$start_date_align}',
+     
+      
+      },
+
+{END cellblock_grid_cell_field3}
+																							{BEGIN cellblock_grid_cell_field4}
+{
+	cellId: 'cell_field4',
+	col:0,
+	row:0,
 			fieldName: 'planned_date',
 				style: 'bodycell',
 		
@@ -745,7 +774,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$planned_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field3}"},
+			{"text":{$planned_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field4}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -754,10 +783,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field3}
-																							{BEGIN cellblock_grid_cell_field4}
+{END cellblock_grid_cell_field4}
+																							{BEGIN cellblock_grid_cell_field5}
 {
-	cellId: 'cell_field4',
+	cellId: 'cell_field5',
 	col:0,
 	row:0,
 			fieldName: 'actual_date',
@@ -774,7 +803,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$actual_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field4}"},
+			{"text":{$actual_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field5}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -783,10 +812,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field4}
-																							{BEGIN cellblock_grid_cell_field5}
+{END cellblock_grid_cell_field5}
+																							{BEGIN cellblock_grid_cell_field6}
 {
-	cellId: 'cell_field5',
+	cellId: 'cell_field6',
 	col:0,
 	row:0,
 			fieldName: 'variance_days',
@@ -803,7 +832,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$variance_days_pdfvalue},"hidden":"{$item_hide_simple_grid_field5}"},
+			{"text":{$variance_days_pdfvalue},"hidden":"{$item_hide_simple_grid_field6}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -812,10 +841,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field5}
-																							{BEGIN cellblock_grid_cell_field6}
+{END cellblock_grid_cell_field6}
+																							{BEGIN cellblock_grid_cell_field7}
 {
-	cellId: 'cell_field6',
+	cellId: 'cell_field7',
 	col:0,
 	row:0,
 			fieldName: 'status_id',
@@ -832,7 +861,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$status_id_pdfvalue},"hidden":"{$item_hide_simple_grid_field6}"},
+			{"text":{$status_id_pdfvalue},"hidden":"{$item_hide_simple_grid_field7}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -841,10 +870,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field6}
-																							{BEGIN cellblock_grid_cell_field7}
+{END cellblock_grid_cell_field7}
+																							{BEGIN cellblock_grid_cell_field8}
 {
-	cellId: 'cell_field7',
+	cellId: 'cell_field8',
 	col:0,
 	row:0,
 			fieldName: 'notes',
@@ -861,7 +890,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$notes_pdfvalue},"hidden":"{$item_hide_simple_grid_field7}"},
+			{"text":{$notes_pdfvalue},"hidden":"{$item_hide_simple_grid_field8}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -870,10 +899,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field7}
-																							{BEGIN cellblock_grid_cell_field8}
+{END cellblock_grid_cell_field8}
+																							{BEGIN cellblock_grid_cell_field9}
 {
-	cellId: 'cell_field8',
+	cellId: 'cell_field9',
 	col:0,
 	row:0,
 			fieldName: 'created_at',
@@ -890,7 +919,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$created_at_pdfvalue},"hidden":"{$item_hide_simple_grid_field8}"},
+			{"text":{$created_at_pdfvalue},"hidden":"{$item_hide_simple_grid_field9}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -899,10 +928,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_cell_field8}
-																							{BEGIN cellblock_grid_cell_field9}
+{END cellblock_grid_cell_field9}
+																							{BEGIN cellblock_grid_cell_field10}
 {
-	cellId: 'cell_field9',
+	cellId: 'cell_field10',
 	col:0,
 	row:0,
 			fieldName: 'updated_at',
@@ -919,40 +948,11 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$updated_at_pdfvalue},"hidden":"{$item_hide_simple_grid_field9}"},
+			{"text":{$updated_at_pdfvalue},"hidden":"{$item_hide_simple_grid_field10}"},
 				
 		  ],
   "border": [ true, true, true, true ],
               "alignment": '{$updated_at_align}',
-     
-      
-      },
-
-{END cellblock_grid_cell_field9}
-																							{BEGIN cellblock_grid_cell_field10}
-{
-	cellId: 'cell_field10',
-	col:0,
-	row:0,
-			fieldName: 'start_date',
-				style: 'bodycell',
-		
-		
-	//	dynamic colspan/rowspan
-
-		
-		
-	
-			
-	
-			"text": [
-		
-				
-			{"text":{$start_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field10}"},
-				
-		  ],
-  "border": [ true, true, true, true ],
-              "alignment": '{$start_date_align}',
      
       
       },

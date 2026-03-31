@@ -38,11 +38,7 @@
 	),
 	'listSearch' => array(
 		'alwaysOnPanelFields' => array( 
-			'project_id',
-			'milestone_name',
-			'planned_date',
-			'status_id',
-			'start_date' 
+			 
 		),
 		'searchPanel' => true,
 		'fixedSearchPanel' => false,
@@ -57,6 +53,9 @@
 			'totalsType' => '' 
 		),
 		'milestone_name' => array(
+			'totalsType' => '' 
+		),
+		'start_date' => array(
 			'totalsType' => '' 
 		),
 		'planned_date' => array(
@@ -80,9 +79,6 @@
 		'updated_at' => array(
 			'totalsType' => '' 
 		),
-		'start_date' => array(
-			'totalsType' => '' 
-		),
 		'ganttProgress' => array(
 			'totalsType' => '' 
 		) 
@@ -97,32 +93,33 @@
 			'actual_date',
 			'variance_days',
 			'status_id',
-			'ganttProgress',
 			'notes',
 			'created_at',
-			'updated_at' 
+			'updated_at',
+			'ganttProgress' 
 		),
 		'searchRequiredFields' => array( 
 			 
 		),
 		'searchPanelFields' => array( 
 			'timeline_id',
-			'project_id',
-			'milestone_name',
-			'start_date',
-			'planned_date',
-			'actual_date',
 			'ganttProgress',
-			'status_id',
 			'updated_at',
 			'created_at',
 			'notes',
-			'variance_days' 
+			'status_id',
+			'variance_days',
+			'actual_date',
+			'planned_date',
+			'start_date',
+			'milestone_name',
+			'project_id' 
 		),
 		'filterFields' => array( 
 			 
 		),
 		'inlineAddFields' => array( 
+			'timeline_id',
 			'project_id',
 			'milestone_name',
 			'start_date',
@@ -132,19 +129,11 @@
 			'status_id',
 			'notes',
 			'created_at',
-			'updated_at' 
+			'updated_at',
+			'ganttProgress' 
 		),
 		'inlineEditFields' => array( 
-			'project_id',
-			'milestone_name',
-			'start_date',
-			'planned_date',
-			'actual_date',
-			'variance_days',
-			'status_id',
-			'notes',
-			'created_at',
-			'updated_at' 
+			 
 		),
 		'fieldItems' => array(
 			'timeline_id' => array( 
@@ -160,39 +149,39 @@
 				'simple_grid_field14' 
 			),
 			'start_date' => array( 
-				'simple_grid_field10',
+				'simple_grid_field3',
 				'simple_grid_field15' 
 			),
 			'planned_date' => array( 
-				'simple_grid_field3',
+				'simple_grid_field4',
 				'simple_grid_field16' 
 			),
 			'actual_date' => array( 
-				'simple_grid_field4',
+				'simple_grid_field5',
 				'simple_grid_field17' 
 			),
 			'variance_days' => array( 
-				'simple_grid_field5',
+				'simple_grid_field6',
 				'simple_grid_field18' 
 			),
 			'status_id' => array( 
-				'simple_grid_field6',
+				'simple_grid_field7',
 				'simple_grid_field19' 
+			),
+			'notes' => array( 
+				'simple_grid_field8',
+				'simple_grid_field20' 
+			),
+			'created_at' => array( 
+				'simple_grid_field9',
+				'simple_grid_field21' 
+			),
+			'updated_at' => array( 
+				'simple_grid_field10',
+				'simple_grid_field22' 
 			),
 			'ganttProgress' => array( 
 				'simple_grid_field11',
-				'simple_grid_field20' 
-			),
-			'notes' => array( 
-				'simple_grid_field7',
-				'simple_grid_field21' 
-			),
-			'created_at' => array( 
-				'simple_grid_field8',
-				'simple_grid_field22' 
-			),
-			'updated_at' => array( 
-				'simple_grid_field9',
 				'simple_grid_field23' 
 			) 
 		),
@@ -204,7 +193,7 @@
 		) 
 	),
 	'pageLinks' => array(
-		'edit' => true,
+		'edit' => false,
 		'add' => true,
 		'view' => true,
 		'print' => true 
@@ -252,23 +241,23 @@
 					'simple_grid_field14',
 					'simple_grid_field2',
 					'simple_grid_field15',
-					'simple_grid_field10',
-					'simple_grid_field16',
 					'simple_grid_field3',
-					'simple_grid_field17',
+					'simple_grid_field16',
 					'simple_grid_field4',
-					'simple_grid_field18',
+					'simple_grid_field17',
 					'simple_grid_field5',
-					'simple_grid_field19',
+					'simple_grid_field18',
 					'simple_grid_field6',
-					'simple_grid_field20',
-					'simple_grid_field11',
-					'simple_grid_field21',
+					'simple_grid_field19',
 					'simple_grid_field7',
-					'simple_grid_field22',
+					'simple_grid_field20',
 					'simple_grid_field8',
-					'simple_grid_field23',
+					'simple_grid_field21',
 					'simple_grid_field9',
+					'simple_grid_field22',
+					'simple_grid_field10',
+					'simple_grid_field23',
+					'simple_grid_field11',
 					'details_preview',
 					'grid_checkbox_head',
 					'grid_checkbox',
@@ -330,23 +319,23 @@
 				'simple_grid_field14' => 'grid',
 				'simple_grid_field2' => 'grid',
 				'simple_grid_field15' => 'grid',
-				'simple_grid_field10' => 'grid',
-				'simple_grid_field16' => 'grid',
 				'simple_grid_field3' => 'grid',
-				'simple_grid_field17' => 'grid',
+				'simple_grid_field16' => 'grid',
 				'simple_grid_field4' => 'grid',
-				'simple_grid_field18' => 'grid',
+				'simple_grid_field17' => 'grid',
 				'simple_grid_field5' => 'grid',
-				'simple_grid_field19' => 'grid',
+				'simple_grid_field18' => 'grid',
 				'simple_grid_field6' => 'grid',
-				'simple_grid_field20' => 'grid',
-				'simple_grid_field11' => 'grid',
-				'simple_grid_field21' => 'grid',
+				'simple_grid_field19' => 'grid',
 				'simple_grid_field7' => 'grid',
-				'simple_grid_field22' => 'grid',
+				'simple_grid_field20' => 'grid',
 				'simple_grid_field8' => 'grid',
-				'simple_grid_field23' => 'grid',
+				'simple_grid_field21' => 'grid',
 				'simple_grid_field9' => 'grid',
+				'simple_grid_field22' => 'grid',
+				'simple_grid_field10' => 'grid',
+				'simple_grid_field23' => 'grid',
+				'simple_grid_field11' => 'grid',
 				'details_preview' => 'grid',
 				'grid_checkbox_head' => 'grid',
 				'grid_checkbox' => 'grid',
@@ -387,7 +376,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field3' 
 				),
-				'simple_grid_field10' => array(
+				'simple_grid_field3' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field3' 
 				),
@@ -395,7 +384,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field4' 
 				),
-				'simple_grid_field3' => array(
+				'simple_grid_field4' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field4' 
 				),
@@ -403,7 +392,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field5' 
 				),
-				'simple_grid_field4' => array(
+				'simple_grid_field5' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field5' 
 				),
@@ -411,7 +400,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field6' 
 				),
-				'simple_grid_field5' => array(
+				'simple_grid_field6' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field6' 
 				),
@@ -419,7 +408,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field7' 
 				),
-				'simple_grid_field6' => array(
+				'simple_grid_field7' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field7' 
 				),
@@ -427,7 +416,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field8' 
 				),
-				'simple_grid_field11' => array(
+				'simple_grid_field8' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field8' 
 				),
@@ -435,7 +424,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field9' 
 				),
-				'simple_grid_field7' => array(
+				'simple_grid_field9' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field9' 
 				),
@@ -443,7 +432,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field10' 
 				),
-				'simple_grid_field8' => array(
+				'simple_grid_field10' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field10' 
 				),
@@ -451,7 +440,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field11' 
 				),
-				'simple_grid_field9' => array(
+				'simple_grid_field11' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field11' 
 				),
@@ -537,20 +526,6 @@
 			'hide_search_panel' => array( 
 				'hide_search_panel' 
 			),
-			'search_panel_field' => array( 
-				'search_panel_field',
-				'search_panel_field1',
-				'search_panel_field2',
-				'search_panel_field3',
-				'search_panel_field4',
-				'search_panel_field5',
-				'search_panel_field6',
-				'search_panel_field7',
-				'search_panel_field8',
-				'search_panel_field9',
-				'search_panel_field10',
-				'search_panel_field11' 
-			),
 			'expand_menu_button' => array( 
 				'expand_menu_button' 
 			),
@@ -632,19 +607,33 @@
 			'print_details' => array( 
 				'print_details' 
 			),
+			'search_panel_field' => array( 
+				'search_panel_field',
+				'search_panel_field1',
+				'search_panel_field2',
+				'search_panel_field3',
+				'search_panel_field4',
+				'search_panel_field5',
+				'search_panel_field6',
+				'search_panel_field7',
+				'search_panel_field8',
+				'search_panel_field9',
+				'search_panel_field10',
+				'search_panel_field11' 
+			),
 			'grid_field' => array( 
 				'simple_grid_field',
 				'simple_grid_field1',
 				'simple_grid_field2',
-				'simple_grid_field10',
 				'simple_grid_field3',
 				'simple_grid_field4',
 				'simple_grid_field5',
 				'simple_grid_field6',
-				'simple_grid_field11',
 				'simple_grid_field7',
 				'simple_grid_field8',
-				'simple_grid_field9' 
+				'simple_grid_field9',
+				'simple_grid_field10',
+				'simple_grid_field11' 
 			),
 			'grid_field_label' => array( 
 				'simple_grid_field12',
@@ -881,7 +870,7 @@
 							0 
 						),
 						'tags' => array( 
-							'ganttProgress_fieldheadercolumn' 
+							'notes_fieldheadercolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field20' 
@@ -897,7 +886,7 @@
 							0 
 						),
 						'tags' => array( 
-							'notes_fieldheadercolumn' 
+							'created_at_fieldheadercolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field21' 
@@ -913,7 +902,7 @@
 							0 
 						),
 						'tags' => array( 
-							'created_at_fieldheadercolumn' 
+							'updated_at_fieldheadercolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field22' 
@@ -929,7 +918,7 @@
 							0 
 						),
 						'tags' => array( 
-							'updated_at_fieldheadercolumn' 
+							'ganttProgress_fieldheadercolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field23' 
@@ -1053,7 +1042,7 @@
 							'start_date_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field10' 
+							'simple_grid_field3' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1069,7 +1058,7 @@
 							'planned_date_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field3' 
+							'simple_grid_field4' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1085,7 +1074,7 @@
 							'actual_date_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field4' 
+							'simple_grid_field5' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1101,7 +1090,7 @@
 							'variance_days_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field5' 
+							'simple_grid_field6' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1117,7 +1106,7 @@
 							'status_id_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field6' 
+							'simple_grid_field7' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1130,10 +1119,10 @@
 							1 
 						),
 						'tags' => array( 
-							'ganttProgress_fieldcolumn' 
+							'notes_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field11' 
+							'simple_grid_field8' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1146,10 +1135,10 @@
 							1 
 						),
 						'tags' => array( 
-							'notes_fieldcolumn' 
+							'created_at_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field7' 
+							'simple_grid_field9' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1162,10 +1151,10 @@
 							1 
 						),
 						'tags' => array( 
-							'created_at_fieldcolumn' 
+							'updated_at_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field8' 
+							'simple_grid_field10' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1178,10 +1167,10 @@
 							1 
 						),
 						'tags' => array( 
-							'updated_at_fieldcolumn' 
+							'ganttProgress_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field9' 
+							'simple_grid_field11' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1946,7 +1935,7 @@
 				'cell_field3' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field10' 
+						'simple_grid_field3' 
 					),
 					'field' => 'start_date',
 					'columnName' => 'field' 
@@ -1968,7 +1957,7 @@
 				'cell_field4' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field3' 
+						'simple_grid_field4' 
 					),
 					'field' => 'planned_date',
 					'columnName' => 'field' 
@@ -1990,7 +1979,7 @@
 				'cell_field5' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field4' 
+						'simple_grid_field5' 
 					),
 					'field' => 'actual_date',
 					'columnName' => 'field' 
@@ -2012,7 +2001,7 @@
 				'cell_field6' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field5' 
+						'simple_grid_field6' 
 					),
 					'field' => 'variance_days',
 					'columnName' => 'field' 
@@ -2034,7 +2023,7 @@
 				'cell_field7' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field6' 
+						'simple_grid_field7' 
 					),
 					'field' => 'status_id',
 					'columnName' => 'field' 
@@ -2050,15 +2039,15 @@
 					'items' => array( 
 						'simple_grid_field20' 
 					),
-					'field' => 'ganttProgress',
+					'field' => 'notes',
 					'columnName' => 'field' 
 				),
 				'cell_field8' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field11' 
+						'simple_grid_field8' 
 					),
-					'field' => 'ganttProgress',
+					'field' => 'notes',
 					'columnName' => 'field' 
 				),
 				'footcell_field8' => array(
@@ -2072,15 +2061,15 @@
 					'items' => array( 
 						'simple_grid_field21' 
 					),
-					'field' => 'notes',
+					'field' => 'created_at',
 					'columnName' => 'field' 
 				),
 				'cell_field9' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field7' 
+						'simple_grid_field9' 
 					),
-					'field' => 'notes',
+					'field' => 'created_at',
 					'columnName' => 'field' 
 				),
 				'footcell_field9' => array(
@@ -2094,15 +2083,15 @@
 					'items' => array( 
 						'simple_grid_field22' 
 					),
-					'field' => 'created_at',
+					'field' => 'updated_at',
 					'columnName' => 'field' 
 				),
 				'cell_field10' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field8' 
+						'simple_grid_field10' 
 					),
-					'field' => 'created_at',
+					'field' => 'updated_at',
 					'columnName' => 'field' 
 				),
 				'footcell_field10' => array(
@@ -2116,15 +2105,15 @@
 					'items' => array( 
 						'simple_grid_field23' 
 					),
-					'field' => 'updated_at',
+					'field' => 'ganttProgress',
 					'columnName' => 'field' 
 				),
 				'cell_field11' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field9' 
+						'simple_grid_field11' 
 					),
-					'field' => 'updated_at',
+					'field' => 'ganttProgress',
 					'columnName' => 'field' 
 				),
 				'footcell_field11' => array(
@@ -2231,17 +2220,17 @@
 			'type' => 'search_panel',
 			'items' => array( 
 				'search_panel_field',
-				'search_panel_field1',
-				'search_panel_field2',
-				'search_panel_field10',
-				'search_panel_field3',
-				'search_panel_field4',
 				'search_panel_field11',
-				'search_panel_field6',
+				'search_panel_field10',
 				'search_panel_field9',
 				'search_panel_field8',
 				'search_panel_field7',
-				'search_panel_field5' 
+				'search_panel_field6',
+				'search_panel_field5',
+				'search_panel_field4',
+				'search_panel_field3',
+				'search_panel_field2',
+				'search_panel_field1' 
 			),
 			'_flexiblePanel' => true 
 		),
@@ -2265,66 +2254,6 @@
 		),
 		'hide_search_panel' => array(
 			'type' => 'hide_search_panel' 
-		),
-		'search_panel_field' => array(
-			'field' => 'timeline_id',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
-		),
-		'search_panel_field1' => array(
-			'field' => 'project_id',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => true,
-			'required' => false 
-		),
-		'search_panel_field2' => array(
-			'field' => 'milestone_name',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => true,
-			'required' => false 
-		),
-		'search_panel_field3' => array(
-			'field' => 'planned_date',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => true,
-			'required' => false 
-		),
-		'search_panel_field4' => array(
-			'field' => 'actual_date',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
-		),
-		'search_panel_field5' => array(
-			'field' => 'variance_days',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
-		),
-		'search_panel_field6' => array(
-			'field' => 'status_id',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => true,
-			'required' => false 
-		),
-		'search_panel_field7' => array(
-			'field' => 'notes',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
-		),
-		'search_panel_field8' => array(
-			'field' => 'created_at',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
-		),
-		'search_panel_field9' => array(
-			'field' => 'updated_at',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
 		),
 		'expand_menu_button' => array(
 			'type' => 'expand_menu_button' 
@@ -2384,12 +2313,6 @@
 				'15376' => 'true' 
 			) 
 		),
-		'search_panel_field10' => array(
-			'field' => 'start_date',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => true,
-			'required' => false 
-		),
 		'update_selected' => array(
 			'type' => 'update_selected' 
 		),
@@ -2404,12 +2327,6 @@
 		),
 		'inline_add' => array(
 			'type' => 'inline_add' 
-		),
-		'search_panel_field11' => array(
-			'field' => 'ganttProgress',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
 		),
 		'username_button' => array(
 			'type' => 'username_button',
@@ -2442,14 +2359,61 @@
 				'14658' => true 
 			) 
 		),
+		'search_panel_field' => array(
+			'field' => 'timeline_id',
+			'type' => 'search_panel_field' 
+		),
+		'search_panel_field1' => array(
+			'field' => 'project_id',
+			'type' => 'search_panel_field' 
+		),
+		'search_panel_field2' => array(
+			'field' => 'milestone_name',
+			'type' => 'search_panel_field' 
+		),
+		'search_panel_field3' => array(
+			'field' => 'start_date',
+			'type' => 'search_panel_field' 
+		),
+		'search_panel_field4' => array(
+			'field' => 'planned_date',
+			'type' => 'search_panel_field' 
+		),
+		'search_panel_field5' => array(
+			'field' => 'actual_date',
+			'type' => 'search_panel_field' 
+		),
+		'search_panel_field6' => array(
+			'field' => 'variance_days',
+			'type' => 'search_panel_field' 
+		),
+		'search_panel_field7' => array(
+			'field' => 'status_id',
+			'type' => 'search_panel_field' 
+		),
+		'search_panel_field8' => array(
+			'field' => 'notes',
+			'type' => 'search_panel_field' 
+		),
+		'search_panel_field9' => array(
+			'field' => 'created_at',
+			'type' => 'search_panel_field' 
+		),
+		'search_panel_field10' => array(
+			'field' => 'updated_at',
+			'type' => 'search_panel_field' 
+		),
+		'search_panel_field11' => array(
+			'field' => 'ganttProgress',
+			'type' => 'search_panel_field' 
+		),
 		'-3' => array(
 			'type' => '-' 
 		),
 		'simple_grid_field' => array(
 			'field' => 'timeline_id',
 			'type' => 'grid_field',
-			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field12' => array(
 			'type' => 'grid_field_label',
@@ -2458,8 +2422,7 @@
 		'simple_grid_field1' => array(
 			'field' => 'project_id',
 			'type' => 'grid_field',
-			'inlineAdd' => true,
-			'inlineEdit' => true 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field13' => array(
 			'type' => 'grid_field_label',
@@ -2468,102 +2431,92 @@
 		'simple_grid_field2' => array(
 			'field' => 'milestone_name',
 			'type' => 'grid_field',
-			'inlineAdd' => true,
-			'inlineEdit' => true 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field14' => array(
 			'type' => 'grid_field_label',
 			'field' => 'milestone_name' 
 		),
-		'simple_grid_field10' => array(
+		'simple_grid_field3' => array(
 			'field' => 'start_date',
 			'type' => 'grid_field',
-			'inlineAdd' => true,
-			'inlineEdit' => true 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field15' => array(
 			'type' => 'grid_field_label',
 			'field' => 'start_date' 
 		),
-		'simple_grid_field3' => array(
+		'simple_grid_field4' => array(
 			'field' => 'planned_date',
 			'type' => 'grid_field',
-			'inlineAdd' => true,
-			'inlineEdit' => true 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field16' => array(
 			'type' => 'grid_field_label',
 			'field' => 'planned_date' 
 		),
-		'simple_grid_field4' => array(
+		'simple_grid_field5' => array(
 			'field' => 'actual_date',
 			'type' => 'grid_field',
-			'inlineAdd' => true,
-			'inlineEdit' => true 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field17' => array(
 			'type' => 'grid_field_label',
 			'field' => 'actual_date' 
 		),
-		'simple_grid_field5' => array(
+		'simple_grid_field6' => array(
 			'field' => 'variance_days',
 			'type' => 'grid_field',
-			'inlineAdd' => true,
-			'inlineEdit' => true 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field18' => array(
 			'type' => 'grid_field_label',
 			'field' => 'variance_days' 
 		),
-		'simple_grid_field6' => array(
+		'simple_grid_field7' => array(
 			'field' => 'status_id',
 			'type' => 'grid_field',
-			'inlineAdd' => true,
-			'inlineEdit' => true 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field19' => array(
 			'type' => 'grid_field_label',
 			'field' => 'status_id' 
 		),
-		'simple_grid_field11' => array(
-			'field' => 'ganttProgress',
+		'simple_grid_field8' => array(
+			'field' => 'notes',
 			'type' => 'grid_field',
-			'inlineAdd' => false,
-			'inlineEdit' => false 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field20' => array(
 			'type' => 'grid_field_label',
-			'field' => 'ganttProgress' 
+			'field' => 'notes' 
 		),
-		'simple_grid_field7' => array(
-			'field' => 'notes',
+		'simple_grid_field9' => array(
+			'field' => 'created_at',
 			'type' => 'grid_field',
-			'inlineAdd' => true,
-			'inlineEdit' => true 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field21' => array(
 			'type' => 'grid_field_label',
-			'field' => 'notes' 
+			'field' => 'created_at' 
 		),
-		'simple_grid_field8' => array(
-			'field' => 'created_at',
+		'simple_grid_field10' => array(
+			'field' => 'updated_at',
 			'type' => 'grid_field',
-			'inlineAdd' => true,
-			'inlineEdit' => true 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field22' => array(
 			'type' => 'grid_field_label',
-			'field' => 'created_at' 
+			'field' => 'updated_at' 
 		),
-		'simple_grid_field9' => array(
-			'field' => 'updated_at',
+		'simple_grid_field11' => array(
+			'field' => 'ganttProgress',
 			'type' => 'grid_field',
-			'inlineAdd' => true,
-			'inlineEdit' => true 
+			'inlineAdd' => true 
 		),
 		'simple_grid_field23' => array(
 			'type' => 'grid_field_label',
-			'field' => 'updated_at' 
+			'field' => 'ganttProgress' 
 		),
 		'details_preview' => array(
 			'type' => 'details_preview',

@@ -10,6 +10,9 @@
 		'milestone_name' => array(
 			'totalsType' => '' 
 		),
+		'start_date' => array(
+			'totalsType' => '' 
+		),
 		'planned_date' => array(
 			'totalsType' => '' 
 		),
@@ -31,9 +34,6 @@
 		'updated_at' => array(
 			'totalsType' => '' 
 		),
-		'start_date' => array(
-			'totalsType' => '' 
-		),
 		'ganttProgress' => array(
 			'totalsType' => '' 
 		) 
@@ -43,6 +43,7 @@
 			'timeline_id',
 			'project_id',
 			'milestone_name',
+			'start_date',
 			'planned_date',
 			'actual_date',
 			'variance_days',
@@ -50,22 +51,21 @@
 			'notes',
 			'created_at',
 			'updated_at',
-			'start_date',
 			'ganttProgress' 
 		),
 		'exportFields' => array( 
 			'timeline_id',
 			'project_id',
 			'milestone_name',
+			'start_date',
 			'planned_date',
 			'actual_date',
 			'variance_days',
-			'ganttProgress',
 			'status_id',
 			'notes',
 			'created_at',
 			'updated_at',
-			'start_date' 
+			'ganttProgress' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -83,28 +83,28 @@
 			'milestone_name' => array( 
 				'export_field2' 
 			),
-			'planned_date' => array( 
+			'start_date' => array( 
 				'export_field3' 
 			),
-			'actual_date' => array( 
+			'planned_date' => array( 
 				'export_field4' 
 			),
-			'variance_days' => array( 
+			'actual_date' => array( 
 				'export_field5' 
 			),
-			'status_id' => array( 
+			'variance_days' => array( 
 				'export_field6' 
 			),
-			'notes' => array( 
+			'status_id' => array( 
 				'export_field7' 
 			),
-			'created_at' => array( 
+			'notes' => array( 
 				'export_field8' 
 			),
-			'updated_at' => array( 
+			'created_at' => array( 
 				'export_field9' 
 			),
-			'start_date' => array( 
+			'updated_at' => array( 
 				'export_field10' 
 			),
 			'ganttProgress' => array( 
@@ -134,12 +134,12 @@
 					'export_field3',
 					'export_field4',
 					'export_field5',
-					'export_field11',
 					'export_field6',
 					'export_field7',
 					'export_field8',
 					'export_field9',
-					'export_field10' 
+					'export_field10',
+					'export_field11' 
 				),
 				'footer' => array( 
 					'export_export',
@@ -159,12 +159,12 @@
 				'export_field3' => 'grid',
 				'export_field4' => 'grid',
 				'export_field5' => 'grid',
-				'export_field11' => 'grid',
 				'export_field6' => 'grid',
 				'export_field7' => 'grid',
 				'export_field8' => 'grid',
 				'export_field9' => 'grid',
 				'export_field10' => 'grid',
+				'export_field11' => 'grid',
 				'export_export' => 'footer',
 				'export_cancel' => 'footer' 
 			),
@@ -343,12 +343,12 @@
 						'export_field3',
 						'export_field4',
 						'export_field5',
-						'export_field11',
 						'export_field6',
 						'export_field7',
 						'export_field8',
 						'export_field9',
-						'export_field10' 
+						'export_field10',
+						'export_field11' 
 					) 
 				) 
 			),
@@ -416,35 +416,35 @@
 			'type' => 'export_field' 
 		),
 		'export_field3' => array(
-			'field' => 'planned_date',
+			'field' => 'start_date',
 			'type' => 'export_field' 
 		),
 		'export_field4' => array(
-			'field' => 'actual_date',
+			'field' => 'planned_date',
 			'type' => 'export_field' 
 		),
 		'export_field5' => array(
-			'field' => 'variance_days',
+			'field' => 'actual_date',
 			'type' => 'export_field' 
 		),
 		'export_field6' => array(
-			'field' => 'status_id',
+			'field' => 'variance_days',
 			'type' => 'export_field' 
 		),
 		'export_field7' => array(
-			'field' => 'notes',
+			'field' => 'status_id',
 			'type' => 'export_field' 
 		),
 		'export_field8' => array(
-			'field' => 'created_at',
+			'field' => 'notes',
 			'type' => 'export_field' 
 		),
 		'export_field9' => array(
-			'field' => 'updated_at',
+			'field' => 'created_at',
 			'type' => 'export_field' 
 		),
 		'export_field10' => array(
-			'field' => 'start_date',
+			'field' => 'updated_at',
 			'type' => 'export_field' 
 		),
 		'export_field11' => array(

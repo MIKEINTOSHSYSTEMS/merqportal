@@ -2,11 +2,7 @@
 			$optionsArray = array(
 	'listSearch' => array(
 		'alwaysOnPanelFields' => array( 
-			'project_id',
-			'milestone_name',
-			'planned_date',
-			'status_id',
-			'start_date' 
+			 
 		),
 		'searchPanel' => true,
 		'fixedSearchPanel' => false,
@@ -21,18 +17,7 @@
 			 
 		),
 		'searchPanelFields' => array( 
-			'timeline_id',
-			'project_id',
-			'milestone_name',
-			'start_date',
-			'planned_date',
-			'actual_date',
-			'status_id',
-			'ganttProgress',
-			'updated_at',
-			'created_at',
-			'notes',
-			'variance_days' 
+			 
 		),
 		'filterFields' => array( 
 			 
@@ -134,20 +119,6 @@
 			),
 			'hide_search_panel' => array( 
 				'hide_search_panel' 
-			),
-			'search_panel_field' => array( 
-				'search_panel_field',
-				'search_panel_field1',
-				'search_panel_field2',
-				'search_panel_field3',
-				'search_panel_field4',
-				'search_panel_field5',
-				'search_panel_field6',
-				'search_panel_field7',
-				'search_panel_field8',
-				'search_panel_field9',
-				'search_panel_field10',
-				'search_panel_field11' 
 			),
 			'expand_menu_button' => array( 
 				'expand_menu_button' 
@@ -447,18 +418,7 @@
 		'search_panel' => array(
 			'type' => 'search_panel',
 			'items' => array( 
-				'search_panel_field',
-				'search_panel_field1',
-				'search_panel_field2',
-				'search_panel_field10',
-				'search_panel_field3',
-				'search_panel_field4',
-				'search_panel_field6',
-				'search_panel_field11',
-				'search_panel_field9',
-				'search_panel_field8',
-				'search_panel_field7',
-				'search_panel_field5' 
+				 
 			),
 			'_flexiblePanel' => true 
 		),
@@ -478,72 +438,6 @@
 		),
 		'hide_search_panel' => array(
 			'type' => 'hide_search_panel' 
-		),
-		'search_panel_field' => array(
-			'field' => 'timeline_id',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
-		),
-		'search_panel_field1' => array(
-			'field' => 'project_id',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => true,
-			'required' => false 
-		),
-		'search_panel_field2' => array(
-			'field' => 'milestone_name',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => true,
-			'required' => false 
-		),
-		'search_panel_field3' => array(
-			'field' => 'planned_date',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => true,
-			'required' => false 
-		),
-		'search_panel_field4' => array(
-			'field' => 'actual_date',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
-		),
-		'search_panel_field5' => array(
-			'field' => 'variance_days',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
-		),
-		'search_panel_field6' => array(
-			'field' => 'status_id',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => true,
-			'required' => false 
-		),
-		'search_panel_field7' => array(
-			'field' => 'notes',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
-		),
-		'search_panel_field8' => array(
-			'field' => 'created_at',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
-		),
-		'search_panel_field9' => array(
-			'field' => 'updated_at',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
-		),
-		'search_panel_field10' => array(
-			'field' => 'start_date',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => true,
-			'required' => false 
 		),
 		'expand_menu_button' => array(
 			'type' => 'expand_menu_button' 
@@ -572,12 +466,6 @@
 		),
 		'-1' => array(
 			'type' => '-' 
-		),
-		'search_panel_field11' => array(
-			'field' => 'ganttProgress',
-			'type' => 'search_panel_field',
-			'alwaysOnPanel' => false,
-			'required' => false 
 		),
 		'username_button' => array(
 			'type' => 'username_button',

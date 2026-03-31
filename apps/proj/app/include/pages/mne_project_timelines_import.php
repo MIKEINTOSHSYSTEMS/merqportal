@@ -5,6 +5,7 @@
 			'timeline_id',
 			'project_id',
 			'milestone_name',
+			'start_date',
 			'planned_date',
 			'actual_date',
 			'variance_days',
@@ -12,7 +13,7 @@
 			'notes',
 			'created_at',
 			'updated_at',
-			'start_date' 
+			'ganttProgress' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -30,29 +31,32 @@
 			'milestone_name' => array( 
 				'import_field2' 
 			),
-			'planned_date' => array( 
+			'start_date' => array( 
 				'import_field3' 
 			),
-			'actual_date' => array( 
+			'planned_date' => array( 
 				'import_field4' 
 			),
-			'variance_days' => array( 
+			'actual_date' => array( 
 				'import_field5' 
 			),
-			'status_id' => array( 
+			'variance_days' => array( 
 				'import_field6' 
 			),
-			'notes' => array( 
+			'status_id' => array( 
 				'import_field7' 
 			),
-			'created_at' => array( 
+			'notes' => array( 
 				'import_field8' 
 			),
-			'updated_at' => array( 
+			'created_at' => array( 
 				'import_field9' 
 			),
-			'start_date' => array( 
+			'updated_at' => array( 
 				'import_field10' 
+			),
+			'ganttProgress' => array( 
+				'import_field11' 
 			) 
 		) 
 	),
@@ -82,7 +86,8 @@
 					'import_field7',
 					'import_field8',
 					'import_field9',
-					'import_field10' 
+					'import_field10',
+					'import_field11' 
 				) 
 			),
 			'formXtTags' => array(
@@ -102,7 +107,8 @@
 				'import_field7' => 'grid',
 				'import_field8' => 'grid',
 				'import_field9' => 'grid',
-				'import_field10' => 'grid' 
+				'import_field10' => 'grid',
+				'import_field11' => 'grid' 
 			),
 			'itemLocations' => array(
 				 
@@ -126,7 +132,8 @@
 				'import_field7',
 				'import_field8',
 				'import_field9',
-				'import_field10' 
+				'import_field10',
+				'import_field11' 
 			) 
 		),
 		'cellMaps' => array(
@@ -264,7 +271,8 @@
 						'import_field7',
 						'import_field8',
 						'import_field9',
-						'import_field10' 
+						'import_field10',
+						'import_field11' 
 					) 
 				) 
 			),
@@ -291,35 +299,39 @@
 			'type' => 'import_field' 
 		),
 		'import_field3' => array(
-			'field' => 'planned_date',
+			'field' => 'start_date',
 			'type' => 'import_field' 
 		),
 		'import_field4' => array(
-			'field' => 'actual_date',
+			'field' => 'planned_date',
 			'type' => 'import_field' 
 		),
 		'import_field5' => array(
-			'field' => 'variance_days',
+			'field' => 'actual_date',
 			'type' => 'import_field' 
 		),
 		'import_field6' => array(
-			'field' => 'status_id',
+			'field' => 'variance_days',
 			'type' => 'import_field' 
 		),
 		'import_field7' => array(
-			'field' => 'notes',
+			'field' => 'status_id',
 			'type' => 'import_field' 
 		),
 		'import_field8' => array(
-			'field' => 'created_at',
+			'field' => 'notes',
 			'type' => 'import_field' 
 		),
 		'import_field9' => array(
-			'field' => 'updated_at',
+			'field' => 'created_at',
 			'type' => 'import_field' 
 		),
 		'import_field10' => array(
-			'field' => 'start_date',
+			'field' => 'updated_at',
+			'type' => 'import_field' 
+		),
+		'import_field11' => array(
+			'field' => 'ganttProgress',
 			'type' => 'import_field' 
 		) 
 	),

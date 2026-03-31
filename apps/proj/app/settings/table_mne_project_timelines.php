@@ -85,9 +85,6 @@ $runnerTableSettings['mne_project_timelines'] = array(
 FROM
 	mne_project_timelines
 ',
-	'keyFields' => array( 
-		'timeline_id' 
-	),
 	'deviceHideFields' => array(
 		'1' => array( 
 			 
@@ -136,7 +133,7 @@ FROM
 					'lookupTable' => 'mne_projects',
 					'lookupTableConnection' => 'conn',
 					'lookupLinkField' => 'project_id',
-					'lookupDisplayField' => 'project_name' 
+					'lookupDisplayField' => 'project_code' 
 				) 
 			),
 			'tableName' => 'mne_project_timelines' 
@@ -154,16 +151,27 @@ FROM
 			),
 			'editFormats' => array(
 				'edit' => array(
-					'required' => true,
-					'textInsertNull' => true,
-					'lookupValues' => array( 
-						'Project Start',
-						'Milestone 1',
-						'Milestone 2',
-						'Mid-term Review',
-						'Final Review',
-						'Project End' 
-					) 
+					 
+				) 
+			),
+			'tableName' => 'mne_project_timelines' 
+		),
+		'start_date' => array(
+			'name' => 'start_date',
+			'goodName' => 'start_date',
+			'strField' => 'start_date',
+			'index' => 4,
+			'type' => 7,
+			'sqlExpression' => 'start_date',
+			'viewFormats' => array(
+				'view' => array(
+					'format' => 'Short Date' 
+				) 
+			),
+			'editFormats' => array(
+				'edit' => array(
+					'format' => 'Date',
+					'dateEditType' => 11 
 				) 
 			),
 			'tableName' => 'mne_project_timelines' 
@@ -285,7 +293,6 @@ FROM
 			'editFormats' => array(
 				'edit' => array(
 					'format' => 'Date',
-					'defaultValue' => 'date("Y-m-d H:i:s")',
 					'dateEditType' => 11 
 				) 
 			),
@@ -298,27 +305,6 @@ FROM
 			'index' => 11,
 			'type' => 135,
 			'sqlExpression' => 'updated_at',
-			'viewFormats' => array(
-				'view' => array(
-					'format' => 'Short Date' 
-				) 
-			),
-			'editFormats' => array(
-				'edit' => array(
-					'format' => 'Date',
-					'autoUpdateValue' => 'date("Y-m-d H:i:s")',
-					'dateEditType' => 11 
-				) 
-			),
-			'tableName' => 'mne_project_timelines' 
-		),
-		'start_date' => array(
-			'name' => 'start_date',
-			'goodName' => 'start_date',
-			'strField' => 'start_date',
-			'index' => 4,
-			'type' => 7,
-			'sqlExpression' => 'start_date',
 			'viewFormats' => array(
 				'view' => array(
 					'format' => 'Short Date' 
@@ -823,6 +809,7 @@ FROM
 			'timeline_id',
 			'project_id',
 			'milestone_name',
+			'start_date',
 			'planned_date',
 			'actual_date',
 			'variance_days',
@@ -830,7 +817,6 @@ FROM
 			'notes',
 			'created_at',
 			'updated_at',
-			'start_date',
 			'ganttProgress' 
 		),
 		'searchSuggest' => true,
@@ -841,6 +827,7 @@ FROM
 			'timeline_id',
 			'project_id',
 			'milestone_name',
+			'start_date',
 			'planned_date',
 			'actual_date',
 			'variance_days',
@@ -848,7 +835,6 @@ FROM
 			'notes',
 			'created_at',
 			'updated_at',
-			'start_date',
 			'ganttProgress' 
 		) 
 	),
@@ -928,22 +914,23 @@ if( mlang_getcurrentlang() === 'English' ) {
 	'tableCaption' => 'Milestone / Timelines',
 	'fieldLabels' => array(
 		'timeline_id' => 'Timeline Id',
-		'project_id' => 'Project ID',
+		'project_id' => 'Project Id',
 		'milestone_name' => 'Milestone Name',
-		'planned_date' => 'Planned Completion Date',
-		'actual_date' => 'Actual Completion Date',
+		'start_date' => 'Start Date',
+		'planned_date' => 'Planned Date',
+		'actual_date' => 'Actual Date',
 		'variance_days' => 'Variance Days',
-		'status_id' => 'Status',
+		'status_id' => 'Status Id',
 		'notes' => 'Notes',
 		'created_at' => 'Created At',
 		'updated_at' => 'Updated At',
-		'start_date' => 'Start Date',
-		'ganttProgress' => 'Progress (1-100%)' 
+		'ganttProgress' => 'Gantt Progress' 
 	),
 	'fieldTooltips' => array(
 		'timeline_id' => '',
 		'project_id' => '',
 		'milestone_name' => '',
+		'start_date' => '',
 		'planned_date' => '',
 		'actual_date' => '',
 		'variance_days' => '',
@@ -951,13 +938,13 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'notes' => '',
 		'created_at' => '',
 		'updated_at' => '',
-		'start_date' => '',
 		'ganttProgress' => '' 
 	),
 	'fieldPlaceholders' => array(
 		'timeline_id' => '',
 		'project_id' => '',
 		'milestone_name' => '',
+		'start_date' => '',
 		'planned_date' => '',
 		'actual_date' => '',
 		'variance_days' => '',
@@ -965,7 +952,6 @@ if( mlang_getcurrentlang() === 'English' ) {
 		'notes' => '',
 		'created_at' => '',
 		'updated_at' => '',
-		'start_date' => '',
 		'ganttProgress' => '' 
 	),
 	'pageTitles' => array(

@@ -601,35 +601,6 @@ pdfDocument = {
 	cellId: 'headcell_field8',
 	col:0,
 	row:0,
-			fieldName: 'ganttProgress',
-				style: 'headcell',
-		
-		
-	//	dynamic colspan/rowspan
-
-		
-		
-	
-			
-	
-			"text": [
-		
-				
-			{"text":"{$jslabel mne_project_timelines ganttProgress }","hidden":"{$item_hide_simple_grid_field20}","bold":true},
-				
-		  ],
-  "border": [ true, true, true, true ],
-              "alignment": '{$ganttProgress_align}',
-     
-      
-      },
-
-{END cellblock_grid_headcell_field8}
-																							{BEGIN cellblock_grid_headcell_field9}
-{
-	cellId: 'headcell_field9',
-	col:0,
-	row:0,
 			fieldName: 'notes',
 				style: 'headcell',
 		
@@ -644,7 +615,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_timelines notes }","hidden":"{$item_hide_simple_grid_field21}","bold":true},
+			{"text":"{$jslabel mne_project_timelines notes }","hidden":"{$item_hide_simple_grid_field20}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -653,10 +624,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field9}
-																							{BEGIN cellblock_grid_headcell_field10}
+{END cellblock_grid_headcell_field8}
+																							{BEGIN cellblock_grid_headcell_field9}
 {
-	cellId: 'headcell_field10',
+	cellId: 'headcell_field9',
 	col:0,
 	row:0,
 			fieldName: 'created_at',
@@ -673,7 +644,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_timelines created_at }","hidden":"{$item_hide_simple_grid_field22}","bold":true},
+			{"text":"{$jslabel mne_project_timelines created_at }","hidden":"{$item_hide_simple_grid_field21}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -682,10 +653,10 @@ pdfDocument = {
       
       },
 
-{END cellblock_grid_headcell_field10}
-																							{BEGIN cellblock_grid_headcell_field11}
+{END cellblock_grid_headcell_field9}
+																							{BEGIN cellblock_grid_headcell_field10}
 {
-	cellId: 'headcell_field11',
+	cellId: 'headcell_field10',
 	col:0,
 	row:0,
 			fieldName: 'updated_at',
@@ -702,11 +673,40 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":"{$jslabel mne_project_timelines updated_at }","hidden":"{$item_hide_simple_grid_field23}","bold":true},
+			{"text":"{$jslabel mne_project_timelines updated_at }","hidden":"{$item_hide_simple_grid_field22}","bold":true},
 				
 		  ],
   "border": [ true, true, true, true ],
               "alignment": '{$updated_at_align}',
+     
+      
+      },
+
+{END cellblock_grid_headcell_field10}
+																							{BEGIN cellblock_grid_headcell_field11}
+{
+	cellId: 'headcell_field11',
+	col:0,
+	row:0,
+			fieldName: 'ganttProgress',
+				style: 'headcell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				
+			{"text":"{$jslabel mne_project_timelines ganttProgress }","hidden":"{$item_hide_simple_grid_field23}","bold":true},
+				
+		  ],
+  "border": [ true, true, true, true ],
+              "alignment": '{$ganttProgress_align}',
      
       
       },
@@ -926,7 +926,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$start_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field10}"},
+			{"text":{$start_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field3}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -955,7 +955,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$planned_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field3}"},
+			{"text":{$planned_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field4}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -984,7 +984,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$actual_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field4}"},
+			{"text":{$actual_date_pdfvalue},"hidden":"{$item_hide_simple_grid_field5}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1013,7 +1013,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$variance_days_pdfvalue},"hidden":"{$item_hide_simple_grid_field5}"},
+			{"text":{$variance_days_pdfvalue},"hidden":"{$item_hide_simple_grid_field6}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1042,7 +1042,7 @@ pdfDocument = {
 			"text": [
 		
 				
-			{"text":{$status_id_pdfvalue},"hidden":"{$item_hide_simple_grid_field6}"},
+			{"text":{$status_id_pdfvalue},"hidden":"{$item_hide_simple_grid_field7}"},
 				
 		  ],
   "border": [ true, true, true, true ],
@@ -1055,6 +1055,93 @@ pdfDocument = {
 																							{BEGIN cellblock_grid_cell_field8}
 {
 	cellId: 'cell_field8',
+	col:0,
+	row:0,
+			fieldName: 'notes',
+				style: 'bodycell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				
+			{"text":{$notes_pdfvalue},"hidden":"{$item_hide_simple_grid_field8}"},
+				
+		  ],
+  "border": [ true, true, true, true ],
+              "alignment": '{$notes_align}',
+     
+      
+      },
+
+{END cellblock_grid_cell_field8}
+																							{BEGIN cellblock_grid_cell_field9}
+{
+	cellId: 'cell_field9',
+	col:0,
+	row:0,
+			fieldName: 'created_at',
+				style: 'bodycell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				
+			{"text":{$created_at_pdfvalue},"hidden":"{$item_hide_simple_grid_field9}"},
+				
+		  ],
+  "border": [ true, true, true, true ],
+              "alignment": '{$created_at_align}',
+     
+      
+      },
+
+{END cellblock_grid_cell_field9}
+																							{BEGIN cellblock_grid_cell_field10}
+{
+	cellId: 'cell_field10',
+	col:0,
+	row:0,
+			fieldName: 'updated_at',
+				style: 'bodycell',
+		
+		
+	//	dynamic colspan/rowspan
+
+		
+		
+	
+			
+	
+			"text": [
+		
+				
+			{"text":{$updated_at_pdfvalue},"hidden":"{$item_hide_simple_grid_field10}"},
+				
+		  ],
+  "border": [ true, true, true, true ],
+              "alignment": '{$updated_at_align}',
+     
+      
+      },
+
+{END cellblock_grid_cell_field10}
+																							{BEGIN cellblock_grid_cell_field11}
+{
+	cellId: 'cell_field11',
 	col:0,
 	row:0,
 			fieldName: 'ganttProgress',
@@ -1076,93 +1163,6 @@ pdfDocument = {
 		  ],
   "border": [ true, true, true, true ],
               "alignment": '{$ganttProgress_align}',
-     
-      
-      },
-
-{END cellblock_grid_cell_field8}
-																							{BEGIN cellblock_grid_cell_field9}
-{
-	cellId: 'cell_field9',
-	col:0,
-	row:0,
-			fieldName: 'notes',
-				style: 'bodycell',
-		
-		
-	//	dynamic colspan/rowspan
-
-		
-		
-	
-			
-	
-			"text": [
-		
-				
-			{"text":{$notes_pdfvalue},"hidden":"{$item_hide_simple_grid_field7}"},
-				
-		  ],
-  "border": [ true, true, true, true ],
-              "alignment": '{$notes_align}',
-     
-      
-      },
-
-{END cellblock_grid_cell_field9}
-																							{BEGIN cellblock_grid_cell_field10}
-{
-	cellId: 'cell_field10',
-	col:0,
-	row:0,
-			fieldName: 'created_at',
-				style: 'bodycell',
-		
-		
-	//	dynamic colspan/rowspan
-
-		
-		
-	
-			
-	
-			"text": [
-		
-				
-			{"text":{$created_at_pdfvalue},"hidden":"{$item_hide_simple_grid_field8}"},
-				
-		  ],
-  "border": [ true, true, true, true ],
-              "alignment": '{$created_at_align}',
-     
-      
-      },
-
-{END cellblock_grid_cell_field10}
-																							{BEGIN cellblock_grid_cell_field11}
-{
-	cellId: 'cell_field11',
-	col:0,
-	row:0,
-			fieldName: 'updated_at',
-				style: 'bodycell',
-		
-		
-	//	dynamic colspan/rowspan
-
-		
-		
-	
-			
-	
-			"text": [
-		
-				
-			{"text":{$updated_at_pdfvalue},"hidden":"{$item_hide_simple_grid_field9}"},
-				
-		  ],
-  "border": [ true, true, true, true ],
-              "alignment": '{$updated_at_align}',
      
       
       },

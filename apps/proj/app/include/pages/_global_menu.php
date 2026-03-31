@@ -599,6 +599,22 @@
 				'items' => null,
 				'table' => 'Dashboard',
 				'page' => 'dashboard' 
+			),
+			'welcome_item72' => array(
+				'menutItem' => true,
+				'group' => false,
+				'linkType' => 0,
+				'items' => null,
+				'table' => 'mne_project_deliverables_milestones',
+				'page' => 'list' 
+			),
+			'welcome_item73' => array(
+				'menutItem' => true,
+				'group' => false,
+				'linkType' => 0,
+				'items' => null,
+				'table' => 'mne_project_tasks',
+				'page' => 'gantt' 
 			) 
 		) 
 	),
@@ -705,7 +721,9 @@
 					'welcome_item68',
 					'welcome_item69',
 					'welcome_item70',
-					'welcome_item71' 
+					'welcome_item71',
+					'welcome_item72',
+					'welcome_item73' 
 				) 
 			),
 			'formXtTags' => array(
@@ -792,7 +810,9 @@
 				'welcome_item68' => 'grid',
 				'welcome_item69' => 'grid',
 				'welcome_item70' => 'grid',
-				'welcome_item71' => 'grid' 
+				'welcome_item71' => 'grid',
+				'welcome_item72' => 'grid',
+				'welcome_item73' => 'grid' 
 			),
 			'itemLocations' => array(
 				 
@@ -875,7 +895,9 @@
 				'welcome_item68',
 				'welcome_item69',
 				'welcome_item70',
-				'welcome_item71' 
+				'welcome_item71',
+				'welcome_item72',
+				'welcome_item73' 
 			),
 			'logo' => array( 
 				'logo' 
@@ -1161,7 +1183,9 @@
 						'welcome_item68',
 						'welcome_item69',
 						'welcome_item70',
-						'welcome_item71' 
+						'welcome_item71',
+						'welcome_item72',
+						'welcome_item73' 
 					) 
 				) 
 			),
@@ -2118,6 +2142,30 @@
 				'type' => 6 
 			),
 			'background' => '#d2691e',
+			'linkType' => 0 
+		),
+		'welcome_item72' => array(
+			'type' => 'welcome_item',
+			'linkUrl' => '',
+			'linkTable' => 'mne_project_deliverables_milestones',
+			'linkPage' => 'list',
+			'linkText' => array(
+				'table' => 'mne_project_deliverables_milestones',
+				'type' => 6 
+			),
+			'background' => '#dc143c',
+			'linkType' => 0 
+		),
+		'welcome_item73' => array(
+			'type' => 'welcome_item',
+			'linkUrl' => '',
+			'linkTable' => 'mne_project_tasks',
+			'linkPage' => 'gantt',
+			'linkText' => array(
+				'table' => 'mne_project_tasks',
+				'type' => 6 
+			),
+			'background' => '#cd5c5c',
 			'linkType' => 0 
 		),
 		'expand_button' => array(

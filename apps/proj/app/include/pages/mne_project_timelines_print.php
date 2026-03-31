@@ -26,6 +26,9 @@
 		'milestone_name' => array(
 			'totalsType' => '' 
 		),
+		'start_date' => array(
+			'totalsType' => '' 
+		),
 		'planned_date' => array(
 			'totalsType' => '' 
 		),
@@ -47,9 +50,6 @@
 		'updated_at' => array(
 			'totalsType' => '' 
 		),
-		'start_date' => array(
-			'totalsType' => '' 
-		),
 		'ganttProgress' => array(
 			'totalsType' => '' 
 		) 
@@ -59,15 +59,15 @@
 			'timeline_id',
 			'project_id',
 			'milestone_name',
+			'start_date',
 			'planned_date',
 			'actual_date',
 			'variance_days',
-			'ganttProgress',
 			'status_id',
 			'notes',
 			'created_at',
 			'updated_at',
-			'start_date' 
+			'ganttProgress' 
 		),
 		'searchRequiredFields' => array( 
 			 
@@ -88,40 +88,40 @@
 				'simple_grid_field2',
 				'simple_grid_field14' 
 			),
-			'planned_date' => array( 
+			'start_date' => array( 
 				'simple_grid_field3',
 				'simple_grid_field15' 
 			),
-			'actual_date' => array( 
+			'planned_date' => array( 
 				'simple_grid_field4',
 				'simple_grid_field16' 
 			),
-			'variance_days' => array( 
+			'actual_date' => array( 
 				'simple_grid_field5',
 				'simple_grid_field17' 
 			),
-			'ganttProgress' => array( 
-				'simple_grid_field11',
+			'variance_days' => array( 
+				'simple_grid_field6',
 				'simple_grid_field18' 
 			),
 			'status_id' => array( 
-				'simple_grid_field6',
+				'simple_grid_field7',
 				'simple_grid_field19' 
 			),
 			'notes' => array( 
-				'simple_grid_field7',
+				'simple_grid_field8',
 				'simple_grid_field20' 
 			),
 			'created_at' => array( 
-				'simple_grid_field8',
+				'simple_grid_field9',
 				'simple_grid_field21' 
 			),
 			'updated_at' => array( 
-				'simple_grid_field9',
+				'simple_grid_field10',
 				'simple_grid_field22' 
 			),
-			'start_date' => array( 
-				'simple_grid_field10',
+			'ganttProgress' => array( 
+				'simple_grid_field11',
 				'simple_grid_field23' 
 			) 
 		),
@@ -165,17 +165,17 @@
 					'simple_grid_field17',
 					'simple_grid_field5',
 					'simple_grid_field18',
-					'simple_grid_field11',
-					'simple_grid_field19',
 					'simple_grid_field6',
-					'simple_grid_field20',
+					'simple_grid_field19',
 					'simple_grid_field7',
-					'simple_grid_field21',
+					'simple_grid_field20',
 					'simple_grid_field8',
-					'simple_grid_field22',
+					'simple_grid_field21',
 					'simple_grid_field9',
-					'simple_grid_field23',
+					'simple_grid_field22',
 					'simple_grid_field10',
+					'simple_grid_field23',
+					'simple_grid_field11',
 					'details_preview' 
 				) 
 			),
@@ -209,17 +209,17 @@
 				'simple_grid_field17' => 'grid',
 				'simple_grid_field5' => 'grid',
 				'simple_grid_field18' => 'grid',
-				'simple_grid_field11' => 'grid',
-				'simple_grid_field19' => 'grid',
 				'simple_grid_field6' => 'grid',
-				'simple_grid_field20' => 'grid',
+				'simple_grid_field19' => 'grid',
 				'simple_grid_field7' => 'grid',
-				'simple_grid_field21' => 'grid',
+				'simple_grid_field20' => 'grid',
 				'simple_grid_field8' => 'grid',
-				'simple_grid_field22' => 'grid',
+				'simple_grid_field21' => 'grid',
 				'simple_grid_field9' => 'grid',
-				'simple_grid_field23' => 'grid',
+				'simple_grid_field22' => 'grid',
 				'simple_grid_field10' => 'grid',
+				'simple_grid_field23' => 'grid',
+				'simple_grid_field11' => 'grid',
 				'details_preview' => 'grid' 
 			),
 			'itemLocations' => array(
@@ -275,7 +275,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field6' 
 				),
-				'simple_grid_field11' => array(
+				'simple_grid_field6' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field6' 
 				),
@@ -283,7 +283,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field7' 
 				),
-				'simple_grid_field6' => array(
+				'simple_grid_field7' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field7' 
 				),
@@ -291,7 +291,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field8' 
 				),
-				'simple_grid_field7' => array(
+				'simple_grid_field8' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field8' 
 				),
@@ -299,7 +299,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field9' 
 				),
-				'simple_grid_field8' => array(
+				'simple_grid_field9' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field9' 
 				),
@@ -307,7 +307,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field10' 
 				),
-				'simple_grid_field9' => array(
+				'simple_grid_field10' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field10' 
 				),
@@ -315,7 +315,7 @@
 					'location' => 'grid',
 					'cellId' => 'headcell_field11' 
 				),
-				'simple_grid_field10' => array(
+				'simple_grid_field11' => array(
 					'location' => 'grid',
 					'cellId' => 'cell_field11' 
 				),
@@ -348,12 +348,12 @@
 				'simple_grid_field3',
 				'simple_grid_field4',
 				'simple_grid_field5',
-				'simple_grid_field11',
 				'simple_grid_field6',
 				'simple_grid_field7',
 				'simple_grid_field8',
 				'simple_grid_field9',
-				'simple_grid_field10' 
+				'simple_grid_field10',
+				'simple_grid_field11' 
 			),
 			'grid_field_label' => array( 
 				'simple_grid_field12',
@@ -438,7 +438,7 @@
 							0 
 						),
 						'tags' => array( 
-							'planned_date_fieldheadercolumn' 
+							'start_date_fieldheadercolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field15' 
@@ -454,7 +454,7 @@
 							0 
 						),
 						'tags' => array( 
-							'actual_date_fieldheadercolumn' 
+							'planned_date_fieldheadercolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field16' 
@@ -470,7 +470,7 @@
 							0 
 						),
 						'tags' => array( 
-							'variance_days_fieldheadercolumn' 
+							'actual_date_fieldheadercolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field17' 
@@ -486,7 +486,7 @@
 							0 
 						),
 						'tags' => array( 
-							'ganttProgress_fieldheadercolumn' 
+							'variance_days_fieldheadercolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field18' 
@@ -566,7 +566,7 @@
 							0 
 						),
 						'tags' => array( 
-							'start_date_fieldheadercolumn' 
+							'ganttProgress_fieldheadercolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field23' 
@@ -630,7 +630,7 @@
 							1 
 						),
 						'tags' => array( 
-							'planned_date_fieldcolumn' 
+							'start_date_fieldcolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field3' 
@@ -646,7 +646,7 @@
 							1 
 						),
 						'tags' => array( 
-							'actual_date_fieldcolumn' 
+							'planned_date_fieldcolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field4' 
@@ -662,7 +662,7 @@
 							1 
 						),
 						'tags' => array( 
-							'variance_days_fieldcolumn' 
+							'actual_date_fieldcolumn' 
 						),
 						'items' => array( 
 							'simple_grid_field5' 
@@ -678,10 +678,10 @@
 							1 
 						),
 						'tags' => array( 
-							'ganttProgress_fieldcolumn' 
+							'variance_days_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field11' 
+							'simple_grid_field6' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -697,7 +697,7 @@
 							'status_id_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field6' 
+							'simple_grid_field7' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -713,7 +713,7 @@
 							'notes_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field7' 
+							'simple_grid_field8' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -729,7 +729,7 @@
 							'created_at_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field8' 
+							'simple_grid_field9' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -745,7 +745,7 @@
 							'updated_at_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field9' 
+							'simple_grid_field10' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -758,10 +758,10 @@
 							1 
 						),
 						'tags' => array( 
-							'start_date_fieldcolumn' 
+							'ganttProgress_fieldcolumn' 
 						),
 						'items' => array( 
-							'simple_grid_field10' 
+							'simple_grid_field11' 
 						),
 						'fixedAtServer' => false,
 						'fixedAtClient' => false 
@@ -1360,7 +1360,7 @@
 					'items' => array( 
 						'simple_grid_field15' 
 					),
-					'field' => 'planned_date',
+					'field' => 'start_date',
 					'columnName' => 'field' 
 				),
 				'cell_field3' => array(
@@ -1368,7 +1368,7 @@
 					'items' => array( 
 						'simple_grid_field3' 
 					),
-					'field' => 'planned_date',
+					'field' => 'start_date',
 					'columnName' => 'field' 
 				),
 				'footcell_field3' => array(
@@ -1382,7 +1382,7 @@
 					'items' => array( 
 						'simple_grid_field16' 
 					),
-					'field' => 'actual_date',
+					'field' => 'planned_date',
 					'columnName' => 'field' 
 				),
 				'cell_field4' => array(
@@ -1390,7 +1390,7 @@
 					'items' => array( 
 						'simple_grid_field4' 
 					),
-					'field' => 'actual_date',
+					'field' => 'planned_date',
 					'columnName' => 'field' 
 				),
 				'footcell_field4' => array(
@@ -1404,7 +1404,7 @@
 					'items' => array( 
 						'simple_grid_field17' 
 					),
-					'field' => 'variance_days',
+					'field' => 'actual_date',
 					'columnName' => 'field' 
 				),
 				'cell_field5' => array(
@@ -1412,7 +1412,7 @@
 					'items' => array( 
 						'simple_grid_field5' 
 					),
-					'field' => 'variance_days',
+					'field' => 'actual_date',
 					'columnName' => 'field' 
 				),
 				'footcell_field5' => array(
@@ -1426,15 +1426,15 @@
 					'items' => array( 
 						'simple_grid_field18' 
 					),
-					'field' => 'ganttProgress',
+					'field' => 'variance_days',
 					'columnName' => 'field' 
 				),
 				'cell_field6' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field11' 
+						'simple_grid_field6' 
 					),
-					'field' => 'ganttProgress',
+					'field' => 'variance_days',
 					'columnName' => 'field' 
 				),
 				'footcell_field6' => array(
@@ -1454,7 +1454,7 @@
 				'cell_field7' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field6' 
+						'simple_grid_field7' 
 					),
 					'field' => 'status_id',
 					'columnName' => 'field' 
@@ -1476,7 +1476,7 @@
 				'cell_field8' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field7' 
+						'simple_grid_field8' 
 					),
 					'field' => 'notes',
 					'columnName' => 'field' 
@@ -1498,7 +1498,7 @@
 				'cell_field9' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field8' 
+						'simple_grid_field9' 
 					),
 					'field' => 'created_at',
 					'columnName' => 'field' 
@@ -1520,7 +1520,7 @@
 				'cell_field10' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field9' 
+						'simple_grid_field10' 
 					),
 					'field' => 'updated_at',
 					'columnName' => 'field' 
@@ -1536,15 +1536,15 @@
 					'items' => array( 
 						'simple_grid_field23' 
 					),
-					'field' => 'start_date',
+					'field' => 'ganttProgress',
 					'columnName' => 'field' 
 				),
 				'cell_field11' => array(
 					'model' => 'cell_field',
 					'items' => array( 
-						'simple_grid_field10' 
+						'simple_grid_field11' 
 					),
-					'field' => 'start_date',
+					'field' => 'ganttProgress',
 					'columnName' => 'field' 
 				),
 				'footcell_field11' => array(
@@ -1608,38 +1608,38 @@
 			'field' => 'milestone_name' 
 		),
 		'simple_grid_field3' => array(
-			'field' => 'planned_date',
+			'field' => 'start_date',
 			'type' => 'grid_field' 
 		),
 		'simple_grid_field15' => array(
 			'type' => 'grid_field_label',
-			'field' => 'planned_date' 
+			'field' => 'start_date' 
 		),
 		'simple_grid_field4' => array(
-			'field' => 'actual_date',
+			'field' => 'planned_date',
 			'type' => 'grid_field' 
 		),
 		'simple_grid_field16' => array(
 			'type' => 'grid_field_label',
-			'field' => 'actual_date' 
+			'field' => 'planned_date' 
 		),
 		'simple_grid_field5' => array(
-			'field' => 'variance_days',
+			'field' => 'actual_date',
 			'type' => 'grid_field' 
 		),
 		'simple_grid_field17' => array(
 			'type' => 'grid_field_label',
-			'field' => 'variance_days' 
+			'field' => 'actual_date' 
 		),
-		'simple_grid_field11' => array(
-			'field' => 'ganttProgress',
+		'simple_grid_field6' => array(
+			'field' => 'variance_days',
 			'type' => 'grid_field' 
 		),
 		'simple_grid_field18' => array(
 			'type' => 'grid_field_label',
-			'field' => 'ganttProgress' 
+			'field' => 'variance_days' 
 		),
-		'simple_grid_field6' => array(
+		'simple_grid_field7' => array(
 			'field' => 'status_id',
 			'type' => 'grid_field' 
 		),
@@ -1647,7 +1647,7 @@
 			'type' => 'grid_field_label',
 			'field' => 'status_id' 
 		),
-		'simple_grid_field7' => array(
+		'simple_grid_field8' => array(
 			'field' => 'notes',
 			'type' => 'grid_field' 
 		),
@@ -1655,7 +1655,7 @@
 			'type' => 'grid_field_label',
 			'field' => 'notes' 
 		),
-		'simple_grid_field8' => array(
+		'simple_grid_field9' => array(
 			'field' => 'created_at',
 			'type' => 'grid_field' 
 		),
@@ -1663,7 +1663,7 @@
 			'type' => 'grid_field_label',
 			'field' => 'created_at' 
 		),
-		'simple_grid_field9' => array(
+		'simple_grid_field10' => array(
 			'field' => 'updated_at',
 			'type' => 'grid_field' 
 		),
@@ -1671,13 +1671,13 @@
 			'type' => 'grid_field_label',
 			'field' => 'updated_at' 
 		),
-		'simple_grid_field10' => array(
-			'field' => 'start_date',
+		'simple_grid_field11' => array(
+			'field' => 'ganttProgress',
 			'type' => 'grid_field' 
 		),
 		'simple_grid_field23' => array(
 			'type' => 'grid_field_label',
-			'field' => 'start_date' 
+			'field' => 'ganttProgress' 
 		),
 		'details_preview' => array(
 			'type' => 'details_preview',

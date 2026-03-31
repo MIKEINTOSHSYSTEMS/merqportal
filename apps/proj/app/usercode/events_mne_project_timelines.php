@@ -22,14 +22,10 @@ class eventclass_mne_project_timelines  extends TableEventsBase {
 		 
 	),
 	'defaultValue' => array(
-		'created_at' => array(
-			'edit' => true 
-		) 
+		 
 	),
 	'autoUpdateValue' => array(
-		'updated_at' => array(
-			'edit' => true 
-		) 
+		 
 	),
 	'uploadFolder' => array(
 		 
@@ -43,15 +39,7 @@ class eventclass_mne_project_timelines  extends TableEventsBase {
 );
 			}
 	
-	public function default_created_at_efedit(  ) {
-	$defaultValue = date("Y-m-d H:i:s");
-return $defaultValue;
-}
-
-public function autoupdate_updated_at_efedit(  ) {
-	$defaultValue = date("Y-m-d H:i:s");
-return $defaultValue;
-}	
+		
 
 }
 
